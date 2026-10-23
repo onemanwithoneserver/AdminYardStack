@@ -10,6 +10,7 @@ import {
 import Header, { type ViewMode } from './components/Header';
 import MobileViewport from './components/MobileViewport';
 import { LeftSideTopNav } from './LeftSideTopNav';
+import { TabControls } from './Projects/TabControls';
 
 interface ViewportPageProps {
   mode: ViewMode;
@@ -19,6 +20,7 @@ function ViewportPage({ mode }: ViewportPageProps) {
   const { folder = 'Projects' } = useParams<{ folder: string }>();
   const navigate = useNavigate();
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
+  const [activeTabId, setActiveTabId] = useState('01');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -59,16 +61,24 @@ function ViewportPage({ mode }: ViewportPageProps) {
             activeItem={folder.toLowerCase()}
             onItemClick={(item) => navigate(`/${mode}/${item.label}`)}
           >
-            <div className="bg-white rounded-2xl border border-slate-200/80 p-8 shadow-xs min-h-[360px] flex flex-col items-center justify-center text-center">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 mb-3">
-                Active Module: {folder}
-              </span>
-              <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
-                {folder} Workspace
-              </h2>
-              <p className="text-slate-500 text-sm mt-1 max-w-sm">
-                Left navigation and top navbar configured for YardStack.
-              </p>
+            <div className="space-y-4 max-w-7xl mx-auto">
+              <TabControls
+                mode={mode}
+                activeTabId={activeTabId}
+                onTabChange={(tab) => setActiveTabId(tab.id)}
+              />
+
+              <div className="bg-white rounded-xl border border-slate-200/80 p-8 shadow-xs min-h-[300px] flex flex-col items-center justify-center text-center">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 mb-3">
+                  Active Section: Tab {activeTabId}
+                </span>
+                <h2 className="text-xl font-bold text-slate-800 tracking-tight">
+                  {folder} — Section {activeTabId}
+                </h2>
+                <p className="text-slate-500 text-sm mt-1 max-w-sm">
+                  Tab controls and section modules active.
+                </p>
+              </div>
             </div>
           </LeftSideTopNav>
         </MobileViewport>

@@ -1,7 +1,3 @@
-export const sectionInfo = {
-  id: '10',
-  name: 'Media & Files',
-  slug: 'media-files',
-};
-
-export default sectionInfo;
+export { MediaFilesDesktop } from './desktop';
+export { MediaFilesMobile } from './mobile';
+export { initialMediaFilesData, sectionInfo, type MediaFilesData } from './data';

@@ -1,7 +1,3 @@
-export const sectionInfo = {
-  id: '08',
-  name: 'Utilities & Infra',
-  slug: 'utilities-infra',
-};
-
-export default sectionInfo;
+export { UtilitiesInfraDesktop } from './desktop';
+export { UtilitiesInfraMobile } from './mobile';
+export { initialUtilitiesInfraData, sectionInfo, type UtilitiesInfraData } from './data';

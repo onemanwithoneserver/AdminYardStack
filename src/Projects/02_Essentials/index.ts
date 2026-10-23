@@ -1,7 +1,3 @@
-export const sectionInfo = {
-  id: '02',
-  name: 'Essentials',
-  slug: 'essentials',
-};
-
-export default sectionInfo;
+export { EssentialsDesktop } from './desktop';
+export { EssentialsMobile } from './mobile';
+export { initialEssentialsData, sectionInfo, type EssentialsData } from './data';

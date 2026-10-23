@@ -1,7 +1,3 @@
-export const sectionInfo = {
-  id: '01',
-  name: 'Location-For all',
-  slug: 'location-for-all',
-};
-
-export default sectionInfo;
+export { LocationForAllDesktop } from './desktop';
+export { LocationForAllMobile } from './mobile';
+export { initialLocationForAllData, sectionInfo, type LocationForAllData } from './data';

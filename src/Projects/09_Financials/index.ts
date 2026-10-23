@@ -1,7 +1,3 @@
-export const sectionInfo = {
-  id: '09',
-  name: 'Financials',
-  slug: 'financials',
-};
-
-export default sectionInfo;
+export { FinancialsDesktop } from './desktop';
+export { FinancialsMobile } from './mobile';
+export { initialFinancialsData, sectionInfo, type FinancialsData } from './data';
