@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import Header, { type ViewMode } from './components/Header';
 import MobileViewport from './components/MobileViewport';
+import { LeftSideTopNav } from './LeftSideTopNav';
 
 interface ViewportPageProps {
   mode: ViewMode;
@@ -53,14 +54,23 @@ function ViewportPage({ mode }: ViewportPageProps) {
 
       <div className="flex-1 overflow-hidden relative">
         <MobileViewport isMobile={mode === 'mobile'}>
-          <div className="p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
-            <h1 className="text-3xl font-extrabold text-[#1e293b] tracking-tight">
-              Admin YardStack
-            </h1>
-            <p className="mt-2 text-sm text-slate-500">
-              Interactive Viewport Simulator
-            </p>
-          </div>
+          <LeftSideTopNav
+            mode={mode}
+            activeItem={folder.toLowerCase()}
+            onItemClick={(item) => navigate(`/${mode}/${item.label}`)}
+          >
+            <div className="bg-white rounded-2xl border border-slate-200/80 p-8 shadow-xs min-h-[360px] flex flex-col items-center justify-center text-center">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 mb-3">
+                Active Module: {folder}
+              </span>
+              <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
+                {folder} Workspace
+              </h2>
+              <p className="text-slate-500 text-sm mt-1 max-w-sm">
+                Left navigation and top navbar configured for YardStack.
+              </p>
+            </div>
+          </LeftSideTopNav>
         </MobileViewport>
       </div>
     </div>
