@@ -1,11 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useId,
-  forwardRef,
-  type KeyboardEvent,
-} from 'react';
+import { useState, useRef, useEffect, useId, forwardRef, type KeyboardEvent } from 'react';
 import { ChevronDown, Check, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -149,7 +142,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             onKeyDown={handleKeyDown}
             aria-autocomplete="list"
             aria-expanded={isOpen}
-            className={`w-full px-3 py-2 text-sm rounded-lg pr-16 transition-all duration-200 outline-none glass-input placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-slate-100 disabled:opacity-50 disabled:cursor-not-allowed ${
+            className={`w-full px-3 py-2 text-sm rounded-lg pr-16 transition-all duration-200 outline-none glass-input placeholder:text-slate-600 dark:placeholder:text-slate-400 text-slate-900 dark:text-slate-100 disabled:opacity-50 disabled:cursor-not-allowed ${
               error ? 'border-rose-400 dark:border-rose-500' : ''
             }`}
           />
@@ -162,7 +155,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                   setSearchQuery(null);
                   onChange('');
                 }}
-                className="p-1 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                className="p-1 rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -171,7 +164,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               type="button"
               tabIndex={-1}
               onClick={() => setIsOpen(!isOpen)}
-              className="p-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-transform duration-200"
+              className="p-1 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-transform duration-200"
             >
               <ChevronDown
                 className={`w-4 h-4 transition-transform ${
@@ -223,9 +216,9 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
           </AnimatePresence>
         </div>
 
-        {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+        {error && <p className="text-xs text-rose-700 dark:text-rose-400 font-medium">{error}</p>}
         {!error && hint && (
-          <p className="text-xs text-slate-400 dark:text-slate-500">{hint}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">{hint}</p>
         )}
       </div>
     );

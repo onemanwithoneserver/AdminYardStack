@@ -1,20 +1,5 @@
 import { useState, useMemo } from 'react';
-import {
-  Eye,
-  Pencil,
-  Trash2,
-  Search,
-  Filter,
-  Columns,
-  Menu,
-  Maximize2,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  ArrowUpDown,
-  MoreVertical,
-} from 'lucide-react';
+import { Eye, Pencil, Trash2, Search, Filter, Columns, Menu, Maximize2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowUpDown, MoreVertical } from 'lucide-react';
 import { INITIAL_PROJECTS_LIST, type ProjectListItem } from './data';
 
 interface ProjectsListDesktopProps {
@@ -94,7 +79,7 @@ export function ProjectsListDesktop({
       <div className="w-full glass-card rounded-xl border border-slate-200/90 dark:border-white/10 dark:bg-slate-900/70 shadow-xs overflow-hidden backdrop-blur-xl">
         <div className="px-5 py-3 border-b border-slate-100 dark:border-white/5 flex items-center justify-between gap-4">
           <div className="relative flex-1 max-w-xs flex items-center">
-            <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 pointer-events-none" />
+            <Search className="w-4 h-4 text-slate-600 dark:text-slate-400 absolute left-3 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
@@ -103,11 +88,11 @@ export function ProjectsListDesktop({
                 setCurrentPage(1);
               }}
               placeholder="Search projects..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg glass-input outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-400"
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg glass-input outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-600 dark:placeholder:text-slate-400"
             />
           </div>
 
-          <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
             <button
               type="button"
               className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
@@ -212,7 +197,7 @@ export function ProjectsListDesktop({
             <tbody className="divide-y divide-slate-100 dark:divide-white/5 bg-white/70 dark:bg-slate-900/60">
               {paginatedProjects.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400 dark:text-slate-500">
+                  <td colSpan={7} className="py-8 text-center text-slate-600 dark:text-slate-400">
                     No projects found. Click "ADD PROJECT" to create one.
                   </td>
                 </tr>
@@ -227,7 +212,7 @@ export function ProjectsListDesktop({
                         <button
                           type="button"
                           onClick={() => onEditProject ? onEditProject(project) : onAddProject()}
-                          className="p-1 text-sky-600 hover:text-sky-700 hover:bg-sky-50 dark:hover:bg-sky-950/40 rounded transition-colors cursor-pointer"
+                          className="p-1 text-sky-700 hover:text-sky-800 hover:bg-sky-50 dark:text-sky-400 dark:hover:bg-sky-950/40 rounded transition-colors cursor-pointer"
                           title="View"
                         >
                           <Eye className="w-4 h-4" />
@@ -235,7 +220,7 @@ export function ProjectsListDesktop({
                         <button
                           type="button"
                           onClick={() => onEditProject ? onEditProject(project) : onAddProject()}
-                          className="p-1 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded transition-colors cursor-pointer"
+                          className="p-1 text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-950/40 rounded transition-colors cursor-pointer"
                           title="Edit"
                         >
                           <Pencil className="w-4 h-4" />
@@ -243,7 +228,7 @@ export function ProjectsListDesktop({
                         <button
                           type="button"
                           onClick={() => handleDelete(project.id, project.projectName)}
-                          className="p-1 text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded transition-colors cursor-pointer"
+                          className="p-1 text-rose-700 hover:text-rose-800 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/40 rounded transition-colors cursor-pointer"
                           title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -264,11 +249,11 @@ export function ProjectsListDesktop({
                       {project.city}
                     </td>
 
-                    <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                    <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                       {project.propertyType}
                     </td>
 
-                    <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
+                    <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                       {project.phases}
                     </td>
 
@@ -277,7 +262,7 @@ export function ProjectsListDesktop({
                     </td>
 
                     <td className="py-3 px-4 text-center">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wider bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/60">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wider bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800/60">
                         {project.status}
                       </span>
                     </td>

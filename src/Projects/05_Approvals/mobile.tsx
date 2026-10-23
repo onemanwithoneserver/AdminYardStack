@@ -1,17 +1,6 @@
 import { useState } from 'react';
-import {
-  ChevronDown,
-  Calendar,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_APPROVALS_DATA,
-  INITIAL_AUTHORITY_OPTIONS,
-  HANDOVER_STATUS_OPTIONS,
-  OC_RECEIVED_OPTIONS,
-  type ApprovalsFormData,
-  type ApprovalAuthorityOption,
-} from './data';
+import { ChevronDown, Calendar, CheckCircle2 } from 'lucide-react';
+import { INITIAL_APPROVALS_DATA, INITIAL_AUTHORITY_OPTIONS, HANDOVER_STATUS_OPTIONS, OC_RECEIVED_OPTIONS, type ApprovalsFormData, type ApprovalAuthorityOption } from './data';
 import { AddApprovalDialog } from './desktop';
 
 export function ApprovalsMobile() {
@@ -87,7 +76,7 @@ export function ApprovalsMobile() {
                     </option>
                   ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
 
             <button
@@ -124,7 +113,7 @@ export function ApprovalsMobile() {
                 }
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -144,7 +133,7 @@ export function ApprovalsMobile() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -160,7 +149,7 @@ export function ApprovalsMobile() {
                 onChange={(e) => handleInputChange('handOverDate', e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -241,7 +230,7 @@ export function ApprovalsMobile() {
                 }
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -270,7 +259,7 @@ export function ApprovalsMobile() {
                 }
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -286,7 +275,7 @@ export function ApprovalsMobile() {
                 onChange={(e) => handleInputChange('approvalDate', e.target.value)}
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -315,7 +304,7 @@ export function ApprovalsMobile() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -367,7 +356,7 @@ export function ApprovalsMobile() {
                 onChange={(e) => handleInputChange('ccDate', e.target.value)}
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -393,7 +382,7 @@ export function ApprovalsMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

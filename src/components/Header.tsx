@@ -63,7 +63,7 @@ export default function Header({
 
       <div className="flex items-center gap-2 sm:gap-3 md:gap-4 shrink-0">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold tracking-widest text-slate-400 dark:text-slate-500 uppercase hidden md:block">
+          <span className="text-[10px] font-bold tracking-widest text-slate-600 dark:text-slate-400 uppercase hidden md:block">
             View
           </span>
           <div className="w-[120px] sm:w-[145px] md:w-[160px]">
@@ -79,7 +79,7 @@ export default function Header({
           onClick={onClose}
           title="Close header (Press Ctrl+M to reopen)"
           aria-label="Close header"
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-slate-200/80 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-slate-800 flex items-center justify-center shadow-xs cursor-pointer shrink-0 transition-all duration-200"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-slate-200/80 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-slate-800 flex items-center justify-center shadow-xs cursor-pointer shrink-0 transition-all duration-200"
         >
           <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>

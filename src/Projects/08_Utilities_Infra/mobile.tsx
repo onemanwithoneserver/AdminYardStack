@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import {
-  INITIAL_UTILITIES_INFRA_DATA,
-  WATER_SOURCE_OPTIONS,
-  GENERIC_SELECT_OPTIONS,
-  type UtilitiesInfraFormData,
-} from './data';
+import { INITIAL_UTILITIES_INFRA_DATA, WATER_SOURCE_OPTIONS, GENERIC_SELECT_OPTIONS, type UtilitiesInfraFormData } from './data';
 
 export function UtilitiesInfraMobile() {
   const [formData, setFormData] = useState<UtilitiesInfraFormData>(
@@ -54,7 +49,7 @@ export function UtilitiesInfraMobile() {
           </option>
         ))}
       </select>
-      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
     </div>
   );
 
@@ -70,7 +65,7 @@ export function UtilitiesInfraMobile() {
         onChange={(e) => onChange(e.target.value)}
         className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 pr-16"
       />
-      <span className="absolute right-2 px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 bg-slate-100 rounded border border-slate-200 pointer-events-none">
+      <span className="absolute right-2 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 rounded border border-slate-200 pointer-events-none">
         {unit}
       </span>
     </div>
@@ -323,7 +318,7 @@ export function UtilitiesInfraMobile() {
               (v) => handleFieldChange('apartmentPowerBackup', v),
               'Watts / kVA'
             )}
-            <span className="block text-[10px] text-slate-400 mt-0.5">
+            <span className="block text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">
               Per Apartment
             </span>
           </div>
@@ -511,7 +506,7 @@ export function UtilitiesInfraMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

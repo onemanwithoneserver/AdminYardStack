@@ -1,20 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import {
-  Plus,
-  ChevronDown,
-  MapPin,
-  ExternalLink,
-  Lock,
-  X,
-} from 'lucide-react';
-import {
-  INITIAL_LOCATION_DATA,
-  INITIAL_ORR_ZONING_OPTIONS,
-  type LocationFormData,
-  type OrrExit,
-  type HighwayItem,
-  type OrrZoningOption,
-} from './data';
+import { Plus, ChevronDown, MapPin, ExternalLink, Lock, X } from 'lucide-react';
+import { INITIAL_LOCATION_DATA, INITIAL_ORR_ZONING_OPTIONS, type LocationFormData, type OrrExit, type HighwayItem, type OrrZoningOption } from './data';
 
 interface OrrZoningDialogProps {
   isOpen: boolean;
@@ -52,7 +38,7 @@ export function OrrZoningDialog({ isOpen, onClose, onSave }: OrrZoningDialogProp
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -214,7 +200,7 @@ export function LocationForAllDesktop() {
                   <option value="prasadsa@gmail.com">prasadsa@gmail.com</option>
                   <option value="admin@gmail.com">admin@gmail.com</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -232,9 +218,9 @@ export function LocationForAllDesktop() {
                   <option value="standard">Standard Sale Subscription</option>
                   <option value="premium">Premium Sale Subscription</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
-              <p className="text-[10px] text-slate-400 mt-1">
+              <p className="text-[10px] text-slate-600 dark:text-slate-400 mt-1">
                 No active Sale subscription is available for this seller.
               </p>
             </div>
@@ -257,7 +243,7 @@ export function LocationForAllDesktop() {
                   <option value="Karnataka">Karnataka</option>
                   <option value="Maharashtra">Maharashtra</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -274,7 +260,7 @@ export function LocationForAllDesktop() {
                   <option value="Secunderabad">Secunderabad</option>
                   <option value="Cyberabad">Cyberabad</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -292,7 +278,7 @@ export function LocationForAllDesktop() {
                   <option value="Hitec City">Hitec City</option>
                   <option value="Kokapet">Kokapet</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
           </div>
@@ -310,7 +296,7 @@ export function LocationForAllDesktop() {
                   <option value="GHMC">GHMC</option>
                   <option value="HMDA">HMDA</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -327,7 +313,7 @@ export function LocationForAllDesktop() {
                   <option value="South Zone">South Zone</option>
                   <option value="Central Zone">Central Zone</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -343,7 +329,7 @@ export function LocationForAllDesktop() {
                   <option value="Serilingampally">Serilingampally</option>
                   <option value="Rajendranagar">Rajendranagar</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
           </div>
@@ -366,7 +352,7 @@ export function LocationForAllDesktop() {
                   <option value="Plots">Plots</option>
                   <option value="Commercial">Commercial</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -392,7 +378,7 @@ export function LocationForAllDesktop() {
                 accept="image/*"
                 className="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer border border-slate-300 rounded-lg p-1 bg-white"
               />
-              <p className="text-[10px] text-slate-400 mt-1">
+              <p className="text-[10px] text-slate-600 dark:text-slate-400 mt-1">
                 Recommended: 150 x 150 px (min 200 x 200, max size 2 MB)
               </p>
             </div>
@@ -411,7 +397,7 @@ export function LocationForAllDesktop() {
                   <option value="APARNA CONSTRUCTIONS">APARNA CONSTRUCTIONS</option>
                   <option value="MY HOME GROUP">MY HOME GROUP</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
               <button
                 type="button"
@@ -518,7 +504,7 @@ export function LocationForAllDesktop() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -717,7 +703,7 @@ export function LocationForAllDesktop() {
                 <option value="Serilingampally SRO">Serilingampally SRO</option>
                 <option value="Rajendranagar SRO">Rajendranagar SRO</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -737,7 +723,7 @@ export function LocationForAllDesktop() {
                 <option value="South">South</option>
                 <option value="North-East">North-East</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
         </section>
@@ -767,7 +753,7 @@ export function LocationForAllDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </section>
       </div>

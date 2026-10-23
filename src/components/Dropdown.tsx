@@ -1,16 +1,6 @@
 import { Check, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-  useId,
-  type HTMLAttributes,
-  type MouseEvent as ReactMouseEvent,
-  type TouchEvent as ReactTouchEvent,
-  type MutableRefObject,
-} from "react";
+import { forwardRef, useEffect, useRef, useState, useId, type HTMLAttributes, type MouseEvent as ReactMouseEvent, type TouchEvent as ReactTouchEvent, type MutableRefObject } from "react";
 
 export interface DropdownOption {
   value: string;

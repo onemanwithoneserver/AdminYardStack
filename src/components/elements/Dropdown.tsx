@@ -1,12 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useId,
-  forwardRef,
-  type ReactNode,
-  type KeyboardEvent,
-} from 'react';
+import { useState, useRef, useEffect, useId, forwardRef, type ReactNode, type KeyboardEvent } from 'react';
 import { ChevronDown, Check, Search, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -191,7 +183,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 className={`truncate ${textSizeClass} ${
                   selectedOption
                     ? 'text-slate-900 dark:text-slate-100 font-medium'
-                    : 'text-slate-400 dark:text-slate-500'
+                    : 'text-slate-600 dark:text-slate-400'
                 }`}
               >
                 {selectedOption ? selectedOption.label : placeholder}
@@ -207,13 +199,13 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                     e.stopPropagation();
                     onChange('');
                   }}
-                  className="p-0.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  className="p-0.5 rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                 >
                   <X className="w-3.5 h-3.5" />
                 </span>
               )}
               <ChevronDown
-                className={`text-slate-400 dark:text-slate-500 transition-transform duration-200 ${iconSizeClass} ${
+                className={`text-slate-600 dark:text-slate-400 transition-transform duration-200 ${iconSizeClass} ${
                   isOpen ? 'rotate-180 text-blue-500' : ''
                 }`}
               />
@@ -232,7 +224,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 {searchable && (
                   <div className="p-2 border-b border-slate-100 dark:border-white/5">
                     <div className="relative flex items-center">
-                      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
+                      <Search className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400 absolute left-2.5 pointer-events-none" />
                       <input
                         ref={searchInputRef}
                         type="text"
@@ -251,7 +243,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
                 <div className="overflow-y-auto max-h-52 divide-y divide-slate-50 dark:divide-white/5">
                   {filteredOptions.length === 0 ? (
-                    <div className="p-3 text-center text-xs text-slate-400 dark:text-slate-500">
+                    <div className="p-3 text-center text-xs text-slate-600 dark:text-slate-400">
                       No matching options
                     </div>
                   ) : (
@@ -285,7 +277,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                             <div>
                               <div className="truncate">{opt.label}</div>
                               {opt.description && (
-                                <div className="text-[10px] text-slate-400 font-normal">
+                                <div className="text-[10px] text-slate-600 dark:text-slate-400 font-normal">
                                   {opt.description}
                                 </div>
                               )}
@@ -305,9 +297,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           </AnimatePresence>
         </div>
 
-        {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+        {error && <p className="text-xs text-rose-700 dark:text-rose-400 font-medium">{error}</p>}
         {!error && hint && (
-          <p className="text-xs text-slate-400 dark:text-slate-500">{hint}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">{hint}</p>
         )}
       </div>
     );

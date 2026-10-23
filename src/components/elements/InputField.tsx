@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  useId,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 import { X } from 'lucide-react';
 
 export type InputSize = 'sm' | 'md' | 'lg';
@@ -77,13 +72,13 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             className="block text-xs font-semibold text-slate-700 dark:text-slate-300 tracking-tight"
           >
             {label}
-            {requiredIndicator && <span className="text-rose-500 ml-1">*</span>}
+            {requiredIndicator && <span className="text-rose-700 dark:text-rose-400 ml-1">*</span>}
           </label>
         )}
 
         <div className="relative flex items-center">
           {leftIcon && (
-            <div className={`absolute left-3 text-slate-400 dark:text-slate-500 pointer-events-none flex items-center justify-center shrink-0`}>
+            <div className={`absolute left-3 text-slate-600 dark:text-slate-400 pointer-events-none flex items-center justify-center shrink-0`}>
               <span className={iconSizeClass}>{leftIcon}</span>
             </div>
           )}
@@ -95,7 +90,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             disabled={disabled}
             aria-invalid={Boolean(error)}
             aria-describedby={error ? errorId : hint ? hintId : undefined}
-            className={`w-full transition-all duration-200 outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-slate-100 disabled:opacity-50 disabled:cursor-not-allowed ${
+            className={`w-full transition-all duration-200 outline-none placeholder:text-slate-600 dark:placeholder:text-slate-400 text-slate-900 dark:text-slate-100 disabled:opacity-50 disabled:cursor-not-allowed ${
               glass ? 'glass-input' : 'bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20'
             } ${inputSizeClass} ${leftIcon ? 'pl-9' : ''} ${
               rightIcon || (clearable && hasValue) ? 'pr-9' : ''
@@ -114,13 +109,13 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 onClick={onClear}
                 tabIndex={-1}
                 aria-label="Clear input"
-                className="p-1 rounded-full text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors"
+                className="p-1 rounded-full text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             )}
             {rightIcon && (
-              <span className={`text-slate-400 dark:text-slate-500 pointer-events-none ${iconSizeClass}`}>
+              <span className={`text-slate-600 dark:text-slate-400 pointer-events-none ${iconSizeClass}`}>
                 {rightIcon}
               </span>
             )}
@@ -128,12 +123,12 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         </div>
 
         {error && (
-          <p id={errorId} className="text-xs text-rose-500 font-medium">
+          <p id={errorId} className="text-xs text-rose-700 dark:text-rose-400 font-medium">
             {error}
           </p>
         )}
         {!error && hint && (
-          <p id={hintId} className="text-xs text-slate-400 dark:text-slate-500">
+          <p id={hintId} className="text-xs text-slate-600 dark:text-slate-400">
             {hint}
           </p>
         )}

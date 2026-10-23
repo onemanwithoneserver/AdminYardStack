@@ -1,11 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { ChevronDown, Lock, X, Plus } from 'lucide-react';
-import {
-  INITIAL_ESSENTIALS_DATA,
-  INITIAL_CONSTRUCTION_TYPES,
-  type EssentialsFormData,
-  type ConstructionTypeOption,
-} from './data';
+import { INITIAL_ESSENTIALS_DATA, INITIAL_CONSTRUCTION_TYPES, type EssentialsFormData, type ConstructionTypeOption } from './data';
 
 interface ConstructionTypeDialogProps {
   isOpen: boolean;
@@ -51,7 +46,7 @@ export function ConstructionTypeDialog({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -156,7 +151,7 @@ export function EssentialsDesktop() {
                   <option value="Plots">Plots</option>
                   <option value="Commercial">Commercial</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -174,7 +169,7 @@ export function EssentialsDesktop() {
                   <option value="Gated Community Flats">Gated Community Flats</option>
                   <option value="High Rise Apartments">High Rise Apartments</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -192,7 +187,7 @@ export function EssentialsDesktop() {
                   <option value="Yes, Bare shell">Yes, Bare shell</option>
                   <option value="No">No</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -210,7 +205,7 @@ export function EssentialsDesktop() {
                   <option value="Blocks">Blocks</option>
                   <option value="Wings">Wings</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
           </div>
@@ -253,7 +248,7 @@ export function EssentialsDesktop() {
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -271,7 +266,7 @@ export function EssentialsDesktop() {
                 <option value="Available">Available</option>
                 <option value="Sold Out">Sold Out</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -289,7 +284,7 @@ export function EssentialsDesktop() {
                 <option value="Sq. Yds">Sq. Yds</option>
                 <option value="Acres">Acres</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
         </div>
@@ -408,7 +403,7 @@ export function EssentialsDesktop() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
             <button
               type="button"
@@ -435,7 +430,7 @@ export function EssentialsDesktop() {
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -478,7 +473,7 @@ export function EssentialsDesktop() {
                     <option value="Square Yards">Square Yards</option>
                     <option value="Lumpsum">Lumpsum</option>
                   </select>
-                  <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                  <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
                 </div>
               </div>
             </div>
@@ -521,7 +516,7 @@ export function EssentialsDesktop() {
                   <option value="Per Feet">Per Feet</option>
                   <option value="Per Unit">Per Unit</option>
                 </select>
-                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -546,7 +541,7 @@ export function EssentialsDesktop() {
                 value={formData.otherPricingText}
                 onChange={(e) => handleInputChange('otherPricingText', e.target.value)}
                 placeholder="Enter additional pricing notes"
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 placeholder:text-slate-400"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 placeholder:text-slate-600 dark:placeholder:text-slate-600 dark:text-slate-400"
               />
             </div>
 
@@ -578,7 +573,7 @@ export function EssentialsDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </section>
       </div>

@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { Plus, ChevronDown, CheckCircle2 } from 'lucide-react';
-import {
-  INITIAL_INVENTORY_ROOT_DATA,
-  createDefaultVariant,
-  type InventoryRootState,
-} from './data';
+import { INITIAL_INVENTORY_ROOT_DATA, createDefaultVariant, type InventoryRootState } from './data';
 import { ConfigurationDesktop } from './Configuration';
 import { PreviewAndToolsDesktop } from './preview and tools';
 import type { InventoryVariant, InventoryCommonConfig } from './Configuration/data';
@@ -137,7 +133,7 @@ export function InventoryDesktop() {
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
-          <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+          <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
         </div>
       </div>
     </div>

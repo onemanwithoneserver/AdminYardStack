@@ -31,7 +31,7 @@ const variantClasses: Record<BadgeVariant, { badge: string; dot: string }> = {
     dot: 'bg-emerald-500',
   },
   warning: {
-    badge: 'bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60',
+    badge: 'bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60',
     dot: 'bg-amber-500',
   },
   danger: {

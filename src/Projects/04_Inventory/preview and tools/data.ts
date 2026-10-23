@@ -1,7 +1,4 @@
-import {
-  type InventoryVariant,
-  createDefaultVariant,
-} from '../Configuration/data';
+import { type InventoryVariant, createDefaultVariant } from '../Configuration/data';
 
 export interface PreviewFilters {
   tower: string;

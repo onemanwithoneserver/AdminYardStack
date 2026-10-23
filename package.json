@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "remove-comments": "node scripts/remove-comments.js",
+    "format-imports": "node scripts/format-imports.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

@@ -1,11 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useId,
-  forwardRef,
-  type ReactNode,
-} from 'react';
+import { useState, useRef, useEffect, useId, forwardRef, type ReactNode } from 'react';
 import { ChevronDown, Check, Search, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -125,7 +118,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           >
             <div className="flex flex-wrap items-center gap-1.5 flex-1 min-w-0 pr-2">
               {selectedOptions.length === 0 ? (
-                <span className="text-sm text-slate-400 dark:text-slate-500">
+                <span className="text-sm text-slate-600 dark:text-slate-400">
                   {placeholder}
                 </span>
               ) : (
@@ -158,7 +151,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
               )}
             </div>
 
-            <div className="flex items-center gap-1 shrink-0 text-slate-400 dark:text-slate-500">
+            <div className="flex items-center gap-1 shrink-0 text-slate-600 dark:text-slate-400">
               {value.length > 0 && !disabled && (
                 <button
                   type="button"
@@ -166,7 +159,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                     e.stopPropagation();
                     onChange([]);
                   }}
-                  className="p-0.5 hover:text-slate-600 dark:hover:text-slate-300"
+                  className="p-0.5 hover:text-slate-900 dark:hover:text-slate-200"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -191,7 +184,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                 {searchable && (
                   <div className="p-2 border-b border-slate-100 dark:border-white/5 flex items-center gap-2">
                     <div className="relative flex-1 flex items-center">
-                      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
+                      <Search className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400 absolute left-2.5 pointer-events-none" />
                       <input
                         type="text"
                         value={searchQuery}
@@ -212,7 +205,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
 
                 <div className="overflow-y-auto max-h-52 divide-y divide-slate-50 dark:divide-white/5">
                   {filteredOptions.length === 0 ? (
-                    <div className="p-3 text-center text-xs text-slate-400 dark:text-slate-500">
+                    <div className="p-3 text-center text-xs text-slate-600 dark:text-slate-400">
                       No matching options
                     </div>
                   ) : (
@@ -257,9 +250,9 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
           </AnimatePresence>
         </div>
 
-        {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+        {error && <p className="text-xs text-rose-700 dark:text-rose-400 font-medium">{error}</p>}
         {!error && hint && (
-          <p className="text-xs text-slate-400 dark:text-slate-500">{hint}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">{hint}</p>
         )}
       </div>
     );

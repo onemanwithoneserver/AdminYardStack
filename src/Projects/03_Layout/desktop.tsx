@@ -1,22 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import {
-  Plus,
-  ChevronDown,
-  Calendar,
-  Trash2,
-  X,
-  Layers,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_LAYOUT_DATA,
-  HANDOVER_OPTIONS,
-  createNewTowerRow,
-  createNewTowerTable,
-  type LayoutFormData,
-  type TowerRow,
-  type TowerTable,
-} from './data';
+import { Plus, ChevronDown, Calendar, Trash2, X, Layers, CheckCircle2 } from 'lucide-react';
+import { INITIAL_LAYOUT_DATA, HANDOVER_OPTIONS, createNewTowerRow, createNewTowerTable, type LayoutFormData, type TowerRow, type TowerTable } from './data';
 
 interface AddTowerDialogProps {
   isOpen: boolean;
@@ -66,7 +50,7 @@ export function AddTowerDialog({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -113,7 +97,7 @@ export function AddTowerDialog({
                 <option value="ACTIVE">ACTIVE</option>
                 <option value="INACTIVE">INACTIVE</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -264,7 +248,7 @@ export function LayoutDesktop() {
                 onChange={(e) => handleFieldChange('completionDate', e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -284,7 +268,7 @@ export function LayoutDesktop() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
         </div>
@@ -346,7 +330,7 @@ export function LayoutDesktop() {
                     <button
                       type="button"
                       onClick={() => handleDeleteTable(table.id)}
-                      className="p-1 text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                      className="p-1 text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
                       title="Delete this table"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -551,7 +535,7 @@ export function LayoutDesktop() {
                               <option value="No">No</option>
                               <option value="Yes">Yes</option>
                             </select>
-                            <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-400" />
+                            <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-600 dark:text-slate-400" />
                           </div>
                         </td>
                         <td className="p-1.5 min-w-[110px]">
@@ -590,7 +574,7 @@ export function LayoutDesktop() {
                                 </option>
                               ))}
                             </select>
-                            <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-400" />
+                            <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-600 dark:text-slate-400" />
                           </div>
                         </td>
                         <td className="p-1.5 min-w-[90px]">
@@ -627,7 +611,7 @@ export function LayoutDesktop() {
                           <button
                             type="button"
                             onClick={() => handleDeleteRow(table.id, row.id)}
-                            className="p-1 text-slate-300 hover:text-red-600 transition-colors cursor-pointer rounded"
+                            className="p-1 text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors cursor-pointer rounded"
                             title="Delete Row"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -648,7 +632,7 @@ export function LayoutDesktop() {
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Tower Row</span>
                 </button>
-                <span className="text-[11px] text-slate-400">
+                <span className="text-[11px] text-slate-600 dark:text-slate-400">
                   {table.rows.length} {table.rows.length === 1 ? 'record' : 'records'}
                 </span>
               </div>
@@ -673,7 +657,7 @@ export function LayoutDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

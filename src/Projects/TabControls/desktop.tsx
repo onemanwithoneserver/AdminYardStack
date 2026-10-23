@@ -31,7 +31,7 @@ export function TabControlsDesktop({
           <span className="px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/20">
             PROJECT
           </span>
-          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+          <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">
             Project Information Form
           </span>
         </div>
@@ -60,7 +60,7 @@ export function TabControlsDesktop({
         <button
           type="button"
           onClick={() => scroll('left')}
-          className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors mr-1 shrink-0 cursor-pointer"
+          className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors mr-1 shrink-0 cursor-pointer"
           title="Scroll Left"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -93,7 +93,7 @@ export function TabControlsDesktop({
         <button
           type="button"
           onClick={() => scroll('right')}
-          className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors ml-1 shrink-0 cursor-pointer"
+          className="p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors ml-1 shrink-0 cursor-pointer"
           title="Scroll Right"
         >
           <ChevronRight className="w-4 h-4" />

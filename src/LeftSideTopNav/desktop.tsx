@@ -1,26 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import {
-  LayoutDashboard,
-  Users,
-  Settings,
-  Building2,
-  MapPin,
-  FolderKanban,
-  TrendingUp,
-  UserCheck,
-  Shapes,
-  Shield,
-  Landmark,
-  Boxes,
-  Mic,
-  GraduationCap,
-  ChevronDown,
-  ChevronRight,
-  Moon,
-  Sun,
-  User,
-  Menu,
-} from 'lucide-react';
+import { LayoutDashboard, Users, Settings, Building2, MapPin, FolderKanban, TrendingUp, UserCheck, Shapes, Shield, Landmark, Boxes, Mic, GraduationCap, ChevronDown, ChevronRight, Moon, Sun, User, Menu } from 'lucide-react';
 import { SIDEBAR_ITEMS, CURRENT_USER, BREADCRUMBS, type NavItem } from './data';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -164,7 +143,7 @@ export function DesktopNav({
                   >
                     {crumb}
                   </span>
-                  {!isLast && <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />}
+                  {!isLast && <ChevronRight className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />}
                 </div>
               );
             })}

@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import {
-  INITIAL_MEDIA_FILES_DATA,
-  type MediaFilesFormData,
-} from './data';
+import { INITIAL_MEDIA_FILES_DATA, type MediaFilesFormData } from './data';
 
 export function MediaFilesMobile() {
   const [formData, setFormData] = useState<MediaFilesFormData>(
@@ -45,7 +42,7 @@ export function MediaFilesMobile() {
           <h3 className="text-xs font-bold text-slate-900 tracking-tight">
             Engagement Options
           </h3>
-          <p className="text-[10px] text-slate-400">
+          <p className="text-[10px] text-slate-600 dark:text-slate-400">
             Enable or disable interactive features.
           </p>
         </div>
@@ -54,7 +51,7 @@ export function MediaFilesMobile() {
           <div className="border border-slate-200 rounded-lg p-2.5 flex items-center justify-between bg-slate-50/50 text-xs">
             <div>
               <span className="font-semibold text-slate-800 block">Questions</span>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400">
                 {formData.questionsEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
@@ -78,7 +75,7 @@ export function MediaFilesMobile() {
           <div className="border border-slate-200 rounded-lg p-2.5 flex items-center justify-between bg-slate-50/50 text-xs">
             <div>
               <span className="font-semibold text-slate-800 block">Gamification</span>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400">
                 {formData.gamificationEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
@@ -105,7 +102,7 @@ export function MediaFilesMobile() {
           <div className="border border-slate-200 rounded-lg p-2.5 flex items-center justify-between bg-slate-50/50 text-xs">
             <div>
               <span className="font-semibold text-slate-800 block">Compatibility</span>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400">
                 {formData.compatibilityEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
@@ -240,7 +237,7 @@ export function MediaFilesMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

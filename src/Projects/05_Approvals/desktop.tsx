@@ -1,18 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import {
-  ChevronDown,
-  Calendar,
-  X,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_APPROVALS_DATA,
-  INITIAL_AUTHORITY_OPTIONS,
-  HANDOVER_STATUS_OPTIONS,
-  OC_RECEIVED_OPTIONS,
-  type ApprovalsFormData,
-  type ApprovalAuthorityOption,
-} from './data';
+import { ChevronDown, Calendar, X, CheckCircle2 } from 'lucide-react';
+import { INITIAL_APPROVALS_DATA, INITIAL_AUTHORITY_OPTIONS, HANDOVER_STATUS_OPTIONS, OC_RECEIVED_OPTIONS, type ApprovalsFormData, type ApprovalAuthorityOption } from './data';
 
 interface AddApprovalDialogProps {
   isOpen: boolean;
@@ -56,7 +44,7 @@ export function AddApprovalDialog({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -90,7 +78,7 @@ export function AddApprovalDialog({
                 <option value="ACTIVE">ACTIVE</option>
                 <option value="INACTIVE">INACTIVE</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -188,7 +176,7 @@ export function ApprovalsDesktop() {
                     </option>
                   ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
 
             <button
@@ -225,7 +213,7 @@ export function ApprovalsDesktop() {
                 }
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -245,7 +233,7 @@ export function ApprovalsDesktop() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
         </div>
@@ -263,7 +251,7 @@ export function ApprovalsDesktop() {
                 onChange={(e) => handleInputChange('handOverDate', e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -345,7 +333,7 @@ export function ApprovalsDesktop() {
                 }
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -376,7 +364,7 @@ export function ApprovalsDesktop() {
                 }
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -392,7 +380,7 @@ export function ApprovalsDesktop() {
                 onChange={(e) => handleInputChange('approvalDate', e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -421,7 +409,7 @@ export function ApprovalsDesktop() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -436,7 +424,7 @@ export function ApprovalsDesktop() {
                 handleInputChange('ocApprovalDates', e.target.value)
               }
               placeholder="e.g. 12-01-2024, 15-06-2024"
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 placeholder:text-slate-400"
+              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 placeholder:text-slate-600 dark:placeholder:text-slate-600 dark:text-slate-400"
             />
           </div>
         </div>
@@ -473,7 +461,7 @@ export function ApprovalsDesktop() {
                 onChange={(e) => handleInputChange('ccDate', e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -499,7 +487,7 @@ export function ApprovalsDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

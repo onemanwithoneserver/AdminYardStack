@@ -1,8 +1,4 @@
-import {
-  type InventoryVariant,
-  type InventoryCommonConfig,
-  createDefaultVariant,
-} from './Configuration/data';
+import { type InventoryVariant, type InventoryCommonConfig, createDefaultVariant } from './Configuration/data';
 
 export interface InventoryRootState {
   activeSubTab: 'Configurations' | 'Preview & Totals';

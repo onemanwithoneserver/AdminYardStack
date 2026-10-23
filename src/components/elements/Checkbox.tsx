@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  useId,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 import { Check, Minus } from 'lucide-react';
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
@@ -115,7 +110,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               </span>
             )}
             {description && (
-              <span className={`text-slate-400 dark:text-slate-500 mt-0.5 leading-snug ${descSizeClass}`}>
+              <span className={`text-slate-600 dark:text-slate-400 mt-0.5 leading-snug ${descSizeClass}`}>
                 {description}
               </span>
             )}

@@ -1,13 +1,5 @@
 import { useState, useMemo } from 'react';
-import {
-  Eye,
-  Pencil,
-  Trash2,
-  Search,
-  Plus,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react';
+import { Eye, Pencil, Trash2, Search, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { INITIAL_PROJECTS_LIST, type ProjectListItem } from './data';
 
 interface ProjectsListMobileProps {
@@ -62,7 +54,7 @@ export function ProjectsListMobile({
       </div>
 
       <div className="relative flex items-center">
-        <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+        <Search className="w-4 h-4 text-slate-600 dark:text-slate-400 absolute left-3 pointer-events-none" />
         <input
           type="text"
           value={searchQuery}
@@ -71,13 +63,13 @@ export function ProjectsListMobile({
             setCurrentPage(1);
           }}
           placeholder="Search projects..."
-          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl glass-input outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-400"
+          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl glass-input outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-600 dark:placeholder:text-slate-400"
         />
       </div>
 
       <div className="space-y-2.5">
         {paginatedProjects.length === 0 ? (
-          <div className="glass-card rounded-xl p-6 text-center text-xs text-slate-400">
+          <div className="glass-card rounded-xl p-6 text-center text-xs text-slate-600 dark:text-slate-400">
             No projects found. Tap "ADD PROJECT" to create one.
           </div>
         ) : (
@@ -94,18 +86,18 @@ export function ProjectsListMobile({
                   >
                     {project.projectName}
                   </h3>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  <div className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
                     {project.city} {project.propertyType !== '-' && `• ${project.propertyType}`}
                   </div>
                 </div>
 
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/60 shrink-0">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800/60 shrink-0">
                   {project.status}
                 </span>
               </div>
 
               <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-white/5">
-                <div className="text-[11px] text-slate-500 font-medium">
+                <div className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
                   {project.basePrice !== '-' ? project.basePrice : 'Price not set'}
                 </div>
 
@@ -113,7 +105,7 @@ export function ProjectsListMobile({
                   <button
                     type="button"
                     onClick={() => onEditProject ? onEditProject(project) : onAddProject()}
-                    className="p-1.5 text-sky-600 hover:bg-sky-50 dark:hover:bg-sky-950/40 rounded-lg transition-colors"
+                    className="p-1.5 text-sky-700 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/40 rounded-lg transition-colors"
                     title="View"
                   >
                     <Eye className="w-4 h-4" />
@@ -121,7 +113,7 @@ export function ProjectsListMobile({
                   <button
                     type="button"
                     onClick={() => onEditProject ? onEditProject(project) : onAddProject()}
-                    className="p-1.5 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded-lg transition-colors"
+                    className="p-1.5 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 rounded-lg transition-colors"
                     title="Edit"
                   >
                     <Pencil className="w-4 h-4" />
@@ -129,7 +121,7 @@ export function ProjectsListMobile({
                   <button
                     type="button"
                     onClick={() => handleDelete(project.id, project.projectName)}
-                    className="p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors"
+                    className="p-1.5 text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors"
                     title="Delete"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -141,7 +133,7 @@ export function ProjectsListMobile({
         )}
       </div>
 
-      <div className="flex items-center justify-between text-xs text-slate-500 pt-2 px-1">
+      <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 pt-2 px-1">
         <span>
           Page {currentPage} of {totalPages}
         </span>

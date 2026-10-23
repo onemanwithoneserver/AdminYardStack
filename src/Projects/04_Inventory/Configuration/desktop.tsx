@@ -1,23 +1,6 @@
 import { useState } from 'react';
-import {
-  Plus,
-  ChevronDown,
-  Trash2,
-} from 'lucide-react';
-import {
-  INITIAL_CONFIGURATION_DATA,
-  UNIT_TYPES,
-  FACING_OPTIONS,
-  WALL_STRUCTURES,
-  FLOOR_PLAN_TYPES,
-  VARIANT_AVAILABILITY,
-  DESIGNATED_AREAS_LIST,
-  AVAILABLE_TOWERS,
-  createDefaultVariant,
-  type InventoryVariant,
-  type InventoryCommonConfig,
-  type RoomItem,
-} from './data';
+import { Plus, ChevronDown, Trash2 } from 'lucide-react';
+import { INITIAL_CONFIGURATION_DATA, UNIT_TYPES, FACING_OPTIONS, WALL_STRUCTURES, FLOOR_PLAN_TYPES, VARIANT_AVAILABILITY, DESIGNATED_AREAS_LIST, AVAILABLE_TOWERS, createDefaultVariant, type InventoryVariant, type InventoryCommonConfig, type RoomItem } from './data';
 
 export interface ConfigurationDesktopProps {
   variants?: InventoryVariant[];
@@ -292,7 +275,7 @@ export function ConfigurationDesktop({
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </div>
 
@@ -314,7 +297,7 @@ export function ConfigurationDesktop({
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </div>
 
@@ -530,7 +513,7 @@ export function ConfigurationDesktop({
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </div>
                 </div>
@@ -555,7 +538,7 @@ export function ConfigurationDesktop({
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </div>
 
@@ -577,7 +560,7 @@ export function ConfigurationDesktop({
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </div>
                 </div>
@@ -613,7 +596,7 @@ export function ConfigurationDesktop({
                           <tr>
                             <td
                               colSpan={6}
-                              className="text-center py-3 text-slate-400 text-xs italic"
+                              className="text-center py-3 text-slate-600 dark:text-slate-400 text-xs italic"
                             >
                               No rooms added.
                             </td>
@@ -700,7 +683,7 @@ export function ConfigurationDesktop({
                                 <button
                                   type="button"
                                   onClick={() => handleDeleteRoom(v.id, room.id)}
-                                  className="text-slate-400 hover:text-red-600 transition-colors"
+                                  className="text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
                                 </button>

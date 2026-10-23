@@ -1,17 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import {
-  ChevronDown,
-  X,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_SPECIFICATIONS_DATA,
-  INITIAL_CONSTRUCTION_TYPES,
-  ALLOWED_TYPES,
-  type SpecificationsFormData,
-  type ConstructionTypeOption,
-  type SpecItem,
-} from './data';
+import { ChevronDown, X, CheckCircle2 } from 'lucide-react';
+import { INITIAL_SPECIFICATIONS_DATA, INITIAL_CONSTRUCTION_TYPES, ALLOWED_TYPES, type SpecificationsFormData, type ConstructionTypeOption, type SpecItem } from './data';
 
 interface AddConstructionTypeDialogProps {
   isOpen: boolean;
@@ -57,7 +46,7 @@ export function AddConstructionTypeDialog({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -91,7 +80,7 @@ export function AddConstructionTypeDialog({
                 <option value="ACTIVE">ACTIVE</option>
                 <option value="INACTIVE">INACTIVE</option>
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 
@@ -209,7 +198,7 @@ export function SpecificationsDesktop() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -382,7 +371,7 @@ export function SpecificationsDesktop() {
                     </option>
                   ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
 
             <button
@@ -428,7 +417,7 @@ export function SpecificationsDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

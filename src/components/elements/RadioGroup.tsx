@@ -53,7 +53,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
         {label && (
           <div className="block text-xs font-semibold text-slate-700 dark:text-slate-300 tracking-tight">
             {label}
-            {requiredIndicator && <span className="text-rose-500 ml-1">*</span>}
+            {requiredIndicator && <span className="text-rose-700 dark:text-rose-400 ml-1">*</span>}
           </div>
         )}
 
@@ -73,9 +73,9 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
           ))}
         </div>
 
-        {error && <p className="text-xs text-rose-500 font-medium">{error}</p>}
+        {error && <p className="text-xs text-rose-700 dark:text-rose-400 font-medium">{error}</p>}
         {!error && hint && (
-          <p className="text-xs text-slate-400 dark:text-slate-500">{hint}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">{hint}</p>
         )}
       </div>
     );

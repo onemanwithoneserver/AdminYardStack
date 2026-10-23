@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import {
-  INITIAL_SPECIFICATIONS_DATA,
-  INITIAL_CONSTRUCTION_TYPES,
-  ALLOWED_TYPES,
-  type SpecificationsFormData,
-  type ConstructionTypeOption,
-  type SpecItem,
-} from './data';
+import { INITIAL_SPECIFICATIONS_DATA, INITIAL_CONSTRUCTION_TYPES, ALLOWED_TYPES, type SpecificationsFormData, type ConstructionTypeOption, type SpecItem } from './data';
 import { AddConstructionTypeDialog } from './desktop';
 
 export function SpecificationsMobile() {
@@ -103,7 +96,7 @@ export function SpecificationsMobile() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
               </div>
             </div>
 
@@ -275,7 +268,7 @@ export function SpecificationsMobile() {
                   </option>
                 ))}
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
 
           <button
@@ -320,7 +313,7 @@ export function SpecificationsMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

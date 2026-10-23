@@ -241,3 +241,91 @@
 .dark .border-blue-200\/80 {
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
+
+/* WCAG AA 4.5:1 Minimum Contrast Compliant Overrides in Light Theme */
+:root:not(.dark) input::placeholder,
+:root:not(.dark) textarea::placeholder,
+:root:not(.dark) .placeholder\:text-slate-400::placeholder,
+:root:not(.dark) .placeholder\:text-slate-500::placeholder,
+input::placeholder,
+textarea::placeholder,
+.placeholder\:text-slate-400::placeholder {
+  color: #475569 !important;
+  opacity: 1 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder,
+.dark .placeholder\:text-slate-400::placeholder,
+.dark .placeholder\:text-slate-500::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+:root:not(.dark) .text-slate-400,
+html:not(.dark) .text-slate-400,
+body:not(.dark) .text-slate-400,
+.text-slate-400:not(.dark *) {
+  color: #475569 !important;
+}
+
+:root:not(.dark) .text-slate-300,
+html:not(.dark) .text-slate-300,
+body:not(.dark) .text-slate-300,
+.text-slate-300:not(.dark *) {
+  color: #475569 !important;
+}
+
+:root:not(.dark) .text-slate-500,
+html:not(.dark) .text-slate-500,
+body:not(.dark) .text-slate-500,
+.text-slate-500:not(.dark *) {
+  color: #334155 !important;
+}
+
+:root:not(.dark) .text-emerald-500,
+:root:not(.dark) .text-emerald-600,
+.text-emerald-500:not(.dark *),
+.text-emerald-600:not(.dark *) {
+  color: #047857 !important;
+}
+
+:root:not(.dark) .text-blue-500,
+:root:not(.dark) .text-blue-600,
+.text-blue-500:not(.dark *),
+.text-blue-600:not(.dark *) {
+  color: #1d4ed8 !important;
+}
+
+:root:not(.dark) .text-sky-600,
+.text-sky-600:not(.dark *) {
+  color: #0369a1 !important;
+}
+
+:root:not(.dark) .text-amber-500,
+:root:not(.dark) .text-amber-600,
+.text-amber-500:not(.dark *),
+.text-amber-600:not(.dark *) {
+  color: #92400e !important;
+}
+
+:root:not(.dark) .text-rose-500,
+:root:not(.dark) .text-rose-600,
+.text-rose-500:not(.dark *),
+.text-rose-600:not(.dark *) {
+  color: #be123c !important;
+}
+
+:root:not(.dark) .text-red-500,
+:root:not(.dark) .text-red-600,
+.text-red-500:not(.dark *),
+.text-red-600:not(.dark *) {
+  color: #b91c1c !important;
+}
+
+:root:not(.dark) .text-purple-600,
+.text-purple-600:not(.dark *) {
+  color: #6b21a8 !important;
+}
+
+

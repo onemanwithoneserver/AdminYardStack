@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, Lock, Plus } from 'lucide-react';
-import {
-  INITIAL_ESSENTIALS_DATA,
-  INITIAL_CONSTRUCTION_TYPES,
-  type EssentialsFormData,
-  type ConstructionTypeOption,
-} from './data';
+import { INITIAL_ESSENTIALS_DATA, INITIAL_CONSTRUCTION_TYPES, type EssentialsFormData, type ConstructionTypeOption } from './data';
 import { ConstructionTypeDialog } from './desktop';
 
 export function EssentialsMobile() {
@@ -198,7 +193,7 @@ export function EssentialsMobile() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
           <button

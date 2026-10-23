@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import {
-  type InventoryVariant,
-} from '../Configuration/data';
-import {
-  INITIAL_PREVIEW_FILTERS,
-  type PreviewFilters,
-  type TowerTotalSummary,
-  computeTowerTotals,
-} from './data';
+import { type InventoryVariant } from '../Configuration/data';
+import { INITIAL_PREVIEW_FILTERS, type PreviewFilters, type TowerTotalSummary, computeTowerTotals } from './data';
 import type { PreviewAndToolsDesktopProps } from './desktop';
 
 export function PreviewAndToolsMobile({
@@ -240,7 +233,7 @@ export function PreviewAndToolsMobile({
                     <option value="Investor">Investor</option>
                     <option value="Owner">Owner</option>
                   </select>
-                  <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-400 pointer-events-none" />
+                  <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                 </div>
                 <div className="relative">
                   <select
@@ -255,7 +248,7 @@ export function PreviewAndToolsMobile({
                     <option value="Booked">Booked</option>
                     <option value="Sold">Sold</option>
                   </select>
-                  <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-400 pointer-events-none" />
+                  <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                 </div>
               </div>
             </div>

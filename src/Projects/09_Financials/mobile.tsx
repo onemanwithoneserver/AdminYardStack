@@ -1,22 +1,7 @@
 import { useState } from 'react';
-import {
-  ChevronDown,
-  Plus,
-  Trash2,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_FINANCIALS_DATA,
-  type FinancialsFormData,
-  type PaymentPlanOption,
-  type VariantPricingField,
-  type BankOption,
-} from './data';
-import {
-  AddPaymentPlanDialog,
-  AddPricingFieldDialog,
-  AddBankDialog,
-} from './desktop';
+import { ChevronDown, Plus, Trash2, CheckCircle2 } from 'lucide-react';
+import { INITIAL_FINANCIALS_DATA, type FinancialsFormData, type PaymentPlanOption, type VariantPricingField, type BankOption } from './data';
+import { AddPaymentPlanDialog, AddPricingFieldDialog, AddBankDialog } from './desktop';
 
 export function FinancialsMobile() {
   const [formData, setFormData] = useState<FinancialsFormData>(
@@ -154,7 +139,7 @@ export function FinancialsMobile() {
           ))}
         </div>
 
-        <p className="text-[11px] text-slate-400 italic">
+        <p className="text-[11px] text-slate-600 dark:text-slate-400 italic">
           Select a payment type to add its stages.
         </p>
 
@@ -189,7 +174,7 @@ export function FinancialsMobile() {
             <h3 className="text-xs font-bold text-slate-900 tracking-tight">
               Variant Pricing
             </h3>
-            <p className="text-[10px] text-slate-400">
+            <p className="text-[10px] text-slate-600 dark:text-slate-400">
               Apply raw amounts to variants.
             </p>
           </div>
@@ -221,7 +206,7 @@ export function FinancialsMobile() {
                 <button
                   type="button"
                   onClick={() => handleDeletePricingField(field.id)}
-                  className="text-slate-400 hover:text-red-600 p-1"
+                  className="text-slate-600 dark:text-slate-400 hover:text-red-600 p-1"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -229,7 +214,7 @@ export function FinancialsMobile() {
             ))}
           </div>
         ) : (
-          <p className="text-[11px] text-slate-400 italic">
+          <p className="text-[11px] text-slate-600 dark:text-slate-400 italic">
             No variant pricing fields added.
           </p>
         )}
@@ -288,7 +273,7 @@ export function FinancialsMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, MapPin, ExternalLink, Lock } from 'lucide-react';
-import {
-  INITIAL_LOCATION_DATA,
-  INITIAL_ORR_ZONING_OPTIONS,
-  type LocationFormData,
-  type OrrExit,
-  type HighwayItem,
-  type OrrZoningOption,
-} from './data';
+import { INITIAL_LOCATION_DATA, INITIAL_ORR_ZONING_OPTIONS, type LocationFormData, type OrrExit, type HighwayItem, type OrrZoningOption } from './data';
 import { OrrZoningDialog } from './desktop';
 
 export function LocationForAllMobile() {
@@ -111,7 +104,7 @@ export function LocationForAllMobile() {
                 <option value="prasadsa@gmail.com">prasadsa@gmail.com</option>
                 <option value="admin@gmail.com">admin@gmail.com</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
           <div>
@@ -125,9 +118,9 @@ export function LocationForAllMobile() {
                 <option value="">Select subscription</option>
                 <option value="standard">Standard Sale Subscription</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
-            <p className="text-[9px] text-slate-400 mt-0.5">No active Sale subscription available.</p>
+            <p className="text-[9px] text-slate-600 dark:text-slate-400 mt-0.5">No active Sale subscription available.</p>
           </div>
         </section>
 
@@ -268,7 +261,7 @@ export function LocationForAllMobile() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
 

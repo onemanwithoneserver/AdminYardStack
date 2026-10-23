@@ -1,22 +1,6 @@
 import { useState } from 'react';
-import {
-  Plus,
-  ChevronDown,
-  Calendar,
-  Trash2,
-  Layers,
-  Building,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_LAYOUT_DATA,
-  HANDOVER_OPTIONS,
-  createNewTowerRow,
-  createNewTowerTable,
-  type LayoutFormData,
-  type TowerRow,
-  type TowerTable,
-} from './data';
+import { Plus, ChevronDown, Calendar, Trash2, Layers, Building, CheckCircle2 } from 'lucide-react';
+import { INITIAL_LAYOUT_DATA, HANDOVER_OPTIONS, createNewTowerRow, createNewTowerTable, type LayoutFormData, type TowerRow, type TowerTable } from './data';
 import { AddTowerDialog } from './desktop';
 
 export function LayoutMobile() {
@@ -145,7 +129,7 @@ export function LayoutMobile() {
                 onChange={(e) => handleFieldChange('completionDate', e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-400 pointer-events-none" />
+              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -165,7 +149,7 @@ export function LayoutMobile() {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
             </div>
           </div>
         </div>
@@ -209,7 +193,7 @@ export function LayoutMobile() {
                   <button
                     type="button"
                     onClick={() => handleDeleteTable(table.id)}
-                    className="p-1 text-slate-400 hover:text-red-600 transition-colors"
+                    className="p-1 text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -232,7 +216,7 @@ export function LayoutMobile() {
                       <button
                         type="button"
                         onClick={() => handleDeleteRow(table.id, row.id)}
-                        className="text-slate-300 hover:text-red-600 transition-colors"
+                        className="text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -400,7 +384,7 @@ export function LayoutMobile() {
                             <option value="No">No</option>
                             <option value="Yes">Yes</option>
                           </select>
-                          <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-400" />
+                          <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-600 dark:text-slate-400" />
                         </div>
                       </div>
 
@@ -437,7 +421,7 @@ export function LayoutMobile() {
                               </option>
                             ))}
                           </select>
-                          <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-400" />
+                          <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 pointer-events-none text-slate-600 dark:text-slate-400" />
                         </div>
                       </div>
 
@@ -502,7 +486,7 @@ export function LayoutMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

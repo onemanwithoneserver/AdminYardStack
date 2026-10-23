@@ -1,18 +1,6 @@
 import { useState } from 'react';
-import {
-  Plus,
-  Trash2,
-} from 'lucide-react';
-import {
-  INITIAL_CONFIGURATION_DATA,
-  UNIT_TYPES,
-  FACING_OPTIONS,
-  WALL_STRUCTURES,
-  AVAILABLE_TOWERS,
-  type InventoryVariant,
-  type InventoryCommonConfig,
-  type RoomItem,
-} from './data';
+import { Plus, Trash2 } from 'lucide-react';
+import { INITIAL_CONFIGURATION_DATA, UNIT_TYPES, FACING_OPTIONS, WALL_STRUCTURES, AVAILABLE_TOWERS, type InventoryVariant, type InventoryCommonConfig, type RoomItem } from './data';
 import type { ConfigurationDesktopProps } from './desktop';
 
 export function ConfigurationMobile({
@@ -453,7 +441,7 @@ export function ConfigurationMobile({
                   </div>
 
                   {v.rooms.length === 0 ? (
-                    <p className="text-[11px] text-slate-400 italic">No rooms added.</p>
+                    <p className="text-[11px] text-slate-600 dark:text-slate-400 italic">No rooms added.</p>
                   ) : (
                     <div className="space-y-2">
                       {v.rooms.map((room) => (
@@ -468,7 +456,7 @@ export function ConfigurationMobile({
                             <button
                               type="button"
                               onClick={() => handleDeleteRoom(v.id, room.id)}
-                              className="text-slate-400 hover:text-red-600"
+                              className="text-slate-600 dark:text-slate-400 hover:text-red-600"
                             >
                               <Trash2 className="w-3 h-3" />
                             </button>

@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import {
-  type InventoryVariant,
-} from '../Configuration/data';
-import {
-  INITIAL_PREVIEW_FILTERS,
-  type PreviewFilters,
-  type TowerTotalSummary,
-  computeTowerTotals,
-} from './data';
+import { type InventoryVariant } from '../Configuration/data';
+import { INITIAL_PREVIEW_FILTERS, type PreviewFilters, type TowerTotalSummary, computeTowerTotals } from './data';
 
 export interface PreviewAndToolsDesktopProps {
   variants?: InventoryVariant[];
@@ -73,7 +66,7 @@ export function PreviewAndToolsDesktop({
                 <option value="Tower 2">Tower 2</option>
                 <option value="Tower 3">Tower 3</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-400 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -93,7 +86,7 @@ export function PreviewAndToolsDesktop({
                 <option value="North">North</option>
                 <option value="South">South</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-400 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
 
@@ -114,7 +107,7 @@ export function PreviewAndToolsDesktop({
                 <option value="Hold">Hold</option>
                 <option value="Sold Out">Sold Out</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-400 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -293,7 +286,7 @@ export function PreviewAndToolsDesktop({
                         <option value="Investor">Investor</option>
                         <option value="Owner">Owner</option>
                       </select>
-                      <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </td>
                   <td className="py-1.5 px-3">
@@ -310,7 +303,7 @@ export function PreviewAndToolsDesktop({
                         <option value="Booked">Booked</option>
                         <option value="Sold">Sold</option>
                       </select>
-                      <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-400 pointer-events-none" />
+                      <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
                     </div>
                   </td>
                 </tr>

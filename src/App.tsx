@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Header, { type ViewMode } from './components/Header';
 import MobileViewport from './components/MobileViewport';
 import { LeftSideTopNav } from './LeftSideTopNav';

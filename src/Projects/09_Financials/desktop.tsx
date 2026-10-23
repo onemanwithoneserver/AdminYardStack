@@ -1,18 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import {
-  ChevronDown,
-  X,
-  Plus,
-  Trash2,
-  CheckCircle2,
-} from 'lucide-react';
-import {
-  INITIAL_FINANCIALS_DATA,
-  type FinancialsFormData,
-  type PaymentPlanOption,
-  type VariantPricingField,
-  type BankOption,
-} from './data';
+import { ChevronDown, X, Plus, Trash2, CheckCircle2 } from 'lucide-react';
+import { INITIAL_FINANCIALS_DATA, type FinancialsFormData, type PaymentPlanOption, type VariantPricingField, type BankOption } from './data';
 
 interface AddPaymentPlanDialogProps {
   isOpen: boolean;
@@ -56,7 +44,7 @@ export function AddPaymentPlanDialog({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -151,7 +139,7 @@ export function AddPricingFieldDialog({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -277,7 +265,7 @@ export function AddBankDialog({ isOpen, onClose, onSave }: AddBankDialogProps) {
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -456,7 +444,7 @@ export function FinancialsDesktop() {
           ))}
         </div>
 
-        <p className="text-[11px] text-slate-400 italic pt-1">
+        <p className="text-[11px] text-slate-600 dark:text-slate-400 italic pt-1">
           Select a payment type to add its stages.
         </p>
 
@@ -508,7 +496,7 @@ export function FinancialsDesktop() {
             <h3 className="text-xs font-bold text-slate-900 tracking-tight">
               Variant Pricing
             </h3>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
               Enter raw amount and select the inventory variant it applies to.
             </p>
           </div>
@@ -554,7 +542,7 @@ export function FinancialsDesktop() {
                       <button
                         type="button"
                         onClick={() => handleDeletePricingField(field.id)}
-                        className="text-slate-400 hover:text-red-600 transition-colors"
+                        className="text-slate-600 dark:text-slate-400 hover:text-red-600 transition-colors"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -565,7 +553,7 @@ export function FinancialsDesktop() {
             </table>
           </div>
         ) : (
-          <div className="border border-dashed border-slate-200 rounded-xl p-4 text-center text-xs text-slate-400 italic">
+          <div className="border border-dashed border-slate-200 rounded-xl p-4 text-center text-xs text-slate-600 dark:text-slate-400 italic">
             No additional variant pricing fields added. Click "Add Pricing Field" to configure extra charges.
           </div>
         )}
@@ -625,7 +613,7 @@ export function FinancialsDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  useId,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react';
 
 export interface RadioButtonProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -74,7 +69,7 @@ export const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
               </span>
             )}
             {description && (
-              <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5 leading-snug">
+              <span className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 leading-snug">
                 {description}
               </span>
             )}

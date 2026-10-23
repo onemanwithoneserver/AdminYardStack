@@ -7,12 +7,5 @@ export { Checkbox, type CheckboxProps, type CheckboxSize } from './Checkbox';
 export { MultiSelect, type MultiSelectProps, type MultiSelectOption } from './MultiSelect';
 export { RadioButton, type RadioButtonProps } from './RadioButton';
 export { RadioGroup, type RadioGroupProps, type RadioOption } from './RadioGroup';
-export {
-  ToggleSwitch,
-  SegmentedToggle,
-  type ToggleSwitchProps,
-  type SegmentedToggleProps,
-  type SegmentedOption,
-  type ToggleSize,
-} from './ToggleButton';
+export { ToggleSwitch, SegmentedToggle, type ToggleSwitchProps, type SegmentedToggleProps, type SegmentedOption, type ToggleSize } from './ToggleButton';
 export { Badge, type BadgeProps, type BadgeVariant, type BadgeSize } from './Badge';

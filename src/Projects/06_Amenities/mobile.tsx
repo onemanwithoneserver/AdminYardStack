@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import {
-  AMENITY_CATEGORIES,
-  INITIAL_AMENITIES_DATA,
-  type AmenitiesFormData,
-} from './data';
+import { AMENITY_CATEGORIES, INITIAL_AMENITIES_DATA, type AmenitiesFormData } from './data';
 
 export function AmenitiesMobile() {
   const [formData, setFormData] = useState<AmenitiesFormData>(INITIAL_AMENITIES_DATA);
@@ -97,7 +93,7 @@ export function AmenitiesMobile() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 

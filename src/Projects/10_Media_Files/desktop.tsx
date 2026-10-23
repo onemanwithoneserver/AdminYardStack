@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import {
-  INITIAL_MEDIA_FILES_DATA,
-  type MediaFilesFormData,
-} from './data';
+import { INITIAL_MEDIA_FILES_DATA, type MediaFilesFormData } from './data';
 
 export function MediaFilesDesktop() {
   const [formData, setFormData] = useState<MediaFilesFormData>(
@@ -45,7 +42,7 @@ export function MediaFilesDesktop() {
           <h3 className="text-xs font-bold text-slate-900 tracking-tight">
             Engagement Options
           </h3>
-          <p className="text-[11px] text-slate-400 mt-0.5">
+          <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
             Choose which engagement features are enabled for this project.
           </p>
         </div>
@@ -72,7 +69,7 @@ export function MediaFilesDesktop() {
               <span className="text-xs font-semibold text-slate-800 block">
                 Questions
               </span>
-              <span className="text-[10px] text-slate-400 block">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block">
                 {formData.questionsEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
@@ -102,7 +99,7 @@ export function MediaFilesDesktop() {
               <span className="text-xs font-semibold text-slate-800 block">
                 Gamification
               </span>
-              <span className="text-[10px] text-slate-400 block">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block">
                 {formData.gamificationEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
@@ -132,7 +129,7 @@ export function MediaFilesDesktop() {
               <span className="text-xs font-semibold text-slate-800 block">
                 Compatibility
               </span>
-              <span className="text-[10px] text-slate-400 block">
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 block">
                 {formData.compatibilityEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
@@ -256,7 +253,7 @@ export function MediaFilesDesktop() {
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-400" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
           </div>
         </div>
 
