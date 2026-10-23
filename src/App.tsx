@@ -5,22 +5,21 @@ import {
   Route,
   Navigate,
   useNavigate,
-  useParams,
+  useLocation,
 } from 'react-router-dom';
 import Header, { type ViewMode } from './components/Header';
 import MobileViewport from './components/MobileViewport';
 import { LeftSideTopNav } from './LeftSideTopNav';
-import { TabControls } from './Projects/TabControls';
+import { Projects } from './Projects';
 
 interface ViewportPageProps {
   mode: ViewMode;
 }
 
 function ViewportPage({ mode }: ViewportPageProps) {
-  const { folder = 'Projects' } = useParams<{ folder: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
-  const [activeTabId, setActiveTabId] = useState('01');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,7 +34,8 @@ function ViewportPage({ mode }: ViewportPageProps) {
   }, []);
 
   const handleViewModeChange = (newMode: ViewMode) => {
-    navigate(`/${newMode}/${folder}`);
+    const currentSubPath = location.pathname.replace(/^\/(desktop|mobile)/, '');
+    navigate(`/${newMode}${currentSubPath || '/Projects'}`);
   };
 
   const handleViewChange = (newView: string) => {
@@ -48,7 +48,7 @@ function ViewportPage({ mode }: ViewportPageProps) {
         <Header
           viewMode={mode}
           onViewModeChange={handleViewModeChange}
-          view={folder}
+          view="Projects"
           onViewChange={handleViewChange}
           onClose={() => setIsHeaderOpen(false)}
         />
@@ -58,28 +58,10 @@ function ViewportPage({ mode }: ViewportPageProps) {
         <MobileViewport isMobile={mode === 'mobile'}>
           <LeftSideTopNav
             mode={mode}
-            activeItem={folder.toLowerCase()}
+            activeItem="projects"
             onItemClick={(item) => navigate(`/${mode}/${item.label}`)}
           >
-            <div className="space-y-4 max-w-7xl mx-auto">
-              <TabControls
-                mode={mode}
-                activeTabId={activeTabId}
-                onTabChange={(tab) => setActiveTabId(tab.id)}
-              />
-
-              <div className="bg-white rounded-xl border border-slate-200/80 p-8 shadow-xs min-h-[300px] flex flex-col items-center justify-center text-center">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 mb-3">
-                  Active Section: Tab {activeTabId}
-                </span>
-                <h2 className="text-xl font-bold text-slate-800 tracking-tight">
-                  {folder} — Section {activeTabId}
-                </h2>
-                <p className="text-slate-500 text-sm mt-1 max-w-sm">
-                  Tab controls and section modules active.
-                </p>
-              </div>
-            </div>
+            <Projects mode={mode} />
           </LeftSideTopNav>
         </MobileViewport>
       </div>
@@ -91,8 +73,10 @@ export function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
-        <Route path="/desktop/:folder" element={<ViewportPage mode="desktop" />} />
-        <Route path="/mobile/:folder" element={<ViewportPage mode="mobile" />} />
+        <Route path="/desktop/Projects/*" element={<ViewportPage mode="desktop" />} />
+        <Route path="/mobile/Projects/*" element={<ViewportPage mode="mobile" />} />
+        <Route path="/desktop/projects/*" element={<Navigate to="/desktop/Projects" replace />} />
+        <Route path="/mobile/projects/*" element={<Navigate to="/mobile/Projects" replace />} />
         <Route path="/desktop" element={<Navigate to="/desktop/Projects" replace />} />
         <Route path="/mobile" element={<Navigate to="/mobile/Projects" replace />} />
         <Route path="/" element={<Navigate to="/desktop/Projects" replace />} />
