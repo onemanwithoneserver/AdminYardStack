@@ -58,42 +58,32 @@ export const INITIAL_ORR_ZONING_OPTIONS: OrrZoningOption[] = [
 ];
 
 export const INITIAL_LOCATION_DATA: LocationFormData = {
-  seller: 'prasadsa@gmail.com',
+  seller: '',
   activeSaleSubscription: '',
-  state: 'Telangana',
+  state: '',
   city: '',
   microMarket: '',
   corporations: '',
   zones: '',
   circles: '',
   developmentType: 'Flats',
-  projectName: 'Gully Heights Phase 2',
+  projectName: '',
   projectLogo: null,
-  builderName: 'BUILDER SM 007',
-  optionsLocked: true,
-  country: 'India',
-  district: 'Ranga Reddy',
-  locationName: 'Financial District',
+  builderName: '',
+  optionsLocked: false,
+  country: '',
+  district: '',
+  locationName: '',
   selectedOrrZoning: '',
-  googleLocation: 'CHHM+47P, Prashash Nagar, Khairatabad, Hyderabad, Telangana 500096, India',
-  latitude: '17.424177',
-  longitude: '78.3651',
-  pincode: '500032',
-  orrExits: [
-    { id: '1', exitNumber: '01', location: 'Nanakramguda', lat: '17.4122', lng: '78.3395' },
-    { id: '2', exitNumber: '02', location: 'Narsingi', lat: '17.3894', lng: '78.3541' },
-  ],
-  highways: [
-    { id: '1', name: 'NH 44', details: 'Bengaluru - Hyderabad Highway', lat: '17.2620', lng: '78.4754' },
-    { id: '2', name: 'NH 65', details: 'Pune - Hyderabad Highway', lat: '17.5050', lng: '78.2987' },
-  ],
+  googleLocation: '',
+  latitude: '',
+  longitude: '',
+  pincode: '',
+  orrExits: [],
+  highways: [],
   subRegistrarOffice: '',
-  projectEntranceFacing: 'East',
-  projectUsp: `• Gated community with dual clubhouses
-• Separate central park with walking track
-• Smart security with facial access
-• 100% Vastu compliant floor plans
-• 25,000 sq.ft. amenities hub`,
+  projectEntranceFacing: '',
+  projectUsp: '',
   status: 'Active',
 };
 
@@ -110,4 +100,3 @@ export const initialLocationForAllData = {
 };
 
 export type LocationForAllData = LocationFormData;
-

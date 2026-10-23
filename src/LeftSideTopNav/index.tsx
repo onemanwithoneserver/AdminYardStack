@@ -14,6 +14,8 @@ export interface LeftSideTopNavProps {
   activeItem?: string;
   onItemClick?: (item: NavItem) => void;
   onLogout?: () => void;
+  breadcrumbs?: string[];
+  onBreadcrumbClick?: (crumb: string) => void;
 }
 
 export function LeftSideTopNav({
@@ -22,6 +24,8 @@ export function LeftSideTopNav({
   activeItem = 'projects',
   onItemClick,
   onLogout,
+  breadcrumbs,
+  onBreadcrumbClick,
 }: LeftSideTopNavProps) {
   if (mode === 'mobile') {
     return (
@@ -29,6 +33,8 @@ export function LeftSideTopNav({
         activeItem={activeItem}
         onItemClick={onItemClick}
         onLogout={onLogout}
+        breadcrumbs={breadcrumbs}
+        onBreadcrumbClick={onBreadcrumbClick}
       >
         {children}
       </MobileNav>
@@ -40,6 +46,8 @@ export function LeftSideTopNav({
       activeItem={activeItem}
       onItemClick={onItemClick}
       onLogout={onLogout}
+      breadcrumbs={breadcrumbs}
+      onBreadcrumbClick={onBreadcrumbClick}
     >
       {children}
     </DesktopNav>

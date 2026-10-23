@@ -66,7 +66,7 @@ export const GENERIC_SELECT_OPTIONS = [
 ] as const;
 
 export const INITIAL_UTILITIES_INFRA_DATA: UtilitiesInfraFormData = {
-  waterSources: ['Borewell'],
+  waterSources: [],
   boreWellsCount: '',
   municipalWaterConnection: '',
   undergroundSumpCapacity: '',

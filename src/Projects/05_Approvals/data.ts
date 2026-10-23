@@ -56,23 +56,23 @@ export const OC_RECEIVED_OPTIONS = [
 export const INITIAL_APPROVALS_DATA: ApprovalsFormData = {
   approvingAuthority: '',
   approvalCopyFile: null,
-  completionDate: '30-11-2026',
-  handOver: 'Under Construction',
-  handOverDate: '31-05-2027',
-  remarks: 'Demo project data for presentation purposes',
+  completionDate: '',
+  handOver: 'Select HandOver Status',
+  handOverDate: '',
+  remarks: '',
   
-  reraRegistered: 'Yes',
-  reraRegistrationNumber: 'P02400123456',
+  reraRegistered: 'No',
+  reraRegistrationNumber: '',
   reraValidUpto: '',
   reraFile: null,
-  reraApprovalDate: '15-09-2023',
-  approvalDate: '15-09-2023',
+  reraApprovalDate: '',
+  approvalDate: '',
   
   ocReceived: '',
   ocApprovalDates: '',
   
-  ccNumber: 'CC/2024/1103',
-  ccDate: '01-08-2024',
+  ccNumber: '',
+  ccDate: '',
   
   status: 'Active',
 };

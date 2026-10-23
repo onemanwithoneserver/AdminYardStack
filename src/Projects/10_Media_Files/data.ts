@@ -29,9 +29,9 @@ export const INITIAL_MEDIA_FILES_DATA: MediaFilesFormData = {
   workProgressFiles: null,
   brochureFile: null,
 
-  droneVideo: 'https://youtu.be/dummy-drone-tour',
-  video3D: 'https://youtu.be/dummy-3d-tour',
-  siteProgress: 'https://drive.google.com/dummy-site-progress',
+  droneVideo: '',
+  video3D: '',
+  siteProgress: '',
 
   status: 'Active',
 };

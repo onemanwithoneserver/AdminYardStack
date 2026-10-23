@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Save, RotateCcw } from 'lucide-react';
 import { PROJECT_TABS, type ProjectTabItem } from './data';
 
 interface TabControlsDesktopProps {
@@ -25,14 +25,13 @@ export function TabControlsDesktop({
   };
 
   return (
-    <div className="w-full bg-white border border-slate-200/80 rounded-xl p-4 shadow-xs select-none">
-      
-      <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
-        <div className="flex items-center gap-2">
-          <span className="px-3 py-1 rounded-md text-xs font-extrabold uppercase tracking-wider bg-[#1956db] text-white shadow-xs">
+    <div className="w-full glass-card rounded-2xl p-4 shadow-sm select-none border border-slate-200/80 dark:border-white/10 dark:bg-slate-900/60 backdrop-blur-xl">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/5 mb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/20">
             PROJECT
           </span>
-          <span className="text-xs text-slate-400 font-medium">
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             Project Information Form
           </span>
         </div>
@@ -41,26 +40,27 @@ export function TabControlsDesktop({
           <button
             type="button"
             onClick={onReset}
-            className="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/60 dark:border-white/5 transition-all cursor-pointer"
           >
-            RESET
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>RESET</span>
           </button>
           <button
             type="button"
             onClick={onSave}
-            className="px-5 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#1956db] hover:bg-[#1546b3] transition-colors shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-4.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all shadow-sm shadow-blue-500/30 cursor-pointer active:scale-[0.98]"
           >
-            SAVE PROJECT
+            <Save className="w-3.5 h-3.5" />
+            <span>SAVE PROJECT</span>
           </button>
         </div>
       </div>
 
-      
       <div className="relative flex items-center">
         <button
           type="button"
           onClick={() => scroll('left')}
-          className="p-1.5 text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors mr-1 shrink-0 cursor-pointer"
+          className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors mr-1 shrink-0 cursor-pointer"
           title="Scroll Left"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -68,7 +68,7 @@ export function TabControlsDesktop({
 
         <div
           ref={scrollContainerRef}
-          className="flex-1 flex items-center gap-2 overflow-x-auto scrollbar-hide py-1"
+          className="flex-1 flex items-center gap-2 overflow-x-auto no-scrollbar py-1"
         >
           {PROJECT_TABS.map((tab) => {
             const isActive = activeTabId === tab.id;
@@ -78,10 +78,10 @@ export function TabControlsDesktop({
                 key={tab.id}
                 type="button"
                 onClick={() => onTabChange?.(tab)}
-                className={`shrink-0 px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer ${
+                className={`shrink-0 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer select-none ${
                   isActive
-                    ? 'bg-[#1956db] text-white shadow-md scale-[1.02]'
-                    : 'bg-[#f8fafc] text-slate-700 hover:bg-slate-100 border border-slate-200/80 hover:text-slate-900'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 scale-[1.02] border border-blue-500/30'
+                    : 'bg-white/60 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/70 dark:border-white/5 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <span>{tab.label}</span>
@@ -93,7 +93,7 @@ export function TabControlsDesktop({
         <button
           type="button"
           onClick={() => scroll('right')}
-          className="p-1.5 text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors ml-1 shrink-0 cursor-pointer"
+          className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors ml-1 shrink-0 cursor-pointer"
           title="Scroll Right"
         >
           <ChevronRight className="w-4 h-4" />

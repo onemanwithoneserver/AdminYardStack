@@ -11,6 +11,7 @@ import Header, { type ViewMode } from './components/Header';
 import MobileViewport from './components/MobileViewport';
 import { LeftSideTopNav } from './LeftSideTopNav';
 import { Projects } from './Projects';
+import { PROJECT_TABS } from './Projects/TabControls/data';
 
 interface ViewportPageProps {
   mode: ViewMode;
@@ -42,8 +43,26 @@ function ViewportPage({ mode }: ViewportPageProps) {
     navigate(`/${mode}/${newView}`);
   };
 
+  const isCreating =
+    location.pathname.includes('/Projects/create') ||
+    PROJECT_TABS.some(
+      (t) =>
+        location.pathname.endsWith(`/${t.slug}`) ||
+        location.pathname.endsWith(`/${t.id}`)
+    );
+
+  const breadcrumbs = isCreating
+    ? ['Dashboard', 'Projects', 'Create']
+    : ['Dashboard', 'Projects'];
+
+  const handleBreadcrumbClick = (crumb: string) => {
+    if (crumb === 'Projects' || crumb === 'Dashboard') {
+      navigate(`/${mode}/Projects`);
+    }
+  };
+
   return (
-    <div className="h-screen w-screen overflow-hidden flex flex-col bg-[#f8fafc] relative">
+    <div className="h-screen w-screen overflow-hidden flex flex-col liquid-mesh-bg text-slate-800 dark:text-slate-100 theme-transition relative">
       {isHeaderOpen && (
         <Header
           viewMode={mode}
@@ -59,6 +78,8 @@ function ViewportPage({ mode }: ViewportPageProps) {
           <LeftSideTopNav
             mode={mode}
             activeItem="projects"
+            breadcrumbs={breadcrumbs}
+            onBreadcrumbClick={handleBreadcrumbClick}
             onItemClick={(item) => navigate(`/${mode}/${item.label}`)}
           >
             <Projects mode={mode} />

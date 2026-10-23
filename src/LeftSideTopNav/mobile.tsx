@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import {
   LayoutDashboard,
   Users,
@@ -17,6 +17,7 @@ import {
   ChevronDown,
   ChevronRight,
   Moon,
+  Sun,
   User,
   Menu,
   X,
@@ -45,6 +46,8 @@ interface MobileNavProps {
   activeItem?: string;
   onItemClick?: (item: NavItem) => void;
   onLogout?: () => void;
+  breadcrumbs?: string[];
+  onBreadcrumbClick?: (crumb: string) => void;
 }
 
 export function MobileNav({
@@ -52,25 +55,34 @@ export function MobileNav({
   activeItem = 'projects',
   onItemClick,
   onLogout,
+  breadcrumbs = BREADCRUMBS,
+  onBreadcrumbClick,
 }: MobileNavProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   return (
-    <div className="flex flex-col h-full w-full overflow-hidden bg-[#f4f7fa] font-sans antialiased text-slate-800">
-      
-      <header className="h-14 bg-white border-b border-slate-200/80 px-4 flex items-center justify-between shrink-0 shadow-xs z-30">
+    <div className="flex flex-col h-full w-full overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition">
+      <header className="h-14 glass-surface px-4 flex items-center justify-between shrink-0 shadow-xs z-30 border-b border-slate-200/80 dark:border-white/10">
         <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="p-1.5 -ml-1 text-slate-700 hover:text-slate-900 rounded-md hover:bg-slate-100 transition-colors cursor-pointer"
+            className="p-1.5 -ml-1 text-slate-700 dark:text-slate-200 hover:text-slate-900 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             title="Open Menu"
           >
             <Menu className="w-5 h-5" />
           </button>
 
-          <span className="font-black text-base tracking-wider text-[#1956db]">
+          <span className="font-black text-base tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             YARDSTACK
           </span>
         </div>
@@ -79,70 +91,65 @@ export function MobileNav({
           <button
             type="button"
             onClick={() => setIsDark((prev) => !prev)}
-            className="p-1.5 text-slate-700 hover:text-slate-900 rounded-full hover:bg-slate-100 transition-colors"
+            className="p-1.5 text-slate-700 dark:text-slate-200 hover:text-slate-900 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             title={isDark ? 'Light Mode' : 'Dark Mode'}
           >
-            <Moon className="w-4 h-4" />
+            {isDark ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4" />}
           </button>
 
           <button
             type="button"
             onClick={onLogout}
-            className="px-3 py-1 rounded-full text-xs font-semibold bg-[#ef4444] text-white hover:bg-[#dc2626] transition-colors"
+            className="px-3 py-1 rounded-full text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white transition-colors"
           >
             Logout
           </button>
         </div>
       </header>
 
-      
-      <div className="bg-slate-50 border-b border-slate-200/60 px-4 py-2 flex items-center gap-1.5 text-[11px] overflow-x-auto shrink-0">
-        {BREADCRUMBS.map((crumb, idx) => {
-          const isLast = idx === BREADCRUMBS.length - 1;
+      <div className="bg-slate-50/80 dark:bg-slate-900/60 border-b border-slate-200/60 dark:border-white/5 px-4 py-2 flex items-center gap-1.5 text-[11px] overflow-x-auto no-scrollbar shrink-0">
+        {breadcrumbs.map((crumb, idx) => {
+          const isLast = idx === breadcrumbs.length - 1;
           return (
             <div key={crumb} className="flex items-center gap-1.5 shrink-0">
-              <span className={isLast ? 'text-slate-900 font-semibold' : 'text-blue-600 font-medium'}>
+              <span
+                onClick={() => onBreadcrumbClick?.(crumb)}
+                className={`transition-colors ${
+                  isLast ? 'text-slate-900 dark:text-white font-bold' : 'text-blue-600 dark:text-blue-400 font-medium cursor-pointer'
+                }`}
+              >
                 {crumb}
               </span>
-              {!isLast && <ChevronRight className="w-3 h-3 text-slate-400" />}
+              {!isLast && <ChevronRight className="w-3 h-3 text-slate-400 dark:text-slate-500" />}
             </div>
           );
         })}
       </div>
 
-      
       {drawerOpen && (
         <div className="fixed inset-0 z-50 flex">
-          
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
             onClick={() => setDrawerOpen(false)}
           />
 
-          
-          <div className="relative w-4/5 max-w-xs bg-[#1956db] text-white flex flex-col h-full shadow-2xl z-10 animate-in slide-in-from-left duration-200">
-            
-            <div className="h-14 px-4 flex items-center justify-between border-b border-white/10 shrink-0">
+          <div className="relative w-72 max-w-[85vw] bg-gradient-to-b from-[#1546b3] via-[#1956db] to-[#123899] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#0b1120] text-white flex flex-col h-full shadow-2xl z-10">
+            <div className="h-16 px-4 flex items-center justify-between border-b border-white/10 shrink-0">
               <div>
-                <div className="font-black text-lg tracking-wider text-white">
-                  YARDSTACK
-                </div>
-                <div className="text-[9px] tracking-widest uppercase text-white/70 font-medium -mt-0.5">
-                  Proptech Platform
-                </div>
+                <div className="font-black text-lg tracking-wider text-white">YARDSTACK</div>
+                <div className="text-[10px] tracking-widest uppercase text-white/70">Proptech Platform</div>
               </div>
 
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="p-1.5 text-white/80 hover:text-white rounded-md hover:bg-white/10 transition-colors"
+                className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            
-            <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 scrollbar-thin">
+            <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 no-scrollbar">
               {SIDEBAR_ITEMS.map((item) => {
                 const Icon = ICON_MAP[item.iconName] || FolderKanban;
                 const isActive = activeItem === item.id;
@@ -155,37 +162,33 @@ export function MobileNav({
                       onItemClick?.(item);
                       setDrawerOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer ${
                       isActive
-                        ? 'bg-white text-[#1956db] shadow-md font-bold'
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
+                        ? 'bg-white text-[#1956db] shadow-md font-bold dark:bg-blue-600 dark:text-white'
+                        : 'text-white/85 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <Icon className="w-4 h-4 shrink-0" />
-                      <span className="truncate">{item.label}</span>
+                      <span>{item.label}</span>
                     </div>
-
-                    {item.hasSubmenu && (
-                      <ChevronDown className="w-3.5 h-3.5 shrink-0 opacity-70" />
-                    )}
+                    {item.hasSubmenu && <ChevronDown className="w-3.5 h-3.5 text-white/60" />}
                   </button>
                 );
               })}
             </nav>
 
-            
-            <div className="p-3 border-t border-white/10 bg-black/10 shrink-0">
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0 text-white">
-                  <User className="w-3.5 h-3.5" />
+            <div className="p-4 border-t border-white/10 shrink-0 bg-black/15">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center shrink-0">
+                  <User className="w-4 h-4 text-white" />
                 </div>
-                <div className="overflow-hidden">
-                  <div className="text-[10px] text-white/90 truncate font-medium">
-                    Signed in as <span className="font-semibold text-white">{CURRENT_USER.email}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[11px] text-white/90 truncate font-medium">
+                    {CURRENT_USER.email}
                   </div>
-                  <div className="text-[9px] text-white/70 font-semibold tracking-wide">
-                    Role: {CURRENT_USER.role}
+                  <div className="text-[10px] text-white/70 font-semibold tracking-wide">
+                    {CURRENT_USER.role}
                   </div>
                 </div>
               </div>
@@ -194,8 +197,7 @@ export function MobileNav({
         </div>
       )}
 
-      
-      <main className="flex-1 overflow-y-auto p-4 bg-[#f4f7fa]">
+      <main className="flex-1 overflow-y-auto no-scrollbar p-3">
         {children}
       </main>
     </div>

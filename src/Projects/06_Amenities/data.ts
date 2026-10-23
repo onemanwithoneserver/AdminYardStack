@@ -138,13 +138,7 @@ export const AMENITY_CATEGORIES: AmenityCategory[] = [
 ];
 
 export const INITIAL_AMENITIES_DATA: AmenitiesFormData = {
-  selectedAmenities: [
-    'clubhouse_main',
-    'swimming_pool',
-    'gymnasium',
-    'children_play_area',
-    'landscaped_garden',
-  ],
+  selectedAmenities: [],
   status: 'Active',
 };
 
