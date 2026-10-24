@@ -1,12 +1,15 @@
 import type { ReactNode } from 'react';
 import { DesktopNav } from './desktop';
 import { MobileNav } from './mobile';
-import type { NavItem } from './data';
+import type { NavItem, UserProfile } from './data';
 
 export { DesktopNav } from './desktop';
 export { MobileNav } from './mobile';
-export type { NavItem, UserProfile } from './data';
-export { SIDEBAR_ITEMS, CURRENT_USER, BREADCRUMBS } from './data';
+export { BrandLogo } from './BrandLogo';
+export { TopNav } from './TopNav';
+export { SidebarTooltip } from './SidebarTooltip';
+export type { NavItem, UserProfile, SubNavItem, NavSection } from './data';
+export { SIDEBAR_ITEMS, NAV_SECTIONS, CURRENT_USER, BREADCRUMBS } from './data';
 
 export interface LeftSideTopNavProps {
   children?: ReactNode;
@@ -16,6 +19,7 @@ export interface LeftSideTopNavProps {
   onLogout?: () => void;
   breadcrumbs?: string[];
   onBreadcrumbClick?: (crumb: string) => void;
+  user?: UserProfile;
 }
 
 export function LeftSideTopNav({
@@ -26,6 +30,7 @@ export function LeftSideTopNav({
   onLogout,
   breadcrumbs,
   onBreadcrumbClick,
+  user,
 }: LeftSideTopNavProps) {
   if (mode === 'mobile') {
     return (
@@ -35,6 +40,7 @@ export function LeftSideTopNav({
         onLogout={onLogout}
         breadcrumbs={breadcrumbs}
         onBreadcrumbClick={onBreadcrumbClick}
+        user={user}
       >
         {children}
       </MobileNav>
@@ -48,6 +54,7 @@ export function LeftSideTopNav({
       onLogout={onLogout}
       breadcrumbs={breadcrumbs}
       onBreadcrumbClick={onBreadcrumbClick}
+      user={user}
     >
       {children}
     </DesktopNav>

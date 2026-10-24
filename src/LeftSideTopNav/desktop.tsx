@@ -1,6 +1,34 @@
-import { useState, useEffect, type ReactNode } from 'react';
-import { LayoutDashboard, Users, Settings, Building2, MapPin, FolderKanban, TrendingUp, UserCheck, Shapes, Shield, Landmark, Boxes, Mic, GraduationCap, ChevronDown, ChevronRight, Moon, Sun, User, Menu } from 'lucide-react';
-import { SIDEBAR_ITEMS, CURRENT_USER, BREADCRUMBS, type NavItem } from './data';
+import React, { useState, useEffect, useRef, type ReactNode } from 'react';
+import {
+  LayoutDashboard,
+  Users,
+  Settings,
+  Building2,
+  MapPin,
+  FolderKanban,
+  TrendingUp,
+  UserCheck,
+  Shapes,
+  Shield,
+  Landmark,
+  Boxes,
+  Mic,
+  GraduationCap,
+  ChevronDown,
+  ChevronRight,
+  LogOut,
+} from 'lucide-react';
+import {
+  SIDEBAR_ITEMS,
+  NAV_SECTIONS,
+  CURRENT_USER,
+  BREADCRUMBS,
+  type NavItem,
+  type UserProfile,
+} from './data';
+import { BrandLogo } from './BrandLogo';
+import { TopNav } from './TopNav';
+import { SidebarTooltip } from './SidebarTooltip';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -19,13 +47,14 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   GraduationCap,
 };
 
-interface DesktopNavProps {
+export interface DesktopNavProps {
   children?: ReactNode;
   activeItem?: string;
   onItemClick?: (item: NavItem) => void;
   onLogout?: () => void;
   breadcrumbs?: string[];
   onBreadcrumbClick?: (crumb: string) => void;
+  user?: UserProfile;
 }
 
 export function DesktopNav({
@@ -35,9 +64,17 @@ export function DesktopNav({
   onLogout,
   breadcrumbs = BREADCRUMBS,
   onBreadcrumbClick,
+  user = CURRENT_USER,
 }: DesktopNavProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
+
+  // Floating portal tooltip state for collapsed sidebar
+  const [tooltipItem, setTooltipItem] = useState<NavItem | null>(null);
+  const [tooltipRect, setTooltipRect] = useState<DOMRect | null>(null);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (isDark) {
@@ -47,129 +84,229 @@ export function DesktopNav({
     }
   }, [isDark]);
 
-  return (
-    <div className="flex h-screen w-screen overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition">
-      <aside
-        className={`bg-gradient-to-b from-[#1546b3] via-[#1956db] to-[#123899] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#0b1120] text-white flex flex-col shrink-0 transition-all duration-300 shadow-2xl relative z-20 border-r border-white/10 ${
-          collapsed ? 'w-20' : 'w-64'
-        }`}
-      >
-        <div className="h-16 px-4 flex items-center justify-between border-b border-white/10 shrink-0">
-          {!collapsed ? (
-            <div>
-              <div className="font-black text-xl tracking-wider text-white flex items-center gap-1.5">
-                <span>YARDSTACK</span>
-              </div>
-              <div className="text-[10px] tracking-widest uppercase text-white/70 -mt-0.5 font-medium">
-                Proptech Platform
-              </div>
-            </div>
-          ) : (
-            <div className="font-black text-xl text-white mx-auto">Y</div>
-          )}
+  const handleItemMouseEnter = (item: NavItem, e: React.MouseEvent<HTMLElement>) => {
+    if (!collapsed) return;
+    if (tooltipTimeoutRef.current) clearTimeout(tooltipTimeoutRef.current);
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltipRect(rect);
+    setTooltipItem(item);
+    setIsTooltipOpen(true);
+  };
 
-          <button
-            type="button"
-            onClick={() => setCollapsed((prev) => !prev)}
-            className="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
-            title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-          >
-            <Menu className="w-5 h-5" />
-          </button>
+  const handleItemMouseLeave = () => {
+    if (!collapsed) return;
+    tooltipTimeoutRef.current = setTimeout(() => {
+      setIsTooltipOpen(false);
+      setTooltipItem(null);
+      setTooltipRect(null);
+    }, 100);
+  };
+
+  const toggleSubmenu = (itemId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedSubmenu((prev) => (prev === itemId ? null : itemId));
+  };
+
+  return (
+    <div className="flex h-screen w-screen overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition select-none">
+      {/* Ultra-Luxury Left Sidebar */}
+      <aside
+        className={`flex flex-col shrink-0 h-full relative z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          collapsed ? 'w-[76px]' : 'w-[268px]'
+        } luxury-sidebar-light dark:luxury-sidebar-dark border-r border-slate-200/80 dark:border-white/[0.07] shadow-xl`}
+      >
+        {/* Subtle Ambient Radial Lighting for Dark Mode */}
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-blue-600/10 via-indigo-500/5 to-transparent pointer-events-none" />
+
+        {/* Branding & Logo Header */}
+        <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200/70 dark:border-white/[0.07] shrink-0 relative z-10">
+          <BrandLogo collapsed={collapsed} />
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 no-scrollbar">
-          {SIDEBAR_ITEMS.map((item) => {
-            const Icon = ICON_MAP[item.iconName] || FolderKanban;
-            const isActive = activeItem === item.id;
+        {/* Navigation Categories & Items */}
+        <nav className="flex-1 overflow-y-auto px-2.5 py-3 space-y-4 no-scrollbar relative z-10">
+          {NAV_SECTIONS.map((section) => {
+            const sectionItems = SIDEBAR_ITEMS.filter((i) => i.section === section.id);
+            if (sectionItems.length === 0) return null;
 
             return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => onItemClick?.(item)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer ${
-                  isActive
-                    ? 'bg-white text-[#1956db] shadow-lg shadow-black/10 font-bold dark:bg-blue-600 dark:text-white'
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
-                } ${collapsed ? 'justify-center px-2' : ''}`}
-                title={item.label}
-              >
-                <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 shrink-0" />
-                  {!collapsed && <span className="truncate">{item.label}</span>}
-                </div>
-                {!collapsed && item.hasSubmenu && (
-                  <ChevronDown className="w-3.5 h-3.5 text-white/60" />
+              <div key={section.id} className="space-y-1">
+                {/* Section Header (when expanded) or Divider (when collapsed) */}
+                {!collapsed ? (
+                  <div className="px-3 pt-2 pb-1 text-[10px] font-bold tracking-[0.14em] uppercase text-slate-600 dark:text-slate-400 select-none">
+                    {section.title}
+                  </div>
+                ) : (
+                  <div className="mx-2 my-1.5 border-t border-slate-200/60 dark:border-white/[0.08]" />
                 )}
-              </button>
+
+                {/* Items in this section */}
+                {sectionItems.map((item) => {
+                  const Icon = ICON_MAP[item.iconName] || FolderKanban;
+                  const isActive = activeItem.toLowerCase() === item.id.toLowerCase() ||
+                    (item.id === 'projects' && activeItem.toLowerCase().includes('project'));
+                  const isSubmenuOpen = expandedSubmenu === item.id;
+
+                  return (
+                    <div key={item.id} className="relative group">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (item.hasSubmenu && !collapsed) {
+                            setExpandedSubmenu((prev) => (prev === item.id ? null : item.id));
+                          }
+                          onItemClick?.(item);
+                        }}
+                        onMouseEnter={(e) => handleItemMouseEnter(item, e)}
+                        onMouseLeave={handleItemMouseLeave}
+                        aria-label={item.label}
+                        className={`w-full relative flex items-center justify-between rounded-xl text-xs transition-all duration-200 cursor-pointer ${
+                          collapsed ? 'px-0 py-2.5 justify-center' : 'px-3 py-2'
+                        } ${
+                          isActive
+                            ? 'bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-blue-500/5 dark:from-blue-500/20 dark:via-indigo-500/15 dark:to-transparent text-blue-700 dark:text-blue-300 font-bold border border-blue-500/25 dark:border-blue-400/25 shadow-xs luxury-active-glow'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/[0.05] border border-transparent font-medium'
+                        }`}
+                      >
+                        {/* Active Accent Bar Indicator */}
+                        {isActive && !collapsed && (
+                          <div className="absolute left-1 w-1 h-5 rounded-full bg-blue-600 dark:bg-blue-400 shadow-xs shadow-blue-500/50" />
+                        )}
+
+                        <div className={`flex items-center gap-2.5 min-w-0 ${collapsed ? 'justify-center' : 'pl-1'}`}>
+                          <div
+                            className={`p-1 rounded-lg transition-transform duration-200 ${
+                              isActive
+                                ? 'text-blue-600 dark:text-blue-400 scale-105'
+                                : 'group-hover:scale-105 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4 shrink-0" />
+                          </div>
+
+                          {!collapsed && (
+                            <span className="truncate text-[13px] tracking-tight">{item.label}</span>
+                          )}
+                        </div>
+
+                        {/* Badges / Submenu Indicator (Expanded only) */}
+                        {!collapsed && (
+                          <div className="flex items-center gap-1.5 shrink-0 ml-1">
+                            {item.badge && (
+                              <span
+                                className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-full ${
+                                  item.badgeVariant === 'amber'
+                                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30'
+                                    : 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30'
+                                }`}
+                              >
+                                {item.badge}
+                              </span>
+                            )}
+
+                            {item.hasSubmenu && (
+                              <span
+                                onClick={(e) => toggleSubmenu(item.id, e)}
+                                className="p-0.5 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-white transition-colors"
+                              >
+                                {isSubmenuOpen ? (
+                                  <ChevronDown className="w-3.5 h-3.5" />
+                                ) : (
+                                  <ChevronRight className="w-3.5 h-3.5" />
+                                )}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </button>
+
+                      {/* Expandable Submenu in Expanded Sidebar */}
+                      {!collapsed && item.hasSubmenu && isSubmenuOpen && item.subItems && (
+                        <div className="pl-9 pr-2 py-1 space-y-1 animate-in fade-in-0 duration-150">
+                          {item.subItems.map((sub) => (
+                            <button
+                              key={sub.id}
+                              type="button"
+                              onClick={() => onItemClick?.({ ...item, label: sub.label, route: sub.route })}
+                              className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-100/60 dark:hover:bg-white/[0.04] transition-colors cursor-pointer text-left"
+                            >
+                              <span className="truncate">{sub.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             );
           })}
         </nav>
 
-        <div className="p-3 border-t border-white/10 shrink-0 bg-black/10 backdrop-blur-xs">
-          <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`}>
-            <div className="w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center shrink-0">
-              <User className="w-4 h-4 text-white" />
+        {/* Footer User Profile Section */}
+        <div className="p-3 border-t border-slate-200/70 dark:border-white/[0.07] shrink-0 bg-slate-50/50 dark:bg-white/[0.02] relative z-10">
+          <div
+            className={`flex items-center gap-3 p-1.5 rounded-xl hover:bg-slate-100/70 dark:hover:bg-white/[0.05] transition-colors cursor-pointer ${
+              collapsed ? 'justify-center' : ''
+            }`}
+          >
+            {/* User Avatar with Emerald Beacon */}
+            <div className="relative shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                {user.name ? user.name.charAt(0) : 'A'}
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#090d16]" />
             </div>
+
+            {/* Profile Info (Expanded Mode) */}
             {!collapsed && (
               <div className="min-w-0 flex-1">
-                <div className="text-[11px] text-white/90 truncate font-medium">
-                  Signed in as <span className="font-semibold text-white">{CURRENT_USER.email}</span>
+                <div className="text-[12px] font-bold text-slate-900 dark:text-white truncate leading-tight">
+                  {user.name || 'Alexander Vance'}
                 </div>
-                <div className="text-[10px] text-white/70 font-semibold tracking-wide">
-                  Role: {CURRENT_USER.role}
+                <div className="text-[10px] text-slate-600 dark:text-slate-400 font-medium truncate">
+                  {user.role}
                 </div>
               </div>
+            )}
+
+            {/* Logout Trigger (Expanded Mode) */}
+            {!collapsed && (
+              <button
+                type="button"
+                onClick={onLogout}
+                aria-label="Log out"
+                title="Log out"
+                className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-colors cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
             )}
           </div>
         </div>
       </aside>
 
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="h-16 glass-surface px-6 flex items-center justify-between shrink-0 shadow-xs z-10 border-b border-slate-200/80 dark:border-white/10">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs">
-            {breadcrumbs.map((crumb, idx) => {
-              const isLast = idx === breadcrumbs.length - 1;
-              return (
-                <div key={crumb} className="flex items-center gap-2">
-                  <span
-                    onClick={() => onBreadcrumbClick?.(crumb)}
-                    className={`font-medium transition-colors ${
-                      isLast
-                        ? 'text-slate-900 dark:text-white font-bold'
-                        : 'text-blue-600 dark:text-blue-400 hover:text-blue-800 cursor-pointer'
-                    }`}
-                  >
-                    {crumb}
-                  </span>
-                  {!isLast && <ChevronRight className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />}
-                </div>
-              );
-            })}
-          </nav>
+      {/* Floating Unclipped Tooltip for Collapsed Sidebar */}
+      <SidebarTooltip
+        item={tooltipItem}
+        targetRect={tooltipRect}
+        isOpen={isTooltipOpen && collapsed}
+      />
 
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setIsDark((prev) => !prev)}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-black dark:hover:bg-slate-100 transition-all cursor-pointer shadow-xs active:scale-95"
-            >
-              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
-              <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
-            </button>
+      {/* Main App Canvas: Top Navigation + Page Content */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        <TopNav
+          sidebarCollapsed={collapsed}
+          onToggleSidebar={() => setCollapsed((prev) => !prev)}
+          breadcrumbs={breadcrumbs}
+          onBreadcrumbClick={onBreadcrumbClick}
+          isDark={isDark}
+          onToggleTheme={() => setIsDark((prev) => !prev)}
+          onLogout={onLogout}
+          user={user}
+        />
 
-            <button
-              type="button"
-              onClick={onLogout}
-              className="px-4 py-1.5 rounded-full text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white transition-all cursor-pointer shadow-xs active:scale-95"
-            >
-              Logout
-            </button>
-          </div>
-        </header>
-
-        <main className="flex-1 overflow-y-auto no-scrollbar p-6">
+        <main className="flex-1 overflow-y-auto no-scrollbar p-4 sm:p-6 lg:p-8">
           {children}
         </main>
       </div>
