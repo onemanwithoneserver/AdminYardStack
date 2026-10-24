@@ -9,11 +9,6 @@ import {
   UploadCloud,
   Trash2,
   AlertCircle,
-  ShieldCheck,
-  Building2,
-  Building,
-  Route,
-  FileCheck2,
   Image as ImageIcon,
 } from 'lucide-react';
 import { ModernDropdown } from '../../components/ModernDropdown';
@@ -473,14 +468,17 @@ export function LocationForAllDesktop() {
       <div className="space-y-4 pb-20">
         
         {/* Section 1: Seller & Subscription Entitlement */}
-        <section className="bg-slate-50/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 hover:border-slate-300 dark:hover:border-white/15 transition-all">
-          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/5">
-            <div className="w-5 h-5 rounded-[4px] bg-blue-100/70 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-              <ShieldCheck className="w-3 h-3" />
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                01
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-blue-600 dark:bg-blue-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
+                Seller & Subscription Entitlement
+              </h3>
             </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display">
-              Seller & Subscription Entitlement
-            </h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
@@ -495,13 +493,13 @@ export function LocationForAllDesktop() {
                 options={['prasadsa@gmail.com', 'admin@gmail.com', 'director@yardstack.com']}
                 placeholder="Select Seller"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
             {/* Active Sale Subscription */}
-            <div className="flex flex-col items-start w-full sm:col-span-1 lg:col-span-2 xl:col-span-2">
+            <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Active Sale Subscription
               </label>
@@ -516,11 +514,11 @@ export function LocationForAllDesktop() {
                 ]}
                 placeholder="Select subscription"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full max-w-xs sm:max-w-sm inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
-              <div className="flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-[4px] bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[10.5px]">
-                <AlertCircle className="w-3 h-3 text-amber-500 shrink-0" />
+              <div className="flex items-center gap-2 mt-2 px-3 py-1.5 rounded-[4px] bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] leading-relaxed max-w-sm">
+                <AlertCircle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                 <span>No active Sale subscription is available for this seller.</span>
               </div>
             </div>
@@ -528,14 +526,17 @@ export function LocationForAllDesktop() {
         </section>
 
         {/* Section 2: Location Hierarchy */}
-        <section className="bg-slate-50/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 hover:border-slate-300 dark:hover:border-white/15 transition-all">
-          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/5">
-            <div className="w-5 h-5 rounded-[4px] bg-indigo-100/70 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-              <Building2 className="w-3 h-3" />
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                02
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-indigo-600 dark:bg-indigo-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
+                Location Hierarchy
+              </h3>
             </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display">
-              Location Hierarchy
-            </h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
@@ -550,8 +551,8 @@ export function LocationForAllDesktop() {
                 options={['Telangana', 'Andhra Pradesh', 'Karnataka', 'Maharashtra', 'Tamil Nadu']}
                 placeholder="Select State"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
@@ -566,8 +567,8 @@ export function LocationForAllDesktop() {
                 options={['Hyderabad', 'Secunderabad', 'Cyberabad', 'Bengaluru', 'Chennai']}
                 placeholder="Select city"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
@@ -582,8 +583,8 @@ export function LocationForAllDesktop() {
                 options={['Gachibowli', 'Financial District', 'Hitec City', 'Kokapet', 'Tellapur', 'Madhapur', 'Kondapur']}
                 placeholder="Select Micro Market"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
@@ -598,8 +599,8 @@ export function LocationForAllDesktop() {
                 options={['GHMC', 'HMDA', 'BBMP', 'CMDA']}
                 placeholder="Select Corporation"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
@@ -614,8 +615,8 @@ export function LocationForAllDesktop() {
                 options={['West Zone', 'South Zone', 'Central Zone', 'North Zone', 'East Zone']}
                 placeholder="Select Zone"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
@@ -630,22 +631,25 @@ export function LocationForAllDesktop() {
                 options={['Serilingampally', 'Rajendranagar', 'Khairatabad', 'Kukatpally']}
                 placeholder="Select Circle"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
           </div>
         </section>
 
         {/* Section 3: Project Identity & Developer */}
-        <section className="bg-slate-50/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 hover:border-slate-300 dark:hover:border-white/15 transition-all">
-          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/5">
-            <div className="w-5 h-5 rounded-[4px] bg-emerald-100/70 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-              <Building className="w-3 h-3" />
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                03
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
+                Project Identity & Developer
+              </h3>
             </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display">
-              Project Identity & Developer
-            </h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
@@ -660,8 +664,8 @@ export function LocationForAllDesktop() {
                 options={['Flats', 'Villas', 'Plots', 'Commercial', 'Gated Community', 'Mixed Use']}
                 placeholder="Select Type"
                 roundedClass="rounded-[4px]"
-                className="w-auto inline-block"
-                buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
             </div>
 
@@ -675,7 +679,7 @@ export function LocationForAllDesktop() {
                 value={formData.projectName}
                 onChange={(e) => handleInputChange('projectName', e.target.value)}
                 placeholder="e.g. Phoenix One West"
-                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 hover:border-blue-400 dark:hover:border-blue-500 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs transition-colors"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 hover:border-slate-300 dark:hover:border-white/20 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs transition-colors"
               />
             </div>
 
@@ -749,15 +753,15 @@ export function LocationForAllDesktop() {
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Search Builder Name
               </label>
-              <div className="flex items-center gap-2.5 flex-wrap w-full">
+              <div className="flex items-center gap-2 w-full">
                 <ModernDropdown<string>
                   value={formData.builderName}
                   onChange={(val) => handleInputChange('builderName', val)}
                   options={builderOptions}
                   placeholder="Select Builder"
                   roundedClass="rounded-[4px]"
-                  className="w-auto inline-block"
-                  buttonClassName="w-auto h-9 px-2.5 text-xs font-medium gap-1.5 max-w-full"
+                  className="flex-1 min-w-[140px]"
+                  buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
                 />
                 <button
                   type="button"
@@ -772,13 +776,13 @@ export function LocationForAllDesktop() {
           </div>
 
           {/* Options Lock Indicator */}
-          <div className="pt-2 flex items-center gap-2">
+          <div className="pt-2 flex items-center gap-2.5">
             <button
               type="button"
               onClick={() => handleInputChange('optionsLocked', !formData.optionsLocked)}
-              className={`inline-flex items-center gap-1.5 px-3 h-8.5 rounded-[4px] text-xs font-semibold shadow-xs transition-all cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 px-3 h-8.5 rounded-[4px] text-xs font-semibold shadow-2xs transition-all cursor-pointer ${
                 formData.optionsLocked
-                  ? 'bg-slate-900 dark:bg-slate-800 text-white hover:bg-slate-800'
+                  ? 'bg-slate-900 dark:bg-slate-800 text-white hover:bg-slate-800 border border-transparent'
                   : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50'
               }`}
             >
@@ -794,7 +798,7 @@ export function LocationForAllDesktop() {
                 </>
               )}
             </button>
-            <span className="text-[11px] text-slate-400">
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
               {formData.optionsLocked
                 ? 'Builder & identity options are currently locked from edits'
                 : 'Click to lock builder specification fields'}
@@ -803,13 +807,14 @@ export function LocationForAllDesktop() {
         </section>
 
         {/* Section 4: GIS Boundaries & Map Coordinates */}
-        <section className="bg-slate-50/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 hover:border-slate-300 dark:hover:border-white/15 transition-all">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2.5 border-b border-slate-200/60 dark:border-white/5">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-[4px] bg-sky-100/70 dark:bg-sky-950/70 text-sky-600 dark:text-sky-400 flex items-center justify-center">
-                <MapPin className="w-3 h-3" />
-              </div>
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display">
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                04
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-sky-600 dark:bg-sky-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
                 GIS Boundaries & Map Coordinates
               </h3>
             </div>
@@ -899,7 +904,7 @@ export function LocationForAllDesktop() {
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 ORR Zoning
               </label>
-              <div className="flex items-center gap-2.5 flex-wrap w-full">
+              <div className="flex items-center gap-2.5 flex-wrap">
                 <ModernDropdown<string>
                   value={formData.selectedOrrZoning}
                   onChange={(val) => handleInputChange('selectedOrrZoning', val)}
@@ -909,8 +914,8 @@ export function LocationForAllDesktop() {
                   }))}
                   placeholder="Select ORR Zoning"
                   roundedClass="rounded-[4px]"
-                  className="w-auto inline-block max-w-full"
-                  buttonClassName="w-auto min-h-[36px] h-auto px-2.5 py-1.5 text-xs font-medium gap-1.5 max-w-full"
+                  className="w-full sm:w-[360px] md:w-[380px] max-w-md inline-block"
+                  buttonClassName="w-full min-h-[36px] h-auto px-3 py-1.5 text-xs font-medium gap-1.5"
                   menuClassName="w-max max-w-md"
                 />
                 <button
@@ -924,7 +929,7 @@ export function LocationForAllDesktop() {
               </div>
             </div>
 
-            {/* Google Location (Moved to next row, 2 columns wide) */}
+            {/* Google Location */}
             <div className="flex flex-col items-start w-full sm:col-span-2 md:col-span-1 xl:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Google Location
@@ -968,25 +973,29 @@ export function LocationForAllDesktop() {
           </div>
         </section>
 
-        {/* Section 5: Connectivity & Infrastructure (ORR Exits & Highways) */}
-        <section className="bg-slate-50/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 hover:border-slate-300 dark:hover:border-white/15 transition-all">
-          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/5">
-            <div className="w-5 h-5 rounded-[4px] bg-purple-100/70 dark:bg-purple-950/70 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-              <Route className="w-3 h-3" />
+        {/* Section 5: Connectivity & Transit Infrastructure (ORR Exits & Highways) */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                05
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-purple-600 dark:bg-purple-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
+                Connectivity & Transit Infrastructure
+              </h3>
             </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display">
-              Connectivity & Transit Infrastructure
-            </h3>
           </div>
 
           {/* Sub-panel: Nearest ORR Exits */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-800 dark:text-slate-200 text-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                <h4 className="text-[11.5px] font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide font-display">
                   Nearest ORR Exits
-                </span>
-                <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-bold bg-blue-100/70 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                </h4>
+                <span className="px-2 py-0.5 rounded-[3px] text-[10px] font-bold font-mono bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/70 dark:border-blue-900/40">
                   {formData.orrExits.length} configured
                 </span>
               </div>
@@ -1001,15 +1010,24 @@ export function LocationForAllDesktop() {
             </div>
 
             {formData.orrExits.length === 0 ? (
-              <div className="p-3 rounded-[4px] border border-dashed border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-950/50 text-center text-slate-400 dark:text-slate-500 text-xs">
+              <div className="p-3.5 rounded-[4px] border border-dashed border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/30 text-center text-slate-500 dark:text-slate-400 text-xs">
                 No ORR Exits added. Click &quot;Add ORR Exit&quot; to configure nearby ring road junction nodes.
               </div>
             ) : (
               <div className="space-y-2">
+                {/* Column Headers */}
+                <div className="grid grid-cols-12 gap-2.5 px-2.5 text-[10.5px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  <span className="col-span-1 text-center">#</span>
+                  <span className="col-span-2">Exit No.</span>
+                  <span className="col-span-4">Exit Location / Name</span>
+                  <span className="col-span-2">Latitude</span>
+                  <span className="col-span-2">Longitude</span>
+                  <span className="col-span-1 text-center">Action</span>
+                </div>
                 {formData.orrExits.map((exit, idx) => (
                   <div
                     key={exit.id}
-                    className="grid grid-cols-12 gap-2.5 items-center p-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs"
+                    className="grid grid-cols-12 gap-2.5 items-center p-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-colors"
                   >
                     <span className="col-span-1 text-[11px] font-bold text-slate-400 text-center">
                       #{idx + 1}
@@ -1020,7 +1038,7 @@ export function LocationForAllDesktop() {
                         value={exit.exitNumber}
                         onChange={(e) => handleUpdateOrrExit(exit.id, 'exitNumber', e.target.value)}
                         placeholder="Exit No"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-4">
@@ -1029,7 +1047,7 @@ export function LocationForAllDesktop() {
                         value={exit.location}
                         onChange={(e) => handleUpdateOrrExit(exit.id, 'location', e.target.value)}
                         placeholder="Exit Location / Name"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-2">
@@ -1038,7 +1056,7 @@ export function LocationForAllDesktop() {
                         value={exit.lat}
                         onChange={(e) => handleUpdateOrrExit(exit.id, 'lat', e.target.value)}
                         placeholder="Latitude"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-2">
@@ -1047,7 +1065,7 @@ export function LocationForAllDesktop() {
                         value={exit.lng}
                         onChange={(e) => handleUpdateOrrExit(exit.id, 'lng', e.target.value)}
                         placeholder="Longitude"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-1 flex justify-center">
@@ -1067,20 +1085,21 @@ export function LocationForAllDesktop() {
           </div>
 
           {/* Sub-panel: Nearest Highways/NHs */}
-          <div className="space-y-3 pt-3 border-t border-slate-200/60 dark:border-white/5">
+          <div className="space-y-3 pt-3 border-t border-slate-200/80 dark:border-white/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-800 dark:text-slate-200 text-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                <h4 className="text-[11.5px] font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide font-display">
                   Nearest Highways / NHs
-                </span>
-                <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-bold bg-indigo-100/70 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
+                </h4>
+                <span className="px-2 py-0.5 rounded-[3px] text-[10px] font-bold font-mono bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200/70 dark:border-purple-900/40">
                   {formData.highways.length} configured
                 </span>
               </div>
               <button
                 type="button"
                 onClick={handleAddHighway}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border border-indigo-300 dark:border-indigo-800 bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-xs font-semibold shadow-2xs transition-colors cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border border-purple-300 dark:border-purple-800 bg-white dark:bg-slate-900 text-purple-600 dark:text-purple-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-xs font-semibold shadow-2xs transition-colors cursor-pointer active:scale-95"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Highway</span>
@@ -1088,15 +1107,24 @@ export function LocationForAllDesktop() {
             </div>
 
             {formData.highways.length === 0 ? (
-              <div className="p-3 rounded-[4px] border border-dashed border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-950/50 text-center text-slate-400 dark:text-slate-500 text-xs">
+              <div className="p-3.5 rounded-[4px] border border-dashed border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/30 text-center text-slate-500 dark:text-slate-400 text-xs">
                 No National Highways configured. Click &quot;Add Highway&quot; to link major arterial transit expressways.
               </div>
             ) : (
               <div className="space-y-2">
+                {/* Column Headers */}
+                <div className="grid grid-cols-12 gap-2.5 px-2.5 text-[10.5px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  <span className="col-span-1 text-center">#</span>
+                  <span className="col-span-3">Highway Name</span>
+                  <span className="col-span-4">Details / Description</span>
+                  <span className="col-span-2">Latitude</span>
+                  <span className="col-span-1">Longitude</span>
+                  <span className="col-span-1 text-center">Action</span>
+                </div>
                 {formData.highways.map((hw, idx) => (
                   <div
                     key={hw.id}
-                    className="grid grid-cols-12 gap-2.5 items-center p-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs"
+                    className="grid grid-cols-12 gap-2.5 items-center p-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-colors"
                   >
                     <span className="col-span-1 text-[11px] font-bold text-slate-400 text-center">
                       #{idx + 1}
@@ -1107,7 +1135,7 @@ export function LocationForAllDesktop() {
                         value={hw.name}
                         onChange={(e) => handleUpdateHighway(hw.id, 'name', e.target.value)}
                         placeholder="Highway (e.g. NH-65)"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-4">
@@ -1116,7 +1144,7 @@ export function LocationForAllDesktop() {
                         value={hw.details}
                         onChange={(e) => handleUpdateHighway(hw.id, 'details', e.target.value)}
                         placeholder="Details (e.g. 6-lane express)"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-2">
@@ -1125,7 +1153,7 @@ export function LocationForAllDesktop() {
                         value={hw.lat}
                         onChange={(e) => handleUpdateHighway(hw.id, 'lat', e.target.value)}
                         placeholder="Latitude"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-1">
@@ -1134,7 +1162,7 @@ export function LocationForAllDesktop() {
                         value={hw.lng}
                         onChange={(e) => handleUpdateHighway(hw.id, 'lng', e.target.value)}
                         placeholder="Longitude"
-                        className="w-full h-8.5 px-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
+                        className="w-full h-8.5 px-2.5 bg-slate-50/70 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
                       />
                     </div>
                     <div className="col-span-1 flex justify-center">
@@ -1155,14 +1183,17 @@ export function LocationForAllDesktop() {
         </section>
 
         {/* Section 6: Regulatory Details & USP */}
-        <section className="bg-slate-50/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 hover:border-slate-300 dark:hover:border-white/15 transition-all">
-          <div className="flex items-center gap-2 pb-2.5 border-b border-slate-200/60 dark:border-white/5">
-            <div className="w-5 h-5 rounded-[4px] bg-amber-100/70 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-              <FileCheck2 className="w-3 h-3" />
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                06
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-amber-500 dark:bg-amber-400" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
+                Regulatory Details & USP
+              </h3>
             </div>
-            <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display">
-              Regulatory Details & USP
-            </h3>
           </div>
 
           <div className="space-y-4">
@@ -1178,8 +1209,8 @@ export function LocationForAllDesktop() {
                   options={['Gandipet SRO', 'Serilingampally SRO', 'Rajendranagar SRO', 'Vallabhnagar SRO']}
                   placeholder="Select SRO"
                   roundedClass="rounded-[4px]"
-                  className="w-auto inline-block"
-                  buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                  className="w-full inline-block"
+                  buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
                 />
               </div>
 
@@ -1194,8 +1225,8 @@ export function LocationForAllDesktop() {
                   options={['East', 'West', 'North', 'South', 'North-East', 'North-West', 'South-East', 'South-West']}
                   placeholder="Select Facing"
                   roundedClass="rounded-[4px]"
-                  className="w-auto inline-block"
-                  buttonClassName="w-auto h-9 px-2 text-xs font-medium gap-1.5 max-w-full"
+                  className="w-full inline-block"
+                  buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
                 />
               </div>
             </div>
@@ -1206,7 +1237,7 @@ export function LocationForAllDesktop() {
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
                   Project USP (Unique Selling Proposition)
                 </label>
-                <span className="text-[10px] text-slate-400">
+                <span className="text-[10px] text-slate-400 font-mono">
                   {formData.projectUsp.length} characters
                 </span>
               </div>
@@ -1215,7 +1246,7 @@ export function LocationForAllDesktop() {
                 value={formData.projectUsp}
                 onChange={(e) => handleInputChange('projectUsp', e.target.value)}
                 placeholder="Highlight key value differentiators, landmark proximity, architectural USPs, or clubhouse amenities..."
-                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-normal text-slate-800 dark:text-slate-100 hover:border-blue-400 dark:hover:border-blue-500 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs transition-colors leading-relaxed"
+                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-normal text-slate-800 dark:text-slate-100 hover:border-slate-300 dark:hover:border-white/20 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs transition-colors leading-relaxed"
               />
             </div>
           </div>
