@@ -138,7 +138,7 @@ const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute z-99999 w-full min-w-max mt-2 py-1.5 bg-white/95 dark:bg-fare-surface/95 backdrop-blur-xl backdrop-saturate-150 border border-white/20 dark:border-white/10 rounded-[4px] luxury-shadow-float dark:luxury-shadow-float overflow-y-auto overflow-x-hidden max-h-[60vh] scrollbar-thin"
+              className="absolute z-99999 w-full min-w-max mt-2 py-1.5 bg-white/95 dark:bg-fare-surface/95 backdrop-blur-xl backdrop-saturate-150 border border-white/20 dark:border-white/10 rounded-[4px] luxury-shadow-float dark:luxury-shadow-float overflow-y-auto overflow-x-hidden max-h-[60vh] no-scrollbar"
               role="listbox"
             >
               {options.map((opt) => {

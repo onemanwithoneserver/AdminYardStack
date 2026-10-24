@@ -1,18 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  Sun,
-  Moon,
-  Bell,
-  Sparkles,
-  PanelLeftClose,
-  PanelLeftOpen,
-  LogOut,
-  User as UserIcon,
-  Shield,
-  Plus,
-  Activity,
-  Layers,
-} from 'lucide-react';
+import { Sun, Moon, Bell, Sparkles, PanelLeftClose, PanelLeftOpen, LogOut, User as UserIcon, Shield, Plus, Activity, Layers } from 'lucide-react';
 import { CURRENT_USER, type UserProfile } from './data';
 
 interface TopNavProps {
@@ -44,7 +31,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
 
-  // Close menus on outside click
+  
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
@@ -58,7 +45,7 @@ export const TopNav: React.FC<TopNavProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Keyboard shortcut for Cmd+B
+  
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
@@ -100,7 +87,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   return (
     <>
       <header className="h-16 shrink-0 relative z-30 flex items-center justify-between px-4 sm:px-6 luxury-glass-nav transition-all duration-300">
-        {/* Left Side: Sidebar Toggle */}
+        
         <div className="flex items-center gap-3 sm:gap-4 min-w-0">
           <button
             type="button"
@@ -117,10 +104,10 @@ export const TopNav: React.FC<TopNavProps> = ({
           </button>
         </div>
 
-        {/* Right Controls: Notifications + Theme + Quick Action + User Profile */}
+        
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
 
-          {/* Notifications Dropdown */}
+          
           <div className="relative" ref={notifRef}>
             <button
               type="button"
@@ -132,7 +119,7 @@ export const TopNav: React.FC<TopNavProps> = ({
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-blue-500 ring-2 ring-white dark:ring-slate-900" />
             </button>
 
-            {/* Notifications Popover */}
+            
             {notificationsOpen && (
               <div className="absolute right-0 mt-2.5 w-80 sm:w-96 rounded-2xl luxury-hover-card p-4 shadow-2xl z-50 animate-in fade-in-0 zoom-in-95 duration-150">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
@@ -183,7 +170,7 @@ export const TopNav: React.FC<TopNavProps> = ({
             )}
           </div>
 
-          {/* Theme Switcher Toggle */}
+          
           <button
             type="button"
             onClick={onToggleTheme}
@@ -198,7 +185,7 @@ export const TopNav: React.FC<TopNavProps> = ({
             )}
           </button>
 
-          {/* Optional Quick Action button */}
+          
           {onQuickAction && (
             <button
               type="button"
@@ -212,7 +199,7 @@ export const TopNav: React.FC<TopNavProps> = ({
 
           <div className="h-4 w-px bg-slate-200 dark:bg-white/10 mx-0.5" />
 
-          {/* User Profile Pill & Dropdown */}
+          
           <div className="relative" ref={profileRef}>
             <button
               type="button"
@@ -234,10 +221,10 @@ export const TopNav: React.FC<TopNavProps> = ({
               </div>
             </button>
 
-            {/* User Profile Dropdown Card */}
+            
             {profileOpen && (
               <div className="absolute right-0 mt-2.5 w-72 rounded-2xl luxury-hover-card p-4 shadow-2xl z-50 animate-in fade-in-0 zoom-in-95 duration-150 text-slate-800 dark:text-slate-100">
-                {/* User Header */}
+                
                 <div className="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-white/10">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white font-bold text-base shadow-md">
                     {user.name ? user.name.charAt(0) : 'A'}
@@ -256,7 +243,7 @@ export const TopNav: React.FC<TopNavProps> = ({
                   </div>
                 </div>
 
-                {/* Organization & Quota */}
+                
                 <div className="py-3 border-b border-slate-100 dark:border-white/10 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">Organization</span>
@@ -273,7 +260,7 @@ export const TopNav: React.FC<TopNavProps> = ({
                   </div>
                 </div>
 
-                {/* Quick Actions */}
+                
                 <div className="py-2 space-y-0.5">
                   <button
                     type="button"
@@ -298,7 +285,7 @@ export const TopNav: React.FC<TopNavProps> = ({
                   </button>
                 </div>
 
-                {/* Logout Button */}
+                
                 <div className="pt-2 border-t border-slate-100 dark:border-white/10">
                   <button
                     type="button"

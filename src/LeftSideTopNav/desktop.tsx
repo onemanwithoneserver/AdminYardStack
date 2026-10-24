@@ -1,31 +1,6 @@
 import React, { useState, useEffect, useRef, type ReactNode } from 'react';
-import {
-  LayoutDashboard,
-  Users,
-  Settings,
-  Building2,
-  MapPin,
-  FolderKanban,
-  TrendingUp,
-  UserCheck,
-  Shapes,
-  Shield,
-  Landmark,
-  Boxes,
-  Mic,
-  GraduationCap,
-  ChevronDown,
-  ChevronRight,
-  LogOut,
-} from 'lucide-react';
-import {
-  SIDEBAR_ITEMS,
-  NAV_SECTIONS,
-  CURRENT_USER,
-  BREADCRUMBS,
-  type NavItem,
-  type UserProfile,
-} from './data';
+import { LayoutDashboard, Users, Settings, Building2, MapPin, FolderKanban, TrendingUp, UserCheck, Shapes, Shield, Landmark, Boxes, Mic, GraduationCap, ChevronDown, ChevronRight, LogOut } from 'lucide-react';
+import { SIDEBAR_ITEMS, NAV_SECTIONS, CURRENT_USER, BREADCRUMBS, type NavItem, type UserProfile } from './data';
 import { BrandLogo } from './BrandLogo';
 import { TopNav } from './TopNav';
 import { SidebarTooltip } from './SidebarTooltip';
@@ -70,7 +45,7 @@ export function DesktopNav({
   const [isDark, setIsDark] = useState(false);
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
 
-  // Floating portal tooltip state for collapsed sidebar
+  
   const [tooltipItem, setTooltipItem] = useState<NavItem | null>(null);
   const [tooltipRect, setTooltipRect] = useState<DOMRect | null>(null);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
@@ -109,21 +84,21 @@ export function DesktopNav({
 
   return (
     <div className="flex h-screen w-screen overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition select-none">
-      {/* Ultra-Luxury Left Sidebar */}
+      
       <aside
         className={`flex flex-col shrink-0 h-full relative z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           collapsed ? 'w-[76px]' : 'w-[268px]'
         } luxury-sidebar-light dark:luxury-sidebar-dark border-r border-slate-200/80 dark:border-white/[0.07] shadow-xl`}
       >
-        {/* Subtle Ambient Radial Lighting for Dark Mode */}
+        
         <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-blue-600/10 via-indigo-500/5 to-transparent pointer-events-none" />
 
-        {/* Branding & Logo Header */}
+        
         <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200/70 dark:border-white/[0.07] shrink-0 relative z-10">
           <BrandLogo collapsed={collapsed} />
         </div>
 
-        {/* Navigation Categories & Items */}
+        
         <nav className="flex-1 overflow-y-auto px-2.5 py-3 space-y-4 no-scrollbar relative z-10">
           {NAV_SECTIONS.map((section) => {
             const sectionItems = SIDEBAR_ITEMS.filter((i) => i.section === section.id);
@@ -131,7 +106,7 @@ export function DesktopNav({
 
             return (
               <div key={section.id} className="space-y-1">
-                {/* Section Header (when expanded) or Divider (when collapsed) */}
+                
                 {!collapsed ? (
                   <div className="px-3 pt-2 pb-1 text-[10px] font-bold tracking-[0.14em] uppercase text-slate-600 dark:text-slate-400 select-none">
                     {section.title}
@@ -140,7 +115,7 @@ export function DesktopNav({
                   <div className="mx-2 my-1.5 border-t border-slate-200/60 dark:border-white/[0.08]" />
                 )}
 
-                {/* Items in this section */}
+                
                 {sectionItems.map((item) => {
                   const Icon = ICON_MAP[item.iconName] || FolderKanban;
                   const isActive = activeItem.toLowerCase() === item.id.toLowerCase() ||
@@ -168,7 +143,7 @@ export function DesktopNav({
                             : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-white/[0.05] border border-transparent font-medium'
                         }`}
                       >
-                        {/* Active Accent Bar Indicator */}
+                        
                         {isActive && !collapsed && (
                           <div className="absolute left-1 w-1 h-5 rounded-full bg-blue-600 dark:bg-blue-400 shadow-xs shadow-blue-500/50" />
                         )}
@@ -189,7 +164,7 @@ export function DesktopNav({
                           )}
                         </div>
 
-                        {/* Badges / Submenu Indicator (Expanded only) */}
+                        
                         {!collapsed && (
                           <div className="flex items-center gap-1.5 shrink-0 ml-1">
                             {item.badge && (
@@ -220,7 +195,7 @@ export function DesktopNav({
                         )}
                       </button>
 
-                      {/* Expandable Submenu in Expanded Sidebar */}
+                      
                       {!collapsed && item.hasSubmenu && isSubmenuOpen && item.subItems && (
                         <div className="pl-9 pr-2 py-1 space-y-1 animate-in fade-in-0 duration-150">
                           {item.subItems.map((sub) => (
@@ -243,14 +218,14 @@ export function DesktopNav({
           })}
         </nav>
 
-        {/* Footer User Profile Section */}
+        
         <div className="p-3 border-t border-slate-200/70 dark:border-white/[0.07] shrink-0 bg-slate-50/50 dark:bg-white/[0.02] relative z-10">
           <div
             className={`flex items-center gap-3 p-1.5 rounded-xl hover:bg-slate-100/70 dark:hover:bg-white/[0.05] transition-colors cursor-pointer ${
               collapsed ? 'justify-center' : ''
             }`}
           >
-            {/* User Avatar with Emerald Beacon */}
+            
             <div className="relative shrink-0">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                 {user.name ? user.name.charAt(0) : 'A'}
@@ -258,7 +233,7 @@ export function DesktopNav({
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#090d16]" />
             </div>
 
-            {/* Profile Info (Expanded Mode) */}
+            
             {!collapsed && (
               <div className="min-w-0 flex-1">
                 <div className="text-[12px] font-bold text-slate-900 dark:text-white truncate leading-tight">
@@ -270,7 +245,7 @@ export function DesktopNav({
               </div>
             )}
 
-            {/* Logout Trigger (Expanded Mode) */}
+            
             {!collapsed && (
               <button
                 type="button"
@@ -286,7 +261,7 @@ export function DesktopNav({
         </div>
       </aside>
 
-      {/* Floating Unclipped Tooltip for Collapsed Sidebar */}
+      
       <SidebarTooltip
         item={tooltipItem}
         targetRect={tooltipRect}
@@ -303,7 +278,7 @@ export function DesktopNav({
         }}
       />
 
-      {/* Main App Canvas: Top Navigation + Page Content */}
+      
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         <TopNav
           sidebarCollapsed={collapsed}
@@ -316,7 +291,7 @@ export function DesktopNav({
           user={user}
         />
 
-        <main className="flex-1 overflow-y-auto no-scrollbar p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto no-scrollbar p-4 sm:p-5 lg:p-6">
           {children}
         </main>
       </div>

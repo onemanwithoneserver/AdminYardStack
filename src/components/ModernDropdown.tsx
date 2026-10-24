@@ -44,7 +44,7 @@ export function ModernDropdown<T extends string | number = string | number>({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Normalize options into DropdownOption shape
+  
   const normalizedOptions: DropdownOption<T>[] = options.map((opt) => {
     if (typeof opt === 'object' && opt !== null && 'value' in opt) {
       return opt as DropdownOption<T>;
@@ -57,7 +57,7 @@ export function ModernDropdown<T extends string | number = string | number>({
 
   const selectedOption = normalizedOptions.find((opt) => opt.value === value);
 
-  // Click outside to close
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -96,7 +96,7 @@ export function ModernDropdown<T extends string | number = string | number>({
 
   return (
     <div ref={containerRef} className={`relative inline-block text-left ${className}`}>
-      {/* Trigger Button */}
+      
       <button
         type="button"
         disabled={disabled}
@@ -133,7 +133,7 @@ export function ModernDropdown<T extends string | number = string | number>({
         />
       </button>
 
-      {/* Popover Dropdown Menu */}
+      
       {isOpen && (
         <div
           role="listbox"

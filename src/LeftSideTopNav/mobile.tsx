@@ -1,36 +1,6 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import {
-  LayoutDashboard,
-  Users,
-  Settings,
-  Building2,
-  MapPin,
-  FolderKanban,
-  TrendingUp,
-  UserCheck,
-  Shapes,
-  Shield,
-  Landmark,
-  Boxes,
-  Mic,
-  GraduationCap,
-  ChevronDown,
-  ChevronRight,
-  Moon,
-  Sun,
-  Menu,
-  X,
-  LogOut,
-  Search,
-} from 'lucide-react';
-import {
-  SIDEBAR_ITEMS,
-  NAV_SECTIONS,
-  CURRENT_USER,
-  BREADCRUMBS,
-  type NavItem,
-  type UserProfile,
-} from './data';
+import { LayoutDashboard, Users, Settings, Building2, MapPin, FolderKanban, TrendingUp, UserCheck, Shapes, Shield, Landmark, Boxes, Mic, GraduationCap, ChevronDown, ChevronRight, Moon, Sun, Menu, X, LogOut, Search } from 'lucide-react';
+import { SIDEBAR_ITEMS, NAV_SECTIONS, CURRENT_USER, BREADCRUMBS, type NavItem, type UserProfile } from './data';
 import { BrandLogo } from './BrandLogo';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -82,7 +52,7 @@ export function MobileNav({
     }
   }, [isDark]);
 
-  // Lock body scroll when drawer is open
+  
   useEffect(() => {
     if (drawerOpen) {
       document.body.style.overflow = 'hidden';
@@ -103,45 +73,45 @@ export function MobileNav({
 
   return (
     <div className="flex flex-col h-full w-full overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition select-none">
-      {/* Ultra-Luxury Mobile Top Navigation Bar */}
-      <header className="h-16 luxury-glass-nav px-4 flex items-center justify-between shrink-0 shadow-xs z-30 relative">
-        <div className="flex items-center gap-3">
+      
+      <header className="h-14 luxury-glass-nav px-3 flex items-center justify-between shrink-0 shadow-xs z-30 relative">
+        <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
             aria-label="Open mobile navigation menu"
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200/70 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
+            className="w-8 h-8 rounded-[4px] flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200/70 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-4 h-4" />
           </button>
 
           <BrandLogo collapsed={false} />
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Theme switch button */}
+          
           <button
             type="button"
             onClick={() => setIsDark((prev) => !prev)}
             aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200/70 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
+            className="w-8 h-8 rounded-[4px] flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200/70 dark:border-white/10 transition-colors cursor-pointer active:scale-95 shadow-2xs"
           >
             {isDark ? (
-              <Sun className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <Sun className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             ) : (
-              <Moon className="w-4 h-4" />
+              <Moon className="w-3.5 h-3.5" />
             )}
           </button>
 
-          {/* User Avatar */}
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-xs">
+          
+          <div className="w-7 h-7 rounded-[4px] bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-xs">
             {user.name ? user.name.charAt(0) : 'A'}
           </div>
         </div>
       </header>
 
-      {/* Luxury Mobile Breadcrumb Bar */}
-      <div className="bg-slate-100/70 dark:bg-[#070b14]/70 backdrop-blur-md border-b border-slate-200/60 dark:border-white/[0.06] px-4 py-2 flex items-center gap-1.5 text-xs overflow-x-auto no-scrollbar shrink-0">
+      
+      <div className="bg-slate-100/70 dark:bg-[#070b14]/70 backdrop-blur-md border-b border-slate-200/60 dark:border-white/[0.06] px-3 py-1.5 flex items-center gap-1.5 text-xs overflow-x-auto no-scrollbar shrink-0">
         {breadcrumbs.map((crumb, idx) => {
           const isLast = idx === breadcrumbs.length - 1;
           return (
@@ -150,7 +120,7 @@ export function MobileNav({
                 type="button"
                 onClick={() => onBreadcrumbClick?.(crumb)}
                 disabled={isLast}
-                className={`transition-colors px-2 py-0.5 rounded-md ${
+                className={`transition-colors px-2 py-0.5 rounded-[4px] ${
                   isLast
                     ? 'text-slate-900 dark:text-white font-bold bg-white/70 dark:bg-white/10 shadow-2xs'
                     : 'text-slate-600 dark:text-slate-400 font-medium hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'
@@ -164,18 +134,18 @@ export function MobileNav({
         })}
       </div>
 
-      {/* Slide-out Luxury Drawer */}
+      
       {drawerOpen && (
         <div className="fixed inset-0 z-50 flex">
-          {/* Backdrop */}
+          
           <div
             className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs transition-opacity animate-in fade-in-0 duration-200"
             onClick={() => setDrawerOpen(false)}
           />
 
-          {/* Drawer Panel */}
+          
           <div className="relative w-80 max-w-[85vw] luxury-sidebar-light dark:luxury-sidebar-dark text-slate-800 dark:text-slate-100 flex flex-col h-full shadow-2xl z-10 border-r border-slate-200 dark:border-white/10 animate-in slide-in-from-left duration-250 ease-out">
-            {/* Header */}
+            
             <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200/70 dark:border-white/[0.08] shrink-0">
               <BrandLogo collapsed={false} />
 
@@ -188,7 +158,7 @@ export function MobileNav({
               </button>
             </div>
 
-            {/* Quick Search inside Drawer */}
+            
             <div className="p-3 border-b border-slate-200/50 dark:border-white/[0.06]">
               <div className="relative flex items-center">
                 <Search className="w-4 h-4 text-slate-600 dark:text-slate-400 absolute left-3 pointer-events-none" />
@@ -202,7 +172,7 @@ export function MobileNav({
               </div>
             </div>
 
-            {/* Categorized Navigation Items */}
+            
             <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4 no-scrollbar">
               {NAV_SECTIONS.map((section) => {
                 const sectionItems = filteredItems.filter((i) => i.section === section.id);
@@ -267,7 +237,7 @@ export function MobileNav({
                             </div>
                           </button>
 
-                          {/* Submenu in mobile */}
+                          
                           {item.hasSubmenu && isSubmenuOpen && item.subItems && (
                             <div className="pl-9 pr-2 py-1 space-y-1 bg-slate-50/50 dark:bg-white/[0.02] rounded-lg">
                               {item.subItems.map((sub) => (
@@ -294,7 +264,7 @@ export function MobileNav({
               })}
             </nav>
 
-            {/* Mobile Footer Profile */}
+            
             <div className="p-4 border-t border-slate-200/70 dark:border-white/[0.08] shrink-0 bg-slate-50/80 dark:bg-white/[0.03]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0">
@@ -328,7 +298,7 @@ export function MobileNav({
         </div>
       )}
 
-      {/* Mobile Main Content */}
+      
       <main className="flex-1 overflow-y-auto no-scrollbar p-3 sm:p-4">
         {children}
       </main>

@@ -126,15 +126,15 @@ export function EssentialsDesktop() {
   };
 
   return (
-    <div className="w-full ys-panel p-6 sm:p-8 space-y-6 text-slate-800 dark:text-slate-100 text-xs select-none">
+    <div className="w-full ys-panel rounded-[4px] p-5 sm:p-6 space-y-5 text-slate-800 dark:text-slate-100 text-xs select-none shadow-sm hover:shadow-md transition-shadow duration-300">
       <div className="pb-3.5 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
-          <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight font-display">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-[2px] bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
             Essentials
           </h2>
         </div>
-        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
+        <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
           Step 02 / 10
         </span>
       </div>

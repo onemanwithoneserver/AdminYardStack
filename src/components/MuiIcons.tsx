@@ -66,8 +66,6 @@ import CreditCardRounded from '@mui/icons-material/CreditCardRounded';
 import StarRounded from '@mui/icons-material/StarRounded';
 import ImageRounded from '@mui/icons-material/ImageRounded';
 
-
-
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number | string;
   strokeWidth?: number | string;

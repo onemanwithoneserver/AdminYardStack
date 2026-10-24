@@ -1,20 +1,16 @@
-/* ==========================================================================
-   YardStack Design System
-   Single global stylesheet. Layer order lets Tailwind utilities override
-   MUI (emotion) styles, so icons can be sized with `w-4 h-4` etc.
-   ========================================================================== */
+
 @layer theme, base, mui, components, utilities;
 
 @import "tailwindcss";
 
-/* The app toggles `.dark` on <html>; make `dark:` utilities follow it. */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Legacy tokens still referenced by a few components */
+  
   --color-fare-bg: transparent;
   --color-fare-surface: #ffffff;
   --color-fare-surface-alt: #f1f5f9;
@@ -31,9 +27,7 @@
   --animate-pop: ys-pop 0.22s var(--ease-spring) both;
 }
 
-/* --------------------------------------------------------------------------
-   Design tokens
-   -------------------------------------------------------------------------- */
+
 :root {
   color-scheme: light;
 
@@ -108,9 +102,7 @@
     0 30px 60px -20px rgba(0, 0, 0, 0.8);
 }
 
-/* --------------------------------------------------------------------------
-   Base
-   -------------------------------------------------------------------------- */
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -148,32 +140,22 @@
     opacity: 1;
   }
 
-  /* Elegant thin scrollbars */
+  
+  html,
+  body,
   * {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(100, 116, 139, 0.28) transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  *::-webkit-scrollbar-thumb {
-    background: rgba(100, 116, 139, 0.25);
-    border-radius: 999px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-  }
-  *::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(100, 116, 139, 0.45);
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
   }
 }
 
-/* --------------------------------------------------------------------------
-   Keyframes
-   -------------------------------------------------------------------------- */
+
 @keyframes ys-enter {
   from {
     opacity: var(--tw-enter-opacity, 1);
@@ -213,9 +195,7 @@
 }
 
 
-/* --------------------------------------------------------------------------
-   Utilities (tw-animate compatible subset used across the app)
-   -------------------------------------------------------------------------- */
+
 @utility animate-in {
   animation: ys-enter var(--tw-duration, 200ms) var(--tw-ease, var(--ease-spring)) both;
 }
@@ -288,11 +268,9 @@
   animation: ys-rise 0.45s var(--ease-spring) both;
 }
 
-/* --------------------------------------------------------------------------
-   Components
-   -------------------------------------------------------------------------- */
+
 @layer components {
-  /* ---- App background ---------------------------------------------------- */
+  
   .ys-mesh-bg {
     background-color: var(--ys-bg);
     background-image:
@@ -310,7 +288,7 @@
       radial-gradient(34rem 26rem at 0% 100%, rgba(6, 182, 212, 0.09), transparent 60%);
   }
 
-  /* ---- Glass primitives -------------------------------------------------- */
+  
   .glass-surface {
     background: var(--ys-surface);
     backdrop-filter: blur(18px) saturate(150%);
@@ -343,7 +321,7 @@
     border-bottom: 1px solid var(--ys-border);
   }
 
-  /* ---- Sidebar ----------------------------------------------------------- */
+  
   .ys-sidebar {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 253, 0.9) 100%);
@@ -365,7 +343,7 @@
       0 8px 20px -8px rgba(79, 70, 229, 0.6);
   }
 
-  /* ---- Panels & sections ------------------------------------------------- */
+  
   .ys-panel {
     position: relative;
     background: var(--ys-surface);
@@ -478,7 +456,7 @@
     color: var(--ys-text-muted);
   }
 
-  /* ---- Form fields ------------------------------------------------------- */
+  
   .ys-field {
     background-color: var(--ys-field-bg);
     border: 1px solid var(--ys-field-border);
@@ -509,7 +487,7 @@
     border-radius: 0.5rem;
   }
 
-  /* Modern Dropdowns across all files */
+  
   select,
   .ys-select {
     appearance: none !important;
@@ -616,7 +594,7 @@
     cursor: pointer;
   }
 
-  /* ---- Buttons ----------------------------------------------------------- */
+  
   .ys-btn {
     position: relative;
     display: inline-flex;
@@ -765,7 +743,7 @@
     cursor: default;
   }
 
-  /* ---- Overlays, dialogs, toasts ---------------------------------------- */
+  
   .ys-overlay {
     background-color: rgba(2, 6, 23, 0.45);
     backdrop-filter: blur(6px);
@@ -800,7 +778,7 @@
     animation: ys-pop 0.3s var(--ease-spring) both;
   }
 
-  /* ---- Tables ------------------------------------------------------------ */
+  
   .ys-table-wrap {
     background-color: var(--ys-surface-solid);
     border: 1px solid var(--ys-border);
@@ -844,7 +822,7 @@
     border-bottom: 0;
   }
 
-  /* ---- Legacy aliases kept for remaining call-sites -------------------- */
+  
   .glass-input {
     background-color: var(--ys-field-bg);
     border: 1px solid var(--ys-field-border);
@@ -866,7 +844,7 @@
     box-shadow: var(--ys-shadow-pop);
   }
 
-  /* ---- CSS-only tooltips ------------------------------------------------- */
+  
   [data-tooltip] {
     position: relative;
   }
@@ -924,9 +902,7 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   Dark-mode fallbacks & contextual form polish for ys-panel
-   -------------------------------------------------------------------------- */
+
 .ys-panel section {
   border-color: var(--ys-border-subtle);
   border-radius: 0.875rem;
@@ -990,9 +966,7 @@
   background-color: rgba(244, 63, 94, 0.12);
 }
 
-/* --------------------------------------------------------------------------
-   Accessibility: honour reduced motion
-   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

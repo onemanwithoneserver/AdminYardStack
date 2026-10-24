@@ -28,11 +28,11 @@ export const SidebarTooltip: React.FC<SidebarTooltipProps> = ({
 
   if (!mounted || !isOpen || !item || !targetRect) return null;
 
-  // Calculate coordinates with safe screen bounds
+  
   const tooltipLeft = targetRect.right + 10;
   const centerY = targetRect.top + targetRect.height / 2;
 
-  // Keep tooltip strictly inside the viewport height
+  
   const hasSubItems = Boolean(item.subItems && item.subItems.length > 0);
   const estimatedHeight = hasSubItems ? 160 : item.description ? 90 : 54;
   const clampedTop = Math.max(16, Math.min(window.innerHeight - estimatedHeight - 16, centerY - estimatedHeight / 2));
@@ -51,18 +51,18 @@ export const SidebarTooltip: React.FC<SidebarTooltipProps> = ({
       className="animate-in fade-in-0 zoom-in-95 slide-in-from-left-2 duration-150 ease-out select-none"
     >
       <div className="relative group/tooltip flex items-center">
-        {/* Subtle Luxury Left Pointer Arrow */}
+        
         <div
           className="absolute -left-1.5 w-3 h-3 rotate-45 bg-[#090d16] border-l border-b border-white/20 shadow-md"
           style={{ top: `${Math.max(12, Math.min(estimatedHeight - 20, centerY - clampedTop - 6))}px` }}
         />
 
-        {/* Tooltip Card Body */}
+        
         <div className="relative min-w-[220px] max-w-[290px] rounded-2xl bg-[#090d16]/95 text-white p-3.5 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/70 ring-1 ring-black/50 overflow-hidden">
-          {/* Subtle Ambient Radial Glow */}
+          
           <div className="absolute -top-12 -right-12 w-28 h-28 bg-blue-500/20 rounded-full blur-xl pointer-events-none" />
 
-          {/* Header Row: Label + Shortcut + Badge */}
+          
           <div className="flex items-center justify-between gap-3 mb-1">
             <span className="font-bold text-[13px] tracking-wide text-white drop-shadow-xs flex items-center gap-1.5 font-display">
               {item.label}
@@ -84,21 +84,21 @@ export const SidebarTooltip: React.FC<SidebarTooltipProps> = ({
             )}
           </div>
 
-          {/* Section / Category Breadcrumb */}
+          
           {item.section && (
             <div className="text-[9px] uppercase font-bold tracking-widest text-blue-400/90 mb-1">
               {item.section}
             </div>
           )}
 
-          {/* Description */}
+          
           {item.description && (
             <p className="text-[11px] leading-relaxed text-slate-300/90 font-normal">
               {item.description}
             </p>
           )}
 
-          {/* Clickable Sub-items in Tooltip */}
+          
           {item.subItems && item.subItems.length > 0 && (
             <div className="mt-2.5 pt-2 border-t border-white/10 space-y-1">
               <div className="text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-1">

@@ -1,22 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Search,
-  Plus,
-  MapPin,
-  X,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  ArrowUpDown,
-  MoreVertical,
-  Eye,
-  Pencil,
-  Trash2,
-  AlertTriangle,
-  RotateCcw,
-} from 'lucide-react';
+import { Search, Plus, MapPin, X, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowUpDown, MoreVertical, Eye, Pencil, Trash2, AlertTriangle, RotateCcw } from 'lucide-react';
 import { INITIAL_PROJECTS_LIST, type ProjectListItem } from './data';
 import { ModernDropdown } from '../../components/ModernDropdown';
 
@@ -41,7 +25,6 @@ interface ColumnConfig {
   defaultWidth: number;
 }
 
-// Content-based min, max, and default widths
 const COLUMN_CONFIGS: ColumnConfig[] = [
   { key: 'index', label: '#', sortField: 'id', minWidth: 50, maxWidth: 90, defaultWidth: 60 },
   { key: 'projectName', label: 'Project', sortField: 'projectName', minWidth: 260, maxWidth: 600, defaultWidth: 320 },
@@ -54,16 +37,16 @@ const COLUMN_CONFIGS: ColumnConfig[] = [
 ];
 
 const AVATAR_PALETTE = [
-  'bg-blue-100 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400',
-  'bg-purple-100 text-purple-600 dark:bg-purple-950/60 dark:text-purple-400',
-  'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400',
-  'bg-orange-100 text-orange-600 dark:bg-orange-950/60 dark:text-orange-400',
-  'bg-indigo-100 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400',
-  'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400',
-  'bg-blue-100 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400',
-  'bg-purple-100 text-purple-600 dark:bg-purple-950/60 dark:text-purple-400',
-  'bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400',
-  'bg-blue-100 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400',
+  'bg-blue-600 text-white',
+  'bg-purple-600 text-white',
+  'bg-emerald-600 text-white',
+  'bg-amber-600 text-white',
+  'bg-indigo-600 text-white',
+  'bg-rose-600 text-white',
+  'bg-cyan-600 text-white',
+  'bg-violet-600 text-white',
+  'bg-teal-600 text-white',
+  'bg-pink-600 text-white',
 ];
 
 function getPropertyTypeBadge(type: string) {
@@ -73,48 +56,48 @@ function getPropertyTypeBadge(type: string) {
   const t = type.toLowerCase();
   if (t === 'flats') {
     return (
-      <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-blue-100/80 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+      <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-blue-600 text-white shadow-xs">
         {type}
       </span>
     );
   }
   if (t.includes('gated community')) {
     return (
-      <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-pink-100/80 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400">
+      <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-pink-600 text-white shadow-xs">
         {type}
       </span>
     );
   }
   if (t.includes('gated flats')) {
     return (
-      <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-amber-100/80 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
+      <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-amber-600 text-white shadow-xs">
         {type}
       </span>
     );
   }
   if (t.includes('integrated township')) {
     return (
-      <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-purple-100/80 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
+      <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-purple-600 text-white shadow-xs">
         {type}
       </span>
     );
   }
   if (t.includes('super luxury') || t.includes('luxury')) {
     return (
-      <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+      <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-emerald-600 text-white shadow-xs">
         {type}
       </span>
     );
   }
   if (t.includes('villa')) {
     return (
-      <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-rose-100/80 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400">
+      <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-rose-600 text-white shadow-xs">
         {type}
       </span>
     );
   }
   return (
-    <span className="inline-block px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+    <span className="inline-block px-2 py-0.5 rounded-[4px] text-xs font-semibold bg-slate-600 text-white shadow-xs">
       {type}
     </span>
   );
@@ -131,7 +114,7 @@ export function ProjectsListDesktop({
   const [sortField, setSortField] = useState<keyof ProjectListItem>('projectName');
   const [sortAsc, setSortAsc] = useState(true);
 
-  // Column Widths with content-based min/max
+  
   const [colWidths, setColWidths] = useState<Record<string, number>>(() => {
     const initial: Record<string, number> = {};
     COLUMN_CONFIGS.forEach((col) => {
@@ -140,13 +123,13 @@ export function ProjectsListDesktop({
     return initial;
   });
 
-  // More Action Menu & Delete State
+  
   const [activeMenuRowId, setActiveMenuRowId] = useState<string | null>(null);
   const [projectToDelete, setProjectToDelete] = useState<ProjectListItem | null>(null);
   const [undoToast, setUndoToast] = useState<UndoToastData | null>(null);
   const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Drag to resize column width logic
+  
   const handleResizeStart = (e: React.MouseEvent, colKey: string) => {
     e.preventDefault();
     e.stopPropagation();
@@ -192,7 +175,7 @@ export function ProjectsListDesktop({
     return Object.values(colWidths).reduce((a, b) => a + b, 0);
   }, [colWidths]);
 
-  // Close more menu when clicking outside
+  
   useEffect(() => {
     const handleClickOutside = () => {
       setActiveMenuRowId(null);
@@ -205,7 +188,7 @@ export function ProjectsListDesktop({
     };
   }, [activeMenuRowId]);
 
-  // Clean up timer on unmount
+  
   useEffect(() => {
     return () => {
       if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
@@ -224,6 +207,17 @@ export function ProjectsListDesktop({
       setSortField(field);
       setSortAsc(true);
     }
+  };
+
+  const handleToggleStatus = (projectId: string) => {
+    setProjects((prev) =>
+      prev.map((p) =>
+        p.id === projectId
+          ? { ...p, status: p.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' }
+          : p
+      )
+    );
+    setActiveMenuRowId(null);
   };
 
   const handleDeleteClick = (project: ProjectListItem) => {
@@ -293,21 +287,21 @@ export function ProjectsListDesktop({
   const paginatedProjects = filteredProjects.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className="p-6 max-w-[1600px] mx-auto space-y-6">
-      {/* Top Header Section with smooth entrance animation */}
+    <div className="space-y-4 max-w-[1600px] mx-auto select-none">
+      
       <motion.div
         initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: 'easeOut' }}
         className="flex flex-col md:flex-row md:items-center justify-between gap-4"
       >
-        {/* Left: Projects Title with count badge + subtitle */}
+        
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-display">
               Projects
             </h1>
-            <span className="px-2 py-0.5 rounded-[4px] text-xs font-bold bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-400">
+            <span className="px-2.5 py-0.5 rounded-[4px] text-xs font-bold bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-400 shadow-2xs">
               {projects.length}
             </span>
           </div>
@@ -316,7 +310,7 @@ export function ProjectsListDesktop({
           </p>
         </div>
 
-        {/* Right: Search Input + Add Project Button */}
+        
         <div className="flex items-center gap-3">
           <div className="relative min-w-[280px] sm:min-w-[340px]">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -328,13 +322,13 @@ export function ProjectsListDesktop({
                 setCurrentPage(1);
               }}
               placeholder="Search projects by name, city or type..."
-              className="w-full pl-10 pr-9 py-2.5 text-xs rounded-[4px] bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-2xs transition-all"
+              className="w-full pl-10 pr-9 py-2.5 text-xs rounded-[4px] bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 hover:border-slate-300 dark:hover:border-white/20 shadow-2xs transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer rounded-[4px]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer rounded-[4px] transition-colors"
                 title="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
@@ -347,7 +341,7 @@ export function ProjectsListDesktop({
             whileTap={{ scale: 0.98 }}
             type="button"
             onClick={onAddProject}
-            className="px-5 py-2.5 rounded-[4px] font-semibold text-xs text-white bg-blue-600 hover:bg-blue-500 shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            className="px-5 py-2.5 rounded-[4px] font-semibold text-xs text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Add Project</span>
@@ -355,21 +349,21 @@ export function ProjectsListDesktop({
         </div>
       </motion.div>
 
-      {/* Table Card (Max border radius 4px) */}
+      
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: 'easeOut', delay: 0.05 }}
-        className="bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm overflow-hidden"
+        className="bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
       >
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-215px)] scroll-smooth no-scrollbar">
           <table
             style={{ minWidth: `${totalTableWidth}px` }}
             className="w-full text-left border-collapse text-xs table-fixed"
           >
             <thead>
-              <tr className="bg-[#182038] dark:bg-[#111726] text-white select-none">
-                {/* # Header */}
+              <tr className="bg-[#182038] dark:bg-[#111726] text-white select-none sticky top-0 z-10 shadow-xs">
+                
                 <th
                   style={{
                     width: `${colWidths.index}px`,
@@ -377,13 +371,13 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.index}px`,
                   }}
                   onClick={() => handleSort('id')}
-                  className="relative py-3.5 pl-6 pr-3 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 pl-4 pr-3 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>#</span>
                     <ArrowUpDown className="w-3 h-3 text-slate-400 opacity-70 shrink-0" />
                   </div>
-                  {/* Draggable resize handle */}
+                  
                   <div
                     onMouseDown={(e) => handleResizeStart(e, 'index')}
                     onDoubleClick={() => handleResetWidth('index')}
@@ -395,7 +389,7 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* Project Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.projectName}px`,
@@ -403,7 +397,7 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.projectName}px`,
                   }}
                   onClick={() => handleSort('projectName')}
-                  className="relative py-3.5 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>Project</span>
@@ -420,7 +414,7 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* City Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.city}px`,
@@ -428,7 +422,7 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.city}px`,
                   }}
                   onClick={() => handleSort('city')}
-                  className="relative py-3.5 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>City</span>
@@ -445,7 +439,7 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* Property Type Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.propertyType}px`,
@@ -453,7 +447,7 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.propertyType}px`,
                   }}
                   onClick={() => handleSort('propertyType')}
-                  className="relative py-3.5 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>Property Type</span>
@@ -470,7 +464,7 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* Phases Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.phases}px`,
@@ -478,7 +472,7 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.phases}px`,
                   }}
                   onClick={() => handleSort('phases')}
-                  className="relative py-3.5 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>Phases</span>
@@ -495,7 +489,7 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* Base Price Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.basePrice}px`,
@@ -503,7 +497,7 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.basePrice}px`,
                   }}
                   onClick={() => handleSort('basePrice')}
-                  className="relative py-3.5 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>Base Price</span>
@@ -520,7 +514,7 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* Status Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.status}px`,
@@ -528,7 +522,7 @@ export function ProjectsListDesktop({
                     maxWidth: `${colWidths.status}px`,
                   }}
                   onClick={() => handleSort('status')}
-                  className="relative py-3.5 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
+                  className="relative py-3 px-4 font-semibold text-xs cursor-pointer text-slate-100 hover:text-white transition-colors group"
                 >
                   <div className="flex items-center gap-1 truncate">
                     <span>Status</span>
@@ -545,14 +539,14 @@ export function ProjectsListDesktop({
                   </div>
                 </th>
 
-                {/* Actions Header */}
+                
                 <th
                   style={{
                     width: `${colWidths.actions}px`,
                     minWidth: `${colWidths.actions}px`,
                     maxWidth: `${colWidths.actions}px`,
                   }}
-                  className="relative py-3.5 pl-4 pr-6 font-semibold text-xs text-right text-slate-100"
+                  className="relative py-3 pl-4 pr-6 font-semibold text-xs text-right text-slate-100"
                 >
                   <span>Actions</span>
                 </th>
@@ -585,99 +579,103 @@ export function ProjectsListDesktop({
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.18, delay: idx * 0.02, ease: 'easeOut' }}
-                      className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors group"
+                      className="relative hover:bg-slate-50/90 dark:hover:bg-slate-800/60 transition-all duration-200 group cursor-default"
                     >
-                      {/* # Index Column */}
+                      
                       <td
                         style={{
                           width: `${colWidths.index}px`,
                           minWidth: `${colWidths.index}px`,
                           maxWidth: `${colWidths.index}px`,
                         }}
-                        className="py-3.5 pl-6 pr-3 text-xs text-slate-600 dark:text-slate-400 font-medium overflow-hidden truncate"
+                        className="py-3 pl-4 pr-3 text-xs text-slate-600 dark:text-slate-400 font-medium overflow-hidden truncate relative"
                       >
-                        {startIndex + idx + 1}
+                        
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-indigo-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        <span>{startIndex + idx + 1}</span>
                       </td>
 
-                      {/* Project Column: Avatar + Title + Subtitle */}
+                      
                       <td
                         style={{
                           width: `${colWidths.projectName}px`,
                           minWidth: `${colWidths.projectName}px`,
                           maxWidth: `${colWidths.projectName}px`,
                         }}
-                        className="py-3.5 px-4 overflow-hidden"
+                        className="py-3 px-4 overflow-hidden"
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           <div
-                            className={`w-9 h-9 rounded-[4px] flex items-center justify-center font-bold text-xs shrink-0 select-none ${avatarClass}`}
+                            className={`w-8 h-8 rounded-[4px] flex items-center justify-center font-bold text-xs shrink-0 select-none ${avatarClass} shadow-xs group-hover:scale-105 group-hover:shadow-sm transition-transform duration-200`}
                           >
                             {project.projectName.charAt(0)}
                           </div>
                           <div className="min-w-0 flex-1 truncate">
                             <div
                               onClick={() => (onEditProject ? onEditProject(project) : onAddProject())}
-                              className="font-bold text-slate-900 dark:text-white text-xs hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate cursor-pointer"
+                              className="font-bold text-slate-900 dark:text-white text-xs hover:text-blue-600 dark:hover:text-blue-400 group-hover:translate-x-0.5 transition-all duration-150 truncate cursor-pointer leading-tight"
                             >
                               {project.projectName}
                             </div>
-                            <div className="text-[11px] text-slate-400 dark:text-slate-500 font-normal truncate mt-0.5">
+                            <div className="text-[11px] text-slate-400 dark:text-slate-500 font-normal truncate mt-0.5 leading-none">
                               {project.subtitle || 'Premium residential development'}
                             </div>
                           </div>
                         </div>
                       </td>
 
-                      {/* City Column */}
+                      
                       <td
                         style={{
                           width: `${colWidths.city}px`,
                           minWidth: `${colWidths.city}px`,
                           maxWidth: `${colWidths.city}px`,
                         }}
-                        className="py-3.5 px-4 text-slate-600 dark:text-slate-300 text-xs overflow-hidden"
+                        className="py-3 px-4 text-slate-600 dark:text-slate-300 text-xs overflow-hidden"
                       >
-                        <div className="flex items-center gap-1.5 min-w-0 truncate">
+                        <div className="flex items-center gap-1.5 min-w-0 truncate group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
                           <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                           <span className="truncate">{project.city}</span>
                         </div>
                       </td>
 
-                      {/* Property Type Column */}
+                      
                       <td
                         style={{
                           width: `${colWidths.propertyType}px`,
                           minWidth: `${colWidths.propertyType}px`,
                           maxWidth: `${colWidths.propertyType}px`,
                         }}
-                        className="py-3.5 px-4 overflow-hidden"
+                        className="py-3 px-4 overflow-hidden"
                       >
-                        <div className="truncate">{getPropertyTypeBadge(project.propertyType)}</div>
+                        <div className="truncate group-hover:scale-[1.02] origin-left transition-transform duration-150 inline-block">
+                          {getPropertyTypeBadge(project.propertyType)}
+                        </div>
                       </td>
 
-                      {/* Phases Column */}
+                      
                       <td
                         style={{
                           width: `${colWidths.phases}px`,
                           minWidth: `${colWidths.phases}px`,
                           maxWidth: `${colWidths.phases}px`,
                         }}
-                        className="py-3.5 px-4 text-slate-600 dark:text-slate-400 text-xs font-normal overflow-hidden truncate"
+                        className="py-3 px-4 text-slate-600 dark:text-slate-400 text-xs font-normal overflow-hidden truncate"
                       >
                         {project.phases !== '-' ? project.phases : '—'}
                       </td>
 
-                      {/* Base Price Column */}
+                      
                       <td
                         style={{
                           width: `${colWidths.basePrice}px`,
                           minWidth: `${colWidths.basePrice}px`,
                           maxWidth: `${colWidths.basePrice}px`,
                         }}
-                        className="py-3.5 px-4 overflow-hidden truncate"
+                        className="py-3 px-4 overflow-hidden truncate"
                       >
                         {project.basePrice !== '-' ? (
-                          <span className="font-bold text-slate-900 dark:text-white text-xs truncate block">
+                          <span className="font-bold text-slate-900 dark:text-white text-xs truncate block group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {project.basePrice}
                           </span>
                         ) : (
@@ -687,29 +685,48 @@ export function ProjectsListDesktop({
                         )}
                       </td>
 
-                      {/* Status Column */}
+                      
+                      
                       <td
                         style={{
                           width: `${colWidths.status}px`,
                           minWidth: `${colWidths.status}px`,
                           maxWidth: `${colWidths.status}px`,
                         }}
-                        className="py-3.5 px-4 overflow-hidden"
+                        className="py-3 px-4 overflow-hidden"
                       >
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[4px] text-xs font-medium bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/30 whitespace-nowrap">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                          <span>Active</span>
-                        </span>
+                        {project.status === 'INACTIVE' ? (
+                          <span
+                            onClick={() => handleToggleStatus(project.id)}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] text-xs font-semibold bg-slate-500 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white shadow-xs whitespace-nowrap group-hover:shadow-sm transition-all cursor-pointer select-none"
+                            title="Click to toggle status"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                            <span>Inactive</span>
+                          </span>
+                        ) : (
+                          <span
+                            onClick={() => handleToggleStatus(project.id)}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs whitespace-nowrap group-hover:shadow-sm transition-all cursor-pointer select-none"
+                            title="Click to toggle status"
+                          >
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                            </span>
+                            <span>Active</span>
+                          </span>
+                        )}
                       </td>
 
-                      {/* Actions Column: More Action Control with View, Edit, Delete */}
+                      
                       <td
                         style={{
                           width: `${colWidths.actions}px`,
                           minWidth: `${colWidths.actions}px`,
                           maxWidth: `${colWidths.actions}px`,
                         }}
-                        className="py-3.5 pl-4 pr-6 text-right relative overflow-visible"
+                        className="py-3 pl-4 pr-6 text-right relative overflow-visible"
                       >
                         <div className="flex items-center justify-end relative">
                           <button
@@ -718,17 +735,16 @@ export function ProjectsListDesktop({
                               e.stopPropagation();
                               setActiveMenuRowId((prev) => (prev === project.id ? null : project.id));
                             }}
-                            className={`w-7 h-7 rounded-[4px] border flex items-center justify-center transition-all cursor-pointer ${
+                            className={`w-7 h-7 rounded-[4px] border flex items-center justify-center transition-all duration-200 cursor-pointer ${
                               activeMenuRowId === project.id
-                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 shadow-xs'
-                                : 'border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-100 dark:hover:bg-slate-700/80'
+                                ? 'border-blue-500 bg-blue-600 text-white shadow-sm'
+                                : 'border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-500/40 hover:bg-blue-50/50 dark:hover:bg-blue-950/40'
                             }`}
                             title="More Actions"
                           >
                             <MoreVertical className="w-3.5 h-3.5" />
                           </button>
 
-                          {/* Animated Floating Menu for View, Edit, Delete */}
                           <AnimatePresence>
                             {activeMenuRowId === project.id && (
                               <motion.div
@@ -739,7 +755,6 @@ export function ProjectsListDesktop({
                                 onClick={(e) => e.stopPropagation()}
                                 className="absolute right-0 top-full mt-1.5 w-44 rounded-[4px] p-1 border border-slate-200/90 dark:border-white/15 bg-white/95 dark:bg-slate-900/95 shadow-xl backdrop-blur-xl z-50 text-left space-y-0.5"
                               >
-                                {/* View Action */}
                                 <button
                                   type="button"
                                   onClick={() => {
@@ -753,7 +768,6 @@ export function ProjectsListDesktop({
                                   <span>View Details</span>
                                 </button>
 
-                                {/* Edit Action */}
                                 <button
                                   type="button"
                                   onClick={() => {
@@ -767,9 +781,31 @@ export function ProjectsListDesktop({
                                   <span>Edit Project</span>
                                 </button>
 
+                                <button
+                                  type="button"
+                                  onClick={() => handleToggleStatus(project.id)}
+                                  className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 rounded-[4px] transition-colors cursor-pointer"
+                                >
+                                  {project.status === 'ACTIVE' ? (
+                                    <>
+                                      <span className="w-3.5 h-3.5 rounded-full bg-slate-400 flex items-center justify-center shrink-0">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                                      </span>
+                                      <span>Mark as Inactive</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                                      </span>
+                                      <span>Mark as Active</span>
+                                    </>
+                                  )}
+                                </button>
+
                                 <div className="h-px bg-slate-100 dark:bg-white/10 my-1" />
 
-                                {/* Delete Action */}
+                                
                                 <button
                                   type="button"
                                   onClick={() => handleDeleteClick(project)}
@@ -791,9 +827,9 @@ export function ProjectsListDesktop({
           </table>
         </div>
 
-        {/* Table Footer with Pagination Controls */}
-        <div className="px-6 py-3.5 border-t border-slate-100 dark:border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
-          {/* Rows per page */}
+        
+        <div className="px-6 py-3 border-t border-slate-100 dark:border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+          
           <div className="flex items-center gap-2">
             <span>Rows per page</span>
             <ModernDropdown
@@ -813,7 +849,7 @@ export function ProjectsListDesktop({
             />
           </div>
 
-          {/* Pagination Controls */}
+          
           <div className="flex items-center justify-between sm:justify-end gap-4">
             <span className="font-medium text-slate-600 dark:text-slate-400">
               {filteredProjects.length === 0
@@ -822,7 +858,7 @@ export function ProjectsListDesktop({
             </span>
 
             <div className="flex items-center gap-1 select-none">
-              {/* First Page « */}
+              
               <button
                 type="button"
                 disabled={currentPage <= 1}
@@ -833,7 +869,7 @@ export function ProjectsListDesktop({
                 <ChevronsLeft className="w-4 h-4" />
               </button>
 
-              {/* Previous Page ‹ */}
+              
               <button
                 type="button"
                 disabled={currentPage <= 1}
@@ -844,7 +880,7 @@ export function ProjectsListDesktop({
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
-              {/* Page Number Buttons: 1, 2, 3 ... (4px border-radius) */}
+              
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
                 const isActive = pageNum === currentPage;
                 return (
@@ -863,7 +899,7 @@ export function ProjectsListDesktop({
                 );
               })}
 
-              {/* Next Page › */}
+              
               <button
                 type="button"
                 disabled={currentPage >= totalPages}
@@ -874,7 +910,7 @@ export function ProjectsListDesktop({
                 <ChevronRight className="w-4 h-4" />
               </button>
 
-              {/* Last Page » */}
+              
               <button
                 type="button"
                 disabled={currentPage >= totalPages}
@@ -889,66 +925,112 @@ export function ProjectsListDesktop({
         </div>
       </motion.div>
 
-      {/* Delete Confirmation Dialog with motion animation (4px border-radius) */}
+      
       <AnimatePresence>
         {projectToDelete && (
-          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 select-none">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.18 }}
-              className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm"
+              className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs"
               onClick={() => setProjectToDelete(null)}
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 8 }}
+              initial={{ opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 8 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="w-full max-w-md rounded-[4px] p-6 shadow-2xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-slate-900 relative overflow-hidden space-y-5 z-10"
+              className="w-full max-w-md rounded-[4px] p-5 sm:p-6 shadow-2xl border border-slate-200/90 dark:border-white/10 bg-white dark:bg-slate-900 relative space-y-4.5 z-10"
               role="dialog"
               aria-modal="true"
             >
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-rose-500 to-red-500" />
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-[4px] bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 flex items-center justify-center shrink-0">
-                  <AlertTriangle className="w-5 h-5" />
+              
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-9.5 h-9.5 rounded-[4px] bg-gradient-to-br from-amber-50 via-amber-100/80 to-red-100/70 dark:from-amber-950/60 dark:via-amber-900/40 dark:to-red-950/40 border border-amber-300/80 dark:border-amber-500/40 flex items-center justify-center shrink-0 shadow-xs shadow-red-500/15">
+                    <AlertTriangle className="w-5 h-5 text-amber-500 dark:text-amber-400 stroke-[2.2] fill-amber-500/20" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display tracking-tight">
+                      Delete Project
+                    </h3>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      Confirm removal of this project from portfolio
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">
-                    Delete Project
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Are you sure you want to delete{' '}
-                    <span className="font-bold text-slate-900 dark:text-white">
-                      "{projectToDelete.projectName}"
-                    </span>
-                    ? This development will be removed from your project inventory.
-                  </p>
-                </div>
-              </div>
 
-              <div className="p-3 rounded-[4px] bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-xs flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
-                <span>You can undo this deletion within 5 seconds.</span>
-              </div>
-
-              <div className="flex items-center justify-end gap-2.5 pt-1">
                 <button
                   type="button"
                   onClick={() => setProjectToDelete(null)}
-                  className="px-4 py-2 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 transition-all cursor-pointer"
+                  className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[4px] hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                  title="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Are you sure you want to permanently delete this development? All associated phase records and configurations will be removed.
+              </p>
+
+              
+              {(() => {
+                const targetIdx = projects.findIndex((p) => p.id === projectToDelete.id);
+                const avatarClass = AVATAR_PALETTE[(targetIdx >= 0 ? targetIdx : 0) % AVATAR_PALETTE.length];
+
+                return (
+                  <div className="p-3 rounded-[4px] bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-white/10 flex items-center gap-3">
+                    <div
+                      className={`w-9 h-9 rounded-[4px] flex items-center justify-center font-bold text-xs shrink-0 select-none ${avatarClass} shadow-xs`}
+                    >
+                      {projectToDelete.projectName.charAt(0)}
+                    </div>
+                    <div className="min-w-0 flex-1 truncate">
+                      <div className="font-bold text-xs text-slate-900 dark:text-white truncate">
+                        {projectToDelete.projectName}
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2 mt-0.5 truncate">
+                        <span className="flex items-center gap-1 truncate">
+                          <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                          <span className="truncate">{projectToDelete.city}</span>
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span className="truncate">{projectToDelete.propertyType}</span>
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span
+                          className={`font-semibold ${
+                            projectToDelete.status === 'INACTIVE'
+                              ? 'text-slate-500 dark:text-slate-400'
+                              : 'text-emerald-600 dark:text-emerald-400'
+                          }`}
+                        >
+                          {projectToDelete.status === 'INACTIVE' ? 'Inactive' : 'Active'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              
+              <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-100 dark:border-white/5">
+                <button
+                  type="button"
+                  onClick={() => setProjectToDelete(null)}
+                  className="px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700/80 border border-slate-200/90 dark:border-white/15 transition-all cursor-pointer shadow-2xs active:scale-95"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={handleConfirmDelete}
-                  className="px-5 py-2 rounded-[4px] text-xs font-bold text-white bg-rose-600 hover:bg-rose-500 shadow-sm shadow-rose-500/30 transition-all cursor-pointer flex items-center gap-1.5"
+                  className="px-4 py-1.5 rounded-[4px] text-xs font-bold text-white bg-red-600 hover:bg-red-700 transition-all cursor-pointer flex items-center gap-1.5 shadow-xs active:scale-95"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-3.5 h-3.5 text-white" />
                   <span>Delete Project</span>
                 </button>
               </div>
@@ -957,7 +1039,7 @@ export function ProjectsListDesktop({
         )}
       </AnimatePresence>
 
-      {/* 5-Second Status Toast with Undo Control (4px border-radius) */}
+      
       <AnimatePresence>
         {undoToast && (
           <motion.div
@@ -979,7 +1061,7 @@ export function ProjectsListDesktop({
                 <p className="text-[10px] text-slate-400">Available to undo for 5s</p>
               </div>
 
-              {/* Undo Button */}
+              
               <button
                 type="button"
                 onClick={handleUndo}
@@ -989,7 +1071,7 @@ export function ProjectsListDesktop({
                 <span>Undo</span>
               </button>
 
-              {/* Dismiss X Button */}
+              
               <button
                 type="button"
                 onClick={() => {
@@ -1002,7 +1084,7 @@ export function ProjectsListDesktop({
                 <X className="w-3.5 h-3.5" />
               </button>
 
-              {/* Animated 5s countdown line */}
+              
               <div
                 className="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 origin-left"
                 style={{

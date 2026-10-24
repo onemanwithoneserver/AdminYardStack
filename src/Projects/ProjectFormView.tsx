@@ -45,25 +45,28 @@ export function ProjectFormView({
   };
 
   return (
-    <div className="space-y-4 max-w-7xl mx-auto select-none">
-      <div className="flex items-center justify-between pb-1">
-        <button
-          type="button"
-          onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
-        >
-          <ArrowLeft className="w-4 h-4 text-slate-600 dark:text-slate-300" />
-          <span>Back to Projects</span>
-        </button>
-      </div>
+    <div className="space-y-2.5 max-w-7xl mx-auto select-none">
+      
+      <div className="sticky top-0 z-20 pt-1 pb-1 space-y-2 bg-[#f4f6fb]/90 dark:bg-[#060911]/90 backdrop-blur-md">
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
+            <span>Back to Projects</span>
+          </button>
+        </div>
 
-      <TabControls
-        mode={mode}
-        activeTabId={effectiveTabId}
-        onTabChange={handleTabChange}
-        onReset={() => {}}
-        onSave={onBack}
-      />
+        <TabControls
+          mode={mode}
+          activeTabId={effectiveTabId}
+          onTabChange={handleTabChange}
+          onReset={() => {}}
+          onSave={onBack}
+        />
+      </div>
 
       <Routes>
         <Route

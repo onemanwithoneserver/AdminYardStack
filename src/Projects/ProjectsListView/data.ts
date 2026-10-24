@@ -48,7 +48,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: 'Gated Flats',
     phases: 'Phase 1',
     basePrice: '₹8,100/sqft',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-22',
@@ -78,7 +78,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: '-',
     phases: '-',
     basePrice: '-',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-5',
@@ -88,7 +88,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: '-',
     phases: '-',
     basePrice: '-',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-4',
@@ -118,7 +118,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: '-',
     phases: '-',
     basePrice: '-',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-3',
@@ -158,7 +158,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: 'High Rise',
     phases: 'Phase 4',
     basePrice: '₹10,500/sqft',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-21',
@@ -168,7 +168,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: 'Flats',
     phases: 'Phase 1',
     basePrice: '₹8,000/sqft',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-8',
@@ -218,7 +218,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: 'Flats',
     phases: 'Phase 2',
     basePrice: '₹7,800/sqft',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-14',
@@ -238,7 +238,7 @@ export const INITIAL_PROJECTS_LIST: ProjectListItem[] = [
     propertyType: 'Gated Flats',
     phases: 'Phase 2',
     basePrice: '₹6,900/sqft',
-    status: 'ACTIVE',
+    status: 'INACTIVE',
   },
   {
     id: 'proj-16',

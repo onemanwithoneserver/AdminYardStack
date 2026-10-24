@@ -8,12 +8,12 @@ interface BrandLogoProps {
 export const BrandLogo: React.FC<BrandLogoProps> = ({ collapsed = false, onOrganizationClick }) => {
   return (
     <div className={`flex items-center transition-all duration-300 ${collapsed ? 'justify-center w-full py-1' : 'w-full gap-3'}`}>
-      {/* Precision Geometric Architectural Insignia */}
+      
       <div className="relative shrink-0 group cursor-pointer" onClick={onOrganizationClick}>
         <div className="absolute -inset-1 rounded-xl bg-gradient-to-tr from-blue-600/30 via-indigo-500/20 to-sky-400/30 blur-xs opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
         
         <div className="relative w-10 h-10 rounded-xl bg-gradient-to-b from-slate-900 via-slate-950 to-black p-0.5 border border-white/20 dark:border-white/25 shadow-lg shadow-black/20 flex items-center justify-center overflow-hidden">
-          {/* Subtle Ambient Refraction Line */}
+          
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none" />
           
           <svg
@@ -37,7 +37,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ collapsed = false, onOrgan
                 <stop offset="1" stopColor="#D97706" />
               </linearGradient>
             </defs>
-            {/* Architectural Isometric Stacks */}
+            
             <path
               d="M18 4L30 11V23L18 30L6 23V11L18 4Z"
               stroke="url(#yardstack-prism-1)"
@@ -45,7 +45,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ collapsed = false, onOrgan
               strokeLinejoin="round"
               className="opacity-90"
             />
-            {/* Inner Isometric Cube Ribs */}
+            
             <path
               d="M18 4V18M18 18L30 11M18 18L6 11M18 18V30M18 18L30 23M18 18L6 23"
               stroke="url(#yardstack-prism-2)"
@@ -54,7 +54,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ collapsed = false, onOrgan
               strokeLinejoin="round"
               className="opacity-70"
             />
-            {/* Center Core Monolith Jewel */}
+            
             <polygon
               points="18,12 24,15.5 24,22 18,25 12,22 12,15.5"
               fill="url(#yardstack-prism-1)"
@@ -65,7 +65,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ collapsed = false, onOrgan
         </div>
       </div>
 
-      {/* Typography & Organization Details (Shown when expanded) */}
+      
       {!collapsed && (
         <div className="flex-1 min-w-0 flex flex-col justify-center">
           <div className="flex items-center gap-2">
