@@ -23,6 +23,7 @@ export interface ModernDropdownProps<T extends string | number = string | number
   prefix?: ReactNode;
   align?: 'left' | 'right';
   dropUp?: boolean;
+  roundedClass?: string;
 }
 
 export function ModernDropdown<T extends string | number = string | number>({
@@ -38,6 +39,7 @@ export function ModernDropdown<T extends string | number = string | number>({
   prefix,
   align = 'left',
   dropUp = false,
+  roundedClass,
 }: ModernDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -79,10 +81,10 @@ export function ModernDropdown<T extends string | number = string | number>({
   }, [isOpen]);
 
   const sizeClasses = {
-    xs: 'px-2 py-1 text-[11px] rounded-lg gap-1.5',
-    sm: 'px-2.5 py-1.5 text-xs rounded-xl gap-2',
-    md: 'px-3.5 py-2 text-xs rounded-xl gap-2.5',
-    lg: 'px-4 py-2.5 text-sm rounded-2xl gap-3',
+    xs: `px-2 py-1 text-[11px] ${roundedClass || 'rounded-lg'} gap-1.5`,
+    sm: `px-2.5 py-1.5 text-xs ${roundedClass || 'rounded-xl'} gap-2`,
+    md: `px-3.5 py-2 text-xs ${roundedClass || 'rounded-xl'} gap-2.5`,
+    lg: `px-4 py-2.5 text-sm ${roundedClass || 'rounded-2xl'} gap-3`,
   };
 
   const iconSizes = {
@@ -118,7 +120,7 @@ export function ModernDropdown<T extends string | number = string | number>({
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           {selectedOption?.badge && (
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
+            <span className={`px-1.5 py-0.2 ${roundedClass || 'rounded-full'} text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300`}>
               {selectedOption.badge}
             </span>
           )}
@@ -135,7 +137,7 @@ export function ModernDropdown<T extends string | number = string | number>({
       {isOpen && (
         <div
           role="listbox"
-          className={`absolute z-50 min-w-[140px] max-w-xs rounded-2xl p-1.5 border border-slate-200/90 dark:border-white/15 bg-white/95 dark:bg-slate-900/95 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-150 ${
+          className={`absolute z-50 min-w-[140px] max-w-xs ${roundedClass || 'rounded-2xl'} p-1.5 border border-slate-200/90 dark:border-white/15 bg-white/95 dark:bg-slate-900/95 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-150 ${
             dropUp ? 'bottom-full mb-1.5' : 'top-full mt-1.5'
           } ${align === 'right' ? 'right-0' : 'left-0'} ${menuClassName}`}
         >
@@ -153,7 +155,7 @@ export function ModernDropdown<T extends string | number = string | number>({
                       setIsOpen(false);
                     }
                   }}
-                  className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer text-left select-none ${
+                  className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 text-xs font-semibold ${roundedClass || 'rounded-xl'} transition-all cursor-pointer text-left select-none ${
                     isSelected
                       ? 'bg-blue-600 text-white shadow-xs'
                       : option.disabled
