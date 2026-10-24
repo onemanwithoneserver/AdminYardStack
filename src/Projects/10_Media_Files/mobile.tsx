@@ -21,18 +21,23 @@ export function MediaFilesMobile() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-slate-200/90 shadow-xs p-4 sm:p-5 space-y-6 text-slate-800">
+    <div className="w-full ys-panel p-4 sm:p-5 space-y-6 text-slate-800 dark:text-slate-100 text-xs">
       {savedNotification && (
-        <div className="fixed top-4 inset-x-4 z-50 flex items-center justify-center gap-2 bg-emerald-600 text-white px-3 py-2 rounded-lg shadow-lg text-xs font-semibold animate-in fade-in">
+        <div className="fixed top-4 inset-x-4 z-50 flex items-center justify-center gap-2 ys-toast px-3 py-2 rounded-xl shadow-lg text-xs font-semibold animate-in fade-in">
           <CheckCircle2 className="w-4 h-4" />
           <span>Media & Files saved successfully!</span>
         </div>
       )}
 
-      
-      <div className="border-b border-slate-200/80 pb-2">
-        <span className="text-xs font-semibold text-blue-600 tracking-wide uppercase">
-          Media & Files (Mobile)
+      <div className="pb-3 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
+            Media & Files
+          </h2>
+        </div>
+        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase">
+          10 / 10
         </span>
       </div>
 

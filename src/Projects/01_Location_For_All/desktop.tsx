@@ -24,51 +24,51 @@ export function OrrZoningDialog({ isOpen, onClose, onSave }: OrrZoningDialogProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 ys-overlay">
       <div
-        className="w-full max-w-sm bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden"
+        className="w-full max-w-sm ys-dialog overflow-hidden"
         role="dialog"
         aria-modal="true"
       >
-        <div className="px-5 pt-4 pb-2 flex items-start justify-between">
+        <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Add ORR Zoning</h3>
-            <p className="text-xs text-slate-500 mt-0.5">Type is fixed to orrZoning.</p>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">Add ORR Zoning</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Type is fixed to orrZoning.</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-md transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="px-5 py-3 space-y-4">
+        <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Option</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Option</label>
             <input
               type="text"
               value={option}
               onChange={(e) => setOption(e.target.value)}
               placeholder="Enter option"
               required
-              className="w-full px-3 py-2 text-xs text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+              className="w-full px-3 py-2 text-xs ys-field"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Status</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Status</label>
             <div className="relative">
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as 'ACTIVE' | 'INACTIVE')}
-                className="w-full appearance-none px-3 py-2 text-xs font-semibold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 cursor-pointer pr-8"
+                className="w-full appearance-none px-3 py-2 text-xs font-semibold ys-field cursor-pointer pr-8"
               >
                 <option value="ACTIVE">ACTIVE</option>
                 <option value="INACTIVE">INACTIVE</option>
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2.5 pointer-events-none text-slate-500">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2.5 pointer-events-none text-slate-400">
                 <ChevronDown className="w-4 h-4" />
               </div>
             </div>
@@ -78,13 +78,13 @@ export function OrrZoningDialog({ isOpen, onClose, onSave }: OrrZoningDialogProp
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 transition-colors cursor-pointer"
+              className="ys-btn ys-btn-secondary"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#1956db] hover:bg-[#1447b8] transition-colors shadow-xs cursor-pointer"
+              className="ys-btn ys-btn-primary"
             >
               Save
             </button>
@@ -174,16 +174,22 @@ export function LocationForAllDesktop() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-blue-200/80 shadow-xs p-6 text-slate-800 text-xs">
-      <div className="mb-4 pb-2 border-b border-slate-100 flex items-center justify-between">
-        <h2 className="text-sm font-bold text-[#1956db] tracking-wide">
-          Location-For all
-        </h2>
+    <div className="w-full ys-panel p-6 sm:p-8 space-y-6 text-slate-800 dark:text-slate-100 text-xs">
+      <div className="pb-3.5 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
+          <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight font-display">
+            Location - For All
+          </h2>
+        </div>
+        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
+          Step 01 / 10
+        </span>
       </div>
 
       <div className="space-y-6">
-        <section className="border border-slate-200/70 rounded-xl p-4 bg-slate-50/40 space-y-3">
-          <h3 className="font-semibold text-slate-700 text-xs">
+        <section className="ys-subcard p-5 space-y-4">
+          <h3 className="ys-section-title font-bold text-xs text-slate-900 dark:text-white">
             Seller & Subscription Entitlement
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

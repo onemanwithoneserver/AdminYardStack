@@ -55,6 +55,16 @@ export function ProjectFormView({
           <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span>Back to Projects</span>
         </button>
+
+        <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <span className="font-semibold text-slate-700 dark:text-slate-300">
+            Step {effectiveTabId} of 10
+          </span>
+          <span>•</span>
+          <span className="font-bold text-blue-600 dark:text-blue-400">
+            {PROJECT_TABS.find((t) => t.id === effectiveTabId)?.label || 'Location-For all'}
+          </span>
+        </div>
       </div>
 
       <TabControls

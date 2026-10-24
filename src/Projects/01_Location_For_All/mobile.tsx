@@ -82,17 +82,23 @@ export function LocationForAllMobile() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-blue-200/80 shadow-xs p-4 text-slate-800 text-xs">
-      <div className="mb-3 pb-2 border-b border-slate-100 flex items-center justify-between">
-        <h2 className="text-xs font-bold text-[#1956db] tracking-wide">
-          Location-For all
-        </h2>
+    <div className="w-full ys-panel p-4 sm:p-5 space-y-5 text-slate-800 dark:text-slate-100 text-xs">
+      <div className="pb-3 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
+            Location - For All
+          </h2>
+        </div>
+        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase">
+          01 / 10
+        </span>
       </div>
 
       <div className="space-y-4">
         
-        <section className="border border-slate-200/70 rounded-lg p-3 bg-slate-50/40 space-y-2.5">
-          <h3 className="font-semibold text-slate-700 text-xs">Seller & Subscription</h3>
+        <section className="ys-subcard p-3.5 space-y-3">
+          <h3 className="ys-section-title font-bold text-xs text-slate-900 dark:text-white">Seller & Subscription</h3>
           <div>
             <label className="block text-[10px] font-medium text-slate-600 mb-1">Seller</label>
             <div className="relative">

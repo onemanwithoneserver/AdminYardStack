@@ -148,8 +148,17 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     const { trigger: triggerSizeClass, text: textSizeClass, icon: iconSizeClass } = sizeClasses[size];
 
+    const setRefs = (node: HTMLDivElement | null) => {
+      containerRef.current = node;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      }
+    };
+
     return (
-      <div ref={ref || containerRef} className={`w-full space-y-1.5 ${className}`}>
+      <div ref={setRefs} className={`w-full space-y-1.5 ${className}`}>
         {label && (
           <label
             htmlFor={dropdownId}

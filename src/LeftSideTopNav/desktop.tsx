@@ -291,6 +291,16 @@ export function DesktopNav({
         item={tooltipItem}
         targetRect={tooltipRect}
         isOpen={isTooltipOpen && collapsed}
+        onMouseEnter={() => {
+          if (tooltipTimeoutRef.current) clearTimeout(tooltipTimeoutRef.current);
+        }}
+        onMouseLeave={handleItemMouseLeave}
+        onSubItemClick={(sub) => {
+          if (tooltipItem) {
+            onItemClick?.({ ...tooltipItem, label: sub.label, route: sub.route });
+            setIsTooltipOpen(false);
+          }
+        }}
       />
 
       {/* Main App Canvas: Top Navigation + Page Content */}

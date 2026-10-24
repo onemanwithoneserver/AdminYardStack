@@ -34,18 +34,23 @@ export function InventoryDesktop() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-slate-200/90 shadow-xs p-6 md:p-8 space-y-6 text-slate-800">
+    <div className="w-full ys-panel p-6 md:p-8 space-y-6 text-slate-800 dark:text-slate-100 text-xs">
       {notification && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-lg shadow-lg text-xs font-semibold animate-in fade-in">
+        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 ys-toast px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold animate-in fade-in">
           <CheckCircle2 className="w-4 h-4" />
           <span>{notification}</span>
         </div>
       )}
 
-      
-      <div className="border-b border-slate-200/80 pb-2">
-        <span className="text-xs font-semibold text-blue-600 tracking-wide uppercase">
-          Inventory
+      <div className="pb-3.5 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
+          <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight font-display">
+            Inventory
+          </h2>
+        </div>
+        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
+          Step 04 / 10
         </span>
       </div>
 

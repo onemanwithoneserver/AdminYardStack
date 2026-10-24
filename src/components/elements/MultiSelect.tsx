@@ -92,8 +92,17 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     const selectedOptions = options.filter((opt) => value.includes(opt.value));
     const allSelected = options.length > 0 && value.length === options.length;
 
+    const setRefs = (node: HTMLDivElement | null) => {
+      containerRef.current = node;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      }
+    };
+
     return (
-      <div ref={ref || containerRef} className={`w-full space-y-1.5 ${className}`}>
+      <div ref={setRefs} className={`w-full space-y-1.5 ${className}`}>
         {label && (
           <label
             htmlFor={multiSelectId}
