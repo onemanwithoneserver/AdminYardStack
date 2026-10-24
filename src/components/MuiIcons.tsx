@@ -165,6 +165,13 @@ export const CreditCard = wrapMui(CreditCardRounded);
 export const Star = wrapMui(StarRounded);
 export const Image = wrapMui(ImageRounded);
 export const ImageIcon = wrapMui(ImageRounded);
+export const Unlock = wrapMui(LockRounded);
+export const UploadCloud = wrapMui(ImageRounded);
+export const AlertCircle = wrapMui(WarningAmberRounded);
+export const ShieldCheck = wrapMui(ShieldRounded);
+export const Compass = wrapMui(PlaceRounded);
+export const Route = wrapMui(LayersRounded);
+export const FileCheck2 = wrapMui(DescriptionRounded);
 
 export default {
   Activity,

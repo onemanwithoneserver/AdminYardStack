@@ -107,9 +107,6 @@ export function FinancialsMobile() {
             Financials
           </h2>
         </div>
-        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase">
-          09 / 10
-        </span>
       </div>
 
       
@@ -179,9 +176,6 @@ export function FinancialsMobile() {
             <h3 className="text-xs font-bold text-slate-900 tracking-tight">
               Variant Pricing
             </h3>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400">
-              Apply raw amounts to variants.
-            </p>
           </div>
           <button
             type="button"

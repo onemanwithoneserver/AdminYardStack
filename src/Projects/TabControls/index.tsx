@@ -12,6 +12,7 @@ export interface TabControlsProps {
   onTabChange?: (tab: ProjectTabItem) => void;
   onReset?: () => void;
   onSave?: () => void;
+  hideBanner?: boolean;
 }
 
 export function TabControls({
@@ -20,6 +21,7 @@ export function TabControls({
   onTabChange,
   onReset,
   onSave,
+  hideBanner,
 }: TabControlsProps) {
   if (mode === 'mobile') {
     return (
@@ -28,6 +30,7 @@ export function TabControls({
         onTabChange={onTabChange}
         onReset={onReset}
         onSave={onSave}
+        hideBanner={hideBanner}
       />
     );
   }
@@ -38,6 +41,7 @@ export function TabControls({
       onTabChange={onTabChange}
       onReset={onReset}
       onSave={onSave}
+      hideBanner={hideBanner}
     />
   );
 }

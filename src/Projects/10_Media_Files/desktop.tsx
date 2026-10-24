@@ -36,9 +36,6 @@ export function MediaFilesDesktop() {
             Media & Files
           </h2>
         </div>
-        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
-          Step 10 / 10
-        </span>
       </div>
 
       
@@ -47,9 +44,6 @@ export function MediaFilesDesktop() {
           <h3 className="text-xs font-bold text-slate-900 tracking-tight">
             Engagement Options
           </h3>
-          <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
-            Choose which engagement features are enabled for this project.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">

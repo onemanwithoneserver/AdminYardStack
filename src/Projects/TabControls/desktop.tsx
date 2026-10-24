@@ -8,64 +8,75 @@ interface TabControlsDesktopProps {
   onTabChange?: (tab: ProjectTabItem) => void;
   onReset?: () => void;
   onSave?: () => void;
+  hideBanner?: boolean;
 }
 
-function getTabIcon(tabId: string, _isActive: boolean) {
+function getTabIcon(tabId: string, isActive: boolean) {
   const iconClass = 'w-3.5 h-3.5 text-white';
 
-  switch (tabId) {
-    case '01':
-      return {
-        icon: <MapPin className={iconClass} />,
-        iconBox: 'bg-blue-600 text-white shadow-xs',
-      };
-    case '02':
-      return {
-        icon: <FileText className={iconClass} />,
-        iconBox: 'bg-indigo-600 text-white shadow-xs',
-      };
-    case '03':
-      return {
-        icon: <Layers className={iconClass} />,
-        iconBox: 'bg-emerald-600 text-white shadow-xs',
-      };
-    case '04':
-      return {
-        icon: <Boxes className={iconClass} />,
-        iconBox: 'bg-amber-600 text-white shadow-xs',
-      };
-    case '05':
-      return {
-        icon: <Shield className={iconClass} />,
-        iconBox: 'bg-rose-600 text-white shadow-xs',
-      };
-    case '06':
-      return {
-        icon: <Star className={iconClass} />,
-        iconBox: 'bg-purple-600 text-white shadow-xs',
-      };
-    case '07':
-      return {
-        icon: <FileText className={iconClass} />,
-        iconBox: 'bg-sky-600 text-white shadow-xs',
-      };
-    case '08':
-      return {
-        icon: <Building2 className={iconClass} />,
-        iconBox: 'bg-orange-600 text-white shadow-xs',
-      };
-    case '09':
-      return {
-        icon: <CreditCard className={iconClass} />,
-        iconBox: 'bg-violet-600 text-white shadow-xs',
-      };
-    case '10':
-    default:
-      return {
-        icon: <ImageIcon className={iconClass} />,
-        iconBox: 'bg-teal-600 text-white shadow-xs',
-      };
+  const getIconElement = () => {
+    switch (tabId) {
+      case '01':
+        return <MapPin className={iconClass} />;
+      case '02':
+        return <FileText className={iconClass} />;
+      case '03':
+        return <Layers className={iconClass} />;
+      case '04':
+        return <Boxes className={iconClass} />;
+      case '05':
+        return <Shield className={iconClass} />;
+      case '06':
+        return <Star className={iconClass} />;
+      case '07':
+        return <FileText className={iconClass} />;
+      case '08':
+        return <Building2 className={iconClass} />;
+      case '09':
+        return <CreditCard className={iconClass} />;
+      case '10':
+      default:
+        return <ImageIcon className={iconClass} />;
+    }
+  };
+
+  if (isActive) {
+    return {
+      icon: getIconElement(),
+      iconBox: 'bg-white/20 text-white border border-white/25 shadow-xs backdrop-blur-xs',
+    };
   }
+
+  const getUnselectedBoxClass = () => {
+    switch (tabId) {
+      case '01':
+        return 'bg-blue-600 text-white shadow-xs';
+      case '02':
+        return 'bg-indigo-600 text-white shadow-xs';
+      case '03':
+        return 'bg-emerald-600 text-white shadow-xs';
+      case '04':
+        return 'bg-amber-600 text-white shadow-xs';
+      case '05':
+        return 'bg-rose-600 text-white shadow-xs';
+      case '06':
+        return 'bg-purple-600 text-white shadow-xs';
+      case '07':
+        return 'bg-sky-600 text-white shadow-xs';
+      case '08':
+        return 'bg-orange-600 text-white shadow-xs';
+      case '09':
+        return 'bg-violet-600 text-white shadow-xs';
+      case '10':
+      default:
+        return 'bg-teal-600 text-white shadow-xs';
+    }
+  };
+
+  return {
+    icon: getIconElement(),
+    iconBox: getUnselectedBoxClass(),
+  };
 }
 
 export function TabControlsDesktop({
@@ -73,6 +84,7 @@ export function TabControlsDesktop({
   onTabChange,
   onReset,
   onSave,
+  hideBanner = false,
 }: TabControlsDesktopProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const activeTabRef = useRef<HTMLButtonElement | null>(null);
@@ -140,63 +152,57 @@ export function TabControlsDesktop({
 
   return (
     <div className="w-full space-y-3 select-none">
-      
-      <div className="w-full bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden py-3.5 px-5 sm:px-6">
-        
-        <div className="absolute top-0 right-1/4 w-96 h-16 bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-violet-500/15 blur-xl pointer-events-none" />
+      {!hideBanner && (
+        <div className="w-full bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden py-3.5 px-5 sm:px-6">
+          <div className="absolute top-0 right-1/4 w-96 h-16 bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-violet-500/15 blur-xl pointer-events-none" />
 
-        
-        <div
-          className="absolute right-36 top-0 bottom-0 w-3/5 pointer-events-none opacity-90 dark:opacity-30 bg-contain bg-right bg-no-repeat hidden md:block"
-          style={{
-            backgroundImage: 'url(/project_banner.jpg)',
-            maskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
-          }}
-        />
+          <div
+            className="absolute right-36 top-0 bottom-0 w-3/5 pointer-events-none opacity-90 dark:opacity-30 bg-contain bg-right bg-no-repeat hidden md:block"
+            style={{
+              backgroundImage: 'url(/project_banner.jpg)',
+              maskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
+            }}
+          />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3">
-          
-          <div className="flex items-center gap-3">
-            <div className="w-9.5 h-9.5 rounded-[4px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/25 shrink-0 hover:scale-105 transition-transform duration-200">
-              <FileText className="w-5 h-5 stroke-[2] text-white" />
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-9.5 h-9.5 rounded-[4px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/25 shrink-0 hover:scale-105 transition-transform duration-200">
+                <FileText className="w-5 h-5 stroke-[2] text-white" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
+                  Project Specification
+                </h2>
+              </div>
             </div>
-            <div>
-              <h2 className="text-base font-bold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
-                Project Specification
-              </h2>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 font-medium leading-none">
-                Complete the development registry form to set up your project details
-              </p>
-            </div>
-          </div>
 
-          
-          <div className="flex items-center gap-2.5">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="button"
-              onClick={onReset}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white/95 dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-700/80 border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all cursor-pointer shadow-xs active:scale-95"
-              title="Reset form fields"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset</span>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="button"
-              onClick={onSave}
-              className="flex items-center gap-1.5 px-4.5 py-1.5 rounded-[4px] text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 transition-all shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 cursor-pointer active:scale-95 border border-white/20"
-            >
-              <Save className="w-3.5 h-3.5 text-white" />
-              <span>Save Project</span>
-            </motion.button>
+            <div className="flex items-center gap-2.5">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="button"
+                onClick={onReset}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white/95 dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-700/80 border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all cursor-pointer shadow-xs active:scale-95"
+                title="Reset form fields"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="button"
+                onClick={onSave}
+                className="flex items-center gap-1.5 px-4.5 py-1.5 rounded-[4px] text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 transition-all shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 cursor-pointer active:scale-95 border border-white/20"
+              >
+                <Save className="w-3.5 h-3.5 text-white" />
+                <span>Save Project</span>
+              </motion.button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       
       <div className="relative w-full flex items-center">

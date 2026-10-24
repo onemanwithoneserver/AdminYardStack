@@ -411,9 +411,6 @@ export function FinancialsDesktop() {
             Financials
           </h2>
         </div>
-        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
-          Step 09 / 10
-        </span>
       </div>
 
       
@@ -501,9 +498,6 @@ export function FinancialsDesktop() {
             <h3 className="text-xs font-bold text-slate-900 tracking-tight">
               Variant Pricing
             </h3>
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
-              Enter raw amount and select the inventory variant it applies to.
-            </p>
           </div>
 
           <button

@@ -134,9 +134,6 @@ export function EssentialsDesktop() {
             Essentials
           </h2>
         </div>
-        <span className="px-2 py-0.5 rounded-[2px] text-[10px] font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/40 uppercase tracking-wider">
-          Step 02 / 10
-        </span>
       </div>
 
       <div className="space-y-5">
