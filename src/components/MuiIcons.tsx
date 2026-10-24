@@ -3,7 +3,6 @@ import type { SvgIconProps } from '@mui/material';
 
 import MonitorHeartRounded from '@mui/icons-material/MonitorHeartRounded';
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded';
-import SwapVertRounded from '@mui/icons-material/SwapVertRounded';
 import NotificationsNoneRounded from '@mui/icons-material/NotificationsNoneRounded';
 import WidgetsRounded from '@mui/icons-material/WidgetsRounded';
 import BusinessRounded from '@mui/icons-material/BusinessRounded';
@@ -55,6 +54,15 @@ import PersonRounded from '@mui/icons-material/PersonRounded';
 import HowToRegRounded from '@mui/icons-material/HowToRegRounded';
 import GroupRounded from '@mui/icons-material/GroupRounded';
 import CloseRounded from '@mui/icons-material/CloseRounded';
+import ContentCopyRounded from '@mui/icons-material/ContentCopyRounded';
+import ShareRounded from '@mui/icons-material/ShareRounded';
+import WarningAmberRounded from '@mui/icons-material/WarningAmberRounded';
+import UndoRounded from '@mui/icons-material/UndoRounded';
+import UnfoldMoreRounded from '@mui/icons-material/UnfoldMoreRounded';
+import TuneRounded from '@mui/icons-material/TuneRounded';
+import SortRounded from '@mui/icons-material/SortRounded';
+
+
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number | string;
@@ -86,7 +94,8 @@ function wrapMui(MuiIcon: ComponentType<SvgIconProps>) {
 
 export const Activity = wrapMui(MonitorHeartRounded);
 export const ArrowLeft = wrapMui(ArrowBackRounded);
-export const ArrowUpDown = wrapMui(SwapVertRounded);
+export const ArrowUpDown = wrapMui(UnfoldMoreRounded);
+export const ChevronsUpDown = wrapMui(UnfoldMoreRounded);
 export const Bell = wrapMui(NotificationsNoneRounded);
 export const Boxes = wrapMui(WidgetsRounded);
 export const Building = wrapMui(BusinessRounded);
@@ -140,6 +149,15 @@ export const UserIcon = wrapMui(PersonRounded);
 export const UserCheck = wrapMui(HowToRegRounded);
 export const Users = wrapMui(GroupRounded);
 export const X = wrapMui(CloseRounded);
+export const AlertTriangle = wrapMui(WarningAmberRounded);
+export const Copy = wrapMui(ContentCopyRounded);
+export const Share2 = wrapMui(ShareRounded);
+export const Undo2 = wrapMui(UndoRounded);
+export const SlidersHorizontal = wrapMui(TuneRounded);
+export const Sliders = wrapMui(TuneRounded);
+export const SortDesc = wrapMui(SortRounded);
+export const SortAsc = wrapMui(SortRounded);
+export const ArrowDownAZ = wrapMui(SortRounded);
 
 export default {
   Activity,
