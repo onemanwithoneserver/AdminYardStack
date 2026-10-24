@@ -32,7 +32,6 @@ export interface LayoutFormData {
 }
 
 export const HANDOVER_OPTIONS = [
-  'Select HandOver Status',
   'Ready to Move',
   'Ready to Move (DL Received)',
   'Ready to Move (OC Received)',
@@ -54,7 +53,7 @@ export const INITIAL_TOWERS_OVERVIEW: TowerRow[] = [
     corridorWidth: '',
     lobbyAvailable: 'No',
     completionDate: '',
-    handOver: 'Select HandOver Status',
+    handOver: '',
     basePrice: '',
     flatToFlatDistance: '',
   },
@@ -62,7 +61,7 @@ export const INITIAL_TOWERS_OVERVIEW: TowerRow[] = [
 
 export const INITIAL_LAYOUT_DATA: LayoutFormData = {
   completionDate: '',
-  handOver: 'Select HandOver Status',
+  handOver: '',
   status: 'Active',
   tables: [
     {
@@ -94,7 +93,7 @@ export const createNewTowerRow = (
     corridorWidth: '',
     lobbyAvailable: 'No',
     completionDate: '',
-    handOver: 'Select HandOver Status',
+    handOver: '',
     basePrice: '',
     flatToFlatDistance: '',
   };
@@ -127,7 +126,7 @@ export const createNewTowerTable = (
         corridorWidth: '',
         lobbyAvailable: 'No',
         completionDate: '',
-        handOver: 'Select HandOver Status',
+        handOver: '',
         basePrice: '',
         flatToFlatDistance: '',
       },

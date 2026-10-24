@@ -1,15 +1,47 @@
-import { useState } from 'react';
-import { ChevronDown, Lock, Plus } from 'lucide-react';
-import { INITIAL_ESSENTIALS_DATA, INITIAL_CONSTRUCTION_TYPES, type EssentialsFormData, type ConstructionTypeOption } from './data';
+import { useState, useRef, type ChangeEvent } from 'react';
+import {
+  FileText,
+  Lock,
+  Unlock,
+  Plus,
+  X,
+  UploadCloud,
+} from 'lucide-react';
+import { ModernDropdown } from '../../components/elements/ModernDropdown';
+import { ModernCalendar } from '../../components/elements/ModernCalendar';
+import {
+  INITIAL_ESSENTIALS_DATA,
+  INITIAL_CONSTRUCTION_TYPES,
+  type EssentialsFormData,
+  type ConstructionTypeOption,
+} from './data';
 import { ConstructionTypeDialog } from './desktop';
 
 export function EssentialsMobile() {
   const [formData, setFormData] = useState<EssentialsFormData>(INITIAL_ESSENTIALS_DATA);
   const [constructionTypes, setConstructionTypes] = useState<ConstructionTypeOption[]>(INITIAL_CONSTRUCTION_TYPES);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [priceCardFileName, setPriceCardFileName] = useState<string>('');
+  const priceCardInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (field: keyof EssentialsFormData, value: unknown) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handlePriceCardUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPriceCardFileName(file.name);
+      handleInputChange('priceCardFile', file.name);
+    }
+  };
+
+  const handleRemovePriceCard = () => {
+    setPriceCardFileName('');
+    handleInputChange('priceCardFile', null);
+    if (priceCardInputRef.current) {
+      priceCardInputRef.current.value = '';
+    }
   };
 
   const handleSaveConstructionType = (item: Omit<ConstructionTypeOption, 'id'>) => {
@@ -22,248 +54,563 @@ export function EssentialsMobile() {
   };
 
   return (
-    <div className="w-full ys-panel p-4 sm:p-5 space-y-5 text-slate-800 dark:text-slate-100 text-xs select-none">
-      <div className="pb-3 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+    <div className="p-1.5 space-y-4 text-slate-800 dark:text-slate-100 text-xs">
+      {/* Header Banner */}
+      <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
-          <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
-            Essentials
-          </h2>
+          <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-fuchsia-600 to-pink-600 flex items-center justify-center text-white shadow-xs shadow-fuchsia-500/20">
+            <FileText className="w-3.5 h-3.5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
+                Essentials
+              </h2>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Project dimensions, land extent, units, and commercial pricing
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="space-y-4">
-        
-        <div className="space-y-2">
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-1">
-              Project Type <span className="text-red-500 font-bold">*</span>
-            </label>
-            <select
-              value={formData.projectType}
-              onChange={(e) => handleInputChange('projectType', e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs text-slate-800"
-            >
-              <option value="Flats">Flats</option>
-              <option value="Villas">Villas</option>
-            </select>
+      <div className="space-y-3.5 pb-4">
+        {/* Section 1: Project Classification & Structure */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                01
+              </span>
+              <span className="w-1 h-3 rounded-full bg-blue-600 dark:bg-blue-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Classification & Structure
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-1">
-              Project Sub-Type
-            </label>
-            <select
-              value={formData.projectSubType}
-              onChange={(e) => handleInputChange('projectSubType', e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs text-slate-800"
-            >
-              <option value="">-- Select Sub-Type --</option>
-              <option value="Gated Community Flats">Gated Community Flats</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-1">
-              Model Flat/Villa
-            </label>
-            <select
-              value={formData.modelFlatVilla}
-              onChange={(e) => handleInputChange('modelFlatVilla', e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs text-slate-800"
-            >
-              <option value="Yes, with Interior works">Yes, with Interior works</option>
-              <option value="No">No</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-1">
-              Towers
-            </label>
-            <select
-              value={formData.towersType}
-              onChange={(e) => handleInputChange('towersType', e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs text-slate-800"
-            >
-              <option value="Towers">Towers</option>
-              <option value="Blocks">Blocks</option>
-            </select>
-          </div>
-
-          <div>
-            <button
-              type="button"
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-semibold bg-slate-700 text-white"
-            >
-              <Lock className="w-3 h-3" />
-              <span>Options locked</span>
-            </button>
-          </div>
-        </div>
-
-        
-        <div className="border border-slate-200/70 rounded-lg p-3 bg-slate-50/40 space-y-2">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="space-y-3">
             <div>
-              <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Towers/Blocks</label>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                <span>Project Type</span>
+                <span className="text-rose-500 font-bold ml-1">*</span>
+              </label>
+              <ModernDropdown<string>
+                value={formData.projectType}
+                onChange={(val) => handleInputChange('projectType', val)}
+                options={['Flats', 'Villas', 'Plots', 'Commercial']}
+                placeholder="Select Project Type"
+                roundedClass="rounded-[4px]"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+              />
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Project Sub-Type
+              </label>
+              <ModernDropdown<string>
+                value={formData.projectSubType}
+                onChange={(val) => handleInputChange('projectSubType', val)}
+                options={[
+                  'Gated Community Flats',
+                  'High Rise Apartments',
+                  'Ultra Luxury Villas',
+                  'Commercial Office Space',
+                  'Plotted Layout',
+                ]}
+                placeholder="Select Sub-Type"
+                roundedClass="rounded-[4px]"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+              />
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Model Flat/Villa
+              </label>
+              <ModernDropdown<string>
+                value={formData.modelFlatVilla}
+                onChange={(val) => handleInputChange('modelFlatVilla', val)}
+                options={['Yes, with Interior works', 'Yes, Bare shell', 'No']}
+                placeholder="Select Model Flat"
+                roundedClass="rounded-[4px]"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+              />
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Towers Nomenclature
+              </label>
+              <ModernDropdown<string>
+                value={formData.towersType}
+                onChange={(val) => handleInputChange('towersType', val)}
+                options={['Towers', 'Blocks', 'Wings']}
+                placeholder="Select Towers"
+                roundedClass="rounded-[4px]"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+              />
+            </div>
+
+            <div className="pt-1 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleInputChange('optionsLocked', !formData.optionsLocked)}
+                className={`inline-flex items-center gap-1.5 px-2.5 h-8 rounded-[4px] text-xs font-semibold shadow-2xs transition-all cursor-pointer ${
+                  formData.optionsLocked
+                    ? 'bg-slate-900 dark:bg-slate-800 text-white hover:bg-slate-800 border border-transparent'
+                    : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                {formData.optionsLocked ? (
+                  <>
+                    <Lock className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Options locked</span>
+                  </>
+                ) : (
+                  <>
+                    <Unlock className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Options unlocked</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Scale, Dimensions & Land Extent */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                02
+              </span>
+              <span className="w-1 h-3 rounded-full bg-indigo-600 dark:bg-indigo-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Scale, Dimensions & Land
+              </h3>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Towers / Blocks Count
+              </label>
               <input
                 type="number"
                 value={formData.towersBlocksCount}
                 onChange={(e) => handleInputChange('towersBlocksCount', e.target.value)}
-                className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
+                placeholder="e.g. 5"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
               />
             </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Sky Villas
+                </label>
+                <ModernDropdown<string>
+                  value={formData.skyVillasAvailable}
+                  onChange={(val) => handleInputChange('skyVillasAvailable', val)}
+                  options={['Yes', 'No']}
+                  placeholder="Select"
+                  roundedClass="rounded-[4px]"
+                  className="w-full inline-block"
+                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Sky Villa Status
+                </label>
+                <ModernDropdown<string>
+                  value={formData.skyVillaStatus}
+                  onChange={(val) => handleInputChange('skyVillaStatus', val)}
+                  options={['Available', 'Sold Out']}
+                  placeholder="Select"
+                  roundedClass="rounded-[4px]"
+                  className="w-full inline-block"
+                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Open Space %</label>
+              <div className="flex items-center justify-between mb-1.5 h-4">
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                  Open Space
+                </label>
+                <div className="flex items-center gap-2 text-[11px]">
+                  <label className="inline-flex items-center gap-1 cursor-pointer text-slate-600 dark:text-slate-300">
+                    <input
+                      type="radio"
+                      name="openSpaceTypeMobile"
+                      checked={formData.openSpaceType === '%'}
+                      onChange={() => handleInputChange('openSpaceType', '%')}
+                    />
+                    <span>%</span>
+                  </label>
+                  <label className="inline-flex items-center gap-1 cursor-pointer text-slate-600 dark:text-slate-300">
+                    <input
+                      type="radio"
+                      name="openSpaceTypeMobile"
+                      checked={formData.openSpaceType === 'Number'}
+                      onChange={() => handleInputChange('openSpaceType', 'Number')}
+                    />
+                    <span>Number</span>
+                  </label>
+                </div>
+              </div>
               <input
                 type="number"
                 value={formData.openSpaceValue}
                 onChange={(e) => handleInputChange('openSpaceValue', e.target.value)}
-                className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
+                placeholder={formData.openSpaceType === '%' ? 'e.g. 78' : 'e.g. 1500'}
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
               />
             </div>
-          </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-0.5">
-              <label className="text-[10px] font-medium text-slate-600">Land Extent</label>
-              <div className="flex items-center gap-2 text-[10px]">
-                <label className="inline-flex items-center gap-1">
-                  <input
-                    type="radio"
-                    name="mobileLandExtentUnit"
-                    checked={formData.landExtentUnit === 'Acres'}
-                    onChange={() => handleInputChange('landExtentUnit', 'Acres')}
-                  />
-                  <span>Acres</span>
-                </label>
-                <label className="inline-flex items-center gap-1">
-                  <input
-                    type="radio"
-                    name="mobileLandExtentUnit"
-                    checked={formData.landExtentUnit === 'Sq. Yrds'}
-                    onChange={() => handleInputChange('landExtentUnit', 'Sq. Yrds')}
-                  />
-                  <span>Sq. Yrds</span>
-                </label>
-              </div>
-            </div>
-            <input
-              type="text"
-              value={formData.landExtentValue}
-              onChange={(e) => handleInputChange('landExtentValue', e.target.value)}
-              className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Number of Units</label>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Greenery Area (%)
+              </label>
+              <input
+                type="number"
+                value={formData.greeneryArea}
+                onChange={(e) => handleInputChange('greeneryArea', e.target.value)}
+                placeholder="e.g. 35"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+              />
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1.5 h-4">
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                  Land Extent
+                </label>
+                <div className="flex items-center gap-2 text-[11px]">
+                  <label className="inline-flex items-center gap-1 cursor-pointer text-slate-600 dark:text-slate-300">
+                    <input
+                      type="radio"
+                      name="landExtentUnitMobile"
+                      checked={formData.landExtentUnit === 'Acres'}
+                      onChange={() => handleInputChange('landExtentUnit', 'Acres')}
+                    />
+                    <span>Acres</span>
+                  </label>
+                  <label className="inline-flex items-center gap-1 cursor-pointer text-slate-600 dark:text-slate-300">
+                    <input
+                      type="radio"
+                      name="landExtentUnitMobile"
+                      checked={formData.landExtentUnit === 'Sq. Yrds'}
+                      onChange={() => handleInputChange('landExtentUnit', 'Sq. Yrds')}
+                    />
+                    <span>Sq. Yrds</span>
+                  </label>
+                </div>
+              </div>
+              <input
+                type="text"
+                value={formData.landExtentValue}
+                onChange={(e) => handleInputChange('landExtentValue', e.target.value)}
+                placeholder="e.g. 12.5"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Number of Units
+              </label>
               <input
                 type="number"
                 value={formData.numberOfUnits}
                 onChange={(e) => handleInputChange('numberOfUnits', e.target.value)}
-                className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
+                placeholder="e.g. 450"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
               />
             </div>
+          </div>
+        </section>
+
+        {/* Section 3: Engineering, Parking & Site Parameters */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                03
+              </span>
+              <span className="w-1 h-3 rounded-full bg-emerald-600 dark:bg-emerald-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Engineering & Parking
+              </h3>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-2.5">
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Parking Levels
+                </label>
+                <input
+                  type="number"
+                  value={formData.parkingLevels}
+                  onChange={(e) => handleInputChange('parkingLevels', e.target.value)}
+                  placeholder="e.g. 3"
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Driveway (Ft)
+                </label>
+                <input
+                  type="number"
+                  value={formData.drivewayWidth}
+                  onChange={(e) => handleInputChange('drivewayWidth', e.target.value)}
+                  placeholder="e.g. 30"
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Driveway Width</label>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Brick / Construction Type
+              </label>
+              <div className="flex items-center gap-2 flex-wrap w-full">
+                <ModernDropdown<string>
+                  value={formData.selectedConstructionType}
+                  onChange={(val) => handleInputChange('selectedConstructionType', val)}
+                  options={constructionTypes.map((c) => ({
+                    value: c.option,
+                    label: `${c.option} (${c.status})`,
+                  }))}
+                  placeholder="Select Brick Type"
+                  roundedClass="rounded-[4px]"
+                  className="flex-1 min-w-[150px]"
+                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsDialogOpen(true)}
+                  className="inline-flex items-center gap-1 px-2.5 h-9 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95 shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>Add Type</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Parking in Deed
+                </label>
+                <ModernDropdown<string>
+                  value={formData.parkingRegisteredInSaleDeed}
+                  onChange={(val) => handleInputChange('parkingRegisteredInSaleDeed', val)}
+                  options={['Yes', 'No']}
+                  placeholder="Select"
+                  roundedClass="rounded-[4px]"
+                  className="w-full inline-block"
+                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Density
+                </label>
+                <input
+                  type="text"
+                  value={formData.density}
+                  onChange={(e) => handleInputChange('density', e.target.value)}
+                  placeholder="e.g. High"
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Pricing Specifications & Commercials */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                04
+              </span>
+              <span className="w-1 h-3 rounded-full bg-amber-600 dark:bg-amber-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Pricing & Commercials
+              </h3>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Base Price (INR) & Unit
+              </label>
+              <div className="flex items-center gap-2 w-full">
+                <input
+                  type="number"
+                  value={formData.basePrice}
+                  onChange={(e) => handleInputChange('basePrice', e.target.value)}
+                  placeholder="e.g. 8500"
+                  className="w-28 h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+                <ModernDropdown<string>
+                  value={formData.basePriceUnit}
+                  onChange={(val) => handleInputChange('basePriceUnit', val)}
+                  options={['Square Feet (Sqft)', 'Square Yards', 'Lumpsum']}
+                  placeholder="Unit"
+                  roundedClass="rounded-[4px]"
+                  className="flex-1"
+                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Price Updated On
+              </label>
+              <ModernCalendar
+                value={formData.priceUpdatedOn}
+                onChange={(val) => handleInputChange('priceUpdatedOn', val)}
+                placeholder="dd-mm-yyyy"
+              />
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Upload Price Card (PDF/JPG)
+              </label>
+              {priceCardFileName || formData.priceCardFile ? (
+                <div className="flex items-center justify-between gap-2 h-9 w-full px-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs">
+                  <span className="text-xs font-medium text-slate-800 dark:text-slate-100 truncate">
+                    {priceCardFileName || formData.priceCardFile}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleRemovePriceCard}
+                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 h-9 w-full">
+                  <input
+                    ref={priceCardInputRef}
+                    type="file"
+                    id="price-card-input-mobile"
+                    accept=".pdf,image/*"
+                    onChange={handlePriceCardUpload}
+                    className="sr-only"
+                  />
+                  <label
+                    htmlFor="price-card-input-mobile"
+                    className="inline-flex items-center gap-1.5 px-3 h-9 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium cursor-pointer shadow-2xs"
+                  >
+                    <UploadCloud className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span>Choose</span>
+                  </label>
+                  <div className="flex-1 px-2.5 h-9 flex items-center bg-white/70 dark:bg-slate-950/70 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-[11px] text-slate-400 truncate">
+                    No file chosen
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Pricing Type
+                </label>
+                <ModernDropdown<string>
+                  value={formData.pricingType}
+                  onChange={(val) => handleInputChange('pricingType', val)}
+                  options={['Per Feet', 'Per Unit']}
+                  placeholder="Select"
+                  roundedClass="rounded-[4px]"
+                  className="w-full inline-block"
+                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Amenities Price
+                </label>
+                <input
+                  type="number"
+                  value={formData.amenitiesPrice}
+                  onChange={(e) => handleInputChange('amenitiesPrice', e.target.value)}
+                  placeholder="e.g. 500000"
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Other Pricing (Notes)
+              </label>
               <input
-                type="number"
-                value={formData.drivewayWidth}
-                onChange={(e) => handleInputChange('drivewayWidth', e.target.value)}
-                className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
+                type="text"
+                value={formData.otherPricingText}
+                onChange={(e) => handleInputChange('otherPricingText', e.target.value)}
+                placeholder="e.g. Club membership extra"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
               />
             </div>
           </div>
-        </div>
+        </section>
+      </div>
 
-        
-        <div className="border border-slate-200/70 rounded-lg p-3 bg-slate-50/40 space-y-2">
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-1">Brick Type</label>
-            <div className="relative">
-              <select
-                value={formData.selectedConstructionType}
-                onChange={(e) => handleInputChange('selectedConstructionType', e.target.value)}
-                className="w-full appearance-none px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs text-slate-800 pr-7"
-              >
-                <option value="">Select Brick Type</option>
-                {constructionTypes.map((c) => (
-                  <option key={c.id} value={c.option}>
-                    {c.option} ({c.status})
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 pointer-events-none text-slate-600 dark:text-slate-400" />
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setIsDialogOpen(true)}
-            className="w-full py-1.5 rounded-md text-xs font-semibold text-white bg-[#1956db] hover:bg-[#1447b8] transition-colors flex items-center justify-center gap-1"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Construction type</span>
-          </button>
-        </div>
-
-        
-        <div className="border border-slate-200/70 rounded-lg p-3 bg-slate-50/40 space-y-2">
-          <h3 className="font-semibold text-slate-700 text-xs">Pricing Details</h3>
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Base Price (INR)</label>
-            <div className="flex gap-1.5">
-              <input
-                type="number"
-                value={formData.basePrice}
-                onChange={(e) => handleInputChange('basePrice', e.target.value)}
-                className="w-24 px-2 py-1 bg-white border border-slate-300 rounded text-xs"
-              />
-              <select
-                value={formData.basePriceUnit}
-                onChange={(e) => handleInputChange('basePriceUnit', e.target.value)}
-                className="flex-1 px-2 py-1 bg-white border border-slate-300 rounded text-xs"
-              >
-                <option value="Square Feet (Sqft)">Sqft</option>
-                <option value="Square Yards">Sq Yds</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Price Updated On</label>
-            <input
-              type="date"
-              value={formData.priceUpdatedOn}
-              onChange={(e) => handleInputChange('priceUpdatedOn', e.target.value)}
-              className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
+      {/* Status Card - Placed at bottom left side */}
+      <div className="pt-2 pb-6 flex items-center justify-start">
+        <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
+          <div className="flex flex-col items-start gap-1.5">
+            <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 h-4">
+              <span>Status</span>
+              <span className="text-rose-500 font-bold">*</span>
+            </label>
+            <ModernDropdown<'Active' | 'Inactive'>
+              value={formData.status}
+              onChange={(val) => handleInputChange('status', val)}
+              options={[
+                {
+                  value: 'Active',
+                  label: 'Active',
+                  icon: <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1" />,
+                },
+                {
+                  value: 'Inactive',
+                  label: 'Inactive',
+                  icon: <span className="w-2 h-2 rounded-full bg-slate-400 inline-block mr-1" />,
+                },
+              ]}
+              dropUp={true}
+              roundedClass="rounded-[4px]"
+              className="w-auto inline-block"
+              buttonClassName="w-auto h-8 px-2.5 text-xs font-semibold gap-1.5 bg-transparent border border-slate-200/90 dark:border-white/10 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 shadow-none"
             />
           </div>
-          <div>
-            <label className="block text-[10px] font-medium text-slate-600 mb-0.5">Amenities Price</label>
-            <input
-              type="number"
-              value={formData.amenitiesPrice}
-              onChange={(e) => handleInputChange('amenitiesPrice', e.target.value)}
-              className="w-full px-2 py-1 bg-white border border-slate-300 rounded text-xs"
-            />
-          </div>
-        </div>
-
-        
-        <div>
-          <label className="block text-[10px] font-medium text-slate-600 mb-1">
-            Status <span className="text-red-500 font-bold">*</span>
-          </label>
-          <select
-            value={formData.status}
-            onChange={(e) => handleInputChange('status', e.target.value as 'Active' | 'Inactive')}
-            className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-xs font-semibold text-slate-800"
-          >
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
         </div>
       </div>
 

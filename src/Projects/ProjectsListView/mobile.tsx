@@ -73,7 +73,7 @@ export function ProjectsListMobile({
   const paginatedProjects = filteredProjects.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className="space-y-3 select-none pb-4 animate-in fade-in duration-200">
+    <div className="space-y-3 pb-4 animate-in fade-in duration-200">
       
       <div className="flex items-center justify-between gap-2">
         <div>

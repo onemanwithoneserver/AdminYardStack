@@ -38,7 +38,6 @@ export const INITIAL_AUTHORITY_OPTIONS: ApprovalAuthorityOption[] = [
 ];
 
 export const HANDOVER_STATUS_OPTIONS = [
-  'Select HandOver Status',
   'Ready to Move',
   'Ready to Move (DL Received)',
   'Ready to Move (OC Received)',
@@ -46,7 +45,6 @@ export const HANDOVER_STATUS_OPTIONS = [
 ] as const;
 
 export const OC_RECEIVED_OPTIONS = [
-  'Select',
   'Yes',
   'No',
   'Partially Received',
@@ -57,7 +55,7 @@ export const INITIAL_APPROVALS_DATA: ApprovalsFormData = {
   approvingAuthority: '',
   approvalCopyFile: null,
   completionDate: '',
-  handOver: 'Select HandOver Status',
+  handOver: '',
   handOverDate: '',
   remarks: '',
   

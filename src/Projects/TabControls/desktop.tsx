@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Save, RotateCcw, MapPin, FileText, Layers, Boxes, Shield, Star, Building2, CreditCard, ImageIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Save, RotateCcw, MapPin, FileText, Layers, Boxes, ShieldCheck, Sparkles, SlidersHorizontal, Zap, CreditCard, Film } from 'lucide-react';
 import { PROJECT_TABS, type ProjectTabItem } from './data';
 
 interface TabControlsDesktopProps {
@@ -25,18 +25,18 @@ function getTabIcon(tabId: string, isActive: boolean) {
       case '04':
         return <Boxes className={iconClass} />;
       case '05':
-        return <Shield className={iconClass} />;
+        return <ShieldCheck className={iconClass} />;
       case '06':
-        return <Star className={iconClass} />;
+        return <Sparkles className={iconClass} />;
       case '07':
-        return <FileText className={iconClass} />;
+        return <SlidersHorizontal className={iconClass} />;
       case '08':
-        return <Building2 className={iconClass} />;
+        return <Zap className={iconClass} />;
       case '09':
         return <CreditCard className={iconClass} />;
       case '10':
       default:
-        return <ImageIcon className={iconClass} />;
+        return <Film className={iconClass} />;
     }
   };
 
@@ -50,11 +50,11 @@ function getTabIcon(tabId: string, isActive: boolean) {
   const getUnselectedBoxClass = () => {
     switch (tabId) {
       case '01':
-        return 'bg-blue-600 text-white shadow-xs';
-      case '02':
-        return 'bg-indigo-600 text-white shadow-xs';
-      case '03':
         return 'bg-emerald-600 text-white shadow-xs';
+      case '02':
+        return 'bg-fuchsia-600 text-white shadow-xs';
+      case '03':
+        return 'bg-orange-600 text-white shadow-xs';
       case '04':
         return 'bg-amber-600 text-white shadow-xs';
       case '05':
@@ -62,9 +62,9 @@ function getTabIcon(tabId: string, isActive: boolean) {
       case '06':
         return 'bg-purple-600 text-white shadow-xs';
       case '07':
-        return 'bg-sky-600 text-white shadow-xs';
+        return 'bg-pink-600 text-white shadow-xs';
       case '08':
-        return 'bg-orange-600 text-white shadow-xs';
+        return 'bg-amber-500 text-white shadow-xs';
       case '09':
         return 'bg-violet-600 text-white shadow-xs';
       case '10':
@@ -92,6 +92,8 @@ export function TabControlsDesktop({
   
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const currentTab = PROJECT_TABS.find((t) => t.id === activeTabId) || PROJECT_TABS[0];
 
   const checkScrollability = () => {
     const el = scrollContainerRef.current;
@@ -151,7 +153,7 @@ export function TabControlsDesktop({
   };
 
   return (
-    <div className="w-full space-y-3 select-none">
+    <div className="w-full space-y-3">
       {!hideBanner && (
         <div className="w-full bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden py-3.5 px-5 sm:px-6">
           <div className="absolute top-0 right-1/4 w-96 h-16 bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-violet-500/15 blur-xl pointer-events-none" />
@@ -159,7 +161,7 @@ export function TabControlsDesktop({
           <div
             className="absolute right-36 top-0 bottom-0 w-3/5 pointer-events-none opacity-90 dark:opacity-30 bg-contain bg-right bg-no-repeat hidden md:block"
             style={{
-              backgroundImage: 'url(/project_banner.jpg)',
+              backgroundImage: `url(${import.meta.env.BASE_URL}project_banner.jpg)`,
               maskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
             }}
@@ -167,13 +169,18 @@ export function TabControlsDesktop({
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-9.5 h-9.5 rounded-[4px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/25 shrink-0 hover:scale-105 transition-transform duration-200">
-                <FileText className="w-5 h-5 stroke-[2] text-white" />
+              <div className="w-9 h-9 rounded-[4px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-md shadow-indigo-500/25 shrink-0 hover:scale-105 transition-transform duration-200">
+                <div className="scale-125 [&_svg]:w-4.5 [&_svg]:h-4.5">
+                  {getTabIcon(currentTab.id, false).icon}
+                </div>
               </div>
               <div>
                 <h2 className="text-base font-bold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
-                  Project Specification
+                  {currentTab.label}
                 </h2>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Configure and manage {currentTab.label.toLowerCase()} details and parameters
+                </p>
               </div>
             </div>
 
@@ -228,7 +235,7 @@ export function TabControlsDesktop({
         <div
           ref={scrollContainerRef}
           onWheel={handleWheel}
-          className="w-full flex items-center gap-2.5 overflow-x-auto no-scrollbar py-2 px-1 scroll-smooth"
+          className={`w-full flex items-center gap-2.5 overflow-x-auto no-scrollbar py-2 scroll-smooth transition-all duration-200 ${canScrollLeft ? 'pl-8' : 'pl-1'} ${canScrollRight ? 'pr-8' : 'pr-1'}`}
         >
           {PROJECT_TABS.map((tab) => {
             const isActive = activeTabId === tab.id;
@@ -243,7 +250,7 @@ export function TabControlsDesktop({
                   className={`group flex items-center gap-2 px-3.5 py-2 rounded-[4px] text-xs font-semibold transition-all duration-200 cursor-pointer select-none whitespace-nowrap active:scale-98 ${
                     isActive
                       ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-md shadow-blue-500/30 scale-[1.01] border border-blue-400/40'
-                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 hover:border-blue-400/40 dark:hover:border-blue-400/30 shadow-2xs hover:shadow-xs hover:-translate-y-0.5'
+                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 shadow-2xs hover:shadow-xs hover:-translate-y-0.5'
                   }`}
                 >
                   

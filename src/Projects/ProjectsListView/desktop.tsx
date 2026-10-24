@@ -2,7 +2,7 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Plus, MapPin, X, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowUpDown, MoreVertical, Eye, Pencil, Trash2, AlertTriangle, RotateCcw } from 'lucide-react';
 import { INITIAL_PROJECTS_LIST, type ProjectListItem } from './data';
-import { ModernDropdown } from '../../components/ModernDropdown';
+import { ModernDropdown } from '../../components/elements/ModernDropdown';
 
 interface ProjectsListDesktopProps {
   onAddProject: () => void;
@@ -287,7 +287,7 @@ export function ProjectsListDesktop({
   const paginatedProjects = filteredProjects.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className="space-y-4 max-w-[1600px] mx-auto select-none">
+    <div className="space-y-4 max-w-[1600px] mx-auto">
       
       <motion.div
         initial={{ opacity: 0, y: -6 }}

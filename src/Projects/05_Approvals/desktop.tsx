@@ -1,6 +1,15 @@
-import { useState, type FormEvent } from 'react';
-import { ChevronDown, Calendar, X, CheckCircle2 } from 'lucide-react';
-import { INITIAL_APPROVALS_DATA, INITIAL_AUTHORITY_OPTIONS, HANDOVER_STATUS_OPTIONS, OC_RECEIVED_OPTIONS, type ApprovalsFormData, type ApprovalAuthorityOption } from './data';
+import { useState, useRef, type FormEvent, type ChangeEvent } from 'react';
+import { ShieldCheck, Plus, X, UploadCloud, CheckCircle2 } from 'lucide-react';
+import { ModernDropdown } from '../../components/elements/ModernDropdown';
+import { ModernCalendar } from '../../components/elements/ModernCalendar';
+import {
+  INITIAL_APPROVALS_DATA,
+  INITIAL_AUTHORITY_OPTIONS,
+  HANDOVER_STATUS_OPTIONS,
+  OC_RECEIVED_OPTIONS,
+  type ApprovalsFormData,
+  type ApprovalAuthorityOption,
+} from './data';
 
 interface AddApprovalDialogProps {
   isOpen: boolean;
@@ -28,23 +37,25 @@ export function AddApprovalDialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
       <div
-        className="w-full max-w-sm bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden"
+        className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
         role="dialog"
         aria-modal="true"
       >
-        <div className="px-5 pt-4 pb-2 flex items-start justify-between border-b border-slate-100">
+        <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Add Approval</h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Type is fixed to approval.
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
+              Add Approving Authority
+            </h3>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Specify municipal, urban development, or planning authority.
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 -mr-1 text-slate-600 dark:text-slate-400 hover:text-slate-700 rounded-md transition-colors cursor-pointer"
+            className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -52,49 +63,47 @@ export function AddApprovalDialog({
 
         <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Option <span className="text-red-500">*</span>
+            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              Authority Name <span className="text-rose-500 font-bold">*</span>
             </label>
             <input
               type="text"
               value={option}
               onChange={(e) => setOption(e.target.value)}
-              placeholder="Enter option"
+              placeholder="e.g. DTCP / HMDA / GHMC"
               required
-              className="w-full px-3 py-2 text-xs text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
               Status
             </label>
-            <div className="relative">
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value as 'ACTIVE' | 'INACTIVE')}
-                className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 pr-8 cursor-pointer"
-              >
-                <option value="ACTIVE">ACTIVE</option>
-                <option value="INACTIVE">INACTIVE</option>
-              </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
-            </div>
+            <ModernDropdown<'ACTIVE' | 'INACTIVE'>
+              value={status}
+              onChange={(val) => setStatus(val)}
+              options={['ACTIVE', 'INACTIVE']}
+              placeholder="Select Status"
+              roundedClass="rounded-[4px]"
+              className="w-full"
+              buttonClassName="w-full h-9 px-3 text-xs font-medium"
+            />
           </div>
 
-          <div className="pt-2 flex items-center justify-end gap-2">
+          <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-xs cursor-pointer"
+              className="px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer"
             >
-              Save
+              Save Authority
             </button>
           </div>
         </form>
@@ -110,6 +119,10 @@ export function ApprovalsDesktop() {
   );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [savedNotification, setSavedNotification] = useState(false);
+  const [approvalCopyName, setApprovalCopyName] = useState<string>('');
+  const [reraFileName, setReraFileName] = useState<string>('');
+  const approvalCopyInputRef = useRef<HTMLInputElement>(null);
+  const reraFileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = <K extends keyof ApprovalsFormData>(
     field: K,
@@ -127,382 +140,465 @@ export function ApprovalsDesktop() {
     handleInputChange('approvingAuthority', item.option);
   };
 
+  const handleApprovalCopyUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setApprovalCopyName(file.name);
+      handleInputChange('approvalCopyFile', file.name);
+    }
+  };
+
+  const handleReraFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setReraFileName(file.name);
+      handleInputChange('reraFile', file.name);
+    }
+  };
+
   const handleSave = () => {
     setSavedNotification(true);
     setTimeout(() => setSavedNotification(false), 2500);
   };
 
   return (
-    <div className="w-full ys-panel p-6 md:p-8 space-y-7 text-slate-800 dark:text-slate-100 text-xs">
+    <div className="p-2 space-y-5 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
       {savedNotification && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 ys-toast px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4" />
+        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-4 py-2.5 rounded-[4px] shadow-lg text-xs font-semibold animate-in fade-in slide-in-from-top-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>Approvals saved successfully!</span>
         </div>
       )}
 
-      <div className="pb-3.5 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+      {/* Header Banner */}
+      <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
-          <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight font-display">
-            Approvals
-          </h2>
+          <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white shadow-xs shadow-rose-500/20">
+            <ShieldCheck className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white tracking-tight font-display">
+                Approvals
+              </h2>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Statutory sanctions, RERA registration numbers, environmental clearances, and legal certificates
+            </p>
+          </div>
         </div>
       </div>
 
-      
-      <section className="space-y-4">
-        <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-          Approving Details
-        </h3>
+      <div className="space-y-4 pb-4">
+        {/* Section 1: Statutory Sanctions & Approval Authority */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                01
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-blue-600 dark:bg-blue-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Statutory Sanctions & Approval Authority
+              </h3>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Approving Authority
-            </label>
-            <div className="relative">
-              <select
-                value={formData.approvingAuthority}
-                onChange={(e) =>
-                  handleInputChange('approvingAuthority', e.target.value)
-                }
-                className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-8 cursor-pointer"
-              >
-                <option value="">Select Approving Authority</option>
-                {authorityOptions
-                  .filter((a) => a.status === 'ACTIVE')
-                  .map((a) => (
-                    <option key={a.id} value={a.option}>
-                      {a.option}
-                    </option>
-                  ))}
-              </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
+            {/* Approving Authority */}
+            <div className="flex flex-col items-start w-full sm:col-span-2">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Approving Authority
+              </label>
+              <div className="flex items-center gap-2.5 w-full">
+                <ModernDropdown<string>
+                  value={formData.approvingAuthority}
+                  onChange={(val) => handleInputChange('approvingAuthority', val)}
+                  options={authorityOptions.filter((a) => a.status === 'ACTIVE').map((a) => a.option)}
+                  placeholder="Select Approving Authority"
+                  roundedClass="rounded-[4px]"
+                  className="flex-1 min-w-[180px]"
+                  buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsDialogOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-3 h-9 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95 shrink-0"
+                >
+                  <Plus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>Add Approval</span>
+                </button>
+              </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsDialogOpen(true)}
-              className="mt-2.5 inline-flex items-center px-3.5 py-1.5 bg-[#1956db] hover:bg-[#1444b0] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors cursor-pointer"
-            >
-              Add Approval
-            </button>
-          </div>
+            {/* Approval Copy */}
+            <div className="flex flex-col items-start w-full sm:col-span-2">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Approval Copy (PDF/JPG)
+              </label>
+              {approvalCopyName || formData.approvalCopyFile ? (
+                <div className="flex items-center justify-between gap-2 h-9 w-full px-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs">
+                  <span className="text-xs font-medium text-slate-800 dark:text-slate-100 truncate">
+                    {approvalCopyName || formData.approvalCopyFile}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setApprovalCopyName('');
+                      handleInputChange('approvalCopyFile', null);
+                      if (approvalCopyInputRef.current) approvalCopyInputRef.current.value = '';
+                    }}
+                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 h-9 w-full">
+                  <input
+                    ref={approvalCopyInputRef}
+                    type="file"
+                    id="approval-copy-input"
+                    accept=".pdf,image/*"
+                    onChange={handleApprovalCopyUpload}
+                    className="sr-only"
+                  />
+                  <label
+                    htmlFor="approval-copy-input"
+                    className="inline-flex items-center gap-1.5 px-3 h-9 bg-white dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium cursor-pointer shadow-2xs transition-all shrink-0 active:scale-95"
+                  >
+                    <UploadCloud className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span>Choose</span>
+                  </label>
+                  <div className="flex-1 px-2.5 h-9 flex items-center bg-white/70 dark:bg-slate-950/70 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-[11px] text-slate-400 truncate">
+                    No file chosen
+                  </div>
+                </div>
+              )}
+            </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Approval Copy (PDF/JPG)
-            </label>
-            <input
-              type="file"
-              accept=".pdf,image/*"
-              className="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer border border-slate-300 rounded-lg p-1 bg-white"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Completion Date
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="dd-mm-yyyy"
+            {/* Completion Date */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Completion Date
+              </label>
+              <ModernCalendar
                 value={formData.completionDate}
-                onChange={(e) =>
-                  handleInputChange('completionDate', e.target.value)
-                }
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
+                onChange={(val) => handleInputChange('completionDate', val)}
+                placeholder="dd-mm-yyyy"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              HandOver
-            </label>
-            <div className="relative">
-              <select
+            {/* HandOver */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                HandOver Status
+              </label>
+              <ModernDropdown<string>
                 value={formData.handOver}
-                onChange={(e) => handleInputChange('handOver', e.target.value)}
-                className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-8 cursor-pointer"
-              >
-                {HANDOVER_STATUS_OPTIONS.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
+                onChange={(val) => handleInputChange('handOver', val)}
+                options={[...HANDOVER_STATUS_OPTIONS]}
+                placeholder="Select HandOver Status"
+                roundedClass="rounded-[4px]"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+              />
             </div>
-          </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start pt-2">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              HandOver Date
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="dd-mm-yyyy"
+            {/* HandOver Date */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                HandOver Date
+              </label>
+              <ModernCalendar
                 value={formData.handOverDate}
-                onChange={(e) => handleInputChange('handOverDate', e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
+                onChange={(val) => handleInputChange('handOverDate', val)}
+                placeholder="dd-mm-yyyy"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
+            </div>
+
+            {/* Remarks */}
+            <div className="flex flex-col items-start w-full sm:col-span-2 md:col-span-4">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Approval Remarks
+              </label>
+              <textarea
+                rows={2}
+                value={formData.remarks}
+                onChange={(e) => handleInputChange('remarks', e.target.value)}
+                placeholder="Enter regulatory or sanction notes..."
+                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs resize-none"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: RERA Registration & Compliance */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                02
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-indigo-600 dark:bg-indigo-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                RERA Registration & Compliance
+              </h3>
             </div>
           </div>
 
-          <div className="md:col-span-3">
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Remarks
-            </label>
-            <textarea
-              rows={2}
-              value={formData.remarks}
-              onChange={(e) => handleInputChange('remarks', e.target.value)}
-              placeholder="Enter remarks..."
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 resize-none"
-            />
-          </div>
-        </div>
-      </section>
-
-      
-      <section className="space-y-4 pt-3 border-t border-slate-100">
-        <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-          RERA Details
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-2">
-              RERA Registered
-            </label>
-            <div className="flex items-center gap-5 pt-0.5">
-              <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700">
-                <input
-                  type="radio"
-                  name="reraRegistered"
-                  checked={formData.reraRegistered === 'Yes'}
-                  onChange={() => handleInputChange('reraRegistered', 'Yes')}
-                  className="w-3.5 h-3.5 text-blue-600 focus:ring-blue-500 cursor-pointer"
-                />
-                <span>Yes</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
+            {/* RERA Registered */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                RERA Registered
               </label>
-              <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700">
-                <input
-                  type="radio"
-                  name="reraRegistered"
-                  checked={formData.reraRegistered === 'No'}
-                  onChange={() => handleInputChange('reraRegistered', 'No')}
-                  className="w-3.5 h-3.5 text-blue-600 focus:ring-blue-500 cursor-pointer"
-                />
-                <span>No</span>
-              </label>
+              <div className="flex items-center gap-5 h-9">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700 dark:text-slate-300">
+                  <input
+                    type="radio"
+                    name="reraRegistered"
+                    checked={formData.reraRegistered === 'Yes'}
+                    onChange={() => handleInputChange('reraRegistered', 'Yes')}
+                    className="w-3.5 h-3.5 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                  />
+                  <span>Yes</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700 dark:text-slate-300">
+                  <input
+                    type="radio"
+                    name="reraRegistered"
+                    checked={formData.reraRegistered === 'No'}
+                    onChange={() => handleInputChange('reraRegistered', 'No')}
+                    className="w-3.5 h-3.5 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                  />
+                  <span>No</span>
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              RERA Registration Number
-            </label>
-            <input
-              type="text"
-              value={formData.reraRegistrationNumber}
-              onChange={(e) =>
-                handleInputChange('reraRegistrationNumber', e.target.value)
-              }
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              RERA Valid Upto
-            </label>
-            <div className="relative">
+            {/* RERA Registration Number */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                RERA Registration Number
+              </label>
               <input
                 type="text"
-                placeholder="-----------"
+                value={formData.reraRegistrationNumber}
+                onChange={(e) => handleInputChange('reraRegistrationNumber', e.target.value)}
+                placeholder="e.g. P02400003412"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
+              />
+            </div>
+
+            {/* RERA Valid Upto */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                RERA Valid Upto
+              </label>
+              <ModernCalendar
                 value={formData.reraValidUpto}
-                onChange={(e) =>
-                  handleInputChange('reraValidUpto', e.target.value)
-                }
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
-              />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              RERA File
-            </label>
-            <input
-              type="file"
-              accept=".pdf,image/*"
-              className="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer border border-slate-300 rounded-lg p-1 bg-white"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start pt-1">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              RERA Approval Date
-            </label>
-            <div className="relative">
-              <input
-                type="text"
+                onChange={(val) => handleInputChange('reraValidUpto', val)}
                 placeholder="dd-mm-yyyy"
+              />
+            </div>
+
+            {/* RERA File */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                RERA Certificate (PDF)
+              </label>
+              {reraFileName || formData.reraFile ? (
+                <div className="flex items-center justify-between gap-2 h-9 w-full px-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs">
+                  <span className="text-xs font-medium text-slate-800 dark:text-slate-100 truncate">
+                    {reraFileName || formData.reraFile}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setReraFileName('');
+                      handleInputChange('reraFile', null);
+                      if (reraFileInputRef.current) reraFileInputRef.current.value = '';
+                    }}
+                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 h-9 w-full">
+                  <input
+                    ref={reraFileInputRef}
+                    type="file"
+                    id="rera-file-input"
+                    accept=".pdf,image/*"
+                    onChange={handleReraFileUpload}
+                    className="sr-only"
+                  />
+                  <label
+                    htmlFor="rera-file-input"
+                    className="inline-flex items-center gap-1.5 px-3 h-9 bg-white dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium cursor-pointer shadow-2xs transition-all shrink-0 active:scale-95"
+                  >
+                    <UploadCloud className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span>Choose</span>
+                  </label>
+                  <div className="flex-1 px-2.5 h-9 flex items-center bg-white/70 dark:bg-slate-950/70 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-[11px] text-slate-400 truncate">
+                    No file chosen
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* RERA Approval Date */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                RERA Approval Date
+              </label>
+              <ModernCalendar
                 value={formData.reraApprovalDate}
-                onChange={(e) =>
-                  handleInputChange('reraApprovalDate', e.target.value)
-                }
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
-              />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Approval Date
-            </label>
-            <div className="relative">
-              <input
-                type="text"
+                onChange={(val) => handleInputChange('reraApprovalDate', val)}
                 placeholder="dd-mm-yyyy"
+              />
+            </div>
+
+            {/* Approval Date */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Authority Approval Date
+              </label>
+              <ModernCalendar
                 value={formData.approvalDate}
-                onChange={(e) => handleInputChange('approvalDate', e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
+                onChange={(val) => handleInputChange('approvalDate', val)}
+                placeholder="dd-mm-yyyy"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      
-      <section className="space-y-4 pt-3 border-t border-slate-100">
-        <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-          OC Details
-        </h3>
+        {/* Section 3: Occupancy Certificate (OC) Details */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                03
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white tracking-wider font-display">
+                Occupancy Certificate (OC) Details
+              </h3>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              OC Received
-            </label>
-            <div className="relative">
-              <select
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
+            {/* OC Received */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                OC Status
+              </label>
+              <ModernDropdown<string>
                 value={formData.ocReceived}
-                onChange={(e) => handleInputChange('ocReceived', e.target.value)}
-                className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-8 cursor-pointer"
-              >
-                {OC_RECEIVED_OPTIONS.map((opt) => (
-                  <option key={opt} value={opt === 'Select' ? '' : opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
+                onChange={(val) => handleInputChange('ocReceived', val)}
+                options={[...OC_RECEIVED_OPTIONS]}
+                placeholder="Select OC Status"
+                roundedClass="rounded-[4px]"
+                className="w-full inline-block"
+                buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+              />
             </div>
-          </div>
 
-          <div className="md:col-span-2">
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              OC Approval Dates (comma-separated)
-            </label>
-            <input
-              type="text"
-              value={formData.ocApprovalDates}
-              onChange={(e) =>
-                handleInputChange('ocApprovalDates', e.target.value)
-              }
-              placeholder="e.g. 12-01-2024, 15-06-2024"
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 placeholder:text-slate-600 dark:placeholder:text-slate-600 dark:text-slate-400"
-            />
-          </div>
-        </div>
-      </section>
-
-      
-      <section className="space-y-4 pt-3 border-t border-slate-100">
-        <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-          CC Details
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              CC Number
-            </label>
-            <input
-              type="text"
-              value={formData.ccNumber}
-              onChange={(e) => handleInputChange('ccNumber', e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              CC Date
-            </label>
-            <div className="relative">
+            {/* OC Approval Dates */}
+            <div className="flex flex-col items-start w-full sm:col-span-2">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                OC Approval Dates (comma-separated)
+              </label>
               <input
                 type="text"
-                placeholder="dd-mm-yyyy"
-                value={formData.ccDate}
-                onChange={(e) => handleInputChange('ccDate', e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-9"
+                value={formData.ocApprovalDates}
+                onChange={(e) => handleInputChange('ocApprovalDates', e.target.value)}
+                placeholder="e.g. 12-01-2024, 15-06-2024"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
               />
-              <Calendar className="w-4 h-4 absolute right-2.5 top-2.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      
-      <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-4">
-        <div className="max-w-xs w-full">
-          <label className="block text-[11px] font-medium text-slate-600 mb-1">
-            Status <span className="text-red-500 font-bold">*</span>
-          </label>
-          <div className="relative">
-            <select
-              value={formData.status}
-              onChange={(e) =>
-                handleInputChange(
-                  'status',
-                  e.target.value as 'Active' | 'Inactive'
-                )
-              }
-              className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:border-blue-600 pr-8 cursor-pointer"
-            >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
+        {/* Section 4: Completion Certificate (CC) Details */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                04
+              </span>
+              <span className="w-1 h-3.5 rounded-full bg-amber-600 dark:bg-amber-500" />
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white tracking-wider font-display">
+                Completion Certificate (CC) Details
+              </h3>
+            </div>text-[14px] font-bold text-slate-900 dark:text-white font-display
           </div>
-        </div>
 
-        <button
-          type="button"
-          onClick={handleSave}
-          className="px-6 py-2 bg-[#1956db] hover:bg-[#1444b0] text-white text-xs font-semibold rounded-lg shadow-sm transition-colors cursor-pointer self-end"
-        >
-          Save Project
-        </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
+            {/* CC Number */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                CC Number
+              </label>
+              <input
+                type="text"
+                value={formData.ccNumber}
+                onChange={(e) => handleInputChange('ccNumber', e.target.value)}
+                placeholder="e.g. CC/104/2024"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
+              />
+            </div>
+
+            {/* CC Date */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                CC Date
+              </label>
+              <ModernCalendar
+                value={formData.ccDate}
+                onChange={(val) => handleInputChange('ccDate', val)}
+                placeholder="dd-mm-yyyy"
+              />
+            </div>
+          </div>
+        </section>
       </div>
 
-      
+      {/* Status Card - Placed at bottom left side */}
+      <div className="pt-2 pb-6 flex items-center justify-start">
+        <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
+          <div className="flex flex-col items-start gap-1.5">
+            <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 h-4">
+              <span>Status</span>
+              <span className="text-rose-500 font-bold">*</span>
+            </label>
+            <ModernDropdown<'Active' | 'Inactive'>
+              value={formData.status}
+              onChange={(val) => handleInputChange('status', val)}
+              options={[
+                {
+                  value: 'Active',
+                  label: 'Active',
+                  icon: <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1" />,
+                },
+                {
+                  value: 'Inactive',
+                  label: 'Inactive',
+                  icon: <span className="w-2 h-2 rounded-full bg-slate-400 inline-block mr-1" />,
+                },
+              ]}
+              dropUp={true}
+              roundedClass="rounded-[4px]"
+              className="w-auto inline-block"
+              buttonClassName="w-auto h-8 px-2.5 text-xs font-semibold gap-1.5 bg-transparent border border-slate-200/90 dark:border-white/10 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 shadow-none"
+            />
+          </div>
+        </div>
+      </div>
+
       <AddApprovalDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

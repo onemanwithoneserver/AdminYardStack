@@ -11,10 +11,13 @@ import CalendarMonthRounded from '@mui/icons-material/CalendarMonthRounded';
 import CheckRounded from '@mui/icons-material/CheckRounded';
 import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
 import KeyboardArrowDownRounded from '@mui/icons-material/KeyboardArrowDownRounded';
+import KeyboardArrowUpRounded from '@mui/icons-material/KeyboardArrowUpRounded';
 import ChevronLeftRounded from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRounded from '@mui/icons-material/ChevronRightRounded';
 import KeyboardDoubleArrowLeftRounded from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
 import KeyboardDoubleArrowRightRounded from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
+import KeyboardDoubleArrowDownRounded from '@mui/icons-material/KeyboardDoubleArrowDownRounded';
+import KeyboardDoubleArrowUpRounded from '@mui/icons-material/KeyboardDoubleArrowUpRounded';
 import ViewColumnRounded from '@mui/icons-material/ViewColumnRounded';
 import KeyboardCommandKeyRounded from '@mui/icons-material/KeyboardCommandKeyRounded';
 import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
@@ -65,6 +68,8 @@ import DescriptionRounded from '@mui/icons-material/DescriptionRounded';
 import CreditCardRounded from '@mui/icons-material/CreditCardRounded';
 import StarRounded from '@mui/icons-material/StarRounded';
 import ImageRounded from '@mui/icons-material/ImageRounded';
+import ElectricBoltRounded from '@mui/icons-material/ElectricBoltRounded';
+import MovieRounded from '@mui/icons-material/MovieRounded';
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number | string;
@@ -106,8 +111,11 @@ export const Calendar = wrapMui(CalendarMonthRounded);
 export const Check = wrapMui(CheckRounded);
 export const CheckCircle2 = wrapMui(CheckCircleRounded);
 export const ChevronDown = wrapMui(KeyboardArrowDownRounded);
+export const ChevronUp = wrapMui(KeyboardArrowUpRounded);
 export const ChevronLeft = wrapMui(ChevronLeftRounded);
 export const ChevronRight = wrapMui(ChevronRightRounded);
+export const ChevronsDown = wrapMui(KeyboardDoubleArrowDownRounded);
+export const ChevronsUp = wrapMui(KeyboardDoubleArrowUpRounded);
 export const ChevronsLeft = wrapMui(KeyboardDoubleArrowLeftRounded);
 export const ChevronsRight = wrapMui(KeyboardDoubleArrowRightRounded);
 export const Columns = wrapMui(ViewColumnRounded);
@@ -172,6 +180,8 @@ export const ShieldCheck = wrapMui(ShieldRounded);
 export const Compass = wrapMui(PlaceRounded);
 export const Route = wrapMui(LayersRounded);
 export const FileCheck2 = wrapMui(DescriptionRounded);
+export const Zap = wrapMui(ElectricBoltRounded);
+export const Film = wrapMui(MovieRounded);
 
 export default {
   Activity,
@@ -185,8 +195,11 @@ export default {
   Check,
   CheckCircle2,
   ChevronDown,
+  ChevronUp,
   ChevronLeft,
   ChevronRight,
+  ChevronsDown,
+  ChevronsUp,
   ChevronsLeft,
   ChevronsRight,
   Columns,

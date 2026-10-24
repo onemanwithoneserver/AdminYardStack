@@ -83,10 +83,10 @@ export function DesktopNav({
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition select-none">
+    <div className="flex h-screen w-screen overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition">
       
       <aside
-        className={`flex flex-col shrink-0 h-full relative z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`flex flex-col shrink-0 h-full relative z-40 select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           collapsed ? 'w-[76px]' : 'w-[268px]'
         } luxury-sidebar-light dark:luxury-sidebar-dark border-r border-slate-200/80 dark:border-white/[0.07] shadow-xl`}
       >

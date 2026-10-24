@@ -72,7 +72,7 @@ export function MobileNav({
     : SIDEBAR_ITEMS;
 
   return (
-    <div className="flex flex-col h-full w-full overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition select-none">
+    <div className="flex flex-col h-full w-full overflow-hidden liquid-mesh-bg font-sans antialiased text-slate-800 dark:text-slate-100 theme-transition">
       
       <header className="h-14 luxury-glass-nav px-3 flex items-center justify-between shrink-0 shadow-xs z-30 relative">
         <div className="flex items-center gap-2.5">

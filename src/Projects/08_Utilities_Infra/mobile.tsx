@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { ChevronDown, CheckCircle2 } from 'lucide-react';
-import { INITIAL_UTILITIES_INFRA_DATA, WATER_SOURCE_OPTIONS, GENERIC_SELECT_OPTIONS, type UtilitiesInfraFormData } from './data';
+import { Zap, CheckCircle2 } from 'lucide-react';
+import { ModernDropdown } from '../../components/elements/ModernDropdown';
+import {
+  INITIAL_UTILITIES_INFRA_DATA,
+  WATER_SOURCE_OPTIONS,
+  GENERIC_SELECT_OPTIONS,
+  type UtilitiesInfraFormData,
+} from './data';
 
 export function UtilitiesInfraMobile() {
   const [formData, setFormData] = useState<UtilitiesInfraFormData>(
@@ -27,498 +33,583 @@ export function UtilitiesInfraMobile() {
     });
   };
 
-  const handleSave = () => {
-    setSavedNotification(true);
-    setTimeout(() => setSavedNotification(false), 2500);
-  };
-
   const renderSelect = (
     value: string,
     onChange: (val: string) => void,
-    options: readonly string[] = GENERIC_SELECT_OPTIONS
+    options: readonly string[] = GENERIC_SELECT_OPTIONS,
+    placeholder = 'Select value'
   ) => (
-    <div className="relative">
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-blue-600 pr-8"
-      >
-        {options.map((opt) => (
-          <option key={opt} value={opt === 'Select value' ? '' : opt}>
-            {opt}
-          </option>
-        ))}
-      </select>
-      <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
-    </div>
+    <ModernDropdown<string>
+      value={value}
+      onChange={onChange}
+      options={[...options]}
+      placeholder={placeholder}
+      roundedClass="rounded-[4px]"
+      className="w-full inline-block"
+      buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+    />
   );
 
   const renderInputWithUnit = (
     value: string,
     onChange: (val: string) => void,
-    unit: string
+    unit: string,
+    placeholder = ''
   ) => (
-    <div className="relative flex items-center">
+    <div className="relative flex items-center w-full">
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 pr-16"
+        placeholder={placeholder}
+        className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs pr-16"
       />
-      <span className="absolute right-2 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 rounded border border-slate-200 pointer-events-none">
+      <span className="absolute right-2 px-1.5 py-0.5 text-[10px] font-semibold font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-[2px] border border-slate-200 dark:border-white/10 pointer-events-none">
         {unit}
       </span>
     </div>
   );
 
   return (
-    <div className="w-full ys-panel p-4 sm:p-5 space-y-6 text-slate-800 dark:text-slate-100 text-xs">
+    <div className="p-1.5 space-y-4 text-slate-800 dark:text-slate-100 text-xs">
       {savedNotification && (
-        <div className="fixed top-4 inset-x-4 z-50 flex items-center justify-center gap-2 ys-toast px-3 py-2 rounded-xl shadow-lg text-xs font-semibold animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4" />
+        <div className="fixed top-4 inset-x-4 z-50 flex items-center justify-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-3 py-2 rounded-[4px] shadow-lg text-xs font-semibold animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>Utilities & Infra saved successfully!</span>
         </div>
       )}
 
-      <div className="pb-3 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+      {/* Header Banner */}
+      <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xs shadow-blue-500/50" />
-          <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
-            Utilities & Infra
-          </h2>
+          <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-500 flex items-center justify-center text-white shadow-xs shadow-amber-500/20">
+            <Zap className="w-3.5 h-3.5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
+                Utilities & Infra
+              </h2>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Power substations, water supply, drainage, and security surveillance
+            </p>
+          </div>
         </div>
       </div>
 
-      
-      <section className="space-y-3">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Water Infrastructure
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1.5">
-              Water Source
-            </label>
-            <div className="flex flex-wrap items-center gap-3">
-              {WATER_SOURCE_OPTIONS.map((source) => (
-                <label
-                  key={source}
-                  className="flex items-center gap-1.5 cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    checked={formData.waterSources.includes(source)}
-                    onChange={() => handleToggleWaterSource(source)}
-                    className="w-3.5 h-3.5 rounded text-blue-600 border-slate-300"
-                  />
-                  <span>{source}</span>
-                </label>
-              ))}
+      <div className="space-y-3.5 pb-4">
+        {/* Section 1: Water Infrastructure */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                01
+              </span>
+              <span className="w-1 h-3 rounded-full bg-blue-600 dark:bg-blue-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Water Supply & Purification Infrastructure
+              </h3>
             </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Bore Wells Count
-            </label>
-            {renderInputWithUnit(
-              formData.boreWellsCount,
-              (v) => handleFieldChange('boreWellsCount', v),
-              'Count'
-            )}
+          <div className="space-y-3 text-xs">
+            {/* Water Source */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Water Sources
+              </label>
+              <div className="flex flex-wrap items-center gap-3">
+                {WATER_SOURCE_OPTIONS.map((source) => (
+                  <label
+                    key={source}
+                    className="flex items-center gap-1.5 cursor-pointer text-xs font-medium text-slate-700 dark:text-slate-300 select-none"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.waterSources.includes(source)}
+                      onChange={() => handleToggleWaterSource(source)}
+                      className="w-3.5 h-3.5 rounded-[2px] text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
+                    />
+                    <span>{source}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Bore Wells Count */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Bore Wells Count
+              </label>
+              {renderInputWithUnit(
+                formData.boreWellsCount,
+                (v) => handleFieldChange('boreWellsCount', v),
+                'Count',
+                'e.g. 4'
+              )}
+            </div>
+
+            {/* Municipal Water Connection */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Municipal Water Connection
+              </label>
+              {renderSelect(formData.municipalWaterConnection, (v) =>
+                handleFieldChange('municipalWaterConnection', v)
+              )}
+            </div>
+
+            {/* Underground Sump Capacity */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Underground Sump Capacity
+              </label>
+              {renderInputWithUnit(
+                formData.undergroundSumpCapacity,
+                (v) => handleFieldChange('undergroundSumpCapacity', v),
+                'Litres',
+                'e.g. 150000'
+              )}
+            </div>
+
+            {/* Overhead Tank Capacity */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Overhead Tank Capacity
+              </label>
+              {renderInputWithUnit(
+                formData.overheadTankCapacity,
+                (v) => handleFieldChange('overheadTankCapacity', v),
+                'Litres',
+                'e.g. 75000'
+              )}
+            </div>
+
+            {/* Water Treatment Plant */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Water Treatment Plant (WTP)
+              </label>
+              {renderSelect(formData.waterTreatmentPlant, (v) =>
+                handleFieldChange('waterTreatmentPlant', v)
+              )}
+            </div>
+
+            {/* Water Softening Plant */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Water Softening Plant
+              </label>
+              {renderSelect(formData.waterSofteningPlant, (v) =>
+                handleFieldChange('waterSofteningPlant', v)
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Waste Water Management */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                02
+              </span>
+              <span className="w-1 h-3 rounded-full bg-indigo-600 dark:bg-indigo-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Sewage & Waste Water Management (STP)
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Municipal Water Connection
-            </label>
-            {renderSelect(formData.municipalWaterConnection, (v) =>
-              handleFieldChange('municipalWaterConnection', v)
-            )}
+          <div className="space-y-3 text-xs">
+            {/* STP Available */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                STP Available
+              </label>
+              {renderSelect(formData.stpAvailable, (v) =>
+                handleFieldChange('stpAvailable', v)
+              )}
+            </div>
+
+            {/* STP Capacity */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                STP Capacity
+              </label>
+              {renderInputWithUnit(
+                formData.stpCapacity,
+                (v) => handleFieldChange('stpCapacity', v),
+                'KLD',
+                'e.g. 100'
+              )}
+            </div>
+
+            {/* Dual Plumbing */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Dual Plumbing
+              </label>
+              {renderSelect(formData.dualPlumbing, (v) =>
+                handleFieldChange('dualPlumbing', v)
+              )}
+            </div>
+
+            {/* Recycled Water Usage */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Recycled Water Usage
+              </label>
+              {renderSelect(formData.recycledWaterUsage, (v) =>
+                handleFieldChange('recycledWaterUsage', v)
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Rainwater Management */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                03
+              </span>
+              <span className="w-1 h-3 rounded-full bg-cyan-600 dark:bg-cyan-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Rainwater Harvesting & Storm Drainage
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Underground Sump Capacity
-            </label>
-            {renderInputWithUnit(
-              formData.undergroundSumpCapacity,
-              (v) => handleFieldChange('undergroundSumpCapacity', v),
-              'Litres'
-            )}
+          <div className="space-y-3 text-xs">
+            {/* Rainwater Harvesting */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Rainwater Harvesting
+              </label>
+              {renderSelect(formData.rainwaterHarvesting, (v) =>
+                handleFieldChange('rainwaterHarvesting', v)
+              )}
+            </div>
+
+            {/* Recharge Pits */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Recharge Pits
+              </label>
+              {renderInputWithUnit(
+                formData.rechargePits,
+                (v) => handleFieldChange('rechargePits', v),
+                'Count',
+                'e.g. 12'
+              )}
+            </div>
+
+            {/* Storm Water Drainage */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Storm Water Drainage
+              </label>
+              {renderSelect(formData.stormWaterDrainage, (v) =>
+                handleFieldChange('stormWaterDrainage', v)
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Power Infrastructure */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                04
+              </span>
+              <span className="w-1 h-3 rounded-full bg-amber-600 dark:bg-amber-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Power Generation, Backup & Solar Grid
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Overhead Tank Capacity
-            </label>
-            {renderInputWithUnit(
-              formData.overheadTankCapacity,
-              (v) => handleFieldChange('overheadTankCapacity', v),
-              'Litres'
-            )}
+          <div className="space-y-3 text-xs">
+            {/* Transformer Capacity */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Transformer Capacity
+              </label>
+              {renderInputWithUnit(
+                formData.transformerCapacity,
+                (v) => handleFieldChange('transformerCapacity', v),
+                'kVA',
+                'e.g. 500'
+              )}
+            </div>
+
+            {/* DG Backup Available */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                DG Backup Available
+              </label>
+              {renderSelect(formData.dgBackupAvailable, (v) =>
+                handleFieldChange('dgBackupAvailable', v)
+              )}
+            </div>
+
+            {/* DG Capacity */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                DG Capacity
+              </label>
+              {renderInputWithUnit(
+                formData.dgCapacity,
+                (v) => handleFieldChange('dgCapacity', v),
+                'kVA',
+                'e.g. 250'
+              )}
+            </div>
+
+            {/* Apartment Power Backup */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Apartment Power Backup
+              </label>
+              {renderInputWithUnit(
+                formData.apartmentPowerBackup,
+                (v) => handleFieldChange('apartmentPowerBackup', v),
+                'Watts / kVA',
+                'e.g. 1.5 kVA'
+              )}
+            </div>
+
+            {/* Common Area Power Backup */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Common Area Backup
+              </label>
+              {renderSelect(formData.commonAreaPowerBackup, (v) =>
+                handleFieldChange('commonAreaPowerBackup', v)
+              )}
+            </div>
+
+            {/* Solar Power */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Solar Power Integration
+              </label>
+              {renderSelect(formData.solarPower, (v) =>
+                handleFieldChange('solarPower', v)
+              )}
+            </div>
+
+            {/* Solar Capacity */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Solar Generation Capacity
+              </label>
+              {renderInputWithUnit(
+                formData.solarCapacity,
+                (v) => handleFieldChange('solarCapacity', v),
+                'kW',
+                'e.g. 50'
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Fire & Safety */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                05
+              </span>
+              <span className="w-1 h-3 rounded-full bg-rose-600 dark:bg-rose-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Fire Fighting & Emergency Detection
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Water Treatment Plant (WTP)
-            </label>
-            {renderSelect(formData.waterTreatmentPlant, (v) =>
-              handleFieldChange('waterTreatmentPlant', v)
-            )}
+          <div className="space-y-3 text-xs">
+            {/* Fire Fighting System */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Fire Fighting System
+              </label>
+              {renderSelect(formData.fireFightingSystem, (v) =>
+                handleFieldChange('fireFightingSystem', v)
+              )}
+            </div>
+
+            {/* Fire Alarm System */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Fire Alarm System
+              </label>
+              {renderSelect(formData.fireAlarmSystem, (v) =>
+                handleFieldChange('fireAlarmSystem', v)
+              )}
+            </div>
+
+            {/* Sprinkler System */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Sprinkler System
+              </label>
+              {renderSelect(formData.sprinklerSystem, (v) =>
+                handleFieldChange('sprinklerSystem', v)
+              )}
+            </div>
+
+            {/* Smoke Detection System */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Smoke Detection System
+              </label>
+              {renderSelect(formData.smokeDetectionSystem, (v) =>
+                handleFieldChange('smokeDetectionSystem', v)
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: Utility Services */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                06
+              </span>
+              <span className="w-1 h-3 rounded-full bg-emerald-600 dark:bg-emerald-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Piped Gas, Telecom & Smart Metering
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Water Softening Plant
-            </label>
-            {renderSelect(formData.waterSofteningPlant, (v) =>
-              handleFieldChange('waterSofteningPlant', v)
-            )}
+          <div className="space-y-3 text-xs">
+            {/* LPG Manifold */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                LPG Manifold / PNG
+              </label>
+              {renderSelect(formData.lpgManifold, (v) =>
+                handleFieldChange('lpgManifold', v)
+              )}
+            </div>
+
+            {/* Fiber Internet Ready */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Fiber Internet Ready
+              </label>
+              {renderSelect(formData.fiberInternetReady, (v) =>
+                handleFieldChange('fiberInternetReady', v)
+              )}
+            </div>
+
+            {/* Smart Metering */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Smart Metering
+              </label>
+              {renderSelect(formData.smartMetering, (v) =>
+                handleFieldChange('smartMetering', v)
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      
-      <section className="space-y-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Waste Water Management
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              STP Available
-            </label>
-            {renderSelect(formData.stpAvailable, (v) =>
-              handleFieldChange('stpAvailable', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              STP Capacity
-            </label>
-            {renderInputWithUnit(
-              formData.stpCapacity,
-              (v) => handleFieldChange('stpCapacity', v),
-              'KLD'
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Dual Plumbing
-            </label>
-            {renderSelect(formData.dualPlumbing, (v) =>
-              handleFieldChange('dualPlumbing', v)
-            )}
+        {/* Section 7: Security Infrastructure */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+          <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none">
+                07
+              </span>
+              <span className="w-1 h-3 rounded-full bg-purple-600 dark:bg-purple-500" />
+              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                Perimeter Security & Access Surveillance
+              </h3>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Recycled Water Usage
-            </label>
-            {renderSelect(formData.recycledWaterUsage, (v) =>
-              handleFieldChange('recycledWaterUsage', v)
-            )}
+          <div className="space-y-3 text-xs">
+            {/* CCTV Surveillance */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                CCTV Surveillance
+              </label>
+              {renderSelect(formData.cctvSurveillance, (v) =>
+                handleFieldChange('cctvSurveillance', v)
+              )}
+            </div>
+
+            {/* Boom Barrier */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Boom Barrier
+              </label>
+              {renderSelect(formData.boomBarrier, (v) =>
+                handleFieldChange('boomBarrier', v)
+              )}
+            </div>
+
+            {/* RFID Access */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                RFID Access System
+              </label>
+              {renderSelect(formData.rfidAccess, (v) =>
+                handleFieldChange('rfidAccess', v)
+              )}
+            </div>
+
+            {/* Visitor Management System */}
+            <div className="flex flex-col items-start w-full">
+              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                Visitor Management System
+              </label>
+              {renderSelect(formData.visitorManagementSystem, (v) =>
+                handleFieldChange('visitorManagementSystem', v)
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      
-      <section className="space-y-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Rainwater Management
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Rainwater Harvesting
+      {/* Status Card - Placed at bottom left side */}
+      <div className="pt-2 pb-6 flex items-center justify-start">
+        <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
+          <div className="flex flex-col items-start gap-1.5">
+            <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 h-4">
+              <span>Status</span>
+              <span className="text-rose-500 font-bold">*</span>
             </label>
-            {renderSelect(formData.rainwaterHarvesting, (v) =>
-              handleFieldChange('rainwaterHarvesting', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Recharge Pits
-            </label>
-            {renderInputWithUnit(
-              formData.rechargePits,
-              (v) => handleFieldChange('rechargePits', v),
-              'Count'
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Storm Water Drainage
-            </label>
-            {renderSelect(formData.stormWaterDrainage, (v) =>
-              handleFieldChange('stormWaterDrainage', v)
-            )}
-          </div>
-        </div>
-      </section>
-
-      
-      <section className="space-y-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Power Infrastructure
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Transformer Capacity
-            </label>
-            {renderInputWithUnit(
-              formData.transformerCapacity,
-              (v) => handleFieldChange('transformerCapacity', v),
-              'kVA'
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              DG Backup Available
-            </label>
-            {renderSelect(formData.dgBackupAvailable, (v) =>
-              handleFieldChange('dgBackupAvailable', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              DG Capacity
-            </label>
-            {renderInputWithUnit(
-              formData.dgCapacity,
-              (v) => handleFieldChange('dgCapacity', v),
-              'kVA'
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Apartment Power Backup
-            </label>
-            {renderInputWithUnit(
-              formData.apartmentPowerBackup,
-              (v) => handleFieldChange('apartmentPowerBackup', v),
-              'Watts / kVA'
-            )}
-            <span className="block text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">
-              Per Apartment
-            </span>
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Common Area Power Backup
-            </label>
-            {renderSelect(formData.commonAreaPowerBackup, (v) =>
-              handleFieldChange('commonAreaPowerBackup', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Solar Power
-            </label>
-            {renderSelect(formData.solarPower, (v) =>
-              handleFieldChange('solarPower', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Solar Capacity
-            </label>
-            {renderInputWithUnit(
-              formData.solarCapacity,
-              (v) => handleFieldChange('solarCapacity', v),
-              'kW'
-            )}
-          </div>
-        </div>
-      </section>
-
-      
-      <section className="space-y-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Fire & Safety
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Fire Fighting System
-            </label>
-            {renderSelect(formData.fireFightingSystem, (v) =>
-              handleFieldChange('fireFightingSystem', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Fire Alarm System
-            </label>
-            {renderSelect(formData.fireAlarmSystem, (v) =>
-              handleFieldChange('fireAlarmSystem', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Sprinkler System
-            </label>
-            {renderSelect(formData.sprinklerSystem, (v) =>
-              handleFieldChange('sprinklerSystem', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Smoke Detection System
-            </label>
-            {renderSelect(formData.smokeDetectionSystem, (v) =>
-              handleFieldChange('smokeDetectionSystem', v)
-            )}
-          </div>
-        </div>
-      </section>
-
-      
-      <section className="space-y-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Utility Services
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              LPG Manifold / PNG
-            </label>
-            {renderSelect(formData.lpgManifold, (v) =>
-              handleFieldChange('lpgManifold', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Fiber Internet Ready
-            </label>
-            {renderSelect(formData.fiberInternetReady, (v) =>
-              handleFieldChange('fiberInternetReady', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Smart Metering
-            </label>
-            {renderSelect(formData.smartMetering, (v) =>
-              handleFieldChange('smartMetering', v)
-            )}
-          </div>
-        </div>
-      </section>
-
-      
-      <section className="space-y-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2 border-l-2 border-blue-600 pl-2 py-0.5">
-          <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-            Security Infrastructure
-          </h3>
-        </div>
-
-        <div className="space-y-3 text-xs">
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              CCTV Surveillance
-            </label>
-            {renderSelect(formData.cctvSurveillance, (v) =>
-              handleFieldChange('cctvSurveillance', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Boom Barrier
-            </label>
-            {renderSelect(formData.boomBarrier, (v) =>
-              handleFieldChange('boomBarrier', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              RFID Access
-            </label>
-            {renderSelect(formData.rfidAccess, (v) =>
-              handleFieldChange('rfidAccess', v)
-            )}
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-medium text-slate-600 mb-1">
-              Visitor Management System
-            </label>
-            {renderSelect(formData.visitorManagementSystem, (v) =>
-              handleFieldChange('visitorManagementSystem', v)
-            )}
-          </div>
-        </div>
-      </section>
-
-      
-      <div className="pt-3 border-t border-slate-200/80 space-y-4">
-        <div>
-          <label className="block text-[11px] font-medium text-slate-600 mb-1">
-            Status <span className="text-red-500 font-bold">*</span>
-          </label>
-          <div className="relative">
-            <select
+            <ModernDropdown<'Active' | 'Inactive'>
               value={formData.status}
-              onChange={(e) =>
-                handleFieldChange(
-                  'status',
-                  e.target.value as 'Active' | 'Inactive'
-                )
-              }
-              className="w-full appearance-none px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:border-blue-600 pr-8"
-            >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-            <ChevronDown className="w-4 h-4 absolute right-2.5 top-2.5 pointer-events-none text-slate-600 dark:text-slate-400" />
+              onChange={(val) => handleFieldChange('status', val)}
+              options={[
+                {
+                  value: 'Active',
+                  label: 'Active',
+                  icon: <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1" />,
+                },
+                {
+                  value: 'Inactive',
+                  label: 'Inactive',
+                  icon: <span className="w-2 h-2 rounded-full bg-slate-400 inline-block mr-1" />,
+                },
+              ]}
+              dropUp={true}
+              roundedClass="rounded-[4px]"
+              className="w-auto inline-block"
+              buttonClassName="w-auto h-8 px-2.5 text-xs font-semibold gap-1.5 bg-transparent border border-slate-200/90 dark:border-white/10 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 shadow-none"
+            />
           </div>
         </div>
-
-        <button
-          type="button"
-          onClick={handleSave}
-          className="w-full py-2.5 bg-[#1956db] hover:bg-[#1444b0] text-white text-xs font-semibold rounded-lg shadow-sm transition-colors cursor-pointer"
-        >
-          Save Project
-        </button>
       </div>
     </div>
   );

@@ -28,7 +28,6 @@ export interface SpecificationsFormData {
 }
 
 export const ALLOWED_TYPES = [
-  'Select type',
   'Vitrified Tiles',
   'Ceramic Tiles',
   'Granite',

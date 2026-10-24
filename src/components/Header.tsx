@@ -1,5 +1,5 @@
 import { Monitor, Smartphone, X } from "lucide-react";
-import Dropdown from "./Dropdown";
+import Dropdown from "./elements/Dropdown";
 
 export type ViewMode = "desktop" | "mobile";
 

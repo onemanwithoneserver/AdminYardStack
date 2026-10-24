@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, FileText, RotateCcw, Save } from 'lucide-react';
+import { ArrowLeft, FileText, RotateCcw, Save, CheckCircle2 } from 'lucide-react';
+import { ModernSpinner } from '../components/elements/ModernSpinner';
 import { TabControls } from './TabControls';
 import { PROJECT_TABS, type ProjectTabItem } from './TabControls/data';
 
@@ -41,6 +42,31 @@ export function ProjectFormView({
   const effectiveTabId = currentTabFromUrl ? currentTabFromUrl.id : internalTabId;
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  const handleSaveProject = () => {
+    if (isSaving) return;
+    setIsSaving(true);
+    setTimeout(() => {
+      setIsSaving(false);
+      setSaveSuccess(true);
+      setTimeout(() => {
+        setSaveSuccess(false);
+        onBack?.();
+      }, 1000);
+    }, 850);
+  };
+
+  const handleResetForm = () => {
+    if (isResetting) return;
+    setIsResetting(true);
+    setTimeout(() => {
+      setIsResetting(false);
+    }, 600);
+  };
+
   const containerRef = useRef<HTMLDivElement>(null);
   const topSectionRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -103,7 +129,7 @@ export function ProjectFormView({
   };
 
   return (
-    <div ref={containerRef} className="space-y-3 max-w-7xl mx-auto select-none">
+    <div ref={containerRef} className="space-y-3 max-w-7xl mx-auto">
       
       {/* Top Section - Back Button & Hero Banner */}
       <div ref={topSectionRef} className="space-y-2.5">
@@ -124,11 +150,11 @@ export function ProjectFormView({
         <div className="w-full bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden py-3.5 px-5 sm:px-6">
           <div className="absolute top-0 right-1/4 w-96 h-16 bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-violet-500/15 blur-xl pointer-events-none" />
           <div
-            className="absolute right-36 top-0 bottom-0 w-3/5 pointer-events-none opacity-90 dark:opacity-30 bg-contain bg-right bg-no-repeat hidden md:block"
+            className="absolute right-0 top-0 bottom-0 w-72 sm:w-80 md:w-96 lg:w-[420px] pointer-events-none opacity-90 dark:opacity-30 bg-cover bg-right bg-no-repeat hidden md:block"
             style={{
-              backgroundImage: 'url(/project_banner.jpg)',
-              maskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 85%, transparent 100%)',
+              backgroundImage: `url(${import.meta.env.BASE_URL}project_banner.jpg)`,
+              maskImage: 'linear-gradient(to right, transparent 0%, black 35%, black 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 35%, black 100%)',
             }}
           />
 
@@ -138,9 +164,12 @@ export function ProjectFormView({
                 <FileText className="w-5 h-5 stroke-[2] text-white" />
               </div>
               <div>
-                <h2 className="text-base font-bold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
+                <h1 className="text-base font-bold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
                   Project Specification
-                </h2>
+                </h1>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Master configuration repository, regulatory approvals, inventory matrix, and marketing assets
+                </p>
               </div>
             </div>
 
@@ -152,20 +181,30 @@ export function ProjectFormView({
             >
               <button
                 type="button"
-                onClick={() => {}}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white/95 dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-700/80 border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all cursor-pointer shadow-xs active:scale-95"
+                onClick={handleResetForm}
+                disabled={isResetting || isSaving}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white/95 dark:bg-slate-800/90 hover:bg-slate-50 dark:hover:bg-slate-700/80 border border-slate-200/90 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition-all cursor-pointer shadow-xs active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
                 title="Reset form fields"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset</span>
+                {isResetting ? (
+                  <ModernSpinner size="xs" color="slate" />
+                ) : (
+                  <RotateCcw className="w-3.5 h-3.5" />
+                )}
+                <span>{isResetting ? 'Resetting...' : 'Reset'}</span>
               </button>
               <button
                 type="button"
-                onClick={onBack}
-                className="flex items-center gap-1.5 px-4.5 py-1.5 rounded-[4px] text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 transition-all shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 cursor-pointer active:scale-95 border border-white/20"
+                onClick={handleSaveProject}
+                disabled={isSaving}
+                className="flex items-center gap-1.5 px-4.5 py-1.5 rounded-[4px] text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 transition-all shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 cursor-pointer active:scale-95 border border-white/20 disabled:opacity-85 disabled:cursor-not-allowed"
               >
-                <Save className="w-3.5 h-3.5 text-white" />
-                <span>Save Project</span>
+                {isSaving ? (
+                  <ModernSpinner size="xs" color="white" />
+                ) : (
+                  <Save className="w-3.5 h-3.5 text-white" />
+                )}
+                <span>{isSaving ? 'Saving Project...' : 'Save Project'}</span>
               </button>
             </div>
           </div>
@@ -225,26 +264,51 @@ export function ProjectFormView({
               >
                 <button
                   type="button"
-                  onClick={() => {}}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
+                  onClick={handleResetForm}
+                  disabled={isResetting || isSaving}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
                   title="Reset form fields"
                 >
-                  <RotateCcw className="w-3 h-3" />
-                  <span className="hidden md:inline">Reset</span>
+                  {isResetting ? (
+                    <ModernSpinner size="xs" color="slate" />
+                  ) : (
+                    <RotateCcw className="w-3 h-3" />
+                  )}
+                  <span className="hidden md:inline">{isResetting ? 'Resetting...' : 'Reset'}</span>
                 </button>
                 <button
                   type="button"
-                  onClick={onBack}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 transition-all shadow-md shadow-blue-500/25 cursor-pointer active:scale-95 border border-white/20"
+                  onClick={handleSaveProject}
+                  disabled={isSaving}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 transition-all shadow-md shadow-blue-500/25 cursor-pointer active:scale-95 border border-white/20 disabled:opacity-85 disabled:cursor-not-allowed"
                 >
-                  <Save className="w-3.5 h-3.5 text-white" />
-                  <span>Save</span>
+                  {isSaving ? (
+                    <ModernSpinner size="xs" color="white" />
+                  ) : (
+                    <Save className="w-3.5 h-3.5 text-white" />
+                  )}
+                  <span>{isSaving ? 'Saving...' : 'Save'}</span>
                 </button>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </div>
+
+      {/* Floating Save Success Toast */}
+      <AnimatePresence>
+        {saveSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="fixed top-5 right-5 z-[9999] flex items-center gap-2.5 px-4 py-2.5 rounded-[4px] bg-emerald-600 text-white shadow-xl shadow-emerald-600/25 border border-emerald-400/40 text-xs font-semibold"
+          >
+            <CheckCircle2 className="w-4 h-4 text-white" />
+            <span>Project details saved successfully!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Routes>
         <Route

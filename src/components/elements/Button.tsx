@@ -1,5 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
-import { Loader2 } from 'lucide-react';
+import { ModernSpinner, type SpinnerSize } from './ModernSpinner';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass' | 'danger';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
@@ -61,7 +61,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <Loader2 className="w-4 h-4 animate-spin shrink-0" />
+          <ModernSpinner
+            size={size === 'xs' ? 'xs' : size === 'lg' ? 'md' : 'sm'}
+            color="current"
+            className="shrink-0"
+          />
         ) : (
           leftIcon && <span className="shrink-0">{leftIcon}</span>
         )}

@@ -13,7 +13,7 @@ export interface EssentialsFormData {
   towersBlocksCount: string;
   skyVillasAvailable: string;
   skyVillaStatus: string;
-  openSpaceType: string;
+  openSpaceType: '%' | 'Number';
   openSpaceValue: string;
   greeneryArea: string;
   landExtentUnit: 'Acres' | 'Sq. Yrds';

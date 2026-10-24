@@ -1,7 +1,22 @@
-import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { type InventoryVariant } from '../Configuration/data';
-import { INITIAL_PREVIEW_FILTERS, type PreviewFilters, type TowerTotalSummary, computeTowerTotals } from './data';
+import { useState, useMemo } from 'react';
+import {
+  Search,
+  RotateCcw,
+  Building2,
+  Layers,
+  Sparkles,
+  SlidersHorizontal,
+  Compass,
+  CheckCircle2,
+} from 'lucide-react';
+import { ModernDropdown } from '../../../components/elements/ModernDropdown';
+import { type InventoryVariant, VARIANT_AVAILABILITY } from '../Configuration/data';
+import {
+  INITIAL_PREVIEW_FILTERS,
+  type PreviewFilters,
+  type TowerTotalSummary,
+  computeTowerTotals,
+} from './data';
 
 export interface PreviewAndToolsDesktopProps {
   variants?: InventoryVariant[];
@@ -28,293 +43,482 @@ export function PreviewAndToolsDesktop({
     onVariantsChange(updated);
   };
 
-  const filteredVariants = variants.filter((v) => {
-    if (filters.tower !== 'All' && v.towerName !== filters.tower) return false;
-    if (filters.facing !== 'All' && v.facing !== filters.facing) return false;
-    if (
-      filters.availability !== 'All' &&
-      v.variantAvailable !== filters.availability
-    )
-      return false;
-    return true;
-  });
+  const handleResetFilters = () => {
+    setFilters(INITIAL_PREVIEW_FILTERS);
+  };
 
-  const towerTotals: TowerTotalSummary[] = computeTowerTotals(variants);
+  const filteredVariants = useMemo(() => {
+    return variants.filter((v) => {
+      if (filters.tower !== 'All' && v.towerName !== filters.tower) return false;
+      if (filters.facing !== 'All' && v.facing !== filters.facing) return false;
+      if (
+        filters.availability !== 'All' &&
+        v.variantAvailable !== filters.availability
+      ) {
+        return false;
+      }
+      if (filters.searchQuery.trim() !== '') {
+        const q = filters.searchQuery.toLowerCase();
+        const matchesVariant = (v.variantNo || '').toLowerCase().includes(q);
+        const matchesFlat = (v.flatNo || '').toLowerCase().includes(q);
+        const matchesSeries = (v.seriesNo || '').toLowerCase().includes(q);
+        const matchesUnit = (v.unitType || '').toLowerCase().includes(q);
+        const matchesTower = (v.towerName || '').toLowerCase().includes(q);
+        if (!matchesVariant && !matchesFlat && !matchesSeries && !matchesUnit && !matchesTower) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [variants, filters]);
+
+  const towerTotals: TowerTotalSummary[] = useMemo(() => {
+    return computeTowerTotals(variants);
+  }, [variants]);
+
+  // Executive KPI sums
+  const totalSaleableSum = useMemo(() => {
+    return variants.reduce((acc, v) => acc + (parseFloat(v.saleableArea) || 0), 0);
+  }, [variants]);
+
+  const totalBuiltUpSum = useMemo(() => {
+    return variants.reduce((acc, v) => acc + (parseFloat(v.builtUpArea) || 0), 0);
+  }, [variants]);
+
+  const availableCount = useMemo(() => {
+    return variants.filter((v) => (v.variantAvailable || 'Available') === 'Available').length;
+  }, [variants]);
 
   return (
-    <div className="space-y-6 text-slate-800">
-      
-      <div className="space-y-3">
-        <h3 className="text-xs font-bold text-slate-900 tracking-tight">
-          Inventory Preview
-        </h3>
-
-        
-        <div className="flex flex-wrap items-center gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-medium text-slate-600">Tower:</span>
-            <div className="relative">
-              <select
-                value={filters.tower}
-                onChange={(e) =>
-                  setFilters((prev) => ({ ...prev, tower: e.target.value }))
-                }
-                className="appearance-none px-3 py-1 bg-white border border-slate-300 rounded-md text-xs font-semibold text-slate-700 pr-7 cursor-pointer"
-              >
-                <option value="All">All</option>
-                <option value="Tower 1">Tower 1</option>
-                <option value="Tower 2">Tower 2</option>
-                <option value="Tower 3">Tower 3</option>
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-600 dark:text-slate-400 pointer-events-none" />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-medium text-slate-600">Facing:</span>
-            <div className="relative">
-              <select
-                value={filters.facing}
-                onChange={(e) =>
-                  setFilters((prev) => ({ ...prev, facing: e.target.value }))
-                }
-                className="appearance-none px-3 py-1 bg-white border border-slate-300 rounded-md text-xs font-semibold text-slate-700 pr-7 cursor-pointer"
-              >
-                <option value="All">All</option>
-                <option value="East">East</option>
-                <option value="West">West</option>
-                <option value="North">North</option>
-                <option value="South">South</option>
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-600 dark:text-slate-400 pointer-events-none" />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-medium text-slate-600">
-              Availability:
+    <div className="space-y-6 text-slate-800 dark:text-slate-100">
+      {/* Top Executive KPI Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+        <div className="p-3.5 rounded-[4px] bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-white/10 shadow-2xs">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+              Total Variants
             </span>
-            <div className="relative">
-              <select
-                value={filters.availability}
-                onChange={(e) =>
-                  setFilters((prev) => ({ ...prev, availability: e.target.value }))
-                }
-                className="appearance-none px-3 py-1 bg-white border border-slate-300 rounded-md text-xs font-semibold text-slate-700 pr-7 cursor-pointer"
-              >
-                <option value="All">All</option>
-                <option value="Available">Available</option>
-                <option value="Hold">Hold</option>
-                <option value="Sold Out">Sold Out</option>
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 absolute right-2 top-2 text-slate-600 dark:text-slate-400 pointer-events-none" />
-            </div>
+            <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xl font-bold font-display text-slate-900 dark:text-white">
+              {variants.length}
+            </span>
+            <span className="text-[10px] text-slate-400">Configs</span>
           </div>
         </div>
 
-        
-        <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs bg-white">
+        <div className="p-3.5 rounded-[4px] bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-white/10 shadow-2xs">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+              Active Towers
+            </span>
+            <Building2 className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xl font-bold font-display text-slate-900 dark:text-white">
+              {towerTotals.length}
+            </span>
+            <span className="text-[10px] text-slate-400">Allocated</span>
+          </div>
+        </div>
+
+        <div className="p-3.5 rounded-[4px] bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-white/10 shadow-2xs">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+              Total Saleable Area
+            </span>
+            <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xl font-bold font-mono text-slate-900 dark:text-white">
+              {totalSaleableSum.toLocaleString()}
+            </span>
+            <span className="text-[10px] text-slate-400">Sqft</span>
+          </div>
+        </div>
+
+        <div className="p-3.5 rounded-[4px] bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-white/10 shadow-2xs">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+              Available Units
+            </span>
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xl font-bold font-display text-emerald-600 dark:text-emerald-400">
+              {availableCount} / {variants.length}
+            </span>
+            <span className="text-[10px] text-emerald-600/70 font-semibold">
+              ({variants.length > 0 ? Math.round((availableCount / variants.length) * 100) : 0}%)
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 01: Real-Time Inventory Matrix */}
+      <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-white/10">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+              01
+            </span>
+            <span className="w-1 h-3.5 rounded-full bg-sky-600 dark:bg-sky-500" />
+            <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+              Real-Time Inventory Matrix
+            </h3>
+            <span className="ml-1 px-2 py-0.5 rounded-[3px] text-[11px] font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+              {filteredVariants.length} Displayed
+            </span>
+          </div>
+        </div>
+
+        {/* Filter Bar */}
+        <div className="flex flex-wrap items-center gap-3 p-3 rounded-[4px] bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-white/10">
+          {/* Search Input */}
+          <div className="relative flex-1 min-w-[200px]">
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400 pointer-events-none" />
+            <input
+              type="text"
+              value={filters.searchQuery}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, searchQuery: e.target.value }))
+              }
+              placeholder="Search by Flat No, Series, Unit Type, Tower..."
+              className="w-full h-8 pl-8 pr-3 text-xs bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
+            />
+          </div>
+
+          {/* Tower Filter */}
+          <div className="w-36">
+            <ModernDropdown<string>
+              value={filters.tower}
+              onChange={(val) => setFilters((prev) => ({ ...prev, tower: val }))}
+              options={[
+                { value: 'All', label: 'All Towers' },
+                { value: 'Tower 1', label: 'Tower 1' },
+                { value: 'Tower 2', label: 'Tower 2' },
+                { value: 'Tower 3', label: 'Tower 3' },
+                { value: 'Tower 4', label: 'Tower 4' },
+                { value: 'Tower 5', label: 'Tower 5' },
+              ]}
+              placeholder="Select Tower"
+              roundedClass="rounded-[4px]"
+              className="w-full"
+              buttonClassName="w-full h-8 px-2.5 text-xs font-semibold gap-1"
+            />
+          </div>
+
+          {/* Facing Filter */}
+          <div className="w-32">
+            <ModernDropdown<string>
+              value={filters.facing}
+              onChange={(val) => setFilters((prev) => ({ ...prev, facing: val }))}
+              options={[
+                { value: 'All', label: 'All Facings' },
+                { value: 'East', label: 'East' },
+                { value: 'West', label: 'West' },
+                { value: 'North', label: 'North' },
+                { value: 'South', label: 'South' },
+              ]}
+              placeholder="Select Facing"
+              roundedClass="rounded-[4px]"
+              className="w-full"
+              buttonClassName="w-full h-8 px-2.5 text-xs font-semibold gap-1"
+            />
+          </div>
+
+          {/* Availability Filter */}
+          <div className="w-36">
+            <ModernDropdown<string>
+              value={filters.availability}
+              onChange={(val) =>
+                setFilters((prev) => ({ ...prev, availability: val }))
+              }
+              options={[
+                { value: 'All', label: 'All Statuses' },
+                {
+                  value: 'Available',
+                  label: 'Available',
+                  icon: <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1" />,
+                },
+                {
+                  value: 'Hold',
+                  label: 'Hold',
+                  icon: <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1" />,
+                },
+                {
+                  value: 'Sold Out',
+                  label: 'Sold Out',
+                  icon: <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1" />,
+                },
+              ]}
+              placeholder="Select Status"
+              roundedClass="rounded-[4px]"
+              className="w-full"
+              buttonClassName="w-full h-8 px-2.5 text-xs font-semibold gap-1"
+            />
+          </div>
+
+          {/* Reset button */}
+          {(filters.tower !== 'All' ||
+            filters.facing !== 'All' ||
+            filters.availability !== 'All' ||
+            filters.searchQuery !== '') && (
+            <button
+              type="button"
+              onClick={handleResetFilters}
+              className="inline-flex items-center gap-1 px-2.5 h-8 text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-white bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[4px] transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset</span>
+            </button>
+          )}
+        </div>
+
+        {/* Data Table */}
+        <div className="border border-slate-200 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[950px]">
+            <table className="w-full text-left border-collapse min-w-[1050px]">
               <thead>
-                <tr className="bg-[#0284c7] text-white text-[11px] font-semibold divide-x divide-sky-500/40 select-none">
-                  <th className="py-2.5 px-3 min-w-[65px]">Variant</th>
-                  <th className="py-2.5 px-3 min-w-[85px]">Tower</th>
-                  <th className="py-2.5 px-3 min-w-[85px]">Area/Size</th>
-                  <th className="py-2.5 px-3 min-w-[90px]">Unit Type</th>
-                  <th className="py-2.5 px-3 min-w-[80px]">Facing</th>
-                  <th className="py-2.5 px-3 min-w-[140px]">Series No</th>
-                  <th className="py-2.5 px-3 min-w-[130px]">Floors (Regular)</th>
-                  <th className="py-2.5 px-3 min-w-[130px]">Floors (Shrinked)</th>
-                  <th className="py-2.5 px-3 min-w-[95px]">Availability</th>
-                  <th className="py-2.5 px-3 min-w-[90px]">Total Flats</th>
+                <tr className="bg-slate-50 dark:bg-slate-800/80 text-[11px] font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200 dark:border-white/10 select-none">
+                  <th className="py-2.5 px-3">Variant / Code</th>
+                  <th className="py-2.5 px-3">Tower</th>
+                  <th className="py-2.5 px-3">Series No</th>
+                  <th className="py-2.5 px-3">Flat Numbers</th>
+                  <th className="py-2.5 px-3">Unit Type</th>
+                  <th className="py-2.5 px-3">Facing</th>
+                  <th className="py-2.5 px-3">Saleable (Sqft)</th>
+                  <th className="py-2.5 px-3">Carpet (Sqft)</th>
+                  <th className="py-2.5 px-3">Base Cost (INR)</th>
+                  <th className="py-2.5 px-3">Owner</th>
+                  <th className="py-2.5 px-3">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-xs text-slate-800">
-                {filteredVariants.map((v) => (
-                  <tr
-                    key={v.id}
-                    className="hover:bg-blue-50/20 transition-colors divide-x divide-slate-100"
-                  >
-                    <td className="p-2 text-center font-semibold text-slate-700">
-                      {v.variantNumber}
-                    </td>
-                    <td className="p-2 font-medium text-slate-700">
-                      {v.towerName || 'Tower 1'}
-                    </td>
-                    <td className="p-2 text-slate-500">
-                      {v.saleableArea ? `${v.saleableArea} Sqft` : '--'}
-                    </td>
-                    <td className="p-2 text-slate-500">{v.unitType || '--'}</td>
-                    <td className="p-2 text-slate-500">{v.facing || '--'}</td>
-                    <td className="p-1.5">
-                      <input
-                        type="text"
-                        placeholder="Ex: 1 or 1,2"
-                        value={v.seriesNo}
-                        onChange={(e) =>
-                          handleRowChange(v.id, 'seriesNo', e.target.value)
-                        }
-                        className="w-full px-2 py-1 text-xs border border-slate-200 rounded focus:outline-none focus:border-blue-600"
-                      />
-                    </td>
-                    <td className="p-1.5">
-                      <input
-                        type="text"
-                        value={v.floorsRegular}
-                        onChange={(e) =>
-                          handleRowChange(v.id, 'floorsRegular', e.target.value)
-                        }
-                        className="w-full px-2 py-1 text-xs border border-slate-200 rounded focus:outline-none focus:border-blue-600"
-                      />
-                    </td>
-                    <td className="p-1.5">
-                      <input
-                        type="text"
-                        value={v.floorsShrinked}
-                        onChange={(e) =>
-                          handleRowChange(v.id, 'floorsShrinked', e.target.value)
-                        }
-                        className="w-full px-2 py-1 text-xs border border-slate-200 rounded focus:outline-none focus:border-blue-600"
-                      />
-                    </td>
-                    <td className="p-2 text-slate-500">
-                      {v.variantAvailable || '--'}
-                    </td>
-                    <td className="p-2 text-slate-500">
-                      {v.floorsRegular ? `${parseInt(v.floorsRegular) * 2}` : '--'}
+              <tbody className="divide-y divide-slate-100 dark:divide-white/5 text-xs">
+                {filteredVariants.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={11}
+                      className="text-center py-8 text-slate-400 dark:text-slate-500 italic text-xs"
+                    >
+                      No inventory configurations match the selected filters.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  filteredVariants.map((v) => {
+                    const isAvailable = (v.variantAvailable || 'Available') === 'Available';
+                    const isHold = v.variantAvailable === 'Hold';
+
+                    return (
+                      <tr
+                        key={v.id}
+                        className="hover:bg-blue-50/30 dark:hover:bg-slate-900/60 transition-colors"
+                      >
+                        <td className="py-2 px-3 font-semibold text-slate-900 dark:text-white">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                            <span>{v.variantNo || `VAR-0${v.variantNumber}`}</span>
+                          </div>
+                        </td>
+
+                        <td className="py-2 px-3">
+                          <span className="px-2 py-0.5 rounded-[3px] text-[10.5px] font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                            {v.towerName || 'Tower 1'}
+                          </span>
+                        </td>
+
+                        <td className="py-2 px-3">
+                          <input
+                            type="text"
+                            value={v.seriesNo}
+                            onChange={(e) =>
+                              handleRowChange(v.id, 'seriesNo', e.target.value)
+                            }
+                            placeholder="e.g. SER-01"
+                            className="w-24 h-7 px-2 font-mono text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600"
+                          />
+                        </td>
+
+                        <td className="py-2 px-3">
+                          <input
+                            type="text"
+                            value={v.flatNo}
+                            onChange={(e) =>
+                              handleRowChange(v.id, 'flatNo', e.target.value)
+                            }
+                            placeholder="e.g. 101, 201, 301"
+                            className="w-36 h-7 px-2 font-mono text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600"
+                          />
+                        </td>
+
+                        <td className="py-2 px-3 font-medium text-slate-800 dark:text-slate-200">
+                          {v.unitType || '—'}
+                        </td>
+
+                        <td className="py-2 px-3">
+                          {v.facing ? (
+                            <span className="inline-flex items-center gap-1 text-slate-700 dark:text-slate-300 font-medium">
+                              <Compass className="w-3 h-3 text-amber-500" />
+                              <span>{v.facing}</span>
+                            </span>
+                          ) : (
+                            '—'
+                          )}
+                        </td>
+
+                        <td className="py-2 px-3 font-mono font-medium text-slate-800 dark:text-slate-200">
+                          {v.saleableArea ? `${v.saleableArea} Sqft` : '—'}
+                        </td>
+
+                        <td className="py-2 px-3 font-mono text-slate-600 dark:text-slate-400">
+                          {v.carpetArea ? `${v.carpetArea} Sqft` : '—'}
+                        </td>
+
+                        <td className="py-2 px-3 font-mono font-semibold text-slate-900 dark:text-white">
+                          {v.baseCost ? `₹${parseFloat(v.baseCost).toLocaleString()}` : '—'}
+                        </td>
+
+                        <td className="py-2 px-3">
+                          <input
+                            type="text"
+                            value={v.inventoryOwner || 'Builder'}
+                            onChange={(e) =>
+                              handleRowChange(v.id, 'inventoryOwner', e.target.value)
+                            }
+                            className="w-20 h-7 px-2 text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600"
+                          />
+                        </td>
+
+                        <td className="py-2 px-3">
+                          <ModernDropdown<string>
+                            value={v.variantAvailable || 'Available'}
+                            onChange={(val) =>
+                              handleRowChange(v.id, 'variantAvailable', val)
+                            }
+                            options={VARIANT_AVAILABILITY.filter((a) => a !== 'Select').map((a) => ({
+                              value: a,
+                              label: a,
+                              icon: (
+                                <span
+                                  className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                                    a === 'Available'
+                                      ? 'bg-emerald-500'
+                                      : a === 'Hold'
+                                      ? 'bg-amber-500'
+                                      : 'bg-rose-500'
+                                  }`}
+                                />
+                              ),
+                            }))}
+                            placeholder="Select Status"
+                            roundedClass="rounded-[3px]"
+                            className="w-28"
+                            buttonClassName="w-28 h-7 px-2 text-[11px] font-semibold gap-1"
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>
         </div>
-      </div>
+      </section>
 
-      
-      <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs bg-white">
-        <div className="px-4 py-2 bg-slate-50/80 border-b border-slate-200">
-          <span className="text-xs font-bold text-slate-800">Totals by Tower</span>
+      {/* SECTION 02: Tower-Wise Aggregation & Summaries */}
+      <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+              02
+            </span>
+            <span className="w-1 h-3.5 rounded-full bg-purple-600 dark:bg-purple-500" />
+            <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+              Tower-Wise Aggregation & Summaries
+            </h3>
+          </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs divide-y divide-slate-200">
-            <thead className="bg-slate-50/60 text-[11px] font-semibold text-slate-600">
-              <tr>
-                <th className="py-2 px-3">Tower</th>
-                <th className="py-2 px-3">Variants</th>
-                <th className="py-2 px-3">Units</th>
-                <th className="py-2 px-3">Saleable Area</th>
-                <th className="py-2 px-3">Built-up Area</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {towerTotals.map((tot) => (
-                <tr key={tot.tower} className="hover:bg-slate-50/50">
-                  <td className="py-2.5 px-3 font-semibold text-slate-700">
-                    {tot.tower}
-                  </td>
-                  <td className="py-2.5 px-3 font-medium text-slate-800">
-                    {tot.variants}
-                  </td>
-                  <td className="py-2.5 px-3 text-slate-600">{tot.units}</td>
-                  <td className="py-2.5 px-3 text-slate-600">
-                    {tot.saleableArea.toFixed(2)}
-                  </td>
-                  <td className="py-2.5 px-3 text-slate-600">
-                    {tot.builtUpArea.toFixed(2)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      
-      <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs bg-white">
-        <div className="px-4 py-2 bg-slate-50/80 border-b border-slate-200 flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-800">
-            Total Project Inventory
-          </span>
-          <span className="text-[11px] text-slate-500 font-medium">
-            {variants.length} Records
-          </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {towerTotals.map((t) => (
+            <div
+              key={t.tower}
+              className="p-4 rounded-[4px] bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/90 dark:border-white/10 space-y-3 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all"
+            >
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-[4px] bg-purple-600/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">
+                      {t.tower}
+                    </h4>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                      {t.variants} Variants &bull; ~{t.units} Units
+                    </span>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded-[3px] text-[10px] font-bold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                  Active Tower
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="text-[10.5px] text-slate-500 dark:text-slate-400 block mb-0.5">
+                    Total Saleable
+                  </span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">
+                    {t.saleableArea.toLocaleString()} Sqft
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[10.5px] text-slate-500 dark:text-slate-400 block mb-0.5">
+                    Total Built-Up
+                  </span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">
+                    {t.builtUpArea.toLocaleString()} Sqft
+                  </span>
+                </div>
+              </div>
+
+              {/* Mini Availability Status Bar */}
+              <div className="pt-2 border-t border-slate-200/60 dark:border-white/5 space-y-1.5">
+                <div className="flex items-center justify-between text-[10px] font-semibold text-slate-600 dark:text-slate-400">
+                  <span>Status Breakdown</span>
+                  <span>{t.availableCount} Avail &bull; {t.holdCount} Hold &bull; {t.soldOutCount} Sold</span>
+                </div>
+                <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                  <div
+                    style={{
+                      width: `${t.variants > 0 ? (t.availableCount / t.variants) * 100 : 0}%`,
+                    }}
+                    className="bg-emerald-500 h-full"
+                    title={`Available: ${t.availableCount}`}
+                  />
+                  <div
+                    style={{
+                      width: `${t.variants > 0 ? (t.holdCount / t.variants) * 100 : 0}%`,
+                    }}
+                    className="bg-amber-500 h-full"
+                    title={`Hold: ${t.holdCount}`}
+                  />
+                  <div
+                    style={{
+                      width: `${t.variants > 0 ? (t.soldOutCount / t.variants) * 100 : 0}%`,
+                    }}
+                    className="bg-rose-500 h-full"
+                    title={`Sold Out: ${t.soldOutCount}`}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs divide-y divide-slate-200">
-            <thead className="bg-slate-50/60 text-[11px] font-semibold text-slate-600">
-              <tr>
-                <th className="py-2 px-3">Tower</th>
-                <th className="py-2 px-3">Flat No</th>
-                <th className="py-2 px-3">BHK Type</th>
-                <th className="py-2 px-3">Saleable Area (SFT)</th>
-                <th className="py-2 px-3">Inventory Owner</th>
-                <th className="py-2 px-3">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {variants.map((v) => (
-                <tr key={v.id} className="hover:bg-slate-50/50">
-                  <td className="py-2.5 px-3 font-medium text-slate-700">
-                    {v.towerName || 'Tower 1'}
-                  </td>
-                  <td className="py-1.5 px-3">
-                    <input
-                      type="text"
-                      value={v.flatNo}
-                      onChange={(e) =>
-                        handleRowChange(v.id, 'flatNo', e.target.value)
-                      }
-                      className="px-2 py-1 text-xs border border-slate-200 rounded w-20"
-                    />
-                  </td>
-                  <td className="py-2.5 px-3 text-slate-600">{v.unitType || '--'}</td>
-                  <td className="py-2.5 px-3 text-slate-600">
-                    {v.saleableArea ? `${v.saleableArea}` : '--'}
-                  </td>
-                  <td className="py-1.5 px-3">
-                    <div className="relative inline-block w-28">
-                      <select
-                        value={v.inventoryOwner}
-                        onChange={(e) =>
-                          handleRowChange(v.id, 'inventoryOwner', e.target.value)
-                        }
-                        className="w-full appearance-none px-2 py-1 text-xs bg-white border border-slate-200 rounded pr-6"
-                      >
-                        <option value="Builder">Builder</option>
-                        <option value="Investor">Investor</option>
-                        <option value="Owner">Owner</option>
-                      </select>
-                      <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
-                    </div>
-                  </td>
-                  <td className="py-1.5 px-3">
-                    <div className="relative inline-block w-28">
-                      <select
-                        value={v.flatStatus}
-                        onChange={(e) =>
-                          handleRowChange(v.id, 'flatStatus', e.target.value)
-                        }
-                        className="w-full appearance-none px-2 py-1 text-xs bg-white border border-slate-200 rounded pr-6"
-                      >
-                        <option value="Available">Available</option>
-                        <option value="Hold">Hold</option>
-                        <option value="Booked">Booked</option>
-                        <option value="Sold">Sold</option>
-                      </select>
-                      <ChevronDown className="w-3.5 h-3.5 absolute right-1.5 top-1.5 text-slate-600 dark:text-slate-400 pointer-events-none" />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="px-4 py-2.5 bg-slate-50/60 border-t border-slate-200 text-xs font-semibold text-slate-700">
-          Total Project Inventory: {variants.length}
-        </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useRef, type ChangeEvent } from 'react';
 import { Plus, MapPin, ExternalLink, Lock, Unlock, UploadCloud, Trash2, AlertCircle, X, Image as ImageIcon } from 'lucide-react';
-import { ModernDropdown } from '../../components/ModernDropdown';
+import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { INITIAL_LOCATION_DATA, INITIAL_ORR_ZONING_OPTIONS, type LocationFormData, type OrrExit, type HighwayItem, type OrrZoningOption } from './data';
 import { OrrZoningDialog, AddBuilderDialog, type BuilderData } from './desktop';
 import { SearchProjectLocationModal, type MapPoint } from './SearchProjectLocationModal';
@@ -150,34 +150,44 @@ export function LocationForAllMobile() {
   return (
     <div className="w-full p-3.5  space-y-4 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
       
-      {/* Header - No sub-paragraph */}
+      {/* Header */}
       <div className="pb-3 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center text-white shadow-xs shadow-emerald-500/20">
             <MapPin className="w-3.5 h-3.5" />
           </div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
-              Location - For All
-            </h2>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight font-display">
+                Location - For All
+              </h2>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Seller entitlement, location coordinates, maps, landmarks and boundaries
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="space-y-3.5 pb-20">
+      <div className="space-y-3.5 pb-4">
         
         {/* Section 1: Seller & Subscription Entitlement */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+            <div className="flex items-start gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
                 01
               </span>
-              <span className="w-1 h-3 rounded-full bg-blue-600 dark:bg-blue-500" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
-                Seller & Subscription Entitlement
-              </h3>
+              <span className="w-1 h-3 rounded-full bg-blue-600 dark:bg-blue-500 mt-1" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  Seller & Subscription Entitlement
+                </h3>
+                <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Configure registered seller identity and active subscription tier.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -226,14 +236,19 @@ export function LocationForAllMobile() {
         {/* Section 2: Location Hierarchy */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+            <div className="flex items-start gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
                 02
               </span>
-              <span className="w-1 h-3 rounded-full bg-indigo-600 dark:bg-indigo-500" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
-                Location Hierarchy
-              </h3>
+              <span className="w-1 h-3 rounded-full bg-indigo-600 dark:bg-indigo-500 mt-1" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  Location Hierarchy
+                </h3>
+                <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Define territorial levels: state, city, micro-market, and corporations.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -339,14 +354,19 @@ export function LocationForAllMobile() {
         {/* Section 3: Project Identity & Developer */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+            <div className="flex items-start gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
                 03
               </span>
-              <span className="w-1 h-3 rounded-full bg-emerald-600 dark:bg-emerald-500" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
-                Project Identity & Developer
-              </h3>
+              <span className="w-1 h-3 rounded-full bg-emerald-600 dark:bg-emerald-500 mt-1" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  Project Identity & Developer
+                </h3>
+                <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Development type, brand identity, and builder organization.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -505,14 +525,19 @@ export function LocationForAllMobile() {
         {/* Section 4: GIS Boundaries & Map Coordinates */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/80 dark:border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+            <div className="flex items-start gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
                 04
               </span>
-              <span className="w-1 h-3 rounded-full bg-sky-600 dark:bg-sky-500" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
-                GIS Boundaries & Map Coordinates
-              </h3>
+              <span className="w-1 h-3 rounded-full bg-sky-600 dark:bg-sky-500 mt-1" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  GIS Boundaries & Map Coordinates
+                </h3>
+                <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  GPS coordinates, Google Maps pin, and polygon plot boundaries.
+                </p>
+              </div>
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
               <button
@@ -669,14 +694,19 @@ export function LocationForAllMobile() {
         {/* Section 5: Connectivity & Transit Infrastructure */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+            <div className="flex items-start gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
                 05
               </span>
-              <span className="w-1 h-3 rounded-full bg-purple-600 dark:bg-purple-500" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
-                Connectivity & Transit Infrastructure
-              </h3>
+              <span className="w-1 h-3 rounded-full bg-purple-600 dark:bg-purple-500 mt-1" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  Connectivity & Transit Infrastructure
+                </h3>
+                <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Nearest Outer Ring Road (ORR) exits and national highway corridors.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -848,14 +878,19 @@ export function LocationForAllMobile() {
         {/* Section 6: Regulatory Details & USP */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+            <div className="flex items-start gap-2">
+              <span className="inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 text-[9.5px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
                 06
               </span>
-              <span className="w-1 h-3 rounded-full bg-amber-600 dark:bg-amber-500" />
-              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider font-display">
-                Regulatory Details & USP
-              </h3>
+              <span className="w-1 h-3 rounded-full bg-amber-600 dark:bg-amber-500 mt-1" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  Regulatory Details & USP
+                </h3>
+                <p className="text-[10.5px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Sub-Registrar Office, entrance orientation, and unique selling points.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -917,36 +952,36 @@ export function LocationForAllMobile() {
 
       </div>
 
-      {/* Floating Status Card - Fixed at the bottom-right of the screen */}
-      <div
-        className="fixed bottom-4 right-4 z-[90] rounded-[4px] p-2.5 sm:p-3 transition-all duration-300 border backdrop-blur-xl w-fit shadow-lg hover:shadow-xl bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10"
-      >
-        <div className="flex flex-col items-start gap-1.5">
-          <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 h-4">
-            <span>Status</span>
-            <span className="text-rose-500 font-bold">*</span>
-          </label>
+      {/* Status Card - Placed at bottom left side */}
+      <div className="pt-2 pb-6 flex items-center justify-start">
+        <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
+          <div className="flex flex-col items-start gap-1.5">
+            <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 h-4">
+              <span>Status</span>
+              <span className="text-rose-500 font-bold">*</span>
+            </label>
 
-          <ModernDropdown<'Active' | 'Inactive'>
-            value={formData.status}
-            onChange={(val) => handleInputChange('status', val)}
-            options={[
-              {
-                value: 'Active',
-                label: 'Active',
-                icon: <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1" />,
-              },
-              {
-                value: 'Inactive',
-                label: 'Inactive',
-                icon: <span className="w-2 h-2 rounded-full bg-slate-400 inline-block mr-1" />,
-              },
-            ]}
-            dropUp={true}
-            roundedClass="rounded-[4px]"
-            className="w-auto inline-block"
-            buttonClassName="w-auto h-8 px-2 text-xs font-semibold gap-1.5 bg-transparent border border-slate-200/90 dark:border-white/10 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 shadow-none"
-          />
+            <ModernDropdown<'Active' | 'Inactive'>
+              value={formData.status}
+              onChange={(val) => handleInputChange('status', val)}
+              options={[
+                {
+                  value: 'Active',
+                  label: 'Active',
+                  icon: <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1" />,
+                },
+                {
+                  value: 'Inactive',
+                  label: 'Inactive',
+                  icon: <span className="w-2 h-2 rounded-full bg-slate-400 inline-block mr-1" />,
+                },
+              ]}
+              dropUp={true}
+              roundedClass="rounded-[4px]"
+              className="w-auto inline-block"
+              buttonClassName="w-auto h-8 px-2.5 text-xs font-semibold gap-1.5 bg-transparent border border-slate-200/90 dark:border-white/10 hover:bg-slate-100/60 dark:hover:bg-slate-800/60 shadow-none"
+            />
+          </div>
         </div>
       </div>
 
