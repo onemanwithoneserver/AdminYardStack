@@ -50,21 +50,11 @@ export function ProjectFormView({
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 glass-card hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <ArrowLeft className="w-4 h-4 text-slate-600 dark:text-slate-300" />
           <span>Back to Projects</span>
         </button>
-
-        <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-semibold text-slate-700 dark:text-slate-300">
-            Step {effectiveTabId} of 10
-          </span>
-          <span>•</span>
-          <span className="font-bold text-blue-600 dark:text-blue-400">
-            {PROJECT_TABS.find((t) => t.id === effectiveTabId)?.label || 'Location-For all'}
-          </span>
-        </div>
       </div>
 
       <TabControls

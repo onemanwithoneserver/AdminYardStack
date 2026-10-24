@@ -61,6 +61,10 @@ import UndoRounded from '@mui/icons-material/UndoRounded';
 import UnfoldMoreRounded from '@mui/icons-material/UnfoldMoreRounded';
 import TuneRounded from '@mui/icons-material/TuneRounded';
 import SortRounded from '@mui/icons-material/SortRounded';
+import DescriptionRounded from '@mui/icons-material/DescriptionRounded';
+import CreditCardRounded from '@mui/icons-material/CreditCardRounded';
+import StarRounded from '@mui/icons-material/StarRounded';
+import ImageRounded from '@mui/icons-material/ImageRounded';
 
 
 
@@ -158,6 +162,11 @@ export const Sliders = wrapMui(TuneRounded);
 export const SortDesc = wrapMui(SortRounded);
 export const SortAsc = wrapMui(SortRounded);
 export const ArrowDownAZ = wrapMui(SortRounded);
+export const FileText = wrapMui(DescriptionRounded);
+export const CreditCard = wrapMui(CreditCardRounded);
+export const Star = wrapMui(StarRounded);
+export const Image = wrapMui(ImageRounded);
+export const ImageIcon = wrapMui(ImageRounded);
 
 export default {
   Activity,
