@@ -166,7 +166,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
               )}
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
-                  isOpen ? 'rotate-180 text-blue-500' : ''
+                  isOpen ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
                 }`}
               />
             </div>
@@ -236,7 +236,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                           </div>
 
                           {opt.category && (
-                            <span className="text-[10px] text-slate-400 font-normal ml-2 shrink-0">
+                            <span className="text-[10px] text-slate-600 dark:text-slate-400 font-normal ml-2 shrink-0">
                               {opt.category}
                             </span>
                           )}

@@ -155,7 +155,7 @@ export function DesktopNav({
               onClick={() => setIsDark((prev) => !prev)}
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-black dark:hover:bg-slate-100 transition-all cursor-pointer shadow-xs active:scale-95"
             >
-              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5" />}
+              {isDark ? <Sun className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" /> : <Moon className="w-3.5 h-3.5" />}
               <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
             </button>
 

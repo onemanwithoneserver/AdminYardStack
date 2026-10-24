@@ -182,7 +182,7 @@ export function ConfigurationMobile({
                   <button
                     type="button"
                     onClick={() => handleDeleteVariant(v.id)}
-                    className="p-1 text-red-500 hover:text-red-700"
+                    className="p-1 text-rose-700 dark:text-rose-400 hover:text-rose-800"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>

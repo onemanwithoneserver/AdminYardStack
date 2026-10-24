@@ -72,7 +72,7 @@ export function MobileNav({
             className="p-1.5 text-slate-700 dark:text-slate-200 hover:text-slate-900 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             title={isDark ? 'Light Mode' : 'Dark Mode'}
           >
-            {isDark ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4" />}
+            {isDark ? <Sun className="w-4 h-4 text-amber-600 dark:text-amber-400" /> : <Moon className="w-4 h-4" />}
           </button>
 
           <button

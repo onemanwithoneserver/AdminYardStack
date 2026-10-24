@@ -206,7 +206,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               )}
               <ChevronDown
                 className={`text-slate-600 dark:text-slate-400 transition-transform duration-200 ${iconSizeClass} ${
-                  isOpen ? 'rotate-180 text-blue-500' : ''
+                  isOpen ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
                 }`}
               />
             </div>

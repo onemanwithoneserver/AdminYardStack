@@ -168,7 +168,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             >
               <ChevronDown
                 className={`w-4 h-4 transition-transform ${
-                  isOpen ? 'rotate-180 text-blue-500' : ''
+                  isOpen ? 'rotate-180 text-blue-600 dark:text-blue-400' : ''
                 }`}
               />
             </button>
