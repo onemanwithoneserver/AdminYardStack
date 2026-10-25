@@ -418,56 +418,58 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Land Extent */}
-            <div className="flex flex-col items-start w-full sm:col-span-2">
-              <div className="flex items-center justify-between w-full mb-1.5 h-4">
-                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
-                  Land Extent
-                </label>
-                <div className="flex items-center gap-3 text-xs">
-                  <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-medium text-slate-600 dark:text-slate-300">
-                    <input
-                      type="radio"
-                      name="landExtentUnit"
-                      checked={formData.landExtentUnit === 'Acres'}
-                      onChange={() => handleInputChange('landExtentUnit', 'Acres')}
-                      className="text-blue-600 focus:ring-blue-500"
-                    />
-                    <span>Acres</span>
+            <div className="grid min-w-0 grid-cols-1 gap-4 sm:col-span-2 sm:grid-cols-2 sm:gap-5 items-end">
+              {/* Land Extent */}
+              <div className="flex min-w-0 flex-col items-start w-full">
+                <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 w-full mb-1.5 min-h-4">
+                  <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                    Land Extent
                   </label>
-                  <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-medium text-slate-600 dark:text-slate-300">
-                    <input
-                      type="radio"
-                      name="landExtentUnit"
-                      checked={formData.landExtentUnit === 'Sq. Yrds'}
-                      onChange={() => handleInputChange('landExtentUnit', 'Sq. Yrds')}
-                      className="text-blue-600 focus:ring-blue-500"
-                    />
-                    <span>Sq. Yrds</span>
-                  </label>
+                  <div className="flex shrink-0 items-center gap-2 text-xs">
+                    <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-medium text-slate-600 dark:text-slate-300">
+                      <input
+                        type="radio"
+                        name="landExtentUnit"
+                        checked={formData.landExtentUnit === 'Acres'}
+                        onChange={() => handleInputChange('landExtentUnit', 'Acres')}
+                        className="text-blue-600 focus:ring-blue-500"
+                      />
+                      <span>Acres</span>
+                    </label>
+                    <label className="inline-flex items-center gap-1.5 cursor-pointer text-[11px] font-medium text-slate-600 dark:text-slate-300">
+                      <input
+                        type="radio"
+                        name="landExtentUnit"
+                        checked={formData.landExtentUnit === 'Sq. Yrds'}
+                        onChange={() => handleInputChange('landExtentUnit', 'Sq. Yrds')}
+                        className="text-blue-600 focus:ring-blue-500"
+                      />
+                      <span>Sq. Yrds</span>
+                    </label>
+                  </div>
                 </div>
+                <input
+                  type="text"
+                  value={formData.landExtentValue}
+                  onChange={(e) => handleInputChange('landExtentValue', e.target.value)}
+                  placeholder="e.g. 12.5"
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
               </div>
-              <input
-                type="text"
-                value={formData.landExtentValue}
-                onChange={(e) => handleInputChange('landExtentValue', e.target.value)}
-                placeholder="e.g. 12.5"
-                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
-              />
-            </div>
 
-            {/* Number of Units */}
-            <div className="flex flex-col items-start w-full">
-              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
-                Number of Units
-              </label>
-              <input
-                type="number"
-                value={formData.numberOfUnits}
-                onChange={(e) => handleInputChange('numberOfUnits', e.target.value)}
-                placeholder="e.g. 450"
-                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
-              />
+              {/* Number of Units */}
+              <div className="flex min-w-0 flex-col items-start w-full">
+                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                  Number of Units
+                </label>
+                <input
+                  type="number"
+                  value={formData.numberOfUnits}
+                  onChange={(e) => handleInputChange('numberOfUnits', e.target.value)}
+                  placeholder="e.g. 450"
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+              </div>
             </div>
           </div>
         </section>
