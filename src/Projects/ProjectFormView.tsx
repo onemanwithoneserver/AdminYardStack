@@ -137,7 +137,7 @@ export function ProjectFormView({
           <button
             type="button"
             onClick={onBack}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95 ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/90 dark:border-white/10 transition-all cursor-pointer shadow-xs active:scale-95 ${
               isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
@@ -212,11 +212,11 @@ export function ProjectFormView({
       </div>
 
       
-      <div ref={sentinelRef} className="h-1 w-full pointer-events-none -mt-2" />
+      <div ref={sentinelRef} className="h-1 w-full pointer-events-none -mt-4" />
 
       
-      <div className="sticky -top-2 z-30 w-full py-2 backdrop-blur-xl bg-[#f4f6fb]/85 dark:bg-[#060911]/85 border-b border-slate-200/80 dark:border-white/10 shadow-xs transition-all">
-        <div className="w-full flex items-center justify-between gap-2.5">
+      <div className="sticky -top-4 z-30 w-full py-2 backdrop-blur-xl bg-[#f4f6fb]/85 dark:bg-[#060911]/85 transition-all">
+        <div className="w-full flex items-center justify-between gap-2">
           
           
           <AnimatePresence>

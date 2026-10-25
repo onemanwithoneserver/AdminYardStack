@@ -60,7 +60,7 @@ export const WALL_STRUCTURES = ['Select', 'RCC Shear Wall', 'RCC Framed Structur
 export const FLOOR_PLAN_TYPES = ['Select', 'Regular', 'Duplex', 'Penthouse', 'Simplex'];
 export const VARIANT_AVAILABILITY = ['Select', 'Available', 'Hold', 'Sold Out'];
 export const DESIGNATED_AREAS_LIST = ['None', 'Puja Room', 'Dressing', 'Study', 'Home Theater', 'Maid Room'];
-export const AVAILABLE_TOWERS = ['Tower 1', 'Tower 2', 'Tower 3', 'Tower 4', 'Tower 5', 'Tower 6'];
+export const AVAILABLE_TOWERS = ['Tower 1'];
 
 export const createDefaultVariant = (num: number, tower = 'Tower 1'): InventoryVariant => ({
   id: `variant-${num}-${Date.now()}`,
@@ -111,7 +111,6 @@ export const INITIAL_CONFIGURATION_DATA: InventoryConfigurationState = {
   },
   variants: [
     createDefaultVariant(1, 'Tower 1'),
-    createDefaultVariant(2, 'Tower 1'),
   ],
   status: 'Active',
 };

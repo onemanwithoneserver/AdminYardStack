@@ -70,6 +70,9 @@ import StarRounded from '@mui/icons-material/StarRounded';
 import ImageRounded from '@mui/icons-material/ImageRounded';
 import ElectricBoltRounded from '@mui/icons-material/ElectricBoltRounded';
 import MovieRounded from '@mui/icons-material/MovieRounded';
+import HomeRounded from '@mui/icons-material/HomeRounded';
+import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded';
+import RefreshRounded from '@mui/icons-material/RefreshRounded';
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number | string;
@@ -182,6 +185,9 @@ export const Route = wrapMui(LayersRounded);
 export const FileCheck2 = wrapMui(DescriptionRounded);
 export const Zap = wrapMui(ElectricBoltRounded);
 export const Film = wrapMui(MovieRounded);
+export const Home = wrapMui(HomeRounded);
+export const ArrowRight = wrapMui(ArrowForwardRounded);
+export const RefreshCw = wrapMui(RefreshRounded);
 
 export default {
   Activity,
@@ -243,4 +249,7 @@ export default {
   UserCheck,
   Users,
   X,
+  Home,
+  ArrowRight,
+  RefreshCw,
 };

@@ -1,5 +1,5 @@
-import { useState, useRef, type ChangeEvent } from 'react';
-import { Plus, ChevronDown, ChevronsDown, ChevronsUp, Trash2, Copy, UploadCloud, X, Check, Layers, Sparkles, Building2, SlidersHorizontal, Compass } from 'lucide-react';
+import { useState, useRef, useMemo, type ChangeEvent } from 'react';
+import { Check, Sparkles, Plus, Trash2, UploadCloud, ChevronsDown, ChevronsUp, Copy, ChevronDown, X } from 'lucide-react';
 import { ModernDropdown } from '../../../components/elements/ModernDropdown';
 import { INITIAL_CONFIGURATION_DATA, UNIT_TYPES, FACING_OPTIONS, WALL_STRUCTURES, FLOOR_PLAN_TYPES, VARIANT_AVAILABILITY, DESIGNATED_AREAS_LIST, AVAILABLE_TOWERS, createDefaultVariant, type InventoryVariant, type InventoryCommonConfig, type RoomItem } from './data';
 
@@ -25,6 +25,9 @@ export function ConfigurationDesktop({
   );
 
   const [notification, setNotification] = useState<string | null>(null);
+  const [customDesignatedAreas, setCustomDesignatedAreas] = useState<string[]>([]);
+  const [addingSpaceForVariant, setAddingSpaceForVariant] = useState<string | null>(null);
+  const [newSpaceInput, setNewSpaceInput] = useState<string>('');
 
   const commonConfig = externalCommonConfig ?? internalCommonConfig;
   const variants = externalVariants ?? internalVariants;
@@ -183,6 +186,58 @@ export function ConfigurationDesktop({
     updateVariants(updated);
   };
 
+  const allDesignatedAreas = useMemo(() => {
+    const list = [...DESIGNATED_AREAS_LIST.filter((a) => a !== 'None')];
+    customDesignatedAreas.forEach((item) => {
+      if (!list.includes(item)) list.push(item);
+    });
+    variants.forEach((v) => {
+      (v.designatedAreas || []).forEach((item) => {
+        if (item && item !== 'None' && !list.includes(item)) {
+          list.push(item);
+        }
+      });
+    });
+    return list;
+  }, [customDesignatedAreas, variants]);
+
+  const handleAddNewDesignatedArea = (variantId: string) => {
+    const trimmed = newSpaceInput.trim();
+    if (!trimmed) {
+      setAddingSpaceForVariant(null);
+      return;
+    }
+
+    if (!customDesignatedAreas.includes(trimmed)) {
+      setCustomDesignatedAreas((prev) => [...prev, trimmed]);
+    }
+
+    const updated = variants.map((v) => {
+      if (v.id !== variantId) return v;
+      if (v.designatedAreas.includes(trimmed)) return v;
+      return {
+        ...v,
+        designatedAreas: [...v.designatedAreas, trimmed],
+      };
+    });
+    updateVariants(updated);
+
+    showToast(`Added "${trimmed}" to designated rooms`);
+    setAddingSpaceForVariant(null);
+    setNewSpaceInput('');
+  };
+
+  const handleRemoveCustomDesignatedArea = (area: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCustomDesignatedAreas((prev) => prev.filter((a) => a !== area));
+    const updated = variants.map((v) => ({
+      ...v,
+      designatedAreas: (v.designatedAreas || []).filter((a) => a !== area),
+    }));
+    updateVariants(updated);
+    showToast(`Removed "${area}"`);
+  };
+
   const handleDesignatedAreaToggle = (variantId: string, area: string) => {
     const updated = variants.map((v) => {
       if (v.id !== variantId) return v;
@@ -207,24 +262,18 @@ export function ConfigurationDesktop({
       
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
-          <div className="flex items-start gap-2.5">
-            <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs mt-0.5">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
               01
             </span>
-            <span className="w-1 h-3.5 rounded-full bg-blue-600 dark:bg-blue-500 mt-1" />
-            <div>
-              <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
-                Common Area & Loading Specifications
-              </h3>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                Specify computation formula and percentage loading applied across unit variants.
-              </p>
-            </div>
+            <span className="w-1 h-3.5 rounded-full bg-blue-600 dark:bg-blue-500" />
+            <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+              Common Area & Loading Specifications
+            </h3>
           </div>
         </div>
 
         <div className="flex flex-wrap items-start gap-6 sm:gap-8">
-          
           <div className="flex flex-col items-start">
             <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
               Common Area Calculation Method
@@ -267,15 +316,16 @@ export function ConfigurationDesktop({
                       : 'border-slate-300 dark:border-white/20'
                   }`}
                 >
-                  {commonConfig.commonAreaCal === '% of Saleable Area' && <Check className="w-2.5 h-2.5" />}
+                  {commonConfig.commonAreaCal === '% of Saleable Area' && (
+                    <Check className="w-2.5 h-2.5" />
+                  )}
                 </span>
                 <span>% of Saleable Area</span>
               </button>
             </div>
           </div>
 
-          
-          <div className="flex flex-col items-start w-36 sm:w-44">
+          <div className="flex flex-col items-start w-40">
             <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
               Loading Factor (%)
             </label>
@@ -285,7 +335,7 @@ export function ConfigurationDesktop({
                 placeholder="e.g. 20"
                 value={commonConfig.loadingFactor}
                 onChange={(e) => updateCommonConfig('loadingFactor', e.target.value)}
-                className="w-full h-9 pl-3 pr-8 text-xs font-medium bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs transition-all"
+                className="w-full h-9 pl-3 pr-8 text-xs font-medium bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
               />
               <span className="absolute right-3 top-2.5 text-xs font-bold text-slate-400 dark:text-slate-500 select-none">
                 %
@@ -298,29 +348,31 @@ export function ConfigurationDesktop({
       
       <section className="space-y-4">
         
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-[4px] bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-[4px] bg-white/95 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center gap-2.5">
             <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
               02
             </span>
             <span className="w-1 h-3.5 rounded-full bg-indigo-600 dark:bg-indigo-500" />
-            <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
-              Unit Configurations & Flat Variants
-            </h3>
-            <span className="ml-1 px-2 py-0.5 rounded-[3px] text-[11px] font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-              {variants.length} Configured
-            </span>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display tracking-tight">
+                Unit Configurations & Flat Variants
+              </h3>
+              <span className="px-2 py-0.5 rounded-[3px] text-[10px] font-bold uppercase tracking-wider bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80">
+                {variants.length} Configured
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="inline-flex items-center p-0.5 rounded-[4px] bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-white/10 shadow-2xs">
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="inline-flex items-center p-0.5 rounded-[4px] bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 text-xs">
               <button
                 type="button"
                 onClick={handleExpandAll}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] text-[11px] font-semibold transition-all cursor-pointer active:scale-95 ${
                   variants.length > 0 && variants.every((v) => !v.isCollapsed)
-                    ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/70 dark:hover:bg-slate-700/50'
+                    ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 font-bold shadow-2xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
                 title="Expand all variants"
               >
@@ -331,10 +383,10 @@ export function ConfigurationDesktop({
               <button
                 type="button"
                 onClick={handleCollapseAll}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] text-[11px] font-semibold transition-all cursor-pointer active:scale-95 ${
                   variants.length > 0 && variants.every((v) => v.isCollapsed)
-                    ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-2xs font-bold'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/70 dark:hover:bg-slate-700/50'
+                    ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 font-bold shadow-2xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
                 title="Collapse all variants"
               >
@@ -345,134 +397,102 @@ export function ConfigurationDesktop({
             <button
               type="button"
               onClick={handleAddConfigurationClick}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-[4px] text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95 ml-1"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-[4px] text-xs font-semibold shadow-xs transition-all cursor-pointer active:scale-95"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Add Variant</span>
             </button>
           </div>
         </div>
 
         
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {variants.map((v) => {
             const isAvailable = v.variantAvailable === 'Available';
             const isHold = v.variantAvailable === 'Hold';
-            const isSoldOut = v.variantAvailable === 'Sold Out';
 
             return (
               <div
                 key={v.id}
-                className="bg-white/95 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-xs hover:border-slate-300 dark:hover:border-white/20 transition-all duration-200"
+                className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-xs hover:border-slate-300 dark:hover:border-white/20 transition-all duration-150"
               >
                 
                 <div
                   onClick={() => handleToggleCollapse(v.id)}
-                  className="px-4 py-3 bg-slate-50/90 dark:bg-slate-800/60 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3 cursor-pointer select-none group"
+                  className="px-4 py-3 bg-slate-50/80 dark:bg-slate-800/40 border-b border-slate-200/70 dark:border-white/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition-colors"
                 >
                   <div className="flex items-center gap-3 flex-wrap min-w-0">
-                    
-                    <div className="w-6 h-6 rounded-[4px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform duration-200">
-                      <Layers className="w-3.5 h-3.5" />
-                    </div>
+                    <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded-[3px] bg-slate-900 text-white dark:bg-white dark:text-slate-900 tracking-wider">
+                      {v.variantNo || `VAR-0${v.variantNumber}`}
+                    </span>
 
-                    <span className="w-1 h-3.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
+                    <h4 className="text-[13px] font-bold text-slate-900 dark:text-white font-display">
+                      Variant {v.variantNumber}
+                    </h4>
 
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-[13px] font-bold text-slate-900 dark:text-white font-display">
-                        Variant {v.variantNumber}
-                      </h4>
-                      <span className="text-slate-400 font-mono text-[11px]">
-                        ({v.variantNo || `VAR-0${v.variantNumber}`})
-                      </span>
-                    </div>
-
-                    
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="px-2 py-0.5 rounded-[3px] text-[10.5px] font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/80">
-                        {v.towerName || 'Tower 1'}
-                      </span>
-                      <span className="px-2 py-0.5 rounded-[3px] text-[10.5px] font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/80">
-                        {v.unitType || 'Unassigned'}
-                      </span>
-                      {v.facing && (
-                        <span className="px-2 py-0.5 rounded-[3px] text-[10.5px] font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-800/80 flex items-center gap-1">
-                          <Compass className="w-2.5 h-2.5" />
-                          <span>{v.facing}</span>
-                        </span>
-                      )}
-                      {v.saleableArea && (
-                        <span className="px-2 py-0.5 rounded-[3px] text-[10.5px] font-mono font-medium bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
-                          {v.saleableArea} Sqft
-                        </span>
-                      )}
-                      <span
-                        className={`px-2 py-0.5 rounded-[3px] text-[10.5px] font-bold flex items-center gap-1 ${
-                          isAvailable
-                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
-                            : isHold
-                            ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
-                            : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
-                        }`}
-                      >
-                        <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isAvailable
-                              ? 'bg-emerald-500 animate-pulse'
-                              : isHold
-                              ? 'bg-amber-500'
-                              : 'bg-rose-500'
-                          }`}
-                        />
-                        <span>{v.variantAvailable || 'Available'}</span>
-                      </span>
-                    </div>
                   </div>
 
                   
                   <div
-                    className="flex items-center gap-1.5 shrink-0"
+                    className="flex items-center gap-2 shrink-0"
                     onClick={(e) => e.stopPropagation()}
                   >
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[3px] text-[10.5px] font-bold ${
+                        isAvailable
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                          : isHold
+                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+                          : 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          isAvailable
+                            ? 'bg-emerald-500 animate-pulse'
+                            : isHold
+                            ? 'bg-amber-500'
+                            : 'bg-rose-500'
+                        }`}
+                      />
+                      <span>{v.variantAvailable || 'Available'}</span>
+                    </span>
+
                     <button
                       type="button"
                       onClick={() => handleDuplicateVariant(v)}
-                      className="w-7 h-7 rounded-[4px] flex items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 hover:border-rose-300 dark:hover:border-rose-700 hover:text-rose-700 dark:hover:text-rose-300 transition-all cursor-pointer shadow-2xs hover:shadow-xs active:scale-95"
-                      title="Duplicate Variant (Copy)"
-                      aria-label="Duplicate Variant"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-white/10 transition-colors cursor-pointer shadow-2xs active:scale-95"
+                      title="Duplicate Variant"
                     >
-                      <Copy className="w-3.5 h-3.5 stroke-[1.8]" />
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Duplicate</span>
                     </button>
 
                     {variants.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleDeleteVariant(v.id)}
-                        className="w-7 h-7 rounded-[4px] flex items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 hover:border-rose-300 dark:hover:border-rose-700 hover:text-rose-700 dark:hover:text-rose-300 transition-all cursor-pointer shadow-2xs hover:shadow-xs active:scale-95"
+                        className="w-7 h-7 rounded-[3px] flex items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50/70 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 border border-rose-200/80 dark:border-rose-900/60 transition-colors cursor-pointer shadow-2xs active:scale-95"
                         title="Delete Variant"
                         aria-label="Delete Variant"
                       >
-                        <Trash2 className="w-3.5 h-3.5 stroke-[1.8] text-rose-600 dark:text-rose-400" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     )}
 
                     <button
                       type="button"
                       onClick={() => handleToggleCollapse(v.id)}
-                      className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded-[4px] text-xs font-semibold transition-all cursor-pointer shadow-2xs hover:shadow-xs active:scale-95 ${
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[3px] text-[11px] font-semibold transition-all cursor-pointer shadow-2xs active:scale-95 ${
                         !v.isCollapsed
-                          ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200/90 dark:border-indigo-800/80 hover:bg-indigo-100 dark:hover:bg-indigo-900/60'
-                          : 'bg-white/95 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/90 dark:border-white/15 hover:bg-slate-100 dark:hover:bg-slate-700/80'
+                          ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800'
+                          : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:bg-slate-100'
                       }`}
-                      title={v.isCollapsed ? 'Expand Variant Details' : 'Collapse Variant Details'}
-                      aria-label={v.isCollapsed ? 'Expand Variant' : 'Collapse Variant'}
                     >
-                      <span className="text-[11px] font-semibold tracking-tight">
-                        {v.isCollapsed ? 'Expand' : 'Collapse'}
-                      </span>
+                      <span>{v.isCollapsed ? 'Expand' : 'Collapse'}</span>
                       <ChevronDown
-                        className={`w-3.5 h-3.5 transition-transform duration-250 ease-out ${
-                          v.isCollapsed ? 'rotate-0 text-slate-500 dark:text-slate-400' : 'rotate-180 text-indigo-600 dark:text-indigo-400'
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                          v.isCollapsed ? 'rotate-0 text-slate-400' : 'rotate-180 text-indigo-600 dark:text-indigo-400'
                         }`}
                       />
                     </button>
@@ -481,15 +501,16 @@ export function ConfigurationDesktop({
 
                 
                 {!v.isCollapsed && (
-                  <div className="p-4 sm:p-5 space-y-5 text-slate-800 dark:text-slate-100 animate-in fade-in duration-150">
+                  <div className="p-4 sm:p-5 space-y-7 text-slate-800 dark:text-slate-100 animate-in fade-in duration-150">
+                    
                     
                     <div>
-                      <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-1.5">
-                        <SlidersHorizontal className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                        <span>Core Unit Parameters</span>
-                      </h5>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                          01 / Core Unit Parameters
+                        </span>
+                      </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Variant Identifier
@@ -505,7 +526,6 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Unit Type
@@ -524,7 +544,6 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Facing
@@ -543,7 +562,6 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Variant Availability
@@ -556,17 +574,6 @@ export function ConfigurationDesktop({
                             options={VARIANT_AVAILABILITY.filter((a) => a !== 'Select').map((a) => ({
                               value: a,
                               label: a,
-                              icon: (
-                                <span
-                                  className={`w-2 h-2 rounded-full inline-block mr-1.5 ${
-                                    a === 'Available'
-                                      ? 'bg-emerald-500'
-                                      : a === 'Hold'
-                                      ? 'bg-amber-500'
-                                      : 'bg-rose-500'
-                                  }`}
-                                />
-                              ),
                             }))}
                             placeholder="Select Availability"
                             roundedClass="rounded-[4px]"
@@ -578,13 +585,13 @@ export function ConfigurationDesktop({
                     </div>
 
                     
-                    <div className="pt-2 border-t border-slate-100 dark:border-white/10">
-                      <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-1.5">
-                        <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                        <span>Area & Dimensional Measurements</span>
-                      </h5>
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                          02 / Area & Dimensional Measurements
+                        </span>
+                      </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Saleable Area (Sqft)
@@ -605,7 +612,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Built-Up Area (Sqft)
@@ -626,7 +632,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Carpet Area (Sqft)
@@ -647,7 +652,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Plinth Area (Sqft)
@@ -668,7 +672,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Common Area (Sqft)
@@ -689,7 +692,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Undivided Share (UDS)
@@ -710,7 +712,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Balcony Area (Sqft)
@@ -731,7 +732,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Utility Area (Sqft)
@@ -755,13 +755,13 @@ export function ConfigurationDesktop({
                     </div>
 
                     
-                    <div className="pt-2 border-t border-slate-100 dark:border-white/10">
-                      <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                        <span>Architecture & Structural Specifications</span>
-                      </h5>
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                          03 / Architectural & Structural Specifications
+                        </span>
+                      </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Wall Structure
@@ -782,7 +782,6 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Floor Plan Type
@@ -803,7 +802,6 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Ceiling Height (Feet)
@@ -824,7 +822,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             No. of Balconies
@@ -843,14 +840,18 @@ export function ConfigurationDesktop({
                     </div>
 
                     
-                    <div className="pt-2 border-t border-slate-100 dark:border-white/10">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
-                        
-                        <div className="flex flex-col items-start w-full">
-                          <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                    <div>
+                      <div className="flex items-center justify-between mb-3.5">
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                          04 / Applicable Towers & Designated Spaces
+                        </span>
+                      </div>
+                      <div className="flex flex-col lg:flex-row gap-8 items-start">
+                        <div className="flex flex-col items-start shrink-0">
+                          <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-2 h-4 flex items-center whitespace-nowrap">
                             Applicable Towers
                           </label>
-                          <div className="flex items-center gap-2 flex-wrap p-2 w-full rounded-[4px] bg-slate-50/80 dark:bg-slate-950 border border-slate-200 dark:border-white/10 min-h-[44px]">
+                          <div className="flex items-center gap-2.5 flex-wrap">
                             {AVAILABLE_TOWERS.map((t) => {
                               const isChecked = v.selectedTowers.includes(t);
                               return (
@@ -858,63 +859,124 @@ export function ConfigurationDesktop({
                                   key={t}
                                   type="button"
                                   onClick={() => handleTowerToggle(v.id, t)}
-                                  className={`px-3 py-1.5 rounded-[3px] text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                  className={`h-8 px-3.5 inline-flex items-center justify-center rounded-[4px] text-xs font-semibold transition-all cursor-pointer ${
                                     isChecked
-                                      ? 'bg-blue-600 text-white shadow-2xs'
+                                      ? 'bg-blue-600 text-white shadow-2xs font-bold'
                                       : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:border-slate-300'
                                   }`}
                                 >
-                                  {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
-                                  <span>{t}</span>
+                                  {t}
                                 </button>
                               );
                             })}
                           </div>
                         </div>
 
-                        
-                        <div className="flex flex-col items-start w-full">
-                          <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                        <div className="flex flex-col items-start flex-1 min-w-0">
+                          <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-2 h-4 flex items-center whitespace-nowrap">
                             Designated Living Spaces & Extra Rooms
                           </label>
-                          <div className="flex items-center gap-2 flex-wrap p-2 w-full rounded-[4px] bg-slate-50/80 dark:bg-slate-950 border border-slate-200 dark:border-white/10 min-h-[44px]">
-                            {DESIGNATED_AREAS_LIST.filter((a) => a !== 'None').map((area) => {
+                          <div className="flex items-center gap-2.5 flex-wrap">
+                            {allDesignatedAreas.map((area) => {
                               const isSelected = v.designatedAreas.includes(area);
+                              const isPredefined = DESIGNATED_AREAS_LIST.includes(area);
                               return (
                                 <button
                                   key={area}
                                   type="button"
                                   onClick={() => handleDesignatedAreaToggle(v.id, area)}
-                                  className={`px-3 py-1.5 rounded-[3px] text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                  className={`group h-8 inline-flex items-center gap-1.5 px-3.5 rounded-[4px] text-xs font-semibold transition-all cursor-pointer ${
                                     isSelected
-                                      ? 'bg-indigo-600 text-white shadow-2xs'
+                                      ? 'bg-indigo-600 text-white shadow-2xs font-bold'
                                       : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:border-slate-300'
                                   }`}
                                 >
-                                  {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                                   <span>{area}</span>
+                                  {!isPredefined && (
+                                    <span
+                                      onClick={(e) => handleRemoveCustomDesignatedArea(area, e)}
+                                      className={`p-0.5 rounded-full hover:bg-black/20 dark:hover:bg-white/20 transition-colors ${
+                                        isSelected ? 'text-indigo-200 hover:text-white' : 'text-slate-400 hover:text-rose-600'
+                                      }`}
+                                      title={`Delete ${area}`}
+                                    >
+                                      <X className="w-2.5 h-2.5" />
+                                    </span>
+                                  )}
                                 </button>
                               );
                             })}
+
+                            {addingSpaceForVariant === v.id ? (
+                              <div className="h-8 inline-flex items-center gap-1.5 p-1 pl-2.5 bg-white dark:bg-slate-900 border border-indigo-500 rounded-[4px] shadow-2xs">
+                                <input
+                                  type="text"
+                                  value={newSpaceInput}
+                                  onChange={(e) => setNewSpaceInput(e.target.value)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      handleAddNewDesignatedArea(v.id);
+                                    } else if (e.key === 'Escape') {
+                                      setAddingSpaceForVariant(null);
+                                      setNewSpaceInput('');
+                                    }
+                                  }}
+                                  placeholder="Room name..."
+                                  autoFocus
+                                  className="h-6 text-xs bg-transparent text-slate-800 dark:text-slate-100 outline-none w-28 placeholder:text-slate-400"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => handleAddNewDesignatedArea(v.id)}
+                                  className="w-5 h-5 flex items-center justify-center rounded-[2px] bg-indigo-600 hover:bg-indigo-700 text-white transition-colors cursor-pointer"
+                                  title="Save room"
+                                >
+                                  <Check className="w-3 h-3" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setAddingSpaceForVariant(null);
+                                    setNewSpaceInput('');
+                                  }}
+                                  className="w-5 h-5 flex items-center justify-center rounded-[2px] hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
+                                  title="Cancel"
+                                >
+                                  <X className="w-3 h-3" />
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setAddingSpaceForVariant(v.id);
+                                  setNewSpaceInput('');
+                                }}
+                                className="h-8 inline-flex items-center gap-1.5 px-3 rounded-[4px] text-xs font-semibold border border-dashed border-indigo-300 dark:border-indigo-700/80 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50/70 dark:hover:bg-indigo-950/40 transition-all cursor-pointer active:scale-95"
+                                title="Add custom designated room"
+                              >
+                                <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                                <span>Add Room</span>
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
                     </div>
 
                     
-                    <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-2.5">
+                    <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                          <span>Detailed Room Dimensions Matrix</span>
-                        </h5>
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                          05 / Detailed Room Dimensions Matrix
+                        </span>
                         <button
                           type="button"
                           onClick={() => handleAddRoom(v.id)}
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
+                          className="px-2.5 py-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 bg-blue-50/60 dark:bg-blue-950/40 rounded-[3px] border border-blue-200/60 dark:border-blue-900/40 transition-colors cursor-pointer"
                         >
-                          <Plus className="w-3.5 h-3.5" />
-                          <span>Add Room</span>
+                          + Add Room
                         </button>
                       </div>
 
@@ -927,7 +989,7 @@ export function ConfigurationDesktop({
                               <th className="py-2.5 px-3">Breadth (Ft)</th>
                               <th className="py-2.5 px-3">Size (Calculated)</th>
                               <th className="py-2.5 px-3">Connected / Related To</th>
-                              <th className="py-2.5 px-3 w-16 text-center">Action</th>
+                              <th className="py-2.5 px-3 w-20 text-center">Action</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100 dark:divide-white/5 bg-white dark:bg-slate-950">
@@ -937,7 +999,7 @@ export function ConfigurationDesktop({
                                   colSpan={6}
                                   className="text-center py-4 text-slate-400 dark:text-slate-500 text-xs italic"
                                 >
-                                  No room dimensions added yet. Click &ldquo;Add Room&rdquo; to define individual room sizes.
+                                  No room dimensions added yet. Click &ldquo;+ Add Room&rdquo; to define individual room sizes.
                                 </td>
                               </tr>
                             ) : (
@@ -1030,11 +1092,11 @@ export function ConfigurationDesktop({
                                     <button
                                       type="button"
                                       onClick={() => handleDeleteRoom(v.id, room.id)}
-                                      className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95"
+                                      className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95 inline-flex items-center justify-center"
                                       title="Remove room"
                                       aria-label="Remove room"
                                     >
-                                      <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                                      <Trash2 className="w-3.5 h-3.5" />
                                     </button>
                                   </td>
                                 </tr>
@@ -1046,9 +1108,13 @@ export function ConfigurationDesktop({
                     </div>
 
                     
-                    <div className="pt-2 border-t border-slate-100 dark:border-white/10">
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 font-mono">
+                          06 / Base Pricing & Floor Plan Blueprints
+                        </span>
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Base Cost (INR)
@@ -1069,7 +1135,6 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Floor Plan 2D (CAD / PDF)
@@ -1084,7 +1149,6 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Floor Plan 3D (Render / Isometric)
@@ -1108,14 +1172,14 @@ export function ConfigurationDesktop({
         </div>
 
         
-        <div className="pt-2">
+        <div className="pt-2 flex items-center justify-center">
           <button
             type="button"
             onClick={handleAddConfigurationClick}
-            className="w-full py-3.5 border-2 border-dashed border-blue-300 dark:border-blue-800/80 hover:border-blue-600 dark:hover:border-blue-500 rounded-[4px] bg-blue-50/50 hover:bg-blue-50/80 dark:bg-blue-950/20 dark:hover:bg-blue-950/40 text-blue-700 dark:text-blue-300 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-2xs active:scale-[0.99]"
+            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 border-2 border-dashed border-blue-300 dark:border-blue-800/80 hover:border-blue-600 dark:hover:border-blue-500 rounded-[4px] bg-blue-50/50 hover:bg-blue-50/80 dark:bg-blue-950/20 dark:hover:bg-blue-950/40 text-blue-700 dark:text-blue-300 font-semibold text-xs transition-all cursor-pointer shadow-2xs active:scale-[0.98]"
           >
-            <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs">
-              <Plus className="w-4 h-4" />
+            <div className="w-5.5 h-5.5 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs">
+              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             </div>
             <span>Add New Variant Configuration</span>
           </button>
@@ -1156,11 +1220,11 @@ function FloorPlanUploadBox({ value, onChange, inputId, placeholder }: FloorPlan
         <button
           type="button"
           onClick={handleRemove}
-          className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+          className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95 inline-flex items-center justify-center"
           title="Remove blueprint"
           aria-label="Remove blueprint"
         >
-          <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+          <Trash2 className="w-3.5 h-3.5" />
         </button>
       </div>
     );
@@ -1183,8 +1247,8 @@ function FloorPlanUploadBox({ value, onChange, inputId, placeholder }: FloorPlan
         <UploadCloud className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
         <span>Choose</span>
       </label>
-      <div className="flex-1 px-2.5 h-9 flex items-center bg-white/70 dark:bg-slate-950/70 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-[11px] text-slate-400 truncate">
-        {placeholder}
+      <div className="flex-1 px-2.5 h-9 flex items-center bg-white/70 dark:bg-slate-950/70 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-[11px] text-slate-400 dark:text-slate-500 truncate">
+        {placeholder || 'No file chosen'}
       </div>
     </div>
   );

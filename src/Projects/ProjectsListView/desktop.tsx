@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Plus, MapPin, X, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowUpDown, MoreVertical, Eye, Pencil, Trash2, AlertTriangle, RotateCcw } from 'lucide-react';
+import { Search, Plus, MapPin, X, ChevronLeft, ChevronRight, ArrowUpDown, MoreVertical, Eye, Pencil, Trash2, AlertTriangle, RotateCcw } from 'lucide-react';
 import { INITIAL_PROJECTS_LIST, type ProjectListItem } from './data';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 
@@ -859,30 +859,17 @@ export function ProjectsListDesktop({
                 : `${startIndex + 1}-${Math.min(startIndex + rowsPerPage, filteredProjects.length)} of ${filteredProjects.length}`}
             </span>
 
-            <div className="flex items-center gap-1 select-none">
-              
-              <button
-                type="button"
-                disabled={currentPage <= 1}
-                onClick={() => setCurrentPage(1)}
-                className="p-1 rounded-[4px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
-                title="First Page"
-              >
-                <ChevronsLeft className="w-4 h-4" />
-              </button>
-
-              
+            <div className="flex items-center gap-1.5 select-none">
               <button
                 type="button"
                 disabled={currentPage <= 1}
                 onClick={() => setCurrentPage((p) => p - 1)}
-                className="p-1 rounded-[4px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                className="w-7 h-7 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-2xs"
                 title="Previous Page"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
-              
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
                 const isActive = pageNum === currentPage;
                 return (
@@ -901,26 +888,14 @@ export function ProjectsListDesktop({
                 );
               })}
 
-              
               <button
                 type="button"
                 disabled={currentPage >= totalPages}
                 onClick={() => setCurrentPage((p) => p + 1)}
-                className="p-1 rounded-[4px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                className="w-7 h-7 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-2xs"
                 title="Next Page"
               >
                 <ChevronRight className="w-4 h-4" />
-              </button>
-
-              
-              <button
-                type="button"
-                disabled={currentPage >= totalPages}
-                onClick={() => setCurrentPage(totalPages)}
-                className="p-1 rounded-[4px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
-                title="Last Page"
-              >
-                <ChevronsRight className="w-4 h-4" />
               </button>
             </div>
           </div>

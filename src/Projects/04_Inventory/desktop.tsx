@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Plus, Boxes, CheckCircle2, Layers, Columns, Building2, Sparkles } from 'lucide-react';
+import { Boxes, CheckCircle2, Layers, Columns, Building2, Sparkles } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { INITIAL_INVENTORY_ROOT_DATA, createDefaultVariant, calculateInventoryKPIs, type InventoryRootState } from './data';
 import { ConfigurationDesktop } from './Configuration';
@@ -66,32 +66,7 @@ export function InventoryDesktop() {
           </div>
         </div>
 
-        
-        <div className="flex items-center gap-2 flex-wrap">
-          <div className="px-3 py-1.5 rounded-[4px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 shadow-2xs flex items-center gap-2">
-            <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            <span className="text-[11px] text-slate-500 dark:text-slate-400">Configs:</span>
-            <span className="text-xs font-bold text-slate-900 dark:text-white font-mono">
-              {kpis.totalVariants}
-            </span>
-          </div>
 
-          <div className="px-3 py-1.5 rounded-[4px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 shadow-2xs flex items-center gap-2">
-            <Building2 className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-[11px] text-slate-500 dark:text-slate-400">Towers:</span>
-            <span className="text-xs font-bold text-slate-900 dark:text-white font-mono">
-              {kpis.totalTowers}
-            </span>
-          </div>
-
-          <div className="px-3 py-1.5 rounded-[4px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 shadow-2xs flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-            <span className="text-[11px] text-slate-500 dark:text-slate-400">Total Saleable:</span>
-            <span className="text-xs font-bold text-slate-900 dark:text-white font-mono">
-              {kpis.totalSaleableArea.toLocaleString()} Sqft
-            </span>
-          </div>
-        </div>
       </div>
 
       
@@ -132,15 +107,6 @@ export function InventoryDesktop() {
             <span>Preview & Matrix</span>
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={handleAddConfiguration}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          <span>Add Configuration</span>
-        </button>
       </div>
 
       

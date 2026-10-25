@@ -57,7 +57,6 @@ export const INITIAL_INVENTORY_ROOT_DATA: InventoryRootState = {
   },
   variants: [
     createDefaultVariant(1, 'Tower 1'),
-    createDefaultVariant(2, 'Tower 1'),
   ],
   status: 'Active',
 };
