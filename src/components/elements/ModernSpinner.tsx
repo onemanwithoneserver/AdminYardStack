@@ -15,7 +15,7 @@ export interface ModernSpinnerProps extends HTMLAttributes<HTMLDivElement> {
   fullPage?: boolean;
   blur?: boolean;
 }
-
+ 
 const sizeConfig: Record<
   SpinnerSize,
   {

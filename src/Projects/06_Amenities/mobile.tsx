@@ -108,7 +108,7 @@ export function AmenitiesMobile() {
                   return (
                     <label
                       key={item.id}
-                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-[4px] border transition-all cursor-pointer select-none text-xs ${
+                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-[4px]  transition-all cursor-pointer select-none text-xs ${
                         isChecked
                           ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800 text-blue-900 dark:text-blue-100 font-medium'
                           : 'bg-white/60 dark:bg-slate-950/40 border-slate-200/70 dark:border-white/5 text-slate-700 dark:text-slate-300'

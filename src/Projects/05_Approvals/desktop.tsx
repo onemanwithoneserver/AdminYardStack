@@ -321,16 +321,16 @@ export function ApprovalsDesktop() {
             </div>
 
             {/* Remarks */}
-            <div className="flex flex-col items-start w-full sm:col-span-2 md:col-span-4">
+            <div className="flex flex-col items-start w-full sm:col-span-2 max-w-xl">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Approval Remarks
               </label>
               <textarea
-                rows={2}
+                rows={4}
                 value={formData.remarks}
                 onChange={(e) => handleInputChange('remarks', e.target.value)}
                 placeholder="Enter regulatory or sanction notes..."
-                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs resize-none"
+                className="w-full min-h-[96px] px-3 py-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs resize-y leading-relaxed"
               />
             </div>
           </div>
@@ -514,15 +514,43 @@ export function ApprovalsDesktop() {
             {/* OC Approval Dates */}
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
-                OC Approval Dates (comma-separated)
+                OC Approval Dates
               </label>
-              <input
-                type="text"
-                value={formData.ocApprovalDates}
-                onChange={(e) => handleInputChange('ocApprovalDates', e.target.value)}
-                placeholder="e.g. 12-01-2024, 15-06-2024"
-                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
-              />
+              <div className="flex items-center gap-2.5 w-full">
+                <div className="flex-1 min-w-0">
+                  <ModernCalendar
+                    value={formData.ocStartDate || (formData.ocApprovalDates && formData.ocApprovalDates.includes('to') ? formData.ocApprovalDates.split('to')[0].trim() : '')}
+                    onChange={(val) => {
+                      handleInputChange('ocStartDate', val);
+                      const end = formData.ocEndDate || (formData.ocApprovalDates && formData.ocApprovalDates.includes('to') ? formData.ocApprovalDates.split('to')[1].trim() : '');
+                      handleInputChange(
+                        'ocApprovalDates',
+                        val ? (end ? `${val} to ${end}` : val) : end
+                      );
+                    }}
+                    maxDate={formData.ocEndDate || (formData.ocApprovalDates && formData.ocApprovalDates.includes('to') ? formData.ocApprovalDates.split('to')[1].trim() : undefined)}
+                    placeholder="Start Date"
+                  />
+                </div>
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 shrink-0 select-none">
+                  to
+                </span>
+                <div className="flex-1 min-w-0">
+                  <ModernCalendar
+                    value={formData.ocEndDate || (formData.ocApprovalDates && formData.ocApprovalDates.includes('to') ? formData.ocApprovalDates.split('to')[1].trim() : '')}
+                    onChange={(val) => {
+                      handleInputChange('ocEndDate', val);
+                      const start = formData.ocStartDate || (formData.ocApprovalDates && formData.ocApprovalDates.includes('to') ? formData.ocApprovalDates.split('to')[0].trim() : '');
+                      handleInputChange(
+                        'ocApprovalDates',
+                        start ? (val ? `${start} to ${val}` : start) : val
+                      );
+                    }}
+                    minDate={formData.ocStartDate || (formData.ocApprovalDates && formData.ocApprovalDates.includes('to') ? formData.ocApprovalDates.split('to')[0].trim() : undefined)}
+                    placeholder="End Date"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -538,7 +566,7 @@ export function ApprovalsDesktop() {
               <h3 className="text-xs font-bold text-slate-900 dark:text-white tracking-wider font-display">
                 Completion Certificate (CC) Details
               </h3>
-            </div>text-[14px] font-bold text-slate-900 dark:text-white font-display
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SlidersHorizontal, Plus, CheckCircle2 } from 'lucide-react';
+import { SlidersHorizontal, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { Combobox } from '../../components/elements/Combobox';
 import {
@@ -27,21 +27,6 @@ export function SpecificationsMobile() {
     const trimmed = newType.trim();
     if (trimmed && !allowedTypes.some((t) => t.toLowerCase() === trimmed.toLowerCase())) {
       setAllowedTypes((prev) => [...prev, trimmed]);
-    }
-  };
-
-  const handleAddConstructionTypeFromCombobox = (newType: string) => {
-    const trimmed = newType.trim();
-    if (trimmed && !constructionTypes.some((c) => c.option.toLowerCase() === trimmed.toLowerCase())) {
-      setConstructionTypes((prev) => {
-        const newItem: ConstructionTypeOption = {
-          id: `ct-${prev.length + 1}-${trimmed.replace(/\s+/g, '-').toLowerCase()}`,
-          option: trimmed,
-          status: 'ACTIVE',
-        };
-        return [...prev, newItem];
-      });
-      handleFieldChange('selectedConstructionType', trimmed);
     }
   };
 
@@ -344,29 +329,19 @@ export function SpecificationsMobile() {
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Construction Type
               </label>
-              <div className="flex items-center gap-2 w-full">
-                <Combobox
-                  value={formData.selectedConstructionType}
-                  onChange={(val) => handleFieldChange('selectedConstructionType', val)}
-                  onAddItem={handleAddConstructionTypeFromCombobox}
-                  options={constructionTypes
-                    .filter((c) => c.status === 'ACTIVE')
-                    .map((c) => c.option)}
-                  placeholder="Select or type Construction Type..."
-                  size="md"
-                  roundedClass="rounded-[4px]"
-                  className="flex-1"
-                  inputClassName="w-full h-9 px-2.5 text-xs font-medium"
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsDialogOpen(true)}
-                  className="inline-flex items-center gap-1 px-2.5 h-9 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 text-xs font-semibold shadow-2xs shrink-0 cursor-pointer active:scale-95"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Add</span>
-                </button>
-              </div>
+              <Combobox
+                value={formData.selectedConstructionType}
+                onChange={(val) => handleFieldChange('selectedConstructionType', val)}
+                options={constructionTypes
+                  .filter((c) => c.status === 'ACTIVE')
+                  .map((c) => c.option)}
+                placeholder="Select Construction Type..."
+                size="md"
+                roundedClass="rounded-[4px]"
+                className="w-full"
+                inputClassName="w-full h-9 px-3 text-xs font-medium"
+                allowCustom={false}
+              />
             </div>
 
             {/* Door Height */}

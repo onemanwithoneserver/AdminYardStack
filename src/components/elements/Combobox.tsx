@@ -81,6 +81,11 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const [coords, setCoords] = useState<DropdownCoords | null>(null);
 
+    // Inline add state
+    const [isAddingInline, setIsAddingInline] = useState(false);
+    const [inlineText, setInlineText] = useState('');
+    const inlineInputRef = useRef<HTMLInputElement>(null);
+
     const generatedId = useId();
     const comboboxId = id || generatedId;
     const containerRef = useRef<HTMLDivElement>(null);
@@ -142,7 +147,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
 
       let shouldDropUp = dropUp === true;
       if (dropUp !== true) {
-        if (spaceBelow < 220 && spaceAbove > spaceBelow) {
+        if (spaceBelow < 240 && spaceAbove > spaceBelow) {
           shouldDropUp = true;
         } else {
           shouldDropUp = false;
@@ -150,8 +155,8 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       }
 
       const availableSpace = shouldDropUp ? spaceAbove - 16 : spaceBelow - 16;
-      const boundedMaxHeight = Math.max(140, Math.min(280, Math.floor(availableSpace)));
-      const width = Math.max(rect.width, 180);
+      const boundedMaxHeight = Math.max(160, Math.min(300, Math.floor(availableSpace)));
+      const width = Math.max(rect.width, 200);
 
       let left = rect.left;
       if (align === 'right' || rect.left + width > viewportWidth - 12) {
@@ -175,7 +180,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       if (isOpen) {
         updatePosition();
       }
-    }, [isOpen, updatePosition, filteredOptions.length, canAddNew]);
+    }, [isOpen, updatePosition, filteredOptions.length, canAddNew, isAddingInline]);
 
     useEffect(() => {
       if (!isOpen) return;
@@ -190,6 +195,8 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
         ) {
           setIsOpen(false);
           setSearchQuery(null);
+          setIsAddingInline(false);
+          setInlineText('');
         }
       };
 
@@ -216,19 +223,23 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       onAddItem?.(trimmed);
       onChange(trimmed);
       setSearchQuery(null);
+      setIsAddingInline(false);
+      setInlineText('');
       setIsOpen(false);
     };
 
     const handleSelectOption = (optValue: string) => {
       onChange(optValue);
       setSearchQuery(null);
+      setIsAddingInline(false);
+      setInlineText('');
       setIsOpen(false);
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (disabled) return;
 
-      const totalItems = filteredOptions.length + (canAddNew ? 1 : 0);
+      const totalItems = filteredOptions.length + (allowCustom ? 1 : 0);
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -251,10 +262,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
           e.preventDefault();
           if (highlightedIndex >= 0 && highlightedIndex < filteredOptions.length) {
             handleSelectOption(filteredOptions[highlightedIndex].value);
-          } else if (
-            canAddNew &&
-            (highlightedIndex === filteredOptions.length || highlightedIndex === -1)
-          ) {
+          } else if (canAddNew) {
             handleAddNew(searchQuery || currentDisplayValue);
           } else if (filteredOptions.length > 0 && highlightedIndex === -1) {
             handleSelectOption(filteredOptions[0].value);
@@ -266,6 +274,8 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       } else if (e.key === 'Escape') {
         setIsOpen(false);
         setSearchQuery(null);
+        setIsAddingInline(false);
+        setInlineText('');
       }
     };
 
@@ -304,9 +314,10 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               setHighlightedIndex(0);
               updatePosition();
             }}
-            onFocus={() => {
+            onFocus={(e) => {
               setIsOpen(true);
               updatePosition();
+              e.target.select();
             }}
             onClick={() => {
               if (!isOpen) {
@@ -383,73 +394,141 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                 maxHeight: `${coords.maxHeight}px`,
                 zIndex: 99999,
               }}
-              className={`bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 ${roundedClass} shadow-xl overflow-hidden py-1 overflow-y-auto no-scrollbar animate-in fade-in zoom-in-95 duration-100 ${menuClassName}`}
+              className={`bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 ${roundedClass} shadow-xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-100 ${menuClassName}`}
             >
-              {/* Option List */}
-              {filteredOptions.length > 0 ? (
-                filteredOptions.map((opt, idx) => {
-                  const isSelected = opt.value === value || opt.label === value;
-                  const isHighlighted = idx === highlightedIndex;
+              {/* Option List Container */}
+              <div className="overflow-y-auto max-h-52 py-1 no-scrollbar flex-1">
+                {filteredOptions.length > 0 ? (
+                  filteredOptions.map((opt, idx) => {
+                    const isSelected = opt.value === value || opt.label === value;
+                    const isHighlighted = idx === highlightedIndex;
 
-                  return (
-                    <div
-                      key={opt.value}
-                      role="option"
-                      aria-selected={isSelected}
+                    return (
+                      <div
+                        key={opt.value}
+                        role="option"
+                        aria-selected={isSelected}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => handleSelectOption(opt.value)}
+                        onMouseEnter={() => setHighlightedIndex(idx)}
+                        className={`flex items-center justify-between px-2.5 py-1.5 text-xs cursor-pointer transition-colors select-none ${
+                          isSelected
+                            ? 'bg-blue-50/80 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-semibold'
+                            : isHighlighted
+                            ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
+                            : 'text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          {opt.icon && <span className="shrink-0">{opt.icon}</span>}
+                          <span className="truncate">{opt.label}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0 ml-1.5">
+                          {opt.badge && (
+                            <span className="text-[10px] font-mono px-1 py-0.2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-[2px]">
+                              {opt.badge}
+                            </span>
+                          )}
+                          {isSelected && (
+                            <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : !canAddNew && !isAddingInline ? (
+                  <div className="px-3 py-2 text-xs text-slate-400 dark:text-slate-500 text-center italic">
+                    No matching options
+                  </div>
+                ) : null}
+              </div>
+
+              {/* Pinned Bottom: "+ Add New" / Custom Item Section */}
+              {allowCustom && (
+                <div className="border-t border-slate-100 dark:border-white/10 p-1.5 bg-slate-50/90 dark:bg-slate-950/80 backdrop-blur-xs shrink-0">
+                  {canAddNew ? (
+                    // Query has been typed and doesn't exactly match an option
+                    <button
+                      type="button"
                       onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => handleSelectOption(opt.value)}
-                      onMouseEnter={() => setHighlightedIndex(idx)}
-                      className={`flex items-center justify-between px-2.5 py-1.5 text-xs cursor-pointer transition-colors select-none ${
-                        isSelected
-                          ? 'bg-blue-50/80 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-semibold'
-                          : isHighlighted
-                          ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
-                          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                      onClick={() => handleAddNew(searchQuery || currentDisplayValue)}
+                      onMouseEnter={() => setHighlightedIndex(filteredOptions.length)}
+                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 text-xs font-semibold rounded-[4px] cursor-pointer transition-all border text-left active:scale-[0.98] select-none ${
+                        highlightedIndex === filteredOptions.length
+                          ? 'bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200 border-blue-300 dark:border-blue-700'
+                          : 'bg-blue-50/90 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border-blue-200/90 dark:border-blue-900/60 hover:bg-blue-100 dark:hover:bg-blue-900/60'
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        {opt.icon && <span className="shrink-0">{opt.icon}</span>}
-                        <span className="truncate">{opt.label}</span>
+                      <div className="w-5 h-5 rounded-[3px] bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
                       </div>
-                      <div className="flex items-center gap-1.5 shrink-0 ml-1.5">
-                        {opt.badge && (
-                          <span className="text-[10px] font-mono px-1 py-0.2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-[2px]">
-                            {opt.badge}
-                          </span>
-                        )}
-                        {isSelected && (
-                          <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-                        )}
-                      </div>
+                      <span className="truncate">
+                        + Add new: <span className="font-bold underline decoration-blue-400">"{searchQuery || currentDisplayValue}"</span>
+                      </span>
+                    </button>
+                  ) : isAddingInline ? (
+                    // Inline input to type and add directly
+                    <div className="flex items-center gap-1.5 w-full">
+                      <input
+                        ref={inlineInputRef}
+                        type="text"
+                        value={inlineText}
+                        onChange={(e) => setInlineText(e.target.value)}
+                        placeholder="Type new option..."
+                        autoFocus
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (inlineText.trim()) handleAddNew(inlineText);
+                          } else if (e.key === 'Escape') {
+                            setIsAddingInline(false);
+                            setInlineText('');
+                          }
+                        }}
+                        className="flex-1 h-7.5 px-2 text-xs bg-white dark:bg-slate-900 border border-blue-300 dark:border-blue-700 rounded-[3px] focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-800 dark:text-slate-100"
+                      />
+                      <button
+                        type="button"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => {
+                          if (inlineText.trim()) handleAddNew(inlineText);
+                        }}
+                        disabled={!inlineText.trim()}
+                        className="h-7.5 px-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-[3px] disabled:opacity-40 transition-all cursor-pointer flex items-center gap-1 shrink-0"
+                      >
+                        <Plus className="w-3 h-3 stroke-[2.5]" />
+                        <span>Add</span>
+                      </button>
+                      <button
+                        type="button"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => {
+                          setIsAddingInline(false);
+                          setInlineText('');
+                        }}
+                        className="h-7.5 w-7 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[3px] cursor-pointer"
+                        title="Cancel"
+                        aria-label="Cancel"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
                     </div>
-                  );
-                })
-              ) : !canAddNew ? (
-                <div className="px-3 py-2 text-xs text-slate-400 dark:text-slate-500 text-center italic">
-                  No matching options
-                </div>
-              ) : null}
-
-              {/* Add New Item Button */}
-              {canAddNew && (
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => handleAddNew(searchQuery || currentDisplayValue)}
-                  onMouseEnter={() => setHighlightedIndex(filteredOptions.length)}
-                  className={`flex items-center gap-2 px-2.5 py-2 text-xs font-semibold rounded-[4px] cursor-pointer transition-colors border mx-1.5 my-1 active:scale-[0.98] select-none ${
-                    highlightedIndex === filteredOptions.length
-                      ? 'bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200 border-blue-300 dark:border-blue-700'
-                      : 'bg-blue-50/80 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 border-blue-200/90 dark:border-blue-900/60 hover:bg-blue-100 dark:hover:bg-blue-900/60'
-                  }`}
-                >
-                  <span className="w-4 h-4 rounded-[3px] bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
-                    <Plus className="w-3 h-3 stroke-[2.5]" />
-                  </span>
-                  <span className="truncate">
-                    Add "{searchQuery || currentDisplayValue}"
-                  </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        setIsAddingInline(true);
+                        setTimeout(() => inlineInputRef.current?.focus(), 60);
+                      }}
+                      className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50 rounded-[4px] transition-all cursor-pointer group select-none"
+                    >
+                      <div className="w-5 h-5 rounded-[3px] bg-blue-50 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-800 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+                        <Plus className="w-3.5 h-3.5 stroke-[2]" />
+                      </div>
+                      <span>Add new option</span>
+                    </button>
+                  )}
                 </div>
               )}
             </div>,

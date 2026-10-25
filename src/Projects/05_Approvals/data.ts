@@ -21,6 +21,8 @@ export interface ApprovalsFormData {
   
   ocReceived: string;
   ocApprovalDates: string;
+  ocStartDate?: string;
+  ocEndDate?: string;
   
   ccNumber: string;
   ccDate: string;
@@ -68,6 +70,8 @@ export const INITIAL_APPROVALS_DATA: ApprovalsFormData = {
   
   ocReceived: '',
   ocApprovalDates: '',
+  ocStartDate: '',
+  ocEndDate: '',
   
   ccNumber: '',
   ccDate: '',

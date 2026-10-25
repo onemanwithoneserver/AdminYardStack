@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { SlidersHorizontal, Plus, X, CheckCircle2 } from 'lucide-react';
+import { SlidersHorizontal, X, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { Combobox } from '../../components/elements/Combobox';
 import {
@@ -127,21 +127,6 @@ export function SpecificationsDesktop() {
     const trimmed = newType.trim();
     if (trimmed && !allowedTypes.some((t) => t.toLowerCase() === trimmed.toLowerCase())) {
       setAllowedTypes((prev) => [...prev, trimmed]);
-    }
-  };
-
-  const handleAddConstructionTypeFromCombobox = (newType: string) => {
-    const trimmed = newType.trim();
-    if (trimmed && !constructionTypes.some((c) => c.option.toLowerCase() === trimmed.toLowerCase())) {
-      setConstructionTypes((prev) => {
-        const newItem: ConstructionTypeOption = {
-          id: `ct-${prev.length + 1}-${trimmed.replace(/\s+/g, '-').toLowerCase()}`,
-          option: trimmed,
-          status: 'ACTIVE',
-        };
-        return [...prev, newItem];
-      });
-      handleFieldChange('selectedConstructionType', trimmed);
     }
   };
 
@@ -426,7 +411,7 @@ export function SpecificationsDesktop() {
             </div>
 
             {/* DG Backup */}
-            <div className="flex flex-col items-start w-full">
+            <div className="flex flex-col items-start w-full sm:col-span-2 max-w-[380px]">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 DG Power Backup
               </label>
@@ -435,38 +420,28 @@ export function SpecificationsDesktop() {
                 placeholder="e.g. 100% backup for common areas, 1.5 KVA per unit"
                 value={formData.dgBackup}
                 onChange={(e) => handleFieldChange('dgBackup', e.target.value)}
-                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
+                className="w-full max-w-[380px] h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
               />
             </div>
 
             {/* Construction Type */}
-            <div className="flex flex-col items-start w-full sm:col-span-2">
+            <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Construction Type
               </label>
-              <div className="flex items-center gap-2.5 w-full">
-                <Combobox
-                  value={formData.selectedConstructionType}
-                  onChange={(val) => handleFieldChange('selectedConstructionType', val)}
-                  onAddItem={handleAddConstructionTypeFromCombobox}
-                  options={constructionTypes
-                    .filter((c) => c.status === 'ACTIVE')
-                    .map((c) => c.option)}
-                  placeholder="Select or type Construction Type..."
-                  size="md"
-                  roundedClass="rounded-[4px]"
-                  className="flex-1 min-w-[180px]"
-                  inputClassName="w-full h-9 px-3 text-xs font-medium"
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsDialogOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 h-9 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95 shrink-0"
-                >
-                  <Plus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                  <span>Add Type</span>
-                </button>
-              </div>
+              <Combobox
+                value={formData.selectedConstructionType}
+                onChange={(val) => handleFieldChange('selectedConstructionType', val)}
+                options={constructionTypes
+                  .filter((c) => c.status === 'ACTIVE')
+                  .map((c) => c.option)}
+                placeholder="Select or type..."
+                size="md"
+                roundedClass="rounded-[4px]"
+                className="w-full"
+                inputClassName="w-full h-9 px-3 text-xs font-medium"
+                allowCustom={false}
+              />
             </div>
 
             {/* Door Height */}
