@@ -180,7 +180,7 @@ export function LayoutMobile() {
               </span>
               <span className="w-1 h-3 rounded-full bg-indigo-600 dark:bg-indigo-500" />
               <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
-                Tower Matrix
+                Tower Matrix & Elevation Specifications
               </h3>
             </div>
 
@@ -200,6 +200,7 @@ export function LayoutMobile() {
                 key={table.id}
                 className="border border-slate-200/80 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-slate-50/50 dark:bg-slate-900/40"
               >
+                {/* Table Header */}
                 <div className="px-3 py-2 bg-slate-100/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-display">
@@ -220,257 +221,128 @@ export function LayoutMobile() {
                   )}
                 </div>
 
+                {/* Tower Cards */}
                 <div className="p-2.5 space-y-3">
                   {table.rows.map((row, rIndex) => (
                     <div
                       key={row.id}
-                      className="bg-white dark:bg-slate-950 rounded-[4px] border border-slate-200 dark:border-white/10 p-3 space-y-2.5 shadow-2xs"
+                      className="bg-white dark:bg-slate-950 rounded-[4px] border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xs"
                     >
-                      <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-white/10">
-                        <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-display">
-                          {row.towerName || `Tower ${rIndex + 1}`}
-                        </span>
+                      {/* Card Header */}
+                      <div className="px-3 py-2.5 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-700 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold font-mono rounded-[3px] bg-white/15 text-white/90 select-none">
+                            {String(rIndex + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-[13px] font-bold text-white font-display tracking-tight">
+                            {row.towerName || `Tower ${rIndex + 1}`}
+                          </span>
+                        </div>
                         <button
                           type="button"
                           onClick={() => handleDeleteRow(table.id, row.id)}
-                          className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95"
+                          className="p-1 rounded-[3px] text-white/50 hover:text-rose-300 hover:bg-rose-500/20 transition-all cursor-pointer"
                         >
-                          <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                          <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Tower Name
-                          </label>
-                          <input
-                            type="text"
-                            value={row.towerName}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'towerName', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-slate-50/50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
+                      {/* Key Metrics Badges */}
+                      {(row.noOfFloors || row.unitsPerFloor || row.basePrice || row.handOver) && (
+                        <div className="px-3 pt-3 pb-1 flex flex-wrap gap-1.5">
+                          {row.noOfFloors && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-900/50">
+                              {row.noOfFloors} Floors
+                            </span>
+                          )}
+                          {row.unitsPerFloor && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-900/50">
+                              {row.unitsPerFloor} Units/Floor
+                            </span>
+                          )}
+                          {row.basePrice && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-900/50">
+                              ₹{row.basePrice}
+                            </span>
+                          )}
+                          {row.handOver && (
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-full border ${
+                              row.handOver.includes('Ready')
+                                ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-200/60 dark:border-emerald-900/50'
+                                : 'bg-orange-50 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300 border-orange-200/60 dark:border-orange-900/50'
+                            }`}>
+                              {row.handOver}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Detail Rows */}
+                      <div className="px-3 pt-2.5 pb-3 space-y-2.5">
+                        {/* Parking Details */}
+                        <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Parking Levels</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.parkingLevels || '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Level Names</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.parkingLevelNames || '—'}</span>
+                          </div>
                         </div>
 
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Floors
-                          </label>
-                          <input
-                            type="number"
-                            value={row.noOfFloors}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'noOfFloors', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
+                        <div className="border-t border-dashed border-slate-200/60 dark:border-white/10" />
+
+                        {/* Vertical Transport */}
+                        <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Passenger Lifts</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.noOfPassengerLifts || '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Service Lifts</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.noOfServiceLifts || '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Flats / Lift</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.avgFlatCountPerLift || '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Staircases</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.noOfStaircase || '—'}</span>
+                          </div>
                         </div>
 
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Units / Floor
-                          </label>
-                          <input
-                            type="number"
-                            value={row.unitsPerFloor}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'unitsPerFloor', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
+                        <div className="border-t border-dashed border-slate-200/60 dark:border-white/10" />
 
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Parking Levels
-                          </label>
-                          <input
-                            type="number"
-                            value={row.parkingLevels}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'parkingLevels', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div className="col-span-2">
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Parking Level Names
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="e.g. B1, B2"
-                            value={row.parkingLevelNames}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'parkingLevelNames', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Passenger Lifts
-                          </label>
-                          <input
-                            type="number"
-                            value={row.noOfPassengerLifts}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'noOfPassengerLifts', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Service Lifts
-                          </label>
-                          <input
-                            type="number"
-                            value={row.noOfServiceLifts}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'noOfServiceLifts', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Flats / Lift
-                          </label>
-                          <input
-                            type="number"
-                            value={row.avgFlatCountPerLift}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'avgFlatCountPerLift', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Staircase
-                          </label>
-                          <input
-                            type="number"
-                            value={row.noOfStaircase}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'noOfStaircase', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Corridor (Ft)
-                          </label>
-                          <input
-                            type="number"
-                            value={row.corridorWidth}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'corridorWidth', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Lobby Available
-                          </label>
-                          <ModernDropdown<'No' | 'Yes'>
-                            value={row.lobbyAvailable}
-                            onChange={(val) =>
-                              handleRowChange(
-                                table.id,
-                                row.id,
-                                'lobbyAvailable',
-                                val
-                              )
-                            }
-                            options={[
-                              { value: 'No', label: 'No' },
-                              { value: 'Yes', label: 'Yes' },
-                            ]}
-                            placeholder="Select"
-                            roundedClass="rounded-[4px]"
-                            className="w-full inline-block"
-                            buttonClassName="w-full h-8 px-2 text-xs font-medium gap-1"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Completion Date
-                          </label>
-                          <ModernCalendar
-                            value={row.completionDate}
-                            onChange={(val) =>
-                              handleRowChange(table.id, row.id, 'completionDate', val)
-                            }
-                            buttonClassName="h-8 text-xs px-2"
-                            placeholder="dd-mm-yyyy"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            HandOver Status
-                          </label>
-                          <ModernDropdown<string>
-                            value={row.handOver}
-                            onChange={(val) =>
-                              handleRowChange(table.id, row.id, 'handOver', val)
-                            }
-                            options={HANDOVER_OPTIONS.map((opt) => ({ value: opt, label: opt }))}
-                            placeholder="Select HandOver"
-                            roundedClass="rounded-[4px]"
-                            className="w-full inline-block"
-                            buttonClassName="w-full h-8 px-2 text-xs font-medium gap-1"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Base Price
-                          </label>
-                          <input
-                            type="number"
-                            value={row.basePrice}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'basePrice', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1 block">
-                            Distance (Ft)
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="e.g. 15 Ft"
-                            value={row.flatToFlatDistance}
-                            onChange={(e) =>
-                              handleRowChange(table.id, row.id, 'flatToFlatDistance', e.target.value)
-                            }
-                            className="w-full h-8 px-2 text-xs border border-slate-200 dark:border-white/10 rounded-[4px] bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600"
-                          />
+                        {/* Circulation & Extras */}
+                        <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Corridor Width</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.corridorWidth ? `${row.corridorWidth} Ft` : '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Lobby</span>
+                            <span className={`text-[11.5px] font-semibold ${row.lobbyAvailable === 'Yes' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-800 dark:text-slate-100'}`}>
+                              {row.lobbyAvailable === 'Yes' ? '✓ Available' : 'Not Available'}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Completion</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.completionDate || '—'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9.5px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-0.5">Distance</span>
+                            <span className="text-[11.5px] font-semibold text-slate-800 dark:text-slate-100">{row.flatToFlatDistance ? `${row.flatToFlatDistance} Ft` : '—'}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="px-3 py-2 bg-slate-100/70 dark:bg-slate-900/70 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+                {/* Table Footer */}
+                <div className="px-3 py-2 bg-slate-100/70 dark:bg-slate-900/70 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-start">
                   <button
                     type="button"
                     onClick={() => handleAddRow(table.id)}
@@ -479,9 +351,6 @@ export function LayoutMobile() {
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Row</span>
                   </button>
-                  <span className="text-[10.5px] text-slate-500 dark:text-slate-400 font-mono">
-                    {table.rows.length} records
-                  </span>
                 </div>
               </div>
             ))}
