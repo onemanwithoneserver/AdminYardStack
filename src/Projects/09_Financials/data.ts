@@ -36,7 +36,7 @@ export const INITIAL_PAYMENT_PLANS: PaymentPlanOption[] = [
   {
     id: 'plan_low_dp',
     name: 'Low Down Payment (5 to 10%)',
-    selected: true,
+    selected: false,
     stages: [
       { id: 'stg_1', milestone: 'Booking, construction milestone...', percentage: '0' },
     ],
@@ -44,7 +44,7 @@ export const INITIAL_PAYMENT_PLANS: PaymentPlanOption[] = [
   {
     id: 'plan_custom',
     name: 'Customized Payment Plans',
-    selected: true,
+    selected: false,
     stages: [
       { id: 'stg_c1', milestone: 'Booking, construction milestone...', percentage: '0' },
     ],
@@ -52,7 +52,7 @@ export const INITIAL_PAYMENT_PLANS: PaymentPlanOption[] = [
   {
     id: 'plan_otp',
     name: '100% Payment - OTP',
-    selected: true,
+    selected: false,
     stages: [
       { id: 'stg_o1', milestone: 'Booking, construction milestone...', percentage: '0' },
     ],
@@ -60,7 +60,7 @@ export const INITIAL_PAYMENT_PLANS: PaymentPlanOption[] = [
   {
     id: 'plan_clp',
     name: 'Construction Linked Payment',
-    selected: true,
+    selected: false,
     stages: [
       { id: 'stg_clp1', milestone: 'Booking, construction milestone...', percentage: '0' },
     ],
@@ -68,7 +68,7 @@ export const INITIAL_PAYMENT_PLANS: PaymentPlanOption[] = [
   {
     id: 'plan_emi_holiday',
     name: 'EMI Holiday',
-    selected: true,
+    selected: false,
     stages: [
       { id: 'stg_e1', milestone: 'Booking, construction milestone...', percentage: '0' },
     ],
