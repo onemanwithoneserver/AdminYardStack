@@ -36,17 +36,63 @@ export interface EssentialsFormData {
 }
 
 export const INITIAL_CONSTRUCTION_TYPES: ConstructionTypeOption[] = [
-  { id: '1', option: 'Red Clay Bricks', status: 'ACTIVE' },
-  { id: '2', option: 'AAC Blocks', status: 'ACTIVE' },
-  { id: '3', option: 'Fly Ash Bricks', status: 'ACTIVE' },
-  { id: '4', option: 'Solid Concrete Blocks', status: 'INACTIVE' },
+  { id: 'rcc', option: 'RCC', status: 'ACTIVE' },
 ];
 
+// Essentials options extracted from the supplied form. Location, inventory,
+// approvals and amenities data belong to their respective project sections.
+export const ESSENTIALS_OPTIONS = {
+  projectTypes: ['Flats', 'Villa', 'Plots'],
+  model: ['Yes, with Interior works', 'Yes', 'No', 'Under Construction'],
+  towers: ['Towers', 'Blocks'],
+  yesNo: ['Yes', 'No'],
+  skyVillaStatus: ['Approved', 'On Request'],
+  priceUnits: [
+    { value: 'Sqft', label: 'Square Foot (Sqft)' },
+    { value: 'Sqm', label: 'Square Meter (Sqm)' },
+    { value: 'Acre', label: 'Acre' },
+    { value: 'Hectare', label: 'Hectare (Ha)' },
+    { value: 'SquareYard', label: 'Square Yard (Sqyd)' },
+  ],
+  pricingTypes: [
+    { value: 'PerFeet', label: 'Per Feet' },
+    { value: 'LumpSum', label: 'Lump Sum' },
+  ],
+};
+
+export const PROJECT_SUBTYPE_OPTIONS: Record<string, string[]> = {
+  Flats: ['Stand alone', 'Fully Gated'],
+  Villa: ['Ultra Luxury Villas'],
+  Plots: ['Plotted Layout'],
+};
+
+export const ALL_PROJECT_SUBTYPES = Array.from(new Set(Object.values(PROJECT_SUBTYPE_OPTIONS).flat()));
+
+export const ESSENTIALS_OPTIONS_LOCK_MESSAGE = 'All project parameters and fields are enabled for editing.';
+
+export function isEssentialsFieldEnabled(_data: EssentialsFormData, _field: keyof EssentialsFormData): boolean {
+  return true;
+}
+
+// Keep both viewport forms consistent
+export function updateEssentialsField<K extends keyof EssentialsFormData>(
+  previous: EssentialsFormData, field: K, value: EssentialsFormData[K],
+): EssentialsFormData {
+  const next = { ...previous, [field]: value };
+  if (field === 'projectType' && value !== previous.projectType) {
+    if (!next.basePriceUnit) {
+      next.basePriceUnit = next.projectType === 'Plots' ? 'SquareYard' : 'Sqft';
+    }
+    if (!next.pricingType) next.pricingType = 'PerFeet';
+  }
+  return next;
+}
+
 export const INITIAL_ESSENTIALS_DATA: EssentialsFormData = {
-  projectType: 'Flats',
+  projectType: '',
   projectSubType: '',
   modelFlatVilla: '',
-  towersType: 'Towers',
+  towersType: '',
   optionsLocked: false,
   towersBlocksCount: '',
   skyVillasAvailable: '',
@@ -63,10 +109,10 @@ export const INITIAL_ESSENTIALS_DATA: EssentialsFormData = {
   parkingRegisteredInSaleDeed: '',
   density: '',
   basePrice: '',
-  basePriceUnit: 'Square Feet (Sqft)',
+  basePriceUnit: '',
   priceUpdatedOn: '',
   priceCardFile: null,
-  pricingType: 'Per Feet',
+  pricingType: '',
   amenitiesPrice: '',
   otherPricingText: '',
   otherPricingNumeric: '',

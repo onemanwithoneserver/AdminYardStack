@@ -12,6 +12,11 @@ import { ModernCalendar } from '../../components/elements/ModernCalendar';
 import {
   INITIAL_ESSENTIALS_DATA,
   INITIAL_CONSTRUCTION_TYPES,
+  ESSENTIALS_OPTIONS,
+  PROJECT_SUBTYPE_OPTIONS,
+  ALL_PROJECT_SUBTYPES,
+  isEssentialsFieldEnabled,
+  updateEssentialsField,
   type EssentialsFormData,
   type ConstructionTypeOption,
 } from './data';
@@ -24,8 +29,10 @@ export function EssentialsMobile() {
   const [priceCardFileName, setPriceCardFileName] = useState<string>('');
   const priceCardInputRef = useRef<HTMLInputElement>(null);
 
-  const handleInputChange = (field: keyof EssentialsFormData, value: unknown) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const isFieldEnabled = (field: keyof EssentialsFormData) => isEssentialsFieldEnabled(formData, field);
+
+  const handleInputChange = <K extends keyof EssentialsFormData,>(field: K, value: EssentialsFormData[K]) => {
+    setFormData((prev) => updateEssentialsField(prev, field, value));
   };
 
   const handlePriceCardUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +61,7 @@ export function EssentialsMobile() {
   };
 
   return (
-    <div className="p-1.5 space-y-4 text-slate-800 dark:text-slate-100 text-xs">
+    <div className="[&_input:disabled]:cursor-not-allowed [&_input:disabled]:opacity-50 [&_button:disabled]:cursor-not-allowed [&_button:disabled]:opacity-50 p-1.5 space-y-4 text-slate-800 dark:text-slate-100 text-xs">
       {/* Header Banner */}
       <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -97,9 +104,10 @@ export function EssentialsMobile() {
                 <span className="text-rose-500 font-bold ml-1">*</span>
               </label>
               <ModernDropdown<string>
+                disabled={!isFieldEnabled('projectType')}
                 value={formData.projectType}
                 onChange={(val) => handleInputChange('projectType', val)}
-                options={['Flats', 'Villas', 'Plots', 'Commercial']}
+                options={ESSENTIALS_OPTIONS.projectTypes}
                 placeholder="Select Project Type"
                 roundedClass="rounded-[4px]"
                 className="w-full inline-block"
@@ -112,15 +120,10 @@ export function EssentialsMobile() {
                 Project Sub-Type
               </label>
               <ModernDropdown<string>
+                disabled={!isFieldEnabled('projectSubType')}
                 value={formData.projectSubType}
                 onChange={(val) => handleInputChange('projectSubType', val)}
-                options={[
-                  'Gated Community Flats',
-                  'High Rise Apartments',
-                  'Ultra Luxury Villas',
-                  'Commercial Office Space',
-                  'Plotted Layout',
-                ]}
+                options={PROJECT_SUBTYPE_OPTIONS[formData.projectType] || ALL_PROJECT_SUBTYPES}
                 placeholder="Select Sub-Type"
                 roundedClass="rounded-[4px]"
                 className="w-full inline-block"
@@ -130,13 +133,14 @@ export function EssentialsMobile() {
 
             <div>
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
-                Model Flat/Villa
+                {formData.projectType === 'Flats' ? 'Model Flat' : formData.projectType === 'Villa' ? 'Model Villa' : 'Model Flat/Villa'}
               </label>
               <ModernDropdown<string>
+                disabled={!isFieldEnabled('modelFlatVilla')}
                 value={formData.modelFlatVilla}
                 onChange={(val) => handleInputChange('modelFlatVilla', val)}
-                options={['Yes, with Interior works', 'Yes, Bare shell', 'No']}
-                placeholder="Select Model Flat"
+                options={ESSENTIALS_OPTIONS.model}
+                placeholder={formData.projectType === 'Villa' ? 'Select Model Villa' : 'Select Model Flat'}
                 roundedClass="rounded-[4px]"
                 className="w-full inline-block"
                 buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
@@ -148,9 +152,10 @@ export function EssentialsMobile() {
                 Towers Nomenclature
               </label>
               <ModernDropdown<string>
+                disabled={!isFieldEnabled('towersType')}
                 value={formData.towersType}
                 onChange={(val) => handleInputChange('towersType', val)}
-                options={['Towers', 'Blocks', 'Wings']}
+                options={ESSENTIALS_OPTIONS.towers}
                 placeholder="Select Towers"
                 roundedClass="rounded-[4px]"
                 className="w-full inline-block"
@@ -162,7 +167,7 @@ export function EssentialsMobile() {
               <button
                 type="button"
                 onClick={() => handleInputChange('optionsLocked', !formData.optionsLocked)}
-                className={`inline-flex items-center gap-1.5 px-2.5 h-8 rounded-[4px] text-xs font-semibold shadow-2xs transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 px-3 h-8.5 rounded-[4px] text-xs font-semibold shadow-2xs transition-all cursor-pointer ${
                   formData.optionsLocked
                     ? 'bg-slate-900 dark:bg-slate-800 text-white hover:bg-slate-800 border border-transparent'
                     : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50'
@@ -205,6 +210,7 @@ export function EssentialsMobile() {
               </label>
               <input
                 type="number"
+                disabled={!isFieldEnabled('towersBlocksCount')}
                 value={formData.towersBlocksCount}
                 onChange={(e) => handleInputChange('towersBlocksCount', e.target.value)}
                 placeholder="e.g. 5"
@@ -218,9 +224,10 @@ export function EssentialsMobile() {
                   Sky Villas
                 </label>
                 <ModernDropdown<string>
+                  disabled={!isFieldEnabled('skyVillasAvailable')}
                   value={formData.skyVillasAvailable}
                   onChange={(val) => handleInputChange('skyVillasAvailable', val)}
-                  options={['Yes', 'No']}
+                  options={ESSENTIALS_OPTIONS.yesNo}
                   placeholder="Select"
                   roundedClass="rounded-[4px]"
                   className="w-full inline-block"
@@ -233,9 +240,10 @@ export function EssentialsMobile() {
                   Sky Villa Status
                 </label>
                 <ModernDropdown<string>
+                  disabled={!isFieldEnabled('skyVillaStatus')}
                   value={formData.skyVillaStatus}
                   onChange={(val) => handleInputChange('skyVillaStatus', val)}
-                  options={['Available', 'Sold Out']}
+                  options={ESSENTIALS_OPTIONS.skyVillaStatus}
                   placeholder="Select"
                   roundedClass="rounded-[4px]"
                   className="w-full inline-block"
@@ -254,6 +262,7 @@ export function EssentialsMobile() {
                     <input
                       type="radio"
                       name="openSpaceTypeMobile"
+                      disabled={!isFieldEnabled('openSpaceType')}
                       checked={formData.openSpaceType === '%'}
                       onChange={() => handleInputChange('openSpaceType', '%')}
                     />
@@ -263,6 +272,7 @@ export function EssentialsMobile() {
                     <input
                       type="radio"
                       name="openSpaceTypeMobile"
+                      disabled={!isFieldEnabled('openSpaceType')}
                       checked={formData.openSpaceType === 'Number'}
                       onChange={() => handleInputChange('openSpaceType', 'Number')}
                     />
@@ -272,6 +282,7 @@ export function EssentialsMobile() {
               </div>
               <input
                 type="number"
+                disabled={!isFieldEnabled('openSpaceValue')}
                 value={formData.openSpaceValue}
                 onChange={(e) => handleInputChange('openSpaceValue', e.target.value)}
                 placeholder={formData.openSpaceType === '%' ? 'e.g. 78' : 'e.g. 1500'}
@@ -285,6 +296,7 @@ export function EssentialsMobile() {
               </label>
               <input
                 type="number"
+                disabled={!isFieldEnabled('greeneryArea')}
                 value={formData.greeneryArea}
                 onChange={(e) => handleInputChange('greeneryArea', e.target.value)}
                 placeholder="e.g. 35"
@@ -302,6 +314,7 @@ export function EssentialsMobile() {
                     <input
                       type="radio"
                       name="landExtentUnitMobile"
+                      disabled={!isFieldEnabled('landExtentUnit')}
                       checked={formData.landExtentUnit === 'Acres'}
                       onChange={() => handleInputChange('landExtentUnit', 'Acres')}
                     />
@@ -311,6 +324,7 @@ export function EssentialsMobile() {
                     <input
                       type="radio"
                       name="landExtentUnitMobile"
+                      disabled={!isFieldEnabled('landExtentUnit')}
                       checked={formData.landExtentUnit === 'Sq. Yrds'}
                       onChange={() => handleInputChange('landExtentUnit', 'Sq. Yrds')}
                     />
@@ -320,6 +334,7 @@ export function EssentialsMobile() {
               </div>
               <input
                 type="text"
+                disabled={!isFieldEnabled('landExtentValue')}
                 value={formData.landExtentValue}
                 onChange={(e) => handleInputChange('landExtentValue', e.target.value)}
                 placeholder="e.g. 12.5"
@@ -333,6 +348,7 @@ export function EssentialsMobile() {
               </label>
               <input
                 type="number"
+                disabled={!isFieldEnabled('numberOfUnits')}
                 value={formData.numberOfUnits}
                 onChange={(e) => handleInputChange('numberOfUnits', e.target.value)}
                 placeholder="e.g. 450"
@@ -364,6 +380,7 @@ export function EssentialsMobile() {
                 </label>
                 <input
                   type="number"
+                  disabled={!isFieldEnabled('parkingLevels')}
                   value={formData.parkingLevels}
                   onChange={(e) => handleInputChange('parkingLevels', e.target.value)}
                   placeholder="e.g. 3"
@@ -377,6 +394,7 @@ export function EssentialsMobile() {
                 </label>
                 <input
                   type="number"
+                  disabled={!isFieldEnabled('drivewayWidth')}
                   value={formData.drivewayWidth}
                   onChange={(e) => handleInputChange('drivewayWidth', e.target.value)}
                   placeholder="e.g. 30"
@@ -391,11 +409,13 @@ export function EssentialsMobile() {
               </label>
               <div className="flex items-center gap-2 flex-wrap w-full">
                 <ModernDropdown<string>
+                  disabled={!isFieldEnabled('selectedConstructionType')}
                   value={formData.selectedConstructionType}
                   onChange={(val) => handleInputChange('selectedConstructionType', val)}
                   options={constructionTypes.map((c) => ({
                     value: c.option,
-                    label: `${c.option} (${c.status})`,
+                    label: c.option,
+                    disabled: c.status !== 'ACTIVE',
                   }))}
                   placeholder="Select Brick Type"
                   roundedClass="rounded-[4px]"
@@ -404,6 +424,7 @@ export function EssentialsMobile() {
                 />
                 <button
                   type="button"
+                  disabled={!isFieldEnabled('selectedConstructionType')}
                   onClick={() => setIsDialogOpen(true)}
                   className="inline-flex items-center gap-1 px-2.5 h-9 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95 shrink-0"
                 >
@@ -419,9 +440,10 @@ export function EssentialsMobile() {
                   Parking in Deed
                 </label>
                 <ModernDropdown<string>
+                  disabled={!isFieldEnabled('parkingRegisteredInSaleDeed')}
                   value={formData.parkingRegisteredInSaleDeed}
                   onChange={(val) => handleInputChange('parkingRegisteredInSaleDeed', val)}
-                  options={['Yes', 'No']}
+                  options={ESSENTIALS_OPTIONS.yesNo}
                   placeholder="Select"
                   roundedClass="rounded-[4px]"
                   className="w-full inline-block"
@@ -434,7 +456,10 @@ export function EssentialsMobile() {
                   Density
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                min="0"
+                step="any"
+                  disabled={!isFieldEnabled('density')}
                   value={formData.density}
                   onChange={(e) => handleInputChange('density', e.target.value)}
                   placeholder="e.g. High"
@@ -461,25 +486,29 @@ export function EssentialsMobile() {
 
           <div className="space-y-3">
             <div>
-              <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+              <label htmlFor="base-price-mobile" className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Base Price (INR) & Unit
               </label>
-              <div className="flex items-center gap-2 w-full">
+              <div role="group" aria-label="Base price and unit" className="flex h-9 w-full max-w-[350px] min-w-0 items-stretch overflow-hidden rounded-[4px] border border-slate-200 bg-white shadow-2xs transition-colors focus-within:border-blue-600 focus-within:ring-2 focus-within:ring-blue-500/20 dark:border-white/10 dark:bg-slate-950">
                 <input
+                  id="base-price-mobile"
                   type="number"
+                  disabled={!isFieldEnabled('basePrice')}
                   value={formData.basePrice}
                   onChange={(e) => handleInputChange('basePrice', e.target.value)}
                   placeholder="e.g. 8500"
-                  className="w-28 h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                  className="h-full flex-1 min-w-0 rounded-none! border-0! bg-transparent! px-3 text-xs font-medium text-slate-800 shadow-none! outline-none! ring-0! dark:text-slate-100"
                 />
                 <ModernDropdown<string>
+                  disabled={!isFieldEnabled('basePriceUnit')}
                   value={formData.basePriceUnit}
                   onChange={(val) => handleInputChange('basePriceUnit', val)}
-                  options={['Square Feet (Sqft)', 'Square Yards', 'Lumpsum']}
+                  options={ESSENTIALS_OPTIONS.priceUnits}
                   placeholder="Unit"
-                  roundedClass="rounded-[4px]"
-                  className="flex-1"
-                  buttonClassName="w-full h-9 px-2 text-xs font-medium gap-1"
+                  wrapText={false}
+                  className="h-full w-[180px] sm:w-[195px] min-w-0 shrink-0 border-l border-slate-200 bg-slate-50/80 dark:border-white/10 dark:bg-slate-900/60 [&>button>div]:min-w-0 [&>button>div]:overflow-hidden [&>button>div>span]:truncate"
+                  buttonClassName="h-full! min-h-0! w-full! rounded-none! border-0! bg-transparent! px-2.5! text-xs font-medium gap-1.5 shadow-none! ring-0! active:scale-100! focus-visible:outline-none"
+                  menuClassName="w-52"
                 />
               </div>
             </div>
@@ -489,6 +518,7 @@ export function EssentialsMobile() {
                 Price Updated On
               </label>
               <ModernCalendar
+                disabled={!isFieldEnabled('priceUpdatedOn')}
                 value={formData.priceUpdatedOn}
                 onChange={(val) => handleInputChange('priceUpdatedOn', val)}
                 placeholder="dd-mm-yyyy"
@@ -517,6 +547,7 @@ export function EssentialsMobile() {
                   <input
                     ref={priceCardInputRef}
                     type="file"
+                    disabled={!isFieldEnabled('priceCardFile')}
                     id="price-card-input-mobile"
                     accept=".pdf,image/*"
                     onChange={handlePriceCardUpload}
@@ -524,7 +555,8 @@ export function EssentialsMobile() {
                   />
                   <label
                     htmlFor="price-card-input-mobile"
-                    className="inline-flex items-center gap-1.5 px-3 h-9 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium cursor-pointer shadow-2xs"
+                    aria-disabled={!isFieldEnabled('priceCardFile')}
+                    className="aria-disabled:opacity-50 aria-disabled:cursor-not-allowed inline-flex items-center gap-1.5 px-3 h-9 bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium cursor-pointer shadow-2xs"
                   >
                     <UploadCloud className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                     <span>Choose</span>
@@ -542,9 +574,10 @@ export function EssentialsMobile() {
                   Pricing Type
                 </label>
                 <ModernDropdown<string>
+                  disabled={!isFieldEnabled('pricingType')}
                   value={formData.pricingType}
                   onChange={(val) => handleInputChange('pricingType', val)}
-                  options={['Per Feet', 'Per Unit']}
+                  options={ESSENTIALS_OPTIONS.pricingTypes}
                   placeholder="Select"
                   roundedClass="rounded-[4px]"
                   className="w-full inline-block"
@@ -558,6 +591,7 @@ export function EssentialsMobile() {
                 </label>
                 <input
                   type="number"
+                  disabled={!isFieldEnabled('amenitiesPrice')}
                   value={formData.amenitiesPrice}
                   onChange={(e) => handleInputChange('amenitiesPrice', e.target.value)}
                   placeholder="e.g. 500000"
@@ -572,9 +606,24 @@ export function EssentialsMobile() {
               </label>
               <input
                 type="text"
+                disabled={!isFieldEnabled('otherPricingText')}
                 value={formData.otherPricingText}
                 onChange={(e) => handleInputChange('otherPricingText', e.target.value)}
                 placeholder="e.g. Club membership extra"
+                className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+              />
+            </div>
+            <div>
+              <label htmlFor="other-pricing-numeric-mobile" className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
+                Other Pricing (Numeric)
+              </label>
+              <input
+                id="other-pricing-numeric-mobile"
+                type="number"
+                disabled={!isFieldEnabled('otherPricingNumeric')}
+                value={formData.otherPricingNumeric}
+                onChange={(e) => handleInputChange('otherPricingNumeric', e.target.value)}
+                placeholder="e.g. 25000"
                 className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
               />
             </div>
@@ -591,6 +640,7 @@ export function EssentialsMobile() {
               <span className="text-rose-500 font-bold">*</span>
             </label>
             <ModernDropdown<'Active' | 'Inactive'>
+              disabled={!isFieldEnabled('status')}
               value={formData.status}
               onChange={(val) => handleInputChange('status', val)}
               options={[
