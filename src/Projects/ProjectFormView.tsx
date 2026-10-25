@@ -129,7 +129,7 @@ export function ProjectFormView({
   };
 
   return (
-    <div ref={containerRef} className="space-y-3 max-w-7xl mx-auto">
+    <div ref={containerRef} className="space-y-3 w-full">
       
       {/* Top Section - Back Button & Hero Banner */}
       <div ref={topSectionRef} className="space-y-2.5">
@@ -215,8 +215,8 @@ export function ProjectFormView({
       <div ref={sentinelRef} className="h-1 w-full pointer-events-none -mt-2" />
 
       {/* Sticky TabControls Bar */}
-      <div className="sticky -top-4 sm:-top-5 lg:-top-6 z-30 -mx-4 sm:-mx-5 lg:-mx-6 px-4 sm:px-5 lg:px-6 py-2 backdrop-blur-xl bg-[#f4f6fb]/85 dark:bg-[#060911]/85 border-b border-slate-200/80 dark:border-white/10 shadow-xs transition-all">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2.5">
+      <div className="sticky -top-2 z-30 w-full py-2 backdrop-blur-xl bg-[#f4f6fb]/85 dark:bg-[#060911]/85 border-b border-slate-200/80 dark:border-white/10 shadow-xs transition-all">
+        <div className="w-full flex items-center justify-between gap-2.5">
           
           {/* Back Arrow Button - ONLY shown when scrolled to top */}
           <AnimatePresence>

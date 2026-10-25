@@ -287,7 +287,7 @@ export function ProjectsListDesktop({
   const paginatedProjects = filteredProjects.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className="space-y-4 max-w-[1600px] mx-auto">
+    <div className="space-y-4 w-full">
       
       <motion.div
         initial={{ opacity: 0, y: -6 }}

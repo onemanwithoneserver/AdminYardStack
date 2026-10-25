@@ -291,7 +291,7 @@ export function DesktopNav({
           user={user}
         />
 
-        <main className="flex-1 overflow-y-auto no-scrollbar p-2">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar p-2 sm:p-3">
           {children}
         </main>
       </div>
