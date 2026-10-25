@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { CreditCard, X, Plus, Trash2, CheckCircle2 } from 'lucide-react';
+import { CreditCard, X, Plus, Trash2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import {
   INITIAL_FINANCIALS_DATA,
@@ -82,150 +82,9 @@ export function AddPaymentPlanDialog({
             </button>
             <button
               type="submit"
-              className="px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer"
+              className="px-3.5 py-1.5 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs cursor-pointer"
             >
               Save Plan
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-interface AddPricingFieldDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (field: Omit<VariantPricingField, 'id'>) => void;
-}
-
-export function AddPricingFieldDialog({
-  isOpen,
-  onClose,
-  onSave,
-}: AddPricingFieldDialogProps) {
-  const [fieldName, setFieldName] = useState('');
-  const [amount, setAmount] = useState('');
-  const [chargeType, setChargeType] = useState<'Fixed' | 'Per SFT'>('Fixed');
-  const [appliedTo, setAppliedTo] = useState('All Variants');
-
-  if (!isOpen) return null;
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!fieldName.trim() || !amount.trim()) return;
-    onSave({
-      fieldName: fieldName.trim(),
-      amount: amount.trim(),
-      chargeType,
-      appliedTo,
-    });
-    setFieldName('');
-    setAmount('');
-    setChargeType('Fixed');
-    setAppliedTo('All Variants');
-    onClose();
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
-      <div
-        className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
-          <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
-              Add Pricing Field
-            </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Enter raw amount and select the inventory variant it applies to.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit} className="px-5 py-4 space-y-3.5">
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Field Name <span className="text-rose-500 font-bold">*</span>
-            </label>
-            <input
-              type="text"
-              value={fieldName}
-              onChange={(e) => setFieldName(e.target.value)}
-              placeholder="e.g. Clubhouse Fee or Corpus Fund"
-              required
-              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
-            />
-          </div>
-
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Amount (INR) <span className="text-rose-500 font-bold">*</span>
-            </label>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="e.g. 150000"
-              required
-              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Charge Type
-              </label>
-              <ModernDropdown<'Fixed' | 'Per SFT'>
-                value={chargeType}
-                onChange={(val) => setChargeType(val)}
-                options={['Fixed', 'Per SFT']}
-                placeholder="Select Charge Type"
-                roundedClass="rounded-[4px]"
-                className="w-full"
-                buttonClassName="w-full h-9 px-2.5 text-xs font-medium"
-              />
-            </div>
-
-            <div>
-              <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Applied To
-              </label>
-              <ModernDropdown<string>
-                value={appliedTo}
-                onChange={(val) => setAppliedTo(val)}
-                options={['All Variants', 'Variant 1', 'Variant 2', 'Variant 3']}
-                placeholder="Select Applied To"
-                roundedClass="rounded-[4px]"
-                className="w-full"
-                buttonClassName="w-full h-9 px-2.5 text-xs font-medium"
-              />
-            </div>
-          </div>
-
-          <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer"
-            >
-              Save Field
             </button>
           </div>
         </form>
@@ -301,7 +160,7 @@ export function AddBankDialog({ isOpen, onClose, onSave }: AddBankDialogProps) {
             </button>
             <button
               type="submit"
-              className="px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer"
+              className="px-3.5 py-1.5 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs cursor-pointer"
             >
               Save Bank
             </button>
@@ -312,49 +171,104 @@ export function AddBankDialog({ isOpen, onClose, onSave }: AddBankDialogProps) {
   );
 }
 
-export function FinancialsDesktop() {
-  const [formData, setFormData] = useState<FinancialsFormData>(
-    INITIAL_FINANCIALS_DATA
-  );
-  const [isPlanDialogOpen, setIsPlanDialogOpen] = useState(false);
-  const [isPricingDialogOpen, setIsPricingDialogOpen] = useState(false);
-  const [isBankDialogOpen, setIsBankDialogOpen] = useState(false);
-  const [savedNotification, setSavedNotification] = useState(false);
+export function AddPricingFieldDialog(_props: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (field: Omit<VariantPricingField, 'id'>) => void;
+}) {
+  return null;
+}
 
+export function FinancialsDesktop() {
+  const [formData, setFormData] = useState<FinancialsFormData>(INITIAL_FINANCIALS_DATA);
+  const [isPlanDialogOpen, setIsPlanDialogOpen] = useState(false);
+  const [isBankDialogOpen, setIsBankDialogOpen] = useState(false);
+
+  // Toggle plan selection in Section 01
   const handleTogglePlan = (planId: string) => {
     setFormData((prev) => ({
       ...prev,
       paymentPlans: prev.paymentPlans.map((p) =>
         p.id === planId ? { ...p, selected: !p.selected } : p
       ),
-      activePaymentPlanId:
-        prev.activePaymentPlanId === planId ? null : planId,
     }));
   };
 
+  // Add new payment plan
   const handleAddPaymentPlan = (name: string) => {
     const newPlan: PaymentPlanOption = {
       id: `plan_${Date.now()}`,
       name,
       selected: true,
       stages: [
-        { id: `stg_1`, stageName: 'Booking', percentage: '10', milestone: 'On booking' },
-        { id: `stg_2`, stageName: 'Final', percentage: '90', milestone: 'On possession' },
+        { id: `stg_${Date.now()}_1`, milestone: '', percentage: '0' },
       ],
     };
     setFormData((prev) => ({
       ...prev,
       paymentPlans: [...prev.paymentPlans, newPlan],
-      activePaymentPlanId: newPlan.id,
     }));
   };
 
-  const handleAddPricingField = (
-    field: Omit<VariantPricingField, 'id'>
+  // Add stage to a specific plan
+  const handleAddStage = (planId: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      paymentPlans: prev.paymentPlans.map((p) => {
+        if (p.id !== planId) return p;
+        return {
+          ...p,
+          stages: [
+            ...p.stages,
+            { id: `stg_${Date.now()}`, milestone: '', percentage: '0' },
+          ],
+        };
+      }),
+    }));
+  };
+
+  // Update a stage in a plan
+  const handleStageChange = (
+    planId: string,
+    stageId: string,
+    field: 'milestone' | 'percentage',
+    val: string
   ) => {
+    setFormData((prev) => ({
+      ...prev,
+      paymentPlans: prev.paymentPlans.map((p) => {
+        if (p.id !== planId) return p;
+        return {
+          ...p,
+          stages: p.stages.map((s) =>
+            s.id === stageId ? { ...s, [field]: val } : s
+          ),
+        };
+      }),
+    }));
+  };
+
+  // Remove a stage from a plan
+  const handleRemoveStage = (planId: string, stageId: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      paymentPlans: prev.paymentPlans.map((p) => {
+        if (p.id !== planId) return p;
+        return {
+          ...p,
+          stages: p.stages.filter((s) => s.id !== stageId),
+        };
+      }),
+    }));
+  };
+
+  // Add a variant pricing field inline
+  const handleAddPricingField = () => {
     const newField: VariantPricingField = {
       id: `price_${Date.now()}`,
-      ...field,
+      fieldName: '',
+      amount: '',
+      chargeType: 'Lump Sum',
     };
     setFormData((prev) => ({
       ...prev,
@@ -362,6 +276,21 @@ export function FinancialsDesktop() {
     }));
   };
 
+  // Update a variant pricing field
+  const handleVariantPricingChange = (
+    fieldId: string,
+    key: keyof VariantPricingField,
+    val: string
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      variantPricingFields: prev.variantPricingFields.map((f) =>
+        f.id === fieldId ? { ...f, [key]: val } : f
+      ),
+    }));
+  };
+
+  // Delete a variant pricing field
   const handleDeletePricingField = (id: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -369,6 +298,7 @@ export function FinancialsDesktop() {
     }));
   };
 
+  // Toggle bank
   const handleToggleBank = (bankId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -378,6 +308,7 @@ export function FinancialsDesktop() {
     }));
   };
 
+  // Add bank
   const handleAddBank = (name: string) => {
     const newBank: BankOption = {
       id: `bank_${Date.now()}`,
@@ -391,24 +322,11 @@ export function FinancialsDesktop() {
     }));
   };
 
-  const handleSave = () => {
-    setSavedNotification(true);
-    setTimeout(() => setSavedNotification(false), 2500);
-  };
-
-  const selectedPlan = formData.paymentPlans.find(
-    (p) => p.id === formData.activePaymentPlanId
-  );
+  // Filter plans that are active based on Section 01 selection
+  const activePlans = formData.paymentPlans.filter((p) => p.selected);
 
   return (
     <div className="p-2 space-y-5 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
-      {savedNotification && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-4 py-2.5 rounded-[4px] shadow-lg text-xs font-semibold animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-          <span>Finance settings saved successfully!</span>
-        </div>
-      )}
-
       {/* Header Banner */}
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -423,15 +341,15 @@ export function FinancialsDesktop() {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Payment plans, milestone breakdown, statutory charges, tax schedules and banking partners
+              Payment plans, milestone breakdown, variant pricing, and banking partners
             </p>
           </div>
         </div>
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Payment Types */}
-        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+        {/* Section 01: Payment Types */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
               <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
@@ -439,210 +357,297 @@ export function FinancialsDesktop() {
               </span>
               <span className="w-1 h-3.5 rounded-full bg-blue-600 dark:bg-blue-500" />
               <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
-                Payment Plans & Milestone Schedules
+                Payment Types
               </h3>
             </div>
             <button
               type="button"
               onClick={() => setIsPlanDialogOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>Add Plan</span>
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Payment Plan</span>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
-            {formData.paymentPlans.map((plan) => {
-              const isSelected = plan.selected;
-              const isActivePlan = formData.activePaymentPlanId === plan.id;
-              return (
-                <div
-                  key={plan.id}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-[4px] border transition-all cursor-pointer select-none text-xs ${
-                    isSelected
-                      ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800 text-blue-900 dark:text-blue-100 font-medium shadow-2xs'
-                      : 'bg-white/60 dark:bg-slate-950/40 border-slate-200/70 dark:border-white/5 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/15'
-                  }`}
-                  onClick={() => handleTogglePlan(plan.id)}
-                >
-                  <label className="flex items-center gap-2.5 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      onChange={() => {}}
-                      className="w-3.5 h-3.5 rounded-[2px] text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
-                    />
-                    <span className="truncate">{plan.name}</span>
-                  </label>
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                    {plan.stages.length} stages
-                  </span>
-                </div>
-              );
-            })}
+          {/* Checkboxes row matching Reference Image 1 */}
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-1">
+            {formData.paymentPlans.map((plan) => (
+              <label
+                key={plan.id}
+                className="inline-flex items-center gap-2.5 text-xs text-slate-800 dark:text-slate-200 font-medium cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  checked={plan.selected}
+                  onChange={() => handleTogglePlan(plan.id)}
+                  className="w-4 h-4 rounded-[2px] text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
+                />
+                <span>{plan.name}</span>
+              </label>
+            ))}
           </div>
-
-          <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
-            Select a payment type to view and verify its milestone stages.
-          </p>
-
-          {selectedPlan && (
-            <div className="mt-2 p-4 bg-slate-50/70 dark:bg-slate-950/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/10 pb-2">
-                <span className="text-xs font-bold text-slate-900 dark:text-white font-display">
-                  Payment Stages: {selectedPlan.name}
-                </span>
-                <span className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold font-mono">
-                  {selectedPlan.stages.length} Stages Configured
-                </span>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs divide-y divide-slate-200/80 dark:divide-white/10">
-                  <thead className="bg-white/80 dark:bg-slate-900/60 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                    <tr>
-                      <th className="py-2 px-3">Stage Name</th>
-                      <th className="py-2 px-3">Percentage (%)</th>
-                      <th className="py-2 px-3">Milestone Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-white/5 bg-white dark:bg-slate-900/40">
-                    {selectedPlan.stages.map((stg) => (
-                      <tr key={stg.id}>
-                        <td className="py-2 px-3 font-medium text-slate-800 dark:text-slate-200">
-                          {stg.stageName}
-                        </td>
-                        <td className="py-2 px-3 text-blue-600 dark:text-blue-400 font-bold font-mono">
-                          {stg.percentage}%
-                        </td>
-                        <td className="py-2 px-3 text-slate-600 dark:text-slate-400">
-                          {stg.milestone}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
         </section>
 
-        {/* Section 2: Variant Pricing */}
+        {/* Section 02: Payment Plan Milestone Schedules (Active based on Section 01) */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+          <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
               <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
                 02
               </span>
               <span className="w-1 h-3.5 rounded-full bg-indigo-600 dark:bg-indigo-500" />
               <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
-                Variant Pricing & Ancillary Charges
+                Payment Plan Stages
               </h3>
             </div>
-            <button
-              type="button"
-              onClick={() => setIsPricingDialogOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95"
-            >
-              <Plus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>Add Pricing Field</span>
-            </button>
           </div>
 
-          {formData.variantPricingFields.length > 0 ? (
-            <div className="border border-slate-200/80 dark:border-white/10 rounded-[4px] overflow-hidden bg-white dark:bg-slate-900/40 shadow-2xs">
-              <table className="w-full text-left text-xs divide-y divide-slate-200/80 dark:divide-white/10">
-                <thead className="bg-slate-50/80 dark:bg-slate-800/60 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                  <tr>
-                    <th className="py-2.5 px-3">Field Name</th>
-                    <th className="py-2.5 px-3">Amount</th>
-                    <th className="py-2.5 px-3">Type</th>
-                    <th className="py-2.5 px-3">Applied To</th>
-                    <th className="py-2.5 px-3 w-12 text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-white/5">
-                  {formData.variantPricingFields.map((field) => (
-                    <tr key={field.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                      <td className="py-2 px-3 font-semibold text-slate-800 dark:text-slate-100">
-                        {field.fieldName}
-                      </td>
-                      <td className="py-2 px-3 text-slate-700 dark:text-slate-300 font-mono font-medium">
-                        ₹{field.amount}
-                      </td>
-                      <td className="py-2 px-3 text-slate-500 dark:text-slate-400">
-                        {field.chargeType}
-                      </td>
-                      <td className="py-2 px-3 text-blue-600 dark:text-blue-400 font-medium">
-                        {field.appliedTo}
-                      </td>
-                      <td className="py-2 px-3 text-center">
-                        <button
-                          type="button"
-                          onClick={() => handleDeletePricingField(field.id)}
-                          className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95"
-                          title="Delete pricing field"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          {activePlans.length === 0 ? (
+            <div className="p-5 text-center bg-slate-50/60 dark:bg-slate-950/40 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-xs text-slate-500 dark:text-slate-400 italic">
+              No payment plans selected. Check one or more payment types above to configure milestone stages.
             </div>
           ) : (
-            <div className="border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] p-4 text-center text-xs text-slate-500 dark:text-slate-400 italic">
-              No additional variant pricing fields added. Click "Add Pricing Field" to configure extra charges.
+            <div className="space-y-3.5 pt-1">
+              {activePlans.map((plan) => {
+                const stageTotal = plan.stages.reduce(
+                  (sum, s) => sum + (parseFloat(s.percentage) || 0),
+                  0
+                );
+                return (
+                  <div
+                    key={plan.id}
+                    className="p-3.5 sm:p-4 rounded-[4px] bg-slate-50/60 dark:bg-slate-950/30 border border-slate-200/70 dark:border-white/5 space-y-3 shadow-2xs"
+                  >
+                    {/* Plan Card Header */}
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-white/10">
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                          {plan.name}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
+                          Stage total: {stageTotal}% / 100%
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleAddStage(plan.id)}
+                        className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Add Stage</span>
+                      </button>
+                    </div>
+
+                    {/* Plan Stages Rows */}
+                    <div className="space-y-2.5">
+                      {plan.stages.map((stage, idx) => (
+                        <div
+                          key={stage.id}
+                          className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3 pt-1 max-w-2xl"
+                        >
+                          <div className="flex-1 min-w-[180px] max-w-md">
+                            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                              Stage {idx + 1}
+                            </label>
+                            <input
+                              type="text"
+                              value={stage.milestone}
+                              onChange={(e) =>
+                                handleStageChange(plan.id, stage.id, 'milestone', e.target.value)
+                              }
+                              placeholder="Booking, construction milestone..."
+                              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                            />
+                          </div>
+                          <div className="w-full sm:w-36 md:w-40 shrink-0">
+                            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                              Payment %
+                            </label>
+                            <input
+                              type="number"
+                              value={stage.percentage}
+                              onChange={(e) =>
+                                handleStageChange(plan.id, stage.id, 'percentage', e.target.value)
+                              }
+                              placeholder="0"
+                              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                            />
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveStage(plan.id, stage.id)}
+                            title="Remove stage"
+                            aria-label="Remove stage"
+                            className="h-9 w-9 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 hover:border-rose-200 dark:hover:border-rose-900/50 hover:bg-rose-50/70 dark:hover:bg-rose-950/30 rounded-[4px] cursor-pointer shadow-2xs transition-all shrink-0 sm:self-end"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </section>
 
-        {/* Section 3: Banking Tie-ups */}
+        {/* Section 03: Variant Pricing */}
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+          <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
               <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
                 03
               </span>
+              <span className="w-1 h-3.5 rounded-full bg-amber-600 dark:bg-amber-500" />
+              <div>
+                <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
+                  Variant Pricing
+                </h3>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleAddPricingField}
+              className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer shrink-0"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Pricing Field</span>
+            </button>
+          </div>
+
+          {/* Variant Pricing Items with Reduced Width & Dustbin Icon */}
+          {formData.variantPricingFields.length === 0 ? (
+            <div className="p-5 max-w-2xl text-center bg-white/70 dark:bg-slate-900/40 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-xs text-slate-500 dark:text-slate-400 italic">
+              No variant pricing fields added. Click "Add Pricing Field" to create one.
+            </div>
+          ) : (
+            <div className="space-y-3.5 pt-1">
+              {formData.variantPricingFields.map((field) => (
+                <div
+                  key={field.id}
+                  className="p-4 max-w-2xl bg-white/80 dark:bg-slate-950/40 border border-slate-200/80 dark:border-white/10 rounded-[4px] space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all"
+                >
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3">
+                    <div className="flex-1 min-w-[200px] max-w-sm">
+                      <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                        Field Name
+                      </label>
+                      <input
+                        type="text"
+                        value={field.fieldName}
+                        onChange={(e) =>
+                          handleVariantPricingChange(field.id, 'fieldName', e.target.value)
+                        }
+                        placeholder="e.g. Club house Cost"
+                        className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                      />
+                    </div>
+                    <div className="w-full sm:w-36 md:w-44 shrink-0">
+                      <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                        Amount
+                      </label>
+                      <input
+                        type="number"
+                        value={field.amount}
+                        onChange={(e) =>
+                          handleVariantPricingChange(field.id, 'amount', e.target.value)
+                        }
+                        placeholder="100000"
+                        className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleDeletePricingField(field.id)}
+                      title="Remove pricing field"
+                      aria-label="Remove pricing field"
+                      className="h-9 w-9 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 hover:border-rose-200 dark:hover:border-rose-900/50 hover:bg-rose-50/70 dark:hover:bg-rose-950/30 rounded-[4px] cursor-pointer shadow-2xs transition-all shrink-0 sm:self-end"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="pt-0.5 space-y-1.5">
+                    <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                      Type
+                    </label>
+                    <div className="flex items-center gap-6 text-xs font-medium text-slate-700 dark:text-slate-300">
+                      <label className="inline-flex items-center gap-2 cursor-pointer select-none group">
+                        <input
+                          type="radio"
+                          name={`chargeType-${field.id}`}
+                          checked={field.chargeType === 'Lump Sum'}
+                          onChange={() =>
+                            handleVariantPricingChange(field.id, 'chargeType', 'Lump Sum')
+                          }
+                          className="w-4 h-4 text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
+                        />
+                        <span className="group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                          Lump Sum
+                        </span>
+                      </label>
+                      <label className="inline-flex items-center gap-2 cursor-pointer select-none group">
+                        <input
+                          type="radio"
+                          name={`chargeType-${field.id}`}
+                          checked={field.chargeType === 'Per SFT'}
+                          onChange={() =>
+                            handleVariantPricingChange(field.id, 'chargeType', 'Per SFT')
+                          }
+                          className="w-4 h-4 text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
+                        />
+                        <span className="group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                          Per SFT
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Section 04: Banking Tie-ups */}
+        <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
+                04
+              </span>
               <span className="w-1 h-3.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
               <h3 className="text-[14px] font-bold text-slate-900 dark:text-white font-display">
-                Approved Banking Tie-ups & Home Loans
+                Banking Tie-ups
               </h3>
             </div>
             <button
               type="button"
               onClick={() => setIsBankDialogOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-xs font-semibold shadow-2xs transition-all cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 h-8 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <Plus className="w-3.5 h-3.5" />
               <span>Add Bank</span>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 pt-1">
-            {formData.banks.map((bank) => {
-              const isChecked = bank.selected;
-              return (
-                <label
-                  key={bank.id}
-                  className={`flex items-center gap-2.5 px-3 py-2 rounded-[4px] border transition-all cursor-pointer select-none text-xs ${
-                    isChecked
-                      ? 'bg-blue-50/70 dark:bg-blue-950/40 border-blue-300 dark:border-blue-800 text-blue-900 dark:text-blue-100 font-medium shadow-2xs'
-                      : 'bg-white/60 dark:bg-slate-950/40 border-slate-200/70 dark:border-white/5 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/15'
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => handleToggleBank(bank.id)}
-                    className="w-3.5 h-3.5 rounded-[2px] text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
-                  />
-                  <span className="truncate">{bank.name}</span>
-                </label>
-              );
-            })}
+          {/* 4-column bank checkboxes matching Reference Image 2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2.5 pt-1">
+            {formData.banks.map((bank) => (
+              <label
+                key={bank.id}
+                className="inline-flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  checked={bank.selected}
+                  onChange={() => handleToggleBank(bank.id)}
+                  className="w-3.5 h-3.5 rounded-[2px] text-blue-600 border-slate-300 dark:border-slate-600 focus:ring-blue-500 cursor-pointer"
+                />
+                <span>{bank.name}</span>
+              </label>
+            ))}
           </div>
         </section>
       </div>
@@ -688,12 +693,6 @@ export function FinancialsDesktop() {
         isOpen={isPlanDialogOpen}
         onClose={() => setIsPlanDialogOpen(false)}
         onSave={handleAddPaymentPlan}
-      />
-
-      <AddPricingFieldDialog
-        isOpen={isPricingDialogOpen}
-        onClose={() => setIsPricingDialogOpen(false)}
-        onSave={handleAddPricingField}
       />
 
       <AddBankDialog
