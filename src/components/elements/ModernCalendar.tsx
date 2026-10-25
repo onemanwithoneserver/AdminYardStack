@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X, RotateCcw } from 'lucide-react';
 
 export interface ModernCalendarProps {
-  value?: string; // Format: 'YYYY-MM-DD'
+  value?: string; 
   onChange: (value: string) => void;
   placeholder?: string;
   minDate?: string;
@@ -88,12 +88,12 @@ export function ModernCalendar({
   const selectedDate = parseISODate(value);
   const today = new Date();
 
-  // Navigation state (view year and month)
+  
   const [viewDate, setViewDate] = useState<Date>(() => {
     return selectedDate ? new Date(selectedDate) : new Date();
   });
 
-  // Year range start for years view
+  
   const [yearRangeStart, setYearRangeStart] = useState<number>(() => {
     const currentYear = selectedDate ? selectedDate.getFullYear() : today.getFullYear();
     return Math.floor(currentYear / 12) * 12;
@@ -102,7 +102,7 @@ export function ModernCalendar({
   const containerRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Synchronize viewDate when value changes from outside
+  
   useEffect(() => {
     if (value) {
       const parsed = parseISODate(value);
@@ -112,7 +112,7 @@ export function ModernCalendar({
     }
   }, [value]);
 
-  // Dynamic positioning clearance check
+  
   const updatePosition = useCallback(() => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -166,7 +166,7 @@ export function ModernCalendar({
     };
   }, [isOpen, updatePosition]);
 
-  // Outside click & Escape key handler
+  
   useEffect(() => {
     const handleClickOutside = (event: globalThis.MouseEvent) => {
       const target = event.target as Node;
@@ -268,7 +268,7 @@ export function ModernCalendar({
     setViewMode('days');
   };
 
-  // Calendar calculations
+  
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
 
@@ -285,7 +285,7 @@ export function ModernCalendar({
     isDisabled: boolean;
   }> = [];
 
-  // Previous month trailing days
+  
   for (let i = firstDayOfMonth - 1; i >= 0; i--) {
     calendarDays.push({
       day: daysInPrevMonth - i,
@@ -297,7 +297,7 @@ export function ModernCalendar({
     });
   }
 
-  // Current month days
+  
   for (let d = 1; d <= daysInCurrentMonth; d++) {
     const isToday =
       today.getFullYear() === year &&
@@ -330,7 +330,7 @@ export function ModernCalendar({
     });
   }
 
-  // Next month leading days
+  
   const remaining = (7 - (calendarDays.length % 7)) % 7;
   for (let i = 1; i <= remaining; i++) {
     calendarDays.push({
@@ -349,7 +349,7 @@ export function ModernCalendar({
       style={{ zIndex: isOpen ? 99999 : undefined }}
       className={`relative inline-block text-left w-full ${isOpen ? 'z-[99999]' : ''} ${className}`}
     >
-      {/* Hidden input to support standard form submissions */}
+      
       <input
         type="hidden"
         id={id}
@@ -358,7 +358,7 @@ export function ModernCalendar({
         required={required}
       />
 
-      {/* Trigger Button */}
+      
       <button
         type="button"
         disabled={disabled}
@@ -399,7 +399,7 @@ export function ModernCalendar({
         </div>
       </button>
 
-      {/* Modern Popover with fixed portal z-index (999999) so it NEVER gets cut off */}
+      
       {isOpen && coords && typeof document !== 'undefined' && createPortal(
         <div
           ref={popoverRef}
@@ -412,9 +412,9 @@ export function ModernCalendar({
             transform: coords.actualDropUp ? 'translateY(-100%)' : undefined,
             zIndex: 999999,
           }}
-          className="w-[280px] p-3 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-md animate-in fade-in duration-100 select-none"
+          className="w-[280px] p-3 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-md animate-in fade-in zoom-in-95 duration-150 select-none"
         >
-          {/* Header Bar */}
+          
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-white/10">
             <button
               type="button"
@@ -478,10 +478,10 @@ export function ModernCalendar({
             </button>
           </div>
 
-          {/* Days View */}
+          
           {viewMode === 'days' && (
             <div>
-              {/* Weekday Row */}
+              
               <div className="grid grid-cols-7 gap-1 text-center mb-1">
                 {WEEKDAY_NAMES.map((name) => (
                   <div
@@ -493,7 +493,7 @@ export function ModernCalendar({
                 ))}
               </div>
 
-              {/* Day Cells Grid */}
+              
               <div className="grid grid-cols-7 gap-1">
                 {calendarDays.map((cell, idx) => {
                   if (!cell.isCurrentMonth) {
@@ -529,7 +529,7 @@ export function ModernCalendar({
             </div>
           )}
 
-          {/* Months View */}
+          
           {viewMode === 'months' && (
             <div className="grid grid-cols-3 gap-2 py-1">
               {MONTH_SHORT.map((mName, mIdx) => {
@@ -555,7 +555,7 @@ export function ModernCalendar({
             </div>
           )}
 
-          {/* Years View */}
+          
           {viewMode === 'years' && (
             <div className="grid grid-cols-3 gap-2 py-1">
               {Array.from({ length: 12 }, (_, i) => yearRangeStart + i).map((yNum) => {
@@ -581,7 +581,7 @@ export function ModernCalendar({
             </div>
           )}
 
-          {/* Quick Footer Action Bar */}
+          
           <div className="flex items-center justify-between pt-2 mt-2 border-t border-slate-100 dark:border-white/10 text-[11px]">
             <button
               type="button"

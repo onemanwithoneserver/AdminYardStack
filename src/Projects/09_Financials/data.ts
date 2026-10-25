@@ -76,27 +76,27 @@ export const INITIAL_PAYMENT_PLANS: PaymentPlanOption[] = [
 ];
 
 export const INITIAL_BANKS: BankOption[] = [
-  // Column 1
+  
   { id: 'bank_axis', name: 'Axis Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_pnb', name: 'Punjab National Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_sbi', name: 'SBI Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_kotak', name: 'Kotak Mahindra Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_union', name: 'Union Bank of India', selected: false, status: 'ACTIVE' },
 
-  // Column 2
+  
   { id: 'bank_uco', name: 'UCO', selected: false, status: 'ACTIVE' },
   { id: 'bank_canara', name: 'Canara Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_cbi', name: 'Central Bank of India', selected: false, status: 'ACTIVE' },
   { id: 'bank_hdfc', name: 'HDFC Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_boi', name: 'Bank of India', selected: false, status: 'ACTIVE' },
 
-  // Column 3
+  
   { id: 'bank_iob', name: 'Indian Overseas Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_yes', name: 'YES Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_indian', name: 'Indian Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_idfc', name: 'IDFC Bank', selected: false, status: 'ACTIVE' },
 
-  // Column 4
+  
   { id: 'bank_icici', name: 'ICICI Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_federal', name: 'Federal Bank', selected: false, status: 'ACTIVE' },
   { id: 'bank_bom', name: 'Bank of Maharashtra', selected: false, status: 'ACTIVE' },

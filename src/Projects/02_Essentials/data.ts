@@ -39,8 +39,6 @@ export const INITIAL_CONSTRUCTION_TYPES: ConstructionTypeOption[] = [
   { id: 'rcc', option: 'RCC', status: 'ACTIVE' },
 ];
 
-// Essentials options extracted from the supplied form. Location, inventory,
-// approvals and amenities data belong to their respective project sections.
 export const ESSENTIALS_OPTIONS = {
   projectTypes: ['Flats', 'Villa', 'Plots'],
   model: ['Yes, with Interior works', 'Yes', 'No', 'Under Construction'],
@@ -74,7 +72,6 @@ export function isEssentialsFieldEnabled(_data: EssentialsFormData, _field: keyo
   return true;
 }
 
-// Keep both viewport forms consistent
 export function updateEssentialsField<K extends keyof EssentialsFormData>(
   previous: EssentialsFormData, field: K, value: EssentialsFormData[K],
 ): EssentialsFormData {

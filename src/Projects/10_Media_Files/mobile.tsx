@@ -70,7 +70,7 @@ export function MediaFilesMobile() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white shadow-xs shadow-teal-500/20">
@@ -91,7 +91,7 @@ export function MediaFilesMobile() {
       </div>
 
       <div className="space-y-3.5 pb-4">
-        {/* Section 1: Engagement Options */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ export function MediaFilesMobile() {
           </div>
         </section>
 
-        {/* Section 2: Visual Assets & Brochure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -201,7 +201,7 @@ export function MediaFilesMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Elevations Images */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Elevations Gallery
@@ -250,7 +250,7 @@ export function MediaFilesMobile() {
               )}
             </div>
 
-            {/* Amenities Images */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Amenities Gallery
@@ -299,7 +299,7 @@ export function MediaFilesMobile() {
               )}
             </div>
 
-            {/* Work Progress Images */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Construction Progress
@@ -348,7 +348,7 @@ export function MediaFilesMobile() {
               )}
             </div>
 
-            {/* Brochure Upload */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Project Brochure (PDF)
@@ -398,7 +398,7 @@ export function MediaFilesMobile() {
           </div>
         </section>
 
-        {/* Section 3: Virtual Tours & Videos */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -413,7 +413,7 @@ export function MediaFilesMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Drone Video */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Aerial Drone Walkthrough URL
@@ -427,7 +427,7 @@ export function MediaFilesMobile() {
               />
             </div>
 
-            {/* 3D Video */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 3D Interactive Tour URL
@@ -441,7 +441,7 @@ export function MediaFilesMobile() {
               />
             </div>
 
-            {/* Site Progress */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Site Progress Cloud Link
@@ -458,7 +458,7 @@ export function MediaFilesMobile() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

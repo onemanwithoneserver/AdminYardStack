@@ -1,12 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Plus, Boxes, CheckCircle2, Layers, Columns, Building2, Sparkles } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
-import {
-  INITIAL_INVENTORY_ROOT_DATA,
-  createDefaultVariant,
-  calculateInventoryKPIs,
-  type InventoryRootState,
-} from './data';
+import { INITIAL_INVENTORY_ROOT_DATA, createDefaultVariant, calculateInventoryKPIs, type InventoryRootState } from './data';
 import { ConfigurationDesktop } from './Configuration';
 import { PreviewAndToolsDesktop } from './preview and tools';
 import type { InventoryVariant, InventoryCommonConfig } from './Configuration/data';
@@ -52,7 +47,7 @@ export function InventoryDesktop() {
         </div>
       )}
 
-      {/* Header Banner & Live KPI Metrics */}
+      
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-[4px] bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-xs shadow-amber-500/20">
@@ -71,7 +66,7 @@ export function InventoryDesktop() {
           </div>
         </div>
 
-        {/* Live Top Quick Stat Badges */}
+        
         <div className="flex items-center gap-2 flex-wrap">
           <div className="px-3 py-1.5 rounded-[4px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 shadow-2xs flex items-center gap-2">
             <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -99,7 +94,7 @@ export function InventoryDesktop() {
         </div>
       </div>
 
-      {/* Sub-tab Navigation Control Bar */}
+      
       <div className="flex items-center justify-between gap-3 p-2 rounded-[4px] bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
         <div className="flex items-center gap-1.5 p-0.5 rounded-[4px] bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-white/10">
           <button
@@ -148,7 +143,7 @@ export function InventoryDesktop() {
         </button>
       </div>
 
-      {/* Main Tab View Content */}
+      
       <div className="pb-24">
         {state.activeSubTab === 'Configurations' ? (
           <ConfigurationDesktop
@@ -167,7 +162,7 @@ export function InventoryDesktop() {
         )}
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

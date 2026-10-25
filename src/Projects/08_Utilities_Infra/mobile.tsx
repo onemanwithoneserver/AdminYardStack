@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { Zap, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
-import {
-  INITIAL_UTILITIES_INFRA_DATA,
-  WATER_SOURCE_OPTIONS,
-  GENERIC_SELECT_OPTIONS,
-  type UtilitiesInfraFormData,
-} from './data';
+import { INITIAL_UTILITIES_INFRA_DATA, WATER_SOURCE_OPTIONS, GENERIC_SELECT_OPTIONS, type UtilitiesInfraFormData } from './data';
 
 export function UtilitiesInfraMobile() {
   const [formData, setFormData] = useState<UtilitiesInfraFormData>(
@@ -79,7 +74,7 @@ export function UtilitiesInfraMobile() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-500 flex items-center justify-center text-white shadow-xs shadow-amber-500/20">
@@ -100,7 +95,7 @@ export function UtilitiesInfraMobile() {
       </div>
 
       <div className="space-y-3.5 pb-4">
-        {/* Section 1: Water Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -115,7 +110,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Water Source */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Water Sources
@@ -138,7 +133,7 @@ export function UtilitiesInfraMobile() {
               </div>
             </div>
 
-            {/* Bore Wells Count */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Bore Wells Count
@@ -151,7 +146,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Municipal Water Connection */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Municipal Water Connection
@@ -161,7 +156,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Underground Sump Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Underground Sump Capacity
@@ -174,7 +169,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Overhead Tank Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Overhead Tank Capacity
@@ -187,7 +182,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Water Treatment Plant */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Water Treatment Plant (WTP)
@@ -197,7 +192,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Water Softening Plant */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Water Softening Plant
@@ -209,7 +204,7 @@ export function UtilitiesInfraMobile() {
           </div>
         </section>
 
-        {/* Section 2: Waste Water Management */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -224,7 +219,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* STP Available */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 STP Available
@@ -234,7 +229,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* STP Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 STP Capacity
@@ -247,7 +242,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Dual Plumbing */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Dual Plumbing
@@ -257,7 +252,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Recycled Water Usage */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Recycled Water Usage
@@ -269,7 +264,7 @@ export function UtilitiesInfraMobile() {
           </div>
         </section>
 
-        {/* Section 3: Rainwater Management */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -284,7 +279,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Rainwater Harvesting */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Rainwater Harvesting
@@ -294,7 +289,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Recharge Pits */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Recharge Pits
@@ -307,7 +302,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Storm Water Drainage */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Storm Water Drainage
@@ -319,7 +314,7 @@ export function UtilitiesInfraMobile() {
           </div>
         </section>
 
-        {/* Section 4: Power Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -334,7 +329,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Transformer Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Transformer Capacity
@@ -347,7 +342,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* DG Backup Available */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 DG Backup Available
@@ -357,7 +352,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* DG Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 DG Capacity
@@ -370,7 +365,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Apartment Power Backup */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Apartment Power Backup
@@ -383,7 +378,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Common Area Power Backup */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Common Area Backup
@@ -393,7 +388,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Solar Power */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Solar Power Integration
@@ -403,7 +398,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Solar Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Solar Generation Capacity
@@ -418,7 +413,7 @@ export function UtilitiesInfraMobile() {
           </div>
         </section>
 
-        {/* Section 5: Fire & Safety */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -433,7 +428,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Fire Fighting System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Fire Fighting System
@@ -443,7 +438,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Fire Alarm System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Fire Alarm System
@@ -453,7 +448,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Sprinkler System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Sprinkler System
@@ -463,7 +458,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Smoke Detection System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Smoke Detection System
@@ -475,7 +470,7 @@ export function UtilitiesInfraMobile() {
           </div>
         </section>
 
-        {/* Section 6: Utility Services */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -490,7 +485,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* LPG Manifold */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 LPG Manifold / PNG
@@ -500,7 +495,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Fiber Internet Ready */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Fiber Internet Ready
@@ -510,7 +505,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Smart Metering */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Smart Metering
@@ -522,7 +517,7 @@ export function UtilitiesInfraMobile() {
           </div>
         </section>
 
-        {/* Section 7: Security Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -537,7 +532,7 @@ export function UtilitiesInfraMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* CCTV Surveillance */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 CCTV Surveillance
@@ -547,7 +542,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Boom Barrier */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Boom Barrier
@@ -557,7 +552,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* RFID Access */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 RFID Access System
@@ -567,7 +562,7 @@ export function UtilitiesInfraMobile() {
               )}
             </div>
 
-            {/* Visitor Management System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Visitor Management System
@@ -580,7 +575,7 @@ export function UtilitiesInfraMobile() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

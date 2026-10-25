@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { CreditCard, Plus, Trash2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
-import {
-  INITIAL_FINANCIALS_DATA,
-  type FinancialsFormData,
-  type PaymentPlanOption,
-  type VariantPricingField,
-  type BankOption,
-} from './data';
+import { INITIAL_FINANCIALS_DATA, type FinancialsFormData, type PaymentPlanOption, type VariantPricingField, type BankOption } from './data';
 import { AddPaymentPlanDialog, AddBankDialog } from './desktop';
 
 export function FinancialsMobile() {
@@ -15,7 +9,7 @@ export function FinancialsMobile() {
   const [isPlanDialogOpen, setIsPlanDialogOpen] = useState(false);
   const [isBankDialogOpen, setIsBankDialogOpen] = useState(false);
 
-  // Toggle plan selection in Section 01
+  
   const handleTogglePlan = (planId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -25,7 +19,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Add new payment plan
+  
   const handleAddPaymentPlan = (name: string) => {
     const newPlan: PaymentPlanOption = {
       id: `plan_${Date.now()}`,
@@ -41,7 +35,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Add stage to a specific plan
+  
   const handleAddStage = (planId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -58,7 +52,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Update a stage in a plan
+  
   const handleStageChange = (
     planId: string,
     stageId: string,
@@ -79,7 +73,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Remove a stage from a plan
+  
   const handleRemoveStage = (planId: string, stageId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -93,7 +87,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Add a variant pricing field inline
+  
   const handleAddPricingField = () => {
     const newField: VariantPricingField = {
       id: `price_${Date.now()}`,
@@ -107,7 +101,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Update a variant pricing field
+  
   const handleVariantPricingChange = (
     fieldId: string,
     key: keyof VariantPricingField,
@@ -121,7 +115,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Delete a variant pricing field
+  
   const handleDeletePricingField = (id: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -129,7 +123,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Toggle bank
+  
   const handleToggleBank = (bankId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -139,7 +133,7 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Add bank
+  
   const handleAddBank = (name: string) => {
     const newBank: BankOption = {
       id: `bank_${Date.now()}`,
@@ -153,12 +147,12 @@ export function FinancialsMobile() {
     }));
   };
 
-  // Filter plans that are active based on Section 01 selection
+  
   const activePlans = formData.paymentPlans.filter((p) => p.selected);
 
   return (
     <div className="p-1.5 space-y-4 text-slate-800 dark:text-slate-100 text-xs">
-      {/* Header Banner */}
+      
       <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center text-white shadow-xs shadow-violet-500/20">
@@ -179,7 +173,7 @@ export function FinancialsMobile() {
       </div>
 
       <div className="space-y-3.5 pb-4">
-        {/* Section 01: Payment Types */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -219,7 +213,7 @@ export function FinancialsMobile() {
           </div>
         </section>
 
-        {/* Section 02: Payment Plan Milestone Schedules (Active based on Section 01) */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -249,7 +243,7 @@ export function FinancialsMobile() {
                     key={plan.id}
                     className="p-3.5 rounded-[4px] bg-slate-50/60 dark:bg-slate-950/30 border border-slate-200/70 dark:border-white/5 space-y-3 shadow-2xs"
                   >
-                    {/* Plan Card Header */}
+                    
                     <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-white/10">
                       <div>
                         <h4 className="text-xs font-bold text-slate-900 dark:text-white">
@@ -269,7 +263,7 @@ export function FinancialsMobile() {
                       </button>
                     </div>
 
-                    {/* Plan Stages Rows */}
+                    
                     <div className="space-y-3">
                       {plan.stages.map((stage, idx) => (
                         <div
@@ -325,7 +319,7 @@ export function FinancialsMobile() {
           )}
         </section>
 
-        {/* Section 03: Variant Pricing */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -349,7 +343,7 @@ export function FinancialsMobile() {
             </button>
           </div>
 
-          {/* Variant Pricing Items with Dustbin Icon */}
+          
           {formData.variantPricingFields.length === 0 ? (
             <div className="p-4 text-center bg-white/70 dark:bg-slate-900/40 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-xs text-slate-500 dark:text-slate-400 italic">
               No variant pricing fields added. Click "Add" to create one.
@@ -438,7 +432,7 @@ export function FinancialsMobile() {
           )}
         </section>
 
-        {/* Section 04: Banking Tie-ups */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -479,7 +473,7 @@ export function FinancialsMobile() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-1 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

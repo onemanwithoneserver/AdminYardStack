@@ -2,15 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Plus, Trash2, X, Layers, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { ModernCalendar } from '../../components/elements/ModernCalendar';
-import {
-  INITIAL_LAYOUT_DATA,
-  HANDOVER_OPTIONS,
-  createNewTowerRow,
-  createNewTowerTable,
-  type LayoutFormData,
-  type TowerRow,
-  type TowerTable,
-} from './data';
+import { INITIAL_LAYOUT_DATA, HANDOVER_OPTIONS, createNewTowerRow, createNewTowerTable, type LayoutFormData, type TowerRow, type TowerTable } from './data';
 
 interface AddTowerDialogProps {
   isOpen: boolean;
@@ -232,7 +224,7 @@ export function LayoutDesktop() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-xs shadow-orange-500/20">
@@ -253,7 +245,7 @@ export function LayoutDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Approval Details & Handover Timelines */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -268,7 +260,7 @@ export function LayoutDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Completion Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Completion Date
@@ -280,7 +272,7 @@ export function LayoutDesktop() {
               />
             </div>
 
-            {/* HandOver */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-1 md:col-span-2 xl:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 HandOver Status
@@ -298,7 +290,7 @@ export function LayoutDesktop() {
           </div>
         </section>
 
-        {/* Section 2: Tower Matrix & Elevation Specifications */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -597,7 +589,7 @@ export function LayoutDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

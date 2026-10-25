@@ -1,25 +1,8 @@
 import { useState, useRef, type FormEvent, type ChangeEvent } from 'react';
-import {
-  FileText,
-  Lock,
-  Unlock,
-  Plus,
-  X,
-  UploadCloud,
-} from 'lucide-react';
+import { FileText, Lock, Unlock, Plus, X, UploadCloud } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { ModernCalendar } from '../../components/elements/ModernCalendar';
-import {
-  INITIAL_ESSENTIALS_DATA,
-  INITIAL_CONSTRUCTION_TYPES,
-  ESSENTIALS_OPTIONS,
-  PROJECT_SUBTYPE_OPTIONS,
-  ALL_PROJECT_SUBTYPES,
-  isEssentialsFieldEnabled,
-  updateEssentialsField,
-  type EssentialsFormData,
-  type ConstructionTypeOption,
-} from './data';
+import { INITIAL_ESSENTIALS_DATA, INITIAL_CONSTRUCTION_TYPES, ESSENTIALS_OPTIONS, PROJECT_SUBTYPE_OPTIONS, ALL_PROJECT_SUBTYPES, isEssentialsFieldEnabled, updateEssentialsField, type EssentialsFormData, type ConstructionTypeOption } from './data';
 
 interface ConstructionTypeDialogProps {
   isOpen: boolean;
@@ -172,7 +155,7 @@ export function EssentialsDesktop() {
 
   return (
     <div className="[&_input:disabled]:cursor-not-allowed [&_input:disabled]:opacity-50 [&_button:disabled]:cursor-not-allowed [&_button:disabled]:opacity-50 p-2 space-y-5 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-fuchsia-600 to-pink-600 flex items-center justify-center text-white shadow-xs shadow-fuchsia-500/20">
@@ -193,7 +176,7 @@ export function EssentialsDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Project Classification & Structure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -208,7 +191,7 @@ export function EssentialsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Project Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 <span>Project Type</span>
@@ -226,7 +209,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Project Sub-Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Project Sub-Type
@@ -243,7 +226,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Model Flat/Villa */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 {formData.projectType === 'Flats' ? 'Model Flat' : formData.projectType === 'Villa' ? 'Model Villa' : 'Model Flat/Villa'}
@@ -260,7 +243,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Towers Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Towers Nomenclature
@@ -278,7 +261,7 @@ export function EssentialsDesktop() {
             </div>
           </div>
 
-          {/* Options Lock Indicator */}
+          
           <div className="pt-2 flex items-center gap-2.5">
             <button
               type="button"
@@ -309,7 +292,7 @@ export function EssentialsDesktop() {
           </div>
         </section>
 
-        {/* Section 2: Scale, Dimensions & Land Extent */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -324,7 +307,7 @@ export function EssentialsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Towers/Blocks Count */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Towers / Blocks Count
@@ -339,7 +322,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Sky Villas Available */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Sky Villas Available
@@ -356,7 +339,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Sky Villa Status */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Sky Villa Status
@@ -373,7 +356,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Open Space */}
+            
             <div className="flex flex-col items-start w-full">
               <div className="flex items-center justify-between w-full mb-1.5 h-4">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
@@ -414,7 +397,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Greenery Area */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Greenery Area (%)
@@ -430,7 +413,7 @@ export function EssentialsDesktop() {
             </div>
 
             <div className="grid min-w-0 grid-cols-1 gap-4 sm:col-span-2 sm:grid-cols-2 sm:gap-5 items-end">
-              {/* Land Extent */}
+              
               <div className="flex min-w-0 flex-col items-start w-full">
                 <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 w-full mb-1.5 min-h-4">
                   <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
@@ -471,7 +454,7 @@ export function EssentialsDesktop() {
                 />
               </div>
 
-              {/* Number of Units */}
+              
               <div className="flex min-w-0 flex-col items-start w-full">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                   Number of Units
@@ -489,7 +472,7 @@ export function EssentialsDesktop() {
           </div>
         </section>
 
-        {/* Section 3: Engineering, Parking & Site Parameters */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -504,7 +487,7 @@ export function EssentialsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Parking Levels */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Parking Levels
@@ -519,7 +502,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Driveway Width */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Driveway Width (Feet)
@@ -534,7 +517,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Brick / Construction Type */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Brick / Construction Type
@@ -566,7 +549,7 @@ export function EssentialsDesktop() {
               </div>
             </div>
 
-            {/* Parking Registered in Sale Deed */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Parking in Sale Deed
@@ -583,7 +566,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Density */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Density
@@ -602,7 +585,7 @@ export function EssentialsDesktop() {
           </div>
         </section>
 
-        {/* Section 4: Pricing Specifications & Commercials */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -617,7 +600,7 @@ export function EssentialsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Base Price + Unit */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label htmlFor="base-price-desktop" className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Base Price (INR) & Unit
@@ -646,7 +629,7 @@ export function EssentialsDesktop() {
               </div>
             </div>
 
-            {/* Price Updated On */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Price Updated On
@@ -659,7 +642,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Upload Price Card */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Upload Price Card (PDF/JPG)
@@ -705,7 +688,7 @@ export function EssentialsDesktop() {
               )}
             </div>
 
-            {/* Pricing Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Pricing Type
@@ -722,7 +705,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Amenities Price */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Amenities Price (INR)
@@ -737,7 +720,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Other Pricing (Text) */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Other Pricing (Notes)
@@ -752,7 +735,7 @@ export function EssentialsDesktop() {
               />
             </div>
 
-            {/* Other Pricing (Numeric) */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Other Pricing (Numeric)
@@ -770,7 +753,7 @@ export function EssentialsDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

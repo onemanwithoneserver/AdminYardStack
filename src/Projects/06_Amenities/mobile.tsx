@@ -47,7 +47,7 @@ export function AmenitiesMobile() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white shadow-xs shadow-purple-500/20">
@@ -130,7 +130,7 @@ export function AmenitiesMobile() {
         })}
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1">

@@ -1,15 +1,9 @@
 import { useState, useRef, type ChangeEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Plus, X, UploadCloud, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { ModernCalendar } from '../../components/elements/ModernCalendar';
-import {
-  INITIAL_APPROVALS_DATA,
-  INITIAL_AUTHORITY_OPTIONS,
-  HANDOVER_STATUS_OPTIONS,
-  OC_RECEIVED_OPTIONS,
-  type ApprovalsFormData,
-  type ApprovalAuthorityOption,
-} from './data';
+import { INITIAL_APPROVALS_DATA, INITIAL_AUTHORITY_OPTIONS, HANDOVER_STATUS_OPTIONS, OC_RECEIVED_OPTIONS, type ApprovalsFormData, type ApprovalAuthorityOption } from './data';
 import { AddApprovalDialog } from './desktop';
 
 export function ApprovalsMobile() {
@@ -63,14 +57,22 @@ export function ApprovalsMobile() {
 
   return (
     <div className="p-1.5 space-y-4 text-slate-800 dark:text-slate-100 text-xs">
-      {savedNotification && (
-        <div className="fixed top-4 inset-x-4 z-50 flex items-center justify-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-3 py-2 rounded-[4px] shadow-lg text-xs font-semibold animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-          <span>Approvals saved successfully!</span>
-        </div>
-      )}
+      <AnimatePresence>
+        {savedNotification && (
+          <motion.div
+            initial={{ opacity: 0, y: -16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -16, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+            className="fixed top-4 inset-x-4 z-50 flex items-center justify-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-3 py-2 rounded-[4px] shadow-lg text-xs font-semibold"
+          >
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span>Approvals saved successfully!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Header Banner */}
+      
       <div className="pb-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white shadow-xs shadow-rose-500/20">
@@ -91,7 +93,7 @@ export function ApprovalsMobile() {
       </div>
 
       <div className="space-y-3.5 pb-4">
-        {/* Section 1: Statutory Sanctions & Approval Authority */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -106,7 +108,7 @@ export function ApprovalsMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* Approving Authority */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Approving Authority
@@ -132,7 +134,7 @@ export function ApprovalsMobile() {
               </div>
             </div>
 
-            {/* Approval Copy */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Approval Copy (PDF/JPG)
@@ -180,7 +182,7 @@ export function ApprovalsMobile() {
               )}
             </div>
 
-            {/* Completion Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Completion Date
@@ -192,7 +194,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* HandOver */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 HandOver Status
@@ -208,7 +210,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* HandOver Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 HandOver Date
@@ -220,7 +222,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* Remarks */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Approval Remarks
@@ -236,7 +238,7 @@ export function ApprovalsMobile() {
           </div>
         </section>
 
-        {/* Section 2: RERA Registration & Compliance */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -251,7 +253,7 @@ export function ApprovalsMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* RERA Registered */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 RERA Registered
@@ -280,7 +282,7 @@ export function ApprovalsMobile() {
               </div>
             </div>
 
-            {/* RERA Registration Number */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 RERA Registration Number
@@ -294,7 +296,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* RERA Valid Upto */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 RERA Valid Upto
@@ -306,7 +308,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* RERA File */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 RERA Certificate (PDF)
@@ -354,7 +356,7 @@ export function ApprovalsMobile() {
               )}
             </div>
 
-            {/* RERA Approval Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 RERA Approval Date
@@ -366,7 +368,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* Approval Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Authority Approval Date
@@ -380,7 +382,7 @@ export function ApprovalsMobile() {
           </div>
         </section>
 
-        {/* Section 3: Occupancy Certificate (OC) Details */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -395,7 +397,7 @@ export function ApprovalsMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* OC Received */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 OC Status
@@ -411,7 +413,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* OC Approval Dates */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 OC Approval Dates
@@ -455,7 +457,7 @@ export function ApprovalsMobile() {
           </div>
         </section>
 
-        {/* Section 4: Completion Certificate (CC) Details */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2">
@@ -470,7 +472,7 @@ export function ApprovalsMobile() {
           </div>
 
           <div className="space-y-3 text-xs">
-            {/* CC Number */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 CC Number
@@ -484,7 +486,7 @@ export function ApprovalsMobile() {
               />
             </div>
 
-            {/* CC Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 CC Date
@@ -499,7 +501,7 @@ export function ApprovalsMobile() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1">

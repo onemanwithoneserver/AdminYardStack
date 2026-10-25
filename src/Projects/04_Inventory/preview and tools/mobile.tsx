@@ -1,15 +1,8 @@
 import { useState, useMemo } from 'react';
-import {
-  Search,
-} from 'lucide-react';
+import { Search } from 'lucide-react';
 import { ModernDropdown } from '../../../components/elements/ModernDropdown';
 import { type InventoryVariant, VARIANT_AVAILABILITY } from '../Configuration/data';
-import {
-  INITIAL_PREVIEW_FILTERS,
-  type PreviewFilters,
-  type TowerTotalSummary,
-  computeTowerTotals,
-} from './data';
+import { INITIAL_PREVIEW_FILTERS, type PreviewFilters, type TowerTotalSummary, computeTowerTotals } from './data';
 import type { PreviewAndToolsDesktopProps } from './desktop';
 
 export function PreviewAndToolsMobile({
@@ -74,7 +67,7 @@ export function PreviewAndToolsMobile({
 
   return (
     <div className="space-y-4 text-slate-800 dark:text-slate-100">
-      {/* Mobile KPI Strip */}
+      
       <div className="grid grid-cols-2 gap-2.5">
         <div className="p-2.5 rounded-[4px] bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-white/10 shadow-2xs">
           <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">
@@ -94,7 +87,7 @@ export function PreviewAndToolsMobile({
         </div>
       </div>
 
-      {/* Real-Time Preview Section */}
+      
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
           <div className="flex items-center gap-2">
@@ -108,7 +101,7 @@ export function PreviewAndToolsMobile({
           </div>
         </div>
 
-        {/* Search & Filter */}
+        
         <div className="space-y-2">
           <div className="relative w-full">
             <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400 pointer-events-none" />
@@ -158,7 +151,7 @@ export function PreviewAndToolsMobile({
           </div>
         </div>
 
-        {/* Mobile Variant Cards */}
+        
         <div className="space-y-3 pt-1">
           {filteredVariants.length === 0 ? (
             <div className="text-center py-6 text-slate-400 dark:text-slate-500 italic text-xs">
@@ -243,7 +236,7 @@ export function PreviewAndToolsMobile({
         </div>
       </section>
 
-      {/* Tower Aggregations */}
+      
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-white/10">
           <div className="flex items-center gap-2">

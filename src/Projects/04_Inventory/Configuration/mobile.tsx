@@ -1,29 +1,7 @@
 import { useState } from 'react';
-import {
-  Plus,
-  ChevronDown,
-  ChevronsDown,
-  ChevronsUp,
-  Trash2,
-  Copy,
-  Check,
-  Sparkles,
-  Layers,
-} from 'lucide-react';
+import { Plus, ChevronDown, ChevronsDown, ChevronsUp, Trash2, Copy, Check, Sparkles, Layers } from 'lucide-react';
 import { ModernDropdown } from '../../../components/elements/ModernDropdown';
-import {
-  INITIAL_CONFIGURATION_DATA,
-  UNIT_TYPES,
-  FACING_OPTIONS,
-  WALL_STRUCTURES,
-  FLOOR_PLAN_TYPES,
-  VARIANT_AVAILABILITY,
-  AVAILABLE_TOWERS,
-  createDefaultVariant,
-  type InventoryVariant,
-  type InventoryCommonConfig,
-  type RoomItem,
-} from './data';
+import { INITIAL_CONFIGURATION_DATA, UNIT_TYPES, FACING_OPTIONS, WALL_STRUCTURES, FLOOR_PLAN_TYPES, VARIANT_AVAILABILITY, AVAILABLE_TOWERS, createDefaultVariant, type InventoryVariant, type InventoryCommonConfig, type RoomItem } from './data';
 import type { ConfigurationDesktopProps } from './desktop';
 
 export function ConfigurationMobile({
@@ -218,7 +196,7 @@ export function ConfigurationMobile({
         </div>
       )}
 
-      {/* SECTION 01: Common Area & Loading Specifications */}
+      
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
           <div className="flex items-start gap-2">
@@ -288,7 +266,7 @@ export function ConfigurationMobile({
         </div>
       </section>
 
-      {/* SECTION 02: Unit Configurations */}
+      
       <section className="space-y-3">
         <div className="flex items-center justify-between pb-1 flex-wrap gap-2">
           <div className="flex items-center gap-2">
@@ -341,7 +319,7 @@ export function ConfigurationMobile({
           </div>
         </div>
 
-        {/* Variants List */}
+        
         <div className="space-y-3">
           {variants.map((v) => {
             const isAvailable = v.variantAvailable === 'Available';
@@ -352,7 +330,7 @@ export function ConfigurationMobile({
                 key={v.id}
                 className="bg-white/95 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-xs"
               >
-                {/* Header */}
+                
                 <div
                   onClick={() => handleToggleCollapse(v.id)}
                   className="px-3 py-2.5 bg-slate-50/90 dark:bg-slate-800/60 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-2 cursor-pointer select-none"
@@ -419,10 +397,10 @@ export function ConfigurationMobile({
                   </div>
                 </div>
 
-                {/* Body */}
+                
                 {!v.isCollapsed && (
                   <div className="p-3.5 space-y-4">
-                    {/* Basic specs */}
+                    
                     <div className="space-y-3">
                       <div className="flex flex-col items-start w-full">
                         <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
@@ -497,7 +475,7 @@ export function ConfigurationMobile({
                       </div>
                     </div>
 
-                    {/* Areas */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-3">
                       <div className="grid grid-cols-2 gap-3">
                         <div className="flex flex-col items-start w-full">
@@ -562,7 +540,7 @@ export function ConfigurationMobile({
                       </div>
                     </div>
 
-                    {/* Architecture */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-3">
                       <div className="flex flex-col items-start w-full">
                         <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">
@@ -621,7 +599,7 @@ export function ConfigurationMobile({
                       </div>
                     </div>
 
-                    {/* Multi-Select Towers */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10">
                       <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 block">
                         Assigned Towers
@@ -648,7 +626,7 @@ export function ConfigurationMobile({
                       </div>
                     </div>
 
-                    {/* Room sizes */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">
@@ -722,7 +700,7 @@ export function ConfigurationMobile({
                       </div>
                     </div>
 
-                    {/* Commercials & blueprints */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-3">
                       <div className="flex flex-col items-start w-full">
                         <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1">

@@ -1,30 +1,7 @@
 import { useState, useRef, useId, type FormEvent, type ChangeEvent } from 'react';
-import {
-  Plus,
-  Building2,
-  TrendingUp,
-  MapPin,
-  ExternalLink,
-  Lock,
-  Unlock,
-  X,
-  UploadCloud,
-  Trash2,
-  AlertCircle,
-  Image as ImageIcon,
-} from 'lucide-react';
+import { Plus, Building2, TrendingUp, MapPin, ExternalLink, Lock, Unlock, X, UploadCloud, Trash2, AlertCircle, Image as ImageIcon } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
-import {
-  INITIAL_LOCATION_DATA,
-  INITIAL_ORR_ZONING_OPTIONS,
-  PROJECT_USP_AUDIENCES,
-  type LocationFormData,
-  type ProjectUsp,
-  type ProjectUspPoint,
-  type OrrExit,
-  type HighwayItem,
-  type OrrZoningOption,
-} from './data';
+import { INITIAL_LOCATION_DATA, INITIAL_ORR_ZONING_OPTIONS, PROJECT_USP_AUDIENCES, type LocationFormData, type ProjectUsp, type ProjectUspPoint, type OrrExit, type HighwayItem, type OrrZoningOption } from './data';
 import { SearchProjectLocationModal, type MapPoint } from './SearchProjectLocationModal';
 
 interface ProjectUspFieldsProps {
@@ -290,7 +267,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
 
         <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Brand Name */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 Brand Name
@@ -304,7 +281,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
               />
             </div>
 
-            {/* Legal Name */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 Legal Name
@@ -317,7 +294,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
               />
             </div>
 
-            {/* Primary Contact */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 Primary Contact
@@ -330,7 +307,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
               />
             </div>
 
-            {/* Primary Email */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 Primary Email
@@ -343,7 +320,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
               />
             </div>
 
-            {/* City */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 City
@@ -356,7 +333,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
               />
             </div>
 
-            {/* Status */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 Status
@@ -371,7 +348,7 @@ export function AddBuilderDialog({ isOpen, onClose, onSave }: AddBuilderDialogPr
               />
             </div>
 
-            {/* Logo */}
+            
             <div>
               <label className="block text-xs font-normal text-slate-700 dark:text-slate-300 mb-1.5">
                 Logo
@@ -571,7 +548,7 @@ export function LocationForAllDesktop() {
 
       <div className="space-y-4 pb-4">
         
-        {/* Section 1: Seller & Subscription Entitlement */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2.5">
@@ -588,7 +565,7 @@ export function LocationForAllDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Seller */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Seller
@@ -604,7 +581,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Active Sale Subscription */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Active Sale Subscription
@@ -631,7 +608,7 @@ export function LocationForAllDesktop() {
           </div>
         </section>
 
-        {/* Section 2: Location Hierarchy */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2.5">
@@ -648,7 +625,7 @@ export function LocationForAllDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* State */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 State
@@ -664,7 +641,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* City */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 City
@@ -680,7 +657,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Micro Market */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Micro Market
@@ -696,7 +673,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Corporations */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Corporations
@@ -712,7 +689,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Zones */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Zones
@@ -728,7 +705,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Circles */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Circles
@@ -746,7 +723,7 @@ export function LocationForAllDesktop() {
           </div>
         </section>
 
-        {/* Section 3: Project Identity & Developer */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2.5">
@@ -763,7 +740,7 @@ export function LocationForAllDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Development Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Development Type
@@ -779,7 +756,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Project Name */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Project Name
@@ -793,14 +770,14 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Project Logo */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Project Logo
               </label>
 
               {logoFileName || formData.projectLogo ? (
-                /* Uploaded State: Choose control disappears, file name with extension and X icon shown */
+                
                 <div className="flex items-center justify-between gap-2 h-9 w-full px-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs">
                   <div className="flex items-center gap-2 min-w-0 flex-1">
                     {logoPreviewUrl ? (
@@ -830,7 +807,7 @@ export function LocationForAllDesktop() {
                   </button>
                 </div>
               ) : (
-                /* Empty State: Choose control is visible */
+                
                 <div className="flex items-center gap-2 h-9 w-full">
                   <input
                     ref={fileInputRef}
@@ -858,7 +835,7 @@ export function LocationForAllDesktop() {
               </span>
             </div>
 
-            {/* Search Builder Name */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Search Builder Name
@@ -885,7 +862,7 @@ export function LocationForAllDesktop() {
             </div>
           </div>
 
-          {/* Options Lock Indicator */}
+          
           <div className="pt-2 flex items-center gap-2.5">
             <button
               type="button"
@@ -916,7 +893,7 @@ export function LocationForAllDesktop() {
           </div>
         </section>
 
-        {/* Section 4: GIS Boundaries & Map Coordinates */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2.5">
@@ -931,7 +908,7 @@ export function LocationForAllDesktop() {
               </div>
             </div>
 
-            {/* Map Action Tools */}
+            
             <div className="flex items-center gap-2 flex-wrap">
               <button
                 id="btn-open-google-maps"
@@ -955,7 +932,7 @@ export function LocationForAllDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Country */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Country
@@ -969,7 +946,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* District */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 District
@@ -983,7 +960,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Location */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Location
@@ -997,7 +974,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Pincode */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Pincode
@@ -1011,7 +988,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* ORR Zoning - ModernDropdown (With + Add control beside it) */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2 md:col-span-3 xl:col-span-4">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 ORR Zoning
@@ -1041,7 +1018,7 @@ export function LocationForAllDesktop() {
               </div>
             </div>
 
-            {/* Google Location */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2 md:col-span-1 xl:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Google Location
@@ -1055,7 +1032,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Latitude */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-1 md:col-span-1 xl:col-span-1">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Latitude
@@ -1069,7 +1046,7 @@ export function LocationForAllDesktop() {
               />
             </div>
 
-            {/* Longitude */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-1 md:col-span-1 xl:col-span-1">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Longitude
@@ -1085,7 +1062,7 @@ export function LocationForAllDesktop() {
           </div>
         </section>
 
-        {/* Section 5: Connectivity & Transit Infrastructure (ORR Exits & Highways) */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2.5">
@@ -1101,7 +1078,7 @@ export function LocationForAllDesktop() {
             </div>
           </div>
 
-          {/* Sub-panel: Nearest ORR Exits */}
+          
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -1129,7 +1106,7 @@ export function LocationForAllDesktop() {
               </div>
             ) : (
               <div className="space-y-2">
-                {/* Column Headers */}
+                
                 <div className="grid grid-cols-12 gap-2.5 px-2.5 text-[10.5px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <span className="col-span-1 text-center">#</span>
                   <span className="col-span-2">Exit No.</span>
@@ -1199,7 +1176,7 @@ export function LocationForAllDesktop() {
             )}
           </div>
 
-          {/* Sub-panel: Nearest Highways/NHs */}
+          
           <div className="space-y-3 pt-3 border-t border-slate-200/80 dark:border-white/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -1227,7 +1204,7 @@ export function LocationForAllDesktop() {
               </div>
             ) : (
               <div className="space-y-2">
-                {/* Column Headers */}
+                
                 <div className="grid grid-cols-12 gap-2.5 px-2.5 text-[10.5px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <span className="col-span-1 text-center">#</span>
                   <span className="col-span-3">Highway Name</span>
@@ -1298,7 +1275,7 @@ export function LocationForAllDesktop() {
           </div>
         </section>
 
-        {/* Section 6: Regulatory Details & USP */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2.5">
@@ -1316,7 +1293,7 @@ export function LocationForAllDesktop() {
 
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-start">
-              {/* Sub Registrar Office */}
+              
               <div className="flex flex-col items-start w-full">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                   Sub Registrar Office
@@ -1332,7 +1309,7 @@ export function LocationForAllDesktop() {
                 />
               </div>
 
-              {/* Project Entrance Facing */}
+              
               <div className="flex flex-col items-start w-full">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                   Project Entrance Facing
@@ -1349,7 +1326,7 @@ export function LocationForAllDesktop() {
               </div>
             </div>
 
-            {/* Project USP */}
+            
             <ProjectUspFields
               value={formData.projectUsp}
               onChange={(value) => handleInputChange('projectUsp', value)}
@@ -1359,7 +1336,7 @@ export function LocationForAllDesktop() {
 
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">
@@ -1392,7 +1369,7 @@ export function LocationForAllDesktop() {
         </div>
       </div>
 
-      {/* Dialog Modals */}
+      
       <OrrZoningDialog
         isOpen={isOrrDialogOpen}
         onClose={() => setIsOrrDialogOpen(false)}

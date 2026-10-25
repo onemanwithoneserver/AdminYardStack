@@ -1,13 +1,8 @@
 import { useState, type FormEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CreditCard, X, Plus, Trash2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
-import {
-  INITIAL_FINANCIALS_DATA,
-  type FinancialsFormData,
-  type PaymentPlanOption,
-  type VariantPricingField,
-  type BankOption,
-} from './data';
+import { INITIAL_FINANCIALS_DATA, type FinancialsFormData, type PaymentPlanOption, type VariantPricingField, type BankOption } from './data';
 
 interface AddPaymentPlanDialogProps {
   isOpen: boolean;
@@ -22,8 +17,6 @@ export function AddPaymentPlanDialog({
 }: AddPaymentPlanDialogProps) {
   const [name, setName] = useState('');
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
@@ -33,63 +26,79 @@ export function AddPaymentPlanDialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
-      <div
-        className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
-          <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
-              Add Payment Plan
-            </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Enter name for the new payment scheme.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 360 }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
+            role="dialog"
+            aria-modal="true"
           >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+            <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
+                  Add Payment Plan
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Enter name for the new payment scheme.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
-        <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Plan Name <span className="text-rose-500 font-bold">*</span>
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. 20:80 Possession Linked Plan"
-              required
-              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Plan Name <span className="text-rose-500 font-bold">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g. 20:80 Possession Linked Plan"
+                  required
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
+                />
+              </div>
 
-          <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-3.5 py-1.5 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs cursor-pointer"
-            >
-              Save Plan
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+              <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-3.5 py-1.5 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs cursor-pointer"
+                >
+                  Save Plan
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -102,8 +111,6 @@ interface AddBankDialogProps {
 export function AddBankDialog({ isOpen, onClose, onSave }: AddBankDialogProps) {
   const [bankName, setBankName] = useState('');
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!bankName.trim()) return;
@@ -113,61 +120,77 @@ export function AddBankDialog({ isOpen, onClose, onSave }: AddBankDialogProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
-      <div
-        className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
-          <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">Add Bank</h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Enter approved lender or financial institution.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 360 }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
+            role="dialog"
+            aria-modal="true"
           >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+            <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">Add Bank</h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Enter approved lender or financial institution.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
-        <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Bank Name <span className="text-rose-500 font-bold">*</span>
-            </label>
-            <input
-              type="text"
-              value={bankName}
-              onChange={(e) => setBankName(e.target.value)}
-              placeholder="e.g. HDFC Bank, SBI"
-              required
-              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Bank Name <span className="text-rose-500 font-bold">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={bankName}
+                  onChange={(e) => setBankName(e.target.value)}
+                  placeholder="e.g. HDFC Bank, SBI"
+                  required
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 shadow-2xs"
+                />
+              </div>
 
-          <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-3.5 py-1.5 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs cursor-pointer"
-            >
-              Save Bank
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+              <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-3.5 py-1.5 rounded-[4px] bg-[#1a56db] hover:bg-[#1546b8] text-white text-xs font-semibold shadow-xs cursor-pointer"
+                >
+                  Save Bank
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -184,7 +207,7 @@ export function FinancialsDesktop() {
   const [isPlanDialogOpen, setIsPlanDialogOpen] = useState(false);
   const [isBankDialogOpen, setIsBankDialogOpen] = useState(false);
 
-  // Toggle plan selection in Section 01
+  
   const handleTogglePlan = (planId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -194,7 +217,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Add new payment plan
+  
   const handleAddPaymentPlan = (name: string) => {
     const newPlan: PaymentPlanOption = {
       id: `plan_${Date.now()}`,
@@ -210,7 +233,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Add stage to a specific plan
+  
   const handleAddStage = (planId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -227,7 +250,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Update a stage in a plan
+  
   const handleStageChange = (
     planId: string,
     stageId: string,
@@ -248,7 +271,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Remove a stage from a plan
+  
   const handleRemoveStage = (planId: string, stageId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -262,7 +285,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Add a variant pricing field inline
+  
   const handleAddPricingField = () => {
     const newField: VariantPricingField = {
       id: `price_${Date.now()}`,
@@ -276,7 +299,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Update a variant pricing field
+  
   const handleVariantPricingChange = (
     fieldId: string,
     key: keyof VariantPricingField,
@@ -290,7 +313,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Delete a variant pricing field
+  
   const handleDeletePricingField = (id: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -298,7 +321,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Toggle bank
+  
   const handleToggleBank = (bankId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -308,7 +331,7 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Add bank
+  
   const handleAddBank = (name: string) => {
     const newBank: BankOption = {
       id: `bank_${Date.now()}`,
@@ -322,12 +345,12 @@ export function FinancialsDesktop() {
     }));
   };
 
-  // Filter plans that are active based on Section 01 selection
+  
   const activePlans = formData.paymentPlans.filter((p) => p.selected);
 
   return (
     <div className="p-2 space-y-5 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center text-white shadow-xs shadow-violet-500/20">
@@ -348,7 +371,7 @@ export function FinancialsDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 01: Payment Types */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -370,7 +393,7 @@ export function FinancialsDesktop() {
             </button>
           </div>
 
-          {/* Checkboxes row matching Reference Image 1 */}
+          
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-1">
             {formData.paymentPlans.map((plan) => (
               <label
@@ -389,7 +412,7 @@ export function FinancialsDesktop() {
           </div>
         </section>
 
-        {/* Section 02: Payment Plan Milestone Schedules (Active based on Section 01) */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -419,7 +442,7 @@ export function FinancialsDesktop() {
                     key={plan.id}
                     className="p-3.5 sm:p-4 rounded-[4px] bg-slate-50/60 dark:bg-slate-950/30 border border-slate-200/70 dark:border-white/5 space-y-3 shadow-2xs"
                   >
-                    {/* Plan Card Header */}
+                    
                     <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 dark:border-white/10">
                       <div>
                         <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
@@ -439,7 +462,7 @@ export function FinancialsDesktop() {
                       </button>
                     </div>
 
-                    {/* Plan Stages Rows */}
+                    
                     <div className="space-y-2.5">
                       {plan.stages.map((stage, idx) => (
                         <div
@@ -493,7 +516,7 @@ export function FinancialsDesktop() {
           )}
         </section>
 
-        {/* Section 03: Variant Pricing */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -517,7 +540,7 @@ export function FinancialsDesktop() {
             </button>
           </div>
 
-          {/* Variant Pricing Items with Reduced Width & Dustbin Icon */}
+          
           {formData.variantPricingFields.length === 0 ? (
             <div className="p-5 max-w-2xl text-center bg-white/70 dark:bg-slate-900/40 border border-dashed border-slate-200 dark:border-white/10 rounded-[4px] text-xs text-slate-500 dark:text-slate-400 italic">
               No variant pricing fields added. Click "Add Pricing Field" to create one.
@@ -610,7 +633,7 @@ export function FinancialsDesktop() {
           )}
         </section>
 
-        {/* Section 04: Banking Tie-ups */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -632,7 +655,7 @@ export function FinancialsDesktop() {
             </button>
           </div>
 
-          {/* 4-column bank checkboxes matching Reference Image 2 */}
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2.5 pt-1">
             {formData.banks.map((bank) => (
               <label
@@ -652,7 +675,7 @@ export function FinancialsDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

@@ -48,11 +48,11 @@ export function SearchProjectLocationModal({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Initial 3 vertices matching user reference image
+  
   const [points, setPoints] = useState<MapPoint[]>([
-    { x: 265, y: 375, lat: 17.41, lng: 78.21 }, // Mokila / Nehru ORR
-    { x: 512, y: 338, lat: 17.45, lng: 78.38 }, // Madhapur / Miyapur
-    { x: 495, y: 385, lat: 17.38, lng: 78.36 }, // Narsingi / Manikonda
+    { x: 265, y: 375, lat: 17.41, lng: 78.21 }, 
+    { x: 512, y: 338, lat: 17.45, lng: 78.38 }, 
+    { x: 495, y: 385, lat: 17.38, lng: 78.36 }, 
   ]);
 
   const [marker, setMarker] = useState<{ x: number; y: number }>({ x: 495, y: 365 });
@@ -60,9 +60,9 @@ export function SearchProjectLocationModal({
 
   if (!isOpen) return null;
 
-  // Add a vertex on map click
+  
   const handleMapClick = (e: MouseEvent<HTMLDivElement>) => {
-    // If clicked on buttons or controls, ignore
+    
     if ((e.target as HTMLElement).closest('button')) return;
     if (!mapContainerRef.current) return;
 
@@ -70,7 +70,7 @@ export function SearchProjectLocationModal({
     const x = Math.round(e.clientX - rect.left);
     const y = Math.round(e.clientY - rect.top);
 
-    // Approximate lat/lng from SVG coordinates centered on Hyderabad
+    
     const approxLat = (17.55 - (y / rect.height) * 0.3).toFixed(4);
     const approxLng = (78.18 + (x / rect.width) * 0.3).toFixed(4);
 
@@ -128,10 +128,10 @@ export function SearchProjectLocationModal({
     }
   };
 
-  // Build SVG polygon points string
+  
   const polygonPointsStr = points.map((p) => `${p.x},${p.y}`).join(' ');
 
-  // Calculate midpoints for polygon edge handles
+  
   const midpoints = points.map((p, idx) => {
     const next = points[(idx + 1) % points.length];
     return {
@@ -151,7 +151,7 @@ export function SearchProjectLocationModal({
         role="dialog"
         aria-modal="true"
       >
-        {/* Header */}
+        
         <div className="px-5 pt-4 pb-3 flex items-center justify-between border-b border-slate-100 dark:border-white/10">
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
             Search Project Location
@@ -165,9 +165,9 @@ export function SearchProjectLocationModal({
           </button>
         </div>
 
-        {/* Content Area */}
+        
         <div className="p-4 sm:p-5 space-y-3.5 overflow-y-auto no-scrollbar flex-1 flex flex-col">
-          {/* Search Input with autocomplete */}
+          
           <div className="relative">
             <form onSubmit={handleSearchSubmit}>
               <div className="relative">
@@ -191,7 +191,7 @@ export function SearchProjectLocationModal({
               </div>
             </form>
 
-            {/* Suggestions dropdown */}
+            
             {showSuggestions && (
               <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/15 rounded-[4px] shadow-xl max-h-48 overflow-y-auto">
                 {PRESET_LOCATIONS.filter((l) =>
@@ -213,9 +213,9 @@ export function SearchProjectLocationModal({
             )}
           </div>
 
-          {/* Action Buttons Row - Exact layout as reference screenshot */}
+          
           <div className="space-y-2.5">
-            {/* Top row of action buttons: Save Polygon and Undo last point right aligned */}
+            
             <div className="flex items-center justify-end gap-2.5">
               <button
                 type="button"
@@ -234,7 +234,7 @@ export function SearchProjectLocationModal({
               </button>
             </div>
 
-            {/* Bottom row: Clear Polygon on left with Points count */}
+            
             <div className="flex items-center gap-3">
               <button
                 type="button"
@@ -250,12 +250,12 @@ export function SearchProjectLocationModal({
             </div>
           </div>
 
-          {/* Helper alert banner */}
+          
           <div className="px-3.5 py-2 rounded-[4px] bg-emerald-50/90 dark:bg-emerald-950/40 border border-emerald-200/90 dark:border-emerald-900/50 text-xs text-emerald-800 dark:text-emerald-200 font-medium">
             Click on the map to add vertices. Need at least 3 points to save.
           </div>
 
-          {/* Interactive Map View */}
+          
           <div
             ref={mapContainerRef}
             onClick={handleMapClick}
@@ -263,7 +263,7 @@ export function SearchProjectLocationModal({
               isFullscreen ? 'flex-1 min-h-[480px]' : 'h-[380px] sm:h-[430px]'
             } ${mapType === 'satellite' ? 'bg-[#1b2b34]' : 'bg-[#eaf4eb]'}`}
           >
-            {/* Map Mode Controls (Top Left) */}
+            
             <div className="absolute top-3 left-3 z-20 flex rounded-[3px] shadow-md bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/10 overflow-hidden">
               <button
                 type="button"
@@ -295,7 +295,7 @@ export function SearchProjectLocationModal({
               </button>
             </div>
 
-            {/* Fullscreen Button (Top Right) */}
+            
             <button
               type="button"
               onClick={(e) => {
@@ -310,14 +310,14 @@ export function SearchProjectLocationModal({
               </svg>
             </button>
 
-            {/* Realistic Google Maps Styled SVG Background for Hyderabad */}
+            
             <svg
               className="absolute inset-0 w-full h-full"
               viewBox="0 0 800 480"
               preserveAspectRatio="xMidYMid slice"
             >
               <defs>
-                {/* Satellite Texture / Gradient */}
+                
                 <linearGradient id="satGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#1e322f" />
                   <stop offset="40%" stopColor="#2c3c33" />
@@ -326,14 +326,14 @@ export function SearchProjectLocationModal({
                 </linearGradient>
               </defs>
 
-              {/* Base terrain - Google Maps Green Shade */}
+              
               {mapType === 'satellite' ? (
                 <rect width="800" height="480" fill="url(#satGrad)" />
               ) : (
                 <rect width="800" height="480" fill="#eaf3eb" />
               )}
 
-              {/* Water bodies: Osman Sagar & Musi river */}
+              
               <g id="water-bodies">
                 <path
                   d="M 240 420 Q 280 400, 340 415 T 410 440 T 430 460 Q 380 470, 310 465 Z"
@@ -353,37 +353,37 @@ export function SearchProjectLocationModal({
                 />
               </g>
 
-              {/* Parks / Green zones - Google Maps Lush Green Shade */}
+              
               <g id="green-zones">
-                {/* Botanical Garden / HCU campus */}
+                
                 <path
                   d="M 370 240 Q 430 225, 450 270 T 390 295 Z"
                   fill={mapType === 'satellite' ? '#223d2e' : '#c3e6bf'}
                   stroke={mapType === 'satellite' ? 'none' : '#b2deb0'}
                   strokeWidth="1"
                 />
-                {/* Osman Sagar Watershed Green Belt */}
+                
                 <path
                   d="M 200 395 Q 280 380, 360 400 T 430 430 T 350 475 T 220 445 Z"
                   fill={mapType === 'satellite' ? '#1b3626' : '#c6e8c4'}
                   stroke={mapType === 'satellite' ? 'none' : '#b4dfb2'}
                   strokeWidth="1"
                 />
-                {/* Western Reserve (Tellapur / Mokila) */}
+                
                 <path
                   d="M 70 210 Q 150 190, 170 260 T 90 310 Z"
                   fill={mapType === 'satellite' ? '#1f3a29' : '#ccebc9'}
                   stroke={mapType === 'satellite' ? 'none' : '#bce1b9'}
                   strokeWidth="1"
                 />
-                {/* KBR Park & Jubilee Hills Green Sanctuary */}
+                
                 <path
                   d="M 610 315 Q 655 295, 675 330 T 635 365 Z"
                   fill={mapType === 'satellite' ? '#223d2e' : '#bde2b9'}
                   stroke={mapType === 'satellite' ? 'none' : '#a9d7a5'}
                   strokeWidth="1"
                 />
-                {/* Gandipet & Manikonda Green Pockets */}
+                
                 <path
                   d="M 450 365 Q 495 345, 520 380 T 470 410 Z"
                   fill={mapType === 'satellite' ? '#223d2e' : '#c7e7c5'}
@@ -398,9 +398,9 @@ export function SearchProjectLocationModal({
                 />
               </g>
 
-              {/* Road network */}
+              
               <g id="roads" opacity={mapType === 'satellite' ? '0.65' : '1'}>
-                {/* Minor streets */}
+                
                 <path
                   d="M 120 100 L 180 480 M 320 80 L 350 480 M 520 80 L 530 480 M 680 120 L 710 480"
                   stroke="#ffffff"
@@ -412,7 +412,7 @@ export function SearchProjectLocationModal({
                   strokeWidth="2.5"
                 />
 
-                {/* Major Arteries */}
+                
                 <path
                   d="M 100 80 Q 300 200, 500 220 T 780 260"
                   stroke={mapType === 'satellite' ? '#e2a336' : '#fed7aa'}
@@ -426,7 +426,7 @@ export function SearchProjectLocationModal({
                   fill="none"
                 />
 
-                {/* Nehru Outer Ring Road (ORR) - Main circular highway */}
+                
                 <path
                   d="M 210 100 Q 240 240, 265 375 T 480 460 T 720 420 T 760 200"
                   stroke="#3b82f6"
@@ -437,9 +437,9 @@ export function SearchProjectLocationModal({
                 />
               </g>
 
-              {/* Geographic Labels Matching Hyderabad Screenshot */}
+              
               <g id="labels" fontSize="11" fontFamily="sans-serif">
-                {/* Miyapur */}
+                
                 <text x="470" y="270" fontWeight="bold" fill="#334155" textAnchor="middle">
                   Miyapur
                 </text>
@@ -447,7 +447,7 @@ export function SearchProjectLocationModal({
                   మియాపూర్
                 </text>
 
-                {/* Madhapur */}
+                
                 <text x="560" y="315" fontWeight="bold" fill="#334155" textAnchor="middle">
                   MADHAPUR
                 </text>
@@ -455,7 +455,7 @@ export function SearchProjectLocationModal({
                   మాదాపూర్
                 </text>
 
-                {/* Serilingampalle */}
+                
                 <text x="385" y="310" fontSize="10.5" fill="#475569" textAnchor="middle">
                   Serilingampalle (M)
                 </text>
@@ -463,7 +463,7 @@ export function SearchProjectLocationModal({
                   శేరిలింగంపల్లి
                 </text>
 
-                {/* Tellapur */}
+                
                 <text x="335" y="335" fontSize="10" fill="#475569" textAnchor="middle">
                   TELLAPUR
                 </text>
@@ -471,7 +471,7 @@ export function SearchProjectLocationModal({
                   తెల్లాపూర్
                 </text>
 
-                {/* Mokila */}
+                
                 <text x="110" y="335" fontSize="10.5" fill="#475569" textAnchor="middle">
                   Mokila
                 </text>
@@ -479,7 +479,7 @@ export function SearchProjectLocationModal({
                   మొకిల
                 </text>
 
-                {/* Osman Sagar */}
+                
                 <text x="360" y="445" fontSize="11" fontWeight="bold" fill="#0284c7" textAnchor="middle">
                   Osman Sagar
                 </text>
@@ -487,7 +487,7 @@ export function SearchProjectLocationModal({
                   గండిపేట్ చెరువు
                 </text>
 
-                {/* Narsingi */}
+                
                 <text x="505" y="425" fontSize="10.5" fill="#475569" textAnchor="middle">
                   Narsingi
                 </text>
@@ -495,7 +495,7 @@ export function SearchProjectLocationModal({
                   నార్సింగి
                 </text>
 
-                {/* Manikonda */}
+                
                 <text x="580" y="390" fontSize="10" fill="#475569" textAnchor="middle">
                   Manikonda
                 </text>
@@ -503,7 +503,7 @@ export function SearchProjectLocationModal({
                   మణికొండ
                 </text>
 
-                {/* Hyderabad Large */}
+                
                 <text x="670" y="380" fontSize="20" fontWeight="bold" fill="#1e293b" textAnchor="middle">
                   Hyderabad
                 </text>
@@ -511,7 +511,7 @@ export function SearchProjectLocationModal({
                   హైదరాబాద్
                 </text>
 
-                {/* Secunderabad */}
+                
                 <text x="700" y="325" fontSize="11" fontWeight="bold" fill="#334155" textAnchor="middle">
                   Secunderabad
                 </text>
@@ -519,12 +519,12 @@ export function SearchProjectLocationModal({
                   సికింద్రాబాద్
                 </text>
 
-                {/* Balanagar */}
+                
                 <text x="690" y="275" fontSize="9.5" fill="#64748b" textAnchor="middle">
                   BALANAGAR
                 </text>
 
-                {/* Highway Shields */}
+                
                 <g transform="translate(370, 280)">
                   <rect x="0" y="0" width="18" height="13" rx="2" fill="#eab308" />
                   <text x="9" y="10" fontSize="9" fontWeight="bold" fill="#ffffff" textAnchor="middle">
@@ -544,13 +544,13 @@ export function SearchProjectLocationModal({
                   </text>
                 </g>
 
-                {/* Outer Ring Road text along curve */}
+                
                 <text x="270" y="360" fontSize="9" fill="#2563eb" transform="rotate(45, 270, 360)">
                   Nehru Outer Ring Rd
                 </text>
               </g>
 
-              {/* Drawn Polygon overlay - Polished Emerald styling */}
+              
               {points.length >= 3 && (
                 <polygon
                   points={polygonPointsStr}
@@ -561,7 +561,7 @@ export function SearchProjectLocationModal({
                 />
               )}
 
-              {/* If 2 points, draw connecting line */}
+              
               {points.length === 2 && (
                 <line
                   x1={points[0].x}
@@ -573,7 +573,7 @@ export function SearchProjectLocationModal({
                 />
               )}
 
-              {/* Edge Midpoint handles (as seen in Google Maps polygon editor in screenshot) */}
+              
               {points.length >= 3 &&
                 midpoints.map((mp, i) => (
                   <circle
@@ -588,7 +588,7 @@ export function SearchProjectLocationModal({
                   />
                 ))}
 
-              {/* Polygon Vertices (Circles with white center and emerald ring) */}
+              
               {points.map((pt, i) => (
                 <circle
                   key={`pt-${i}`}
@@ -602,11 +602,11 @@ export function SearchProjectLocationModal({
                 />
               ))}
 
-              {/* Red Google Maps Pin Marker */}
+              
               <g transform={`translate(${marker.x - 12}, ${marker.y - 28})`}>
-                {/* Pin Shadow */}
+                
                 <ellipse cx="12" cy="27" rx="6" ry="2.5" fill="#000000" opacity="0.25" />
-                {/* SVG Pin */}
+                
                 <path
                   d="M12 0 C5.37 0 0 5.37 0 12 C0 20.25 12 28 12 28 C12 28 24 20.25 24 12 C24 5.37 18.63 0 12 0 Z"
                   fill="#ea4335"

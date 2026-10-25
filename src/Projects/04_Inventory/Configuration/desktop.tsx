@@ -1,35 +1,7 @@
 import { useState, useRef, type ChangeEvent } from 'react';
-import {
-  Plus,
-  ChevronDown,
-  ChevronsDown,
-  ChevronsUp,
-  Trash2,
-  Copy,
-  UploadCloud,
-  X,
-  Check,
-  Layers,
-  Sparkles,
-  Building2,
-  SlidersHorizontal,
-  Compass,
-} from 'lucide-react';
+import { Plus, ChevronDown, ChevronsDown, ChevronsUp, Trash2, Copy, UploadCloud, X, Check, Layers, Sparkles, Building2, SlidersHorizontal, Compass } from 'lucide-react';
 import { ModernDropdown } from '../../../components/elements/ModernDropdown';
-import {
-  INITIAL_CONFIGURATION_DATA,
-  UNIT_TYPES,
-  FACING_OPTIONS,
-  WALL_STRUCTURES,
-  FLOOR_PLAN_TYPES,
-  VARIANT_AVAILABILITY,
-  DESIGNATED_AREAS_LIST,
-  AVAILABLE_TOWERS,
-  createDefaultVariant,
-  type InventoryVariant,
-  type InventoryCommonConfig,
-  type RoomItem,
-} from './data';
+import { INITIAL_CONFIGURATION_DATA, UNIT_TYPES, FACING_OPTIONS, WALL_STRUCTURES, FLOOR_PLAN_TYPES, VARIANT_AVAILABILITY, DESIGNATED_AREAS_LIST, AVAILABLE_TOWERS, createDefaultVariant, type InventoryVariant, type InventoryCommonConfig, type RoomItem } from './data';
 
 export interface ConfigurationDesktopProps {
   variants?: InventoryVariant[];
@@ -179,7 +151,7 @@ export function ConfigurationDesktop({
         rooms: v.rooms.map((r) => {
           if (r.id !== roomId) return r;
           const updatedRoom = { ...r, [field]: val };
-          // If length or breadth changes, auto calculate size if numeric
+          
           if (field === 'length' || field === 'breadth') {
             const l = parseFloat(field === 'length' ? val : r.length);
             const b = parseFloat(field === 'breadth' ? val : r.breadth);
@@ -232,7 +204,7 @@ export function ConfigurationDesktop({
         </div>
       )}
 
-      {/* SECTION 01: Common Area & Loading Specifications */}
+      
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
           <div className="flex items-start gap-2.5">
@@ -252,7 +224,7 @@ export function ConfigurationDesktop({
         </div>
 
         <div className="flex flex-wrap items-start gap-6 sm:gap-8">
-          {/* Common Area Calculation Method */}
+          
           <div className="flex flex-col items-start">
             <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
               Common Area Calculation Method
@@ -302,7 +274,7 @@ export function ConfigurationDesktop({
             </div>
           </div>
 
-          {/* Loading Factor */}
+          
           <div className="flex flex-col items-start w-36 sm:w-44">
             <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
               Loading Factor (%)
@@ -323,9 +295,9 @@ export function ConfigurationDesktop({
         </div>
       </section>
 
-      {/* SECTION 02: Unit Configurations & Variants */}
+      
       <section className="space-y-4">
-        {/* Subhead Toolbar */}
+        
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-[4px] bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
           <div className="flex items-center gap-2.5">
             <span className="inline-flex items-center justify-center min-w-[22px] h-[19px] px-1.5 text-[10px] font-bold font-mono tracking-wider rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 select-none shadow-2xs">
@@ -381,7 +353,7 @@ export function ConfigurationDesktop({
           </div>
         </div>
 
-        {/* Variants List Accordion */}
+        
         <div className="space-y-4">
           {variants.map((v) => {
             const isAvailable = v.variantAvailable === 'Available';
@@ -393,13 +365,13 @@ export function ConfigurationDesktop({
                 key={v.id}
                 className="bg-white/95 dark:bg-slate-900/80 backdrop-blur-xs border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-xs hover:border-slate-300 dark:hover:border-white/20 transition-all duration-200"
               >
-                {/* Variant Card Header Bar */}
+                
                 <div
                   onClick={() => handleToggleCollapse(v.id)}
                   className="px-4 py-3 bg-slate-50/90 dark:bg-slate-800/60 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3 cursor-pointer select-none group"
                 >
                   <div className="flex items-center gap-3 flex-wrap min-w-0">
-                    {/* Modern Variant Glyph replacing redundant number */}
+                    
                     <div className="w-6 h-6 rounded-[4px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 flex items-center justify-center shadow-2xs shrink-0 group-hover:scale-105 transition-transform duration-200">
                       <Layers className="w-3.5 h-3.5" />
                     </div>
@@ -415,7 +387,7 @@ export function ConfigurationDesktop({
                       </span>
                     </div>
 
-                    {/* Quick Smart Badges */}
+                    
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="px-2 py-0.5 rounded-[3px] text-[10.5px] font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/80">
                         {v.towerName || 'Tower 1'}
@@ -457,7 +429,7 @@ export function ConfigurationDesktop({
                     </div>
                   </div>
 
-                  {/* Polished Luxury Action Buttons */}
+                  
                   <div
                     className="flex items-center gap-1.5 shrink-0"
                     onClick={(e) => e.stopPropagation()}
@@ -507,17 +479,17 @@ export function ConfigurationDesktop({
                   </div>
                 </div>
 
-                {/* Variant Card Expanded Body */}
+                
                 {!v.isCollapsed && (
                   <div className="p-4 sm:p-5 space-y-5 text-slate-800 dark:text-slate-100 animate-in fade-in duration-150">
-                    {/* SUB-SECTION 1: Core Parameters */}
+                    
                     <div>
                       <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-1.5">
                         <SlidersHorizontal className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         <span>Core Unit Parameters</span>
                       </h5>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-                        {/* Variant No */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Variant Identifier
@@ -533,7 +505,7 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        {/* Unit Type */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Unit Type
@@ -552,7 +524,7 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        {/* Facing */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Facing
@@ -571,7 +543,7 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        {/* Availability */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Variant Availability
@@ -605,14 +577,14 @@ export function ConfigurationDesktop({
                       </div>
                     </div>
 
-                    {/* SUB-SECTION 2: Dimensional & Area Metrics */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10">
                       <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-1.5">
                         <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                         <span>Area & Dimensional Measurements</span>
                       </h5>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-                        {/* Saleable Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Saleable Area (Sqft)
@@ -633,7 +605,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Built Up Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Built-Up Area (Sqft)
@@ -654,7 +626,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Carpet Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Carpet Area (Sqft)
@@ -675,7 +647,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Plinth Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Plinth Area (Sqft)
@@ -696,7 +668,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Common Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Common Area (Sqft)
@@ -717,7 +689,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* UDS */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Undivided Share (UDS)
@@ -738,7 +710,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Balcony Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Balcony Area (Sqft)
@@ -759,7 +731,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Utility Area */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Utility Area (Sqft)
@@ -782,14 +754,14 @@ export function ConfigurationDesktop({
                       </div>
                     </div>
 
-                    {/* SUB-SECTION 3: Architecture & Structure */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10">
                       <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-1.5">
                         <Building2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                         <span>Architecture & Structural Specifications</span>
                       </h5>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-                        {/* Wall Structure */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Wall Structure
@@ -810,7 +782,7 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        {/* Floor Plan Type */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Floor Plan Type
@@ -831,7 +803,7 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        {/* Ceiling Height */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Ceiling Height (Feet)
@@ -852,7 +824,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* No. of Balconies */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             No. of Balconies
@@ -870,10 +842,10 @@ export function ConfigurationDesktop({
                       </div>
                     </div>
 
-                    {/* SUB-SECTION 4: Tower Allocation & Designated Amenities */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
-                        {/* Applicable Towers */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Applicable Towers
@@ -900,7 +872,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Designated Areas */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Designated Living Spaces & Extra Rooms
@@ -929,7 +901,7 @@ export function ConfigurationDesktop({
                       </div>
                     </div>
 
-                    {/* SUB-SECTION 5: Room Dimensions Matrix */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10 space-y-2.5">
                       <div className="flex items-center justify-between">
                         <h5 className="text-[12px] font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
@@ -1073,10 +1045,10 @@ export function ConfigurationDesktop({
                       </div>
                     </div>
 
-                    {/* SUB-SECTION 6: Commercials & Floor Plan Uploads */}
+                    
                     <div className="pt-2 border-t border-slate-100 dark:border-white/10">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-                        {/* Base Cost */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Base Cost (INR)
@@ -1097,7 +1069,7 @@ export function ConfigurationDesktop({
                           </div>
                         </div>
 
-                        {/* Floor Plan 2D */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Floor Plan 2D (CAD / PDF)
@@ -1112,7 +1084,7 @@ export function ConfigurationDesktop({
                           />
                         </div>
 
-                        {/* Floor Plan 3D */}
+                        
                         <div className="flex flex-col items-start w-full">
                           <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                             Floor Plan 3D (Render / Isometric)
@@ -1135,7 +1107,7 @@ export function ConfigurationDesktop({
           })}
         </div>
 
-        {/* Large Add Variant Banner Button */}
+        
         <div className="pt-2">
           <button
             type="button"

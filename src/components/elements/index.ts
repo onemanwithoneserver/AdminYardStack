@@ -10,17 +10,8 @@ export { RadioGroup, type RadioGroupProps, type RadioOption } from './RadioGroup
 export { ToggleSwitch, SegmentedToggle, type ToggleSwitchProps, type SegmentedToggleProps, type SegmentedOption, type ToggleSize } from './ToggleButton';
 export { Badge, type BadgeProps, type BadgeVariant, type BadgeSize } from './Badge';
 
-// Modern Elements with high z-index
+
 export { ModernDropdown, type ModernDropdownProps, type DropdownOption as ModernDropdownOption } from './ModernDropdown';
 export { ModernCalendar, type ModernCalendarProps } from './ModernCalendar';
-export {
-  ModernSpinner,
-  Spinner,
-  SpinnerOverlay,
-  type ModernSpinnerProps,
-  type SpinnerOverlayProps,
-  type SpinnerVariant,
-  type SpinnerSize,
-  type SpinnerColor,
-} from './ModernSpinner';
+export { ModernSpinner, Spinner, SpinnerOverlay, type ModernSpinnerProps, type SpinnerOverlayProps, type SpinnerVariant, type SpinnerSize, type SpinnerColor } from './ModernSpinner';
 

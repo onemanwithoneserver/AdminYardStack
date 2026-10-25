@@ -78,7 +78,7 @@ export function ProjectFormView({
       if (topSectionRef.current && scrollParent instanceof HTMLElement) {
         const topRect = topSectionRef.current.getBoundingClientRect();
         const parentRect = scrollParent.getBoundingClientRect();
-        // Considered scrolled when the hero banner bottom has scrolled past the top of scroll container
+        
         setIsScrolled(topRect.bottom <= parentRect.top + 16);
       } else if (scrollParent instanceof HTMLElement) {
         setIsScrolled(scrollParent.scrollTop > 130);
@@ -131,7 +131,7 @@ export function ProjectFormView({
   return (
     <div ref={containerRef} className="space-y-3 w-full">
       
-      {/* Top Section - Back Button & Hero Banner */}
+      
       <div ref={topSectionRef} className="space-y-2.5">
         <div className="flex items-center justify-between">
           <button
@@ -146,7 +146,7 @@ export function ProjectFormView({
           </button>
         </div>
 
-        {/* Hero Banner */}
+        
         <div className="w-full bg-white dark:bg-slate-900 rounded-[4px] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden py-3.5 px-5 sm:px-6">
           <div className="absolute top-0 right-1/4 w-96 h-16 bg-gradient-to-r from-blue-500/15 via-indigo-500/15 to-violet-500/15 blur-xl pointer-events-none" />
           <div
@@ -173,7 +173,7 @@ export function ProjectFormView({
               </div>
             </div>
 
-            {/* Action Buttons in Hero Banner - ONLY active when NOT scrolled */}
+            
             <div
               className={`flex items-center gap-2.5 transition-opacity duration-150 ${
                 isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -211,14 +211,14 @@ export function ProjectFormView({
         </div>
       </div>
 
-      {/* Sentinel element to track when hero banner scrolls away */}
+      
       <div ref={sentinelRef} className="h-1 w-full pointer-events-none -mt-2" />
 
-      {/* Sticky TabControls Bar */}
+      
       <div className="sticky -top-2 z-30 w-full py-2 backdrop-blur-xl bg-[#f4f6fb]/85 dark:bg-[#060911]/85 border-b border-slate-200/80 dark:border-white/10 shadow-xs transition-all">
         <div className="w-full flex items-center justify-between gap-2.5">
           
-          {/* Back Arrow Button - ONLY shown when scrolled to top */}
+          
           <AnimatePresence>
             {isScrolled && (
               <motion.div
@@ -240,7 +240,7 @@ export function ProjectFormView({
             )}
           </AnimatePresence>
 
-          {/* Tab controls */}
+          
           <div className="flex-1 min-w-0">
             <TabControls
               mode={mode}
@@ -252,7 +252,7 @@ export function ProjectFormView({
             />
           </div>
 
-          {/* Action Buttons - ONLY shown when scrolled to top */}
+          
           <AnimatePresence>
             {isScrolled && (
               <motion.div
@@ -295,7 +295,7 @@ export function ProjectFormView({
         </div>
       </div>
 
-      {/* Floating Save Success Toast */}
+      
       <AnimatePresence>
         {saveSuccess && (
           <motion.div
@@ -310,7 +310,16 @@ export function ProjectFormView({
         )}
       </AnimatePresence>
 
-      <Routes>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full"
+        >
+          <Routes location={location}>
         <Route
           index
           element={
@@ -532,7 +541,9 @@ export function ProjectFormView({
         />
 
         <Route path="*" element={<Navigate to="" replace />} />
-      </Routes>
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

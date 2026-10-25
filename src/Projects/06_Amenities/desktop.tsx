@@ -52,7 +52,7 @@ export function AmenitiesDesktop() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white shadow-xs shadow-purple-500/20">
@@ -137,7 +137,7 @@ export function AmenitiesDesktop() {
         })}
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

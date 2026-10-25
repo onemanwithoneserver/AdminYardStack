@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { Zap, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
-import {
-  INITIAL_UTILITIES_INFRA_DATA,
-  WATER_SOURCE_OPTIONS,
-  GENERIC_SELECT_OPTIONS,
-  type UtilitiesInfraFormData,
-} from './data';
+import { INITIAL_UTILITIES_INFRA_DATA, WATER_SOURCE_OPTIONS, GENERIC_SELECT_OPTIONS, type UtilitiesInfraFormData } from './data';
 
 export function UtilitiesInfraDesktop() {
   const [formData, setFormData] = useState<UtilitiesInfraFormData>(
@@ -84,7 +79,7 @@ export function UtilitiesInfraDesktop() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-500 flex items-center justify-center text-white shadow-xs shadow-amber-500/20">
@@ -105,7 +100,7 @@ export function UtilitiesInfraDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Water Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -120,7 +115,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Water Source */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Water Sources
@@ -143,7 +138,7 @@ export function UtilitiesInfraDesktop() {
               </div>
             </div>
 
-            {/* Bore Wells Count */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Bore Wells Count
@@ -156,7 +151,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Municipal Water Connection */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Municipal Water Connection
@@ -166,7 +161,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Underground Sump Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Underground Sump Capacity
@@ -179,7 +174,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Overhead Tank Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Overhead Tank Capacity
@@ -192,7 +187,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Water Treatment Plant */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Water Treatment Plant (WTP)
@@ -202,7 +197,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Water Softening Plant */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Water Softening Plant
@@ -214,7 +209,7 @@ export function UtilitiesInfraDesktop() {
           </div>
         </section>
 
-        {/* Section 2: Waste Water Management */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -229,7 +224,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* STP Available */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 STP Available
@@ -239,7 +234,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* STP Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 STP Capacity
@@ -252,7 +247,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Dual Plumbing */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Dual Plumbing
@@ -262,7 +257,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Recycled Water Usage */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Recycled Water Usage
@@ -274,7 +269,7 @@ export function UtilitiesInfraDesktop() {
           </div>
         </section>
 
-        {/* Section 3: Rainwater Management */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -289,7 +284,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 items-start">
-            {/* Rainwater Harvesting */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Rainwater Harvesting
@@ -299,7 +294,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Recharge Pits */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Recharge Pits
@@ -312,7 +307,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Storm Water Drainage */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Storm Water Drainage
@@ -324,7 +319,7 @@ export function UtilitiesInfraDesktop() {
           </div>
         </section>
 
-        {/* Section 4: Power Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -339,7 +334,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Transformer Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Transformer Capacity
@@ -352,7 +347,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* DG Backup Available */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 DG Backup Available
@@ -362,7 +357,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* DG Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 DG Capacity
@@ -375,7 +370,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Apartment Power Backup */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Apartment Power Backup
@@ -388,7 +383,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Common Area Power Backup */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Common Area Backup
@@ -398,7 +393,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Solar Power */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Solar Power Integration
@@ -408,7 +403,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Solar Capacity */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Solar Generation Capacity
@@ -423,7 +418,7 @@ export function UtilitiesInfraDesktop() {
           </div>
         </section>
 
-        {/* Section 5: Fire & Safety */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -438,7 +433,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Fire Fighting System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Fire Fighting System
@@ -448,7 +443,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Fire Alarm System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Fire Alarm System
@@ -458,7 +453,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Sprinkler System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Sprinkler System
@@ -468,7 +463,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Smoke Detection System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Smoke Detection System
@@ -480,7 +475,7 @@ export function UtilitiesInfraDesktop() {
           </div>
         </section>
 
-        {/* Section 6: Utility Services */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -495,7 +490,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 items-start">
-            {/* LPG Manifold */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 LPG Manifold / PNG
@@ -505,7 +500,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Fiber Internet Ready */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Fiber Internet Ready
@@ -515,7 +510,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Smart Metering */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Smart Metering
@@ -527,7 +522,7 @@ export function UtilitiesInfraDesktop() {
           </div>
         </section>
 
-        {/* Section 7: Security Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -542,7 +537,7 @@ export function UtilitiesInfraDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* CCTV Surveillance */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 CCTV Surveillance
@@ -552,7 +547,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Boom Barrier */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Boom Barrier
@@ -562,7 +557,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* RFID Access */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 RFID Access System
@@ -572,7 +567,7 @@ export function UtilitiesInfraDesktop() {
               )}
             </div>
 
-            {/* Visitor Management System */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Visitor Management System
@@ -585,7 +580,7 @@ export function UtilitiesInfraDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

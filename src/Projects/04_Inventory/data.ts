@@ -34,7 +34,7 @@ export function calculateInventoryKPIs(variants: InventoryVariant[]): InventoryK
     totalBuiltUp += b;
     totalCarpet += c;
 
-    // Count units estimate from flat numbers or fallback
+    
     const flatsCount = v.flatNo ? v.flatNo.split(',').filter(Boolean).length : 4;
     totalUnits += flatsCount > 0 ? flatsCount : 1;
   });

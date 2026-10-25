@@ -1,22 +1,8 @@
 import { useState, useMemo } from 'react';
-import {
-  Search,
-  RotateCcw,
-  Building2,
-  Layers,
-  Sparkles,
-  SlidersHorizontal,
-  Compass,
-  CheckCircle2,
-} from 'lucide-react';
+import { Search, RotateCcw, Building2, Layers, Sparkles, SlidersHorizontal, Compass, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../../components/elements/ModernDropdown';
 import { type InventoryVariant, VARIANT_AVAILABILITY } from '../Configuration/data';
-import {
-  INITIAL_PREVIEW_FILTERS,
-  type PreviewFilters,
-  type TowerTotalSummary,
-  computeTowerTotals,
-} from './data';
+import { INITIAL_PREVIEW_FILTERS, type PreviewFilters, type TowerTotalSummary, computeTowerTotals } from './data';
 
 export interface PreviewAndToolsDesktopProps {
   variants?: InventoryVariant[];
@@ -76,7 +62,7 @@ export function PreviewAndToolsDesktop({
     return computeTowerTotals(variants);
   }, [variants]);
 
-  // Executive KPI sums
+  
   const totalSaleableSum = useMemo(() => {
     return variants.reduce((acc, v) => acc + (parseFloat(v.saleableArea) || 0), 0);
   }, [variants]);
@@ -91,7 +77,7 @@ export function PreviewAndToolsDesktop({
 
   return (
     <div className="space-y-6 text-slate-800 dark:text-slate-100">
-      {/* Top Executive KPI Cards */}
+      
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
         <div className="p-3.5 rounded-[4px] bg-white/95 dark:bg-slate-900/80 border border-slate-200/90 dark:border-white/10 shadow-2xs">
           <div className="flex items-center justify-between mb-1.5">
@@ -156,7 +142,7 @@ export function PreviewAndToolsDesktop({
         </div>
       </div>
 
-      {/* SECTION 01: Real-Time Inventory Matrix */}
+      
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200/80 dark:border-white/10">
           <div className="flex items-center gap-2.5">
@@ -173,9 +159,9 @@ export function PreviewAndToolsDesktop({
           </div>
         </div>
 
-        {/* Filter Bar */}
+        
         <div className="flex flex-wrap items-center gap-3 p-3 rounded-[4px] bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-white/10">
-          {/* Search Input */}
+          
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400 pointer-events-none" />
             <input
@@ -189,7 +175,7 @@ export function PreviewAndToolsDesktop({
             />
           </div>
 
-          {/* Tower Filter */}
+          
           <div className="w-36">
             <ModernDropdown<string>
               value={filters.tower}
@@ -209,7 +195,7 @@ export function PreviewAndToolsDesktop({
             />
           </div>
 
-          {/* Facing Filter */}
+          
           <div className="w-32">
             <ModernDropdown<string>
               value={filters.facing}
@@ -228,7 +214,7 @@ export function PreviewAndToolsDesktop({
             />
           </div>
 
-          {/* Availability Filter */}
+          
           <div className="w-36">
             <ModernDropdown<string>
               value={filters.availability}
@@ -260,7 +246,7 @@ export function PreviewAndToolsDesktop({
             />
           </div>
 
-          {/* Reset button */}
+          
           {(filters.tower !== 'All' ||
             filters.facing !== 'All' ||
             filters.availability !== 'All' ||
@@ -276,7 +262,7 @@ export function PreviewAndToolsDesktop({
           )}
         </div>
 
-        {/* Data Table */}
+        
         <div className="border border-slate-200 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[1050px]">
@@ -427,7 +413,7 @@ export function PreviewAndToolsDesktop({
         </div>
       </section>
 
-      {/* SECTION 02: Tower-Wise Aggregation & Summaries */}
+      
       <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
           <div className="flex items-center gap-2.5">
@@ -485,7 +471,7 @@ export function PreviewAndToolsDesktop({
                 </div>
               </div>
 
-              {/* Mini Availability Status Bar */}
+              
               <div className="pt-2 border-t border-slate-200/60 dark:border-white/5 space-y-1.5">
                 <div className="flex items-center justify-between text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                   <span>Status Breakdown</span>

@@ -1,14 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  useId,
-  forwardRef,
-  type ReactNode,
-  type KeyboardEvent,
-} from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback, useId, forwardRef, type ReactNode, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Check, X, Plus } from 'lucide-react';
 
@@ -81,7 +71,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const [coords, setCoords] = useState<DropdownCoords | null>(null);
 
-    // Inline add state
+    
     const [isAddingInline, setIsAddingInline] = useState(false);
     const [inlineText, setInlineText] = useState('');
     const inlineInputRef = useRef<HTMLInputElement>(null);
@@ -92,7 +82,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     const inputRef = useRef<HTMLInputElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // Normalize options
+    
     const normalizedOptions: ComboboxOption[] = options.map((opt) => {
       if (typeof opt === 'object' && opt !== null && 'value' in opt) {
         return opt as ComboboxOption;
@@ -114,7 +104,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
         ? selectedOption.label
         : value || '';
 
-    // Filter options based on query
+    
     const trimmedQuery = (searchQuery !== null ? searchQuery : '').trim().toLowerCase();
     const filteredOptions = normalizedOptions.filter((opt) => {
       if (!trimmedQuery) return true;
@@ -124,7 +114,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       );
     });
 
-    // Check if query is an exact match to any existing option
+    
     const hasExactMatch =
       trimmedQuery.length > 0 &&
       normalizedOptions.some(
@@ -135,7 +125,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     const canAddNew = allowCustom && trimmedQuery.length > 0 && !hasExactMatch;
 
-    // Calculate fixed coordinates for portal
+    
     const updatePosition = useCallback(() => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -279,7 +269,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       }
     };
 
-    // Size styling
+    
     const sizeClasses = {
       xs: 'h-7 text-xs px-2',
       sm: 'h-8 text-xs px-2.5',
@@ -396,7 +386,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               }}
               className={`bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 ${roundedClass} shadow-xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-100 ${menuClassName}`}
             >
-              {/* Option List Container */}
+              
               <div className="overflow-y-auto max-h-52 py-1 no-scrollbar flex-1">
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((opt, idx) => {
@@ -443,11 +433,11 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                 ) : null}
               </div>
 
-              {/* Pinned Bottom: "+ Add New" / Custom Item Section */}
+              
               {allowCustom && (
                 <div className="border-t border-slate-100 dark:border-white/10 p-1.5 bg-slate-50/90 dark:bg-slate-950/80 backdrop-blur-xs shrink-0">
                   {canAddNew ? (
-                    // Query has been typed and doesn't exactly match an option
+                    
                     <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
@@ -467,7 +457,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                       </span>
                     </button>
                   ) : isAddingInline ? (
-                    // Inline input to type and add directly
+                    
                     <div className="flex items-center gap-1.5 w-full">
                       <input
                         ref={inlineInputRef}

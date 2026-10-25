@@ -1,15 +1,9 @@
 import { useState, type FormEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SlidersHorizontal, X, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { Combobox } from '../../components/elements/Combobox';
-import {
-  INITIAL_SPECIFICATIONS_DATA,
-  INITIAL_CONSTRUCTION_TYPES,
-  ALLOWED_TYPES,
-  type SpecificationsFormData,
-  type ConstructionTypeOption,
-  type SpecItem,
-} from './data';
+import { INITIAL_SPECIFICATIONS_DATA, INITIAL_CONSTRUCTION_TYPES, ALLOWED_TYPES, type SpecificationsFormData, type ConstructionTypeOption, type SpecItem } from './data';
 
 interface AddConstructionTypeDialogProps {
   isOpen: boolean;
@@ -25,8 +19,6 @@ export function AddConstructionTypeDialog({
   const [option, setOption] = useState('');
   const [status, setStatus] = useState<'ACTIVE' | 'INACTIVE'>('ACTIVE');
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!option.trim()) return;
@@ -37,12 +29,26 @@ export function AddConstructionTypeDialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
-      <div
-        className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
-        role="dialog"
-        aria-modal="true"
-      >
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 360 }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
+            role="dialog"
+            aria-modal="true"
+          >
         <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
           <div>
             <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
@@ -107,8 +113,10 @@ export function AddConstructionTypeDialog({
             </button>
           </div>
         </form>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -265,14 +273,22 @@ export function SpecificationsDesktop() {
 
   return (
     <div className="p-2 space-y-5 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
-      {savedNotification && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-4 py-2.5 rounded-[4px] shadow-lg text-xs font-semibold animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-          <span>Specifications saved successfully!</span>
-        </div>
-      )}
+      <AnimatePresence>
+        {savedNotification && (
+          <motion.div
+            initial={{ opacity: 0, y: -16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -16, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+            className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-4 py-2.5 rounded-[4px] shadow-lg text-xs font-semibold"
+          >
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span>Specifications saved successfully!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-xs shadow-pink-500/20">
@@ -293,7 +309,7 @@ export function SpecificationsDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Structural Specifications & Engineering */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -309,7 +325,7 @@ export function SpecificationsDesktop() {
           {renderSpecGrid(formData.structureItems, 'structureItems')}
         </section>
 
-        {/* Section 2: Flooring & Surface Finishes */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -325,7 +341,7 @@ export function SpecificationsDesktop() {
           {renderSpecGrid(formData.flooringItems, 'flooringItems')}
         </section>
 
-        {/* Section 3: Utilities, Fittings & Services */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -340,7 +356,7 @@ export function SpecificationsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Utility */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Utility Area Specs
@@ -354,7 +370,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* Electrical */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Electrical Specifications
@@ -368,7 +384,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* Plumbing */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Plumbing & Sanitary
@@ -382,7 +398,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* Fire and Safety */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Fire & Life Safety
@@ -396,7 +412,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* Safety and Security */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Safety & Security Systems
@@ -410,7 +426,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* DG Backup */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2 max-w-[380px]">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 DG Power Backup
@@ -424,7 +440,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* Construction Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Construction Type
@@ -444,7 +460,7 @@ export function SpecificationsDesktop() {
               />
             </div>
 
-            {/* Door Height */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Door Height Specs
@@ -461,7 +477,7 @@ export function SpecificationsDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

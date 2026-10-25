@@ -96,7 +96,7 @@ export function ModernDropdown<T extends string | number = string | number>({
   const displayPlaceholder = placeholder || 'Select option...';
   const displayLabel = isPlaceholder ? displayPlaceholder : selectedOption.label;
 
-  // Filter out dummy/empty placeholder entries from appearing in the dropdown menu
+  
   const displayOptions = normalizedOptions.filter((opt) => {
     const valStr = String(opt.value ?? '').trim().toLowerCase();
     const labelStr = (typeof opt.label === 'string' ? opt.label : '').trim().toLowerCase();
@@ -108,14 +108,14 @@ export function ModernDropdown<T extends string | number = string | number>({
     return true;
   });
 
-  // Dynamic positioning calculation based on viewport space and scroll
+  
   const updatePosition = useCallback(() => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
 
-    // If trigger element is completely scrolled out of the viewport, close dropdown
+    
     if (rect.bottom < -20 || rect.top > viewportHeight + 20) {
       setIsOpen(false);
       return;
@@ -145,7 +145,7 @@ export function ModernDropdown<T extends string | number = string | number>({
       left = Math.max(10, Math.min(left, viewportWidth - width - 10));
     }
 
-    // Top position for fixed coordinate
+    
     const top = shouldDropUp ? Math.max(10, rect.top - 6) : rect.bottom + 6;
 
     setCoords({
@@ -281,7 +281,7 @@ export function ModernDropdown<T extends string | number = string | number>({
         />
       </button>
 
-      {/* Portal Dropdown Menu directly to document.body with fixed positioning & z-index: 999999 */}
+      
       {isOpen && coords && typeof document !== 'undefined' && createPortal(
         <div
           ref={menuRef}

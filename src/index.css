@@ -967,6 +967,200 @@
 }
 
 
+
+
+button:not(:disabled):active,
+[role="button"]:not(:disabled):active {
+  transform: scale(0.985);
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+
+button,
+[role="button"] {
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.16s ease,
+              border-color 0.16s ease,
+              box-shadow 0.16s ease,
+              color 0.16s ease;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+textarea,
+select {
+  transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.18s ease !important;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover,
+input[type="date"]:hover,
+input[type="search"]:hover,
+textarea:hover,
+select:hover {
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+.dark input[type="text"]:hover,
+.dark input[type="email"]:hover,
+.dark input[type="password"]:hover,
+.dark input[type="number"]:hover,
+.dark input[type="date"]:hover,
+.dark input[type="search"]:hover,
+.dark textarea:hover,
+.dark select:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14), 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.dark input[type="text"]:focus,
+.dark input[type="email"]:focus,
+.dark input[type="password"]:focus,
+.dark input[type="number"]:focus,
+.dark input[type="date"]:focus,
+.dark input[type="search"]:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 1px 2px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+
+input[type="checkbox"],
+input[type="radio"] {
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.14s ease,
+              border-color 0.14s ease,
+              box-shadow 0.14s ease !important;
+}
+
+input[type="checkbox"]:active,
+input[type="radio"]:active {
+  transform: scale(0.88) !important;
+}
+
+
+section {
+  transition: border-color 0.22s ease,
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+section:hover {
+  box-shadow: 0 4px 20px -8px rgba(15, 23, 42, 0.06), 0 1px 3px 0 rgba(15, 23, 42, 0.03);
+}
+
+.dark section:hover {
+  box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+dialog,
+[role="dialog"] {
+  animation: ys-modal-pop 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ys-modal-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+[role="listbox"],
+[role="menu"] {
+  animation: ys-popover-enter 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ys-popover-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.97) translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+.toast-notification,
+.save-toast {
+  animation: ys-toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ys-toast-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+button[class*="text-rose-600"],
+button[class*="text-red-600"] {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.15s ease,
+              box-shadow 0.15s ease !important;
+}
+
+button[class*="text-rose-600"]:hover,
+button[class*="text-red-600"]:hover {
+  transform: scale(1.06);
+}
+
+button[class*="text-rose-600"]:active,
+button[class*="text-red-600"]:active {
+  transform: scale(0.92) !important;
+}
+
+
+.step-content-enter {
+  animation: ys-step-enter 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ys-step-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

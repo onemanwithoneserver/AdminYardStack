@@ -150,7 +150,7 @@ export function LocationForAllMobile() {
   return (
     <div className="w-full p-3.5  space-y-4 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
       
-      {/* Header */}
+      
       <div className="pb-3 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-6 h-6 rounded-[4px] bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center text-white shadow-xs shadow-emerald-500/20">
@@ -172,7 +172,7 @@ export function LocationForAllMobile() {
 
       <div className="space-y-3.5 pb-4">
         
-        {/* Section 1: Seller & Subscription Entitlement */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2">
@@ -233,7 +233,7 @@ export function LocationForAllMobile() {
           </div>
         </section>
 
-        {/* Section 2: Location Hierarchy */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2">
@@ -253,7 +253,7 @@ export function LocationForAllMobile() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
-            {/* State */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 State
@@ -269,7 +269,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* City */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 City
@@ -285,7 +285,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Micro Market */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Micro Market
@@ -301,7 +301,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Corporations */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Corporations
@@ -317,7 +317,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Zones */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Zones
@@ -333,7 +333,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Circles */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Circles
@@ -351,7 +351,7 @@ export function LocationForAllMobile() {
           </div>
         </section>
 
-        {/* Section 3: Project Identity & Developer */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-2xs hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2">
@@ -371,7 +371,7 @@ export function LocationForAllMobile() {
           </div>
 
           <div className="space-y-3">
-            {/* Development Type */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Development Type
@@ -387,7 +387,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Project Name */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Project Name
@@ -401,14 +401,14 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Project Logo */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Project Logo
               </label>
 
               {logoFileName || formData.projectLogo ? (
-                /* Uploaded State: Choose control disappears, file name with extension and X icon shown */
+                
                 <div className="flex items-center justify-between gap-2 h-9 w-full px-2.5 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] shadow-2xs">
                   <div className="flex items-center gap-2 min-w-0 flex-1">
                     {logoPreviewUrl ? (
@@ -438,7 +438,7 @@ export function LocationForAllMobile() {
                   </button>
                 </div>
               ) : (
-                /* Empty State: Choose control is visible */
+                
                 <div className="flex items-center gap-2 h-9 w-full">
                   <input
                     ref={fileInputRef}
@@ -466,7 +466,7 @@ export function LocationForAllMobile() {
               </span>
             </div>
 
-            {/* Search Builder Name */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Search Builder Name
@@ -492,7 +492,7 @@ export function LocationForAllMobile() {
               </div>
             </div>
 
-            {/* Options Lock */}
+            
             <div className="pt-1 flex items-center gap-2">
               <button
                 type="button"
@@ -522,7 +522,7 @@ export function LocationForAllMobile() {
           </div>
         </section>
 
-        {/* Section 4: GIS Boundaries & Map Coordinates */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2">
@@ -560,7 +560,7 @@ export function LocationForAllMobile() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
-            {/* Country */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Country
@@ -574,7 +574,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* District */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 District
@@ -588,7 +588,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Location */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Location
@@ -602,7 +602,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Pincode */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Pincode
@@ -616,7 +616,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* ORR Zoning */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 ORR Zoning
@@ -646,7 +646,7 @@ export function LocationForAllMobile() {
               </div>
             </div>
 
-            {/* Google Location */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Google Location
@@ -660,7 +660,7 @@ export function LocationForAllMobile() {
               />
             </div>
 
-            {/* Paired Latitude & Longitude */}
+            
             <div className="sm:col-span-2 grid grid-cols-2 gap-2.5 w-full">
               <div className="flex flex-col items-start w-full">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
@@ -691,7 +691,7 @@ export function LocationForAllMobile() {
           </div>
         </section>
 
-        {/* Section 5: Connectivity & Transit Infrastructure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2">
@@ -710,7 +710,7 @@ export function LocationForAllMobile() {
             </div>
           </div>
 
-          {/* Sub-panel: Nearest ORR Exits */}
+          
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -793,7 +793,7 @@ export function LocationForAllMobile() {
             )}
           </div>
 
-          {/* Sub-panel: Nearest Highways */}
+          
           <div className="space-y-2.5 pt-3 border-t border-slate-200/80 dark:border-white/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -877,7 +877,7 @@ export function LocationForAllMobile() {
           </div>
         </section>
 
-        {/* Section 6: Regulatory Details & USP */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 sm:p-4 space-y-3.5 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-start gap-2">
@@ -898,7 +898,7 @@ export function LocationForAllMobile() {
 
           <div className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
-              {/* Sub Registrar Office */}
+              
               <div className="flex flex-col items-start w-full">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                   Sub Registrar Office
@@ -914,7 +914,7 @@ export function LocationForAllMobile() {
                 />
               </div>
 
-              {/* Project Entrance Facing */}
+              
               <div className="flex flex-col items-start w-full">
                 <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                   Project Entrance Facing
@@ -931,7 +931,7 @@ export function LocationForAllMobile() {
               </div>
             </div>
 
-            {/* Project USP */}
+            
             <ProjectUspFields
               value={formData.projectUsp}
               onChange={(value) => handleInputChange('projectUsp', value)}
@@ -942,7 +942,7 @@ export function LocationForAllMobile() {
 
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

@@ -75,7 +75,7 @@ export function MediaFilesDesktop() {
         </div>
       )}
 
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white shadow-xs shadow-teal-500/20">
@@ -96,7 +96,7 @@ export function MediaFilesDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Engagement Options */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -111,7 +111,7 @@ export function MediaFilesDesktop() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-            {/* Questions Module */}
+            
             <div className="border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 flex items-center justify-between bg-slate-50/50 dark:bg-slate-950/40">
               <div className="space-y-0.5">
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-100 block">
@@ -138,7 +138,7 @@ export function MediaFilesDesktop() {
               </button>
             </div>
 
-            {/* Gamification */}
+            
             <div className="border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 flex items-center justify-between bg-slate-50/50 dark:bg-slate-950/40">
               <div className="space-y-0.5">
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-100 block">
@@ -168,7 +168,7 @@ export function MediaFilesDesktop() {
               </button>
             </div>
 
-            {/* Compatibility */}
+            
             <div className="border border-slate-200/80 dark:border-white/10 rounded-[4px] p-3.5 flex items-center justify-between bg-slate-50/50 dark:bg-slate-950/40">
               <div className="space-y-0.5">
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-100 block">
@@ -200,7 +200,7 @@ export function MediaFilesDesktop() {
           </div>
         </section>
 
-        {/* Section 2: Visual Assets & Project Brochure */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -215,7 +215,7 @@ export function MediaFilesDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Elevations Images */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Elevations Gallery
@@ -264,7 +264,7 @@ export function MediaFilesDesktop() {
               )}
             </div>
 
-            {/* Amenities Images */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Amenities Gallery
@@ -313,7 +313,7 @@ export function MediaFilesDesktop() {
               )}
             </div>
 
-            {/* Work Progress Images */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Construction Progress
@@ -362,7 +362,7 @@ export function MediaFilesDesktop() {
               )}
             </div>
 
-            {/* Brochure Upload */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Project Brochure (PDF)
@@ -412,7 +412,7 @@ export function MediaFilesDesktop() {
           </div>
         </section>
 
-        {/* Section 3: Virtual Tours & Videos */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -427,7 +427,7 @@ export function MediaFilesDesktop() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 items-start">
-            {/* Drone Video */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Aerial Drone Walkthrough URL
@@ -441,7 +441,7 @@ export function MediaFilesDesktop() {
               />
             </div>
 
-            {/* 3D Video */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 3D Interactive Tour URL
@@ -455,7 +455,7 @@ export function MediaFilesDesktop() {
               />
             </div>
 
-            {/* Site Progress */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Site Progress Cloud Link
@@ -472,7 +472,7 @@ export function MediaFilesDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">

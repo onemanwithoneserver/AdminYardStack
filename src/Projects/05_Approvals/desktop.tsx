@@ -1,15 +1,9 @@
 import { useState, useRef, type FormEvent, type ChangeEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Plus, X, UploadCloud, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { ModernCalendar } from '../../components/elements/ModernCalendar';
-import {
-  INITIAL_APPROVALS_DATA,
-  INITIAL_AUTHORITY_OPTIONS,
-  HANDOVER_STATUS_OPTIONS,
-  OC_RECEIVED_OPTIONS,
-  type ApprovalsFormData,
-  type ApprovalAuthorityOption,
-} from './data';
+import { INITIAL_APPROVALS_DATA, INITIAL_AUTHORITY_OPTIONS, HANDOVER_STATUS_OPTIONS, OC_RECEIVED_OPTIONS, type ApprovalsFormData, type ApprovalAuthorityOption } from './data';
 
 interface AddApprovalDialogProps {
   isOpen: boolean;
@@ -25,8 +19,6 @@ export function AddApprovalDialog({
   const [option, setOption] = useState('');
   const [status, setStatus] = useState<'ACTIVE' | 'INACTIVE'>('ACTIVE');
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!option.trim()) return;
@@ -37,78 +29,94 @@ export function AddApprovalDialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-150">
-      <div
-        className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
-          <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
-              Add Approving Authority
-            </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Specify municipal, urban development, or planning authority.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 360 }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
+            role="dialog"
+            aria-modal="true"
           >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+            <div className="px-5 pt-4 pb-3 flex items-start justify-between border-b border-slate-100 dark:border-white/10">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-display">
+                  Add Approving Authority
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Specify municipal, urban development, or planning authority.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1 -mr-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[2px] transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
-        <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Authority Name <span className="text-rose-500 font-bold">*</span>
-            </label>
-            <input
-              type="text"
-              value={option}
-              onChange={(e) => setOption(e.target.value)}
-              placeholder="e.g. DTCP / HMDA / GHMC"
-              required
-              className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
-            />
-          </div>
+            <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Authority Name <span className="text-rose-500 font-bold">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={option}
+                  onChange={(e) => setOption(e.target.value)}
+                  placeholder="e.g. DTCP / HMDA / GHMC"
+                  required
+                  className="w-full h-9 px-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-medium text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs"
+                />
+              </div>
 
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Status
-            </label>
-            <ModernDropdown<'ACTIVE' | 'INACTIVE'>
-              value={status}
-              onChange={(val) => setStatus(val)}
-              options={['ACTIVE', 'INACTIVE']}
-              placeholder="Select Status"
-              roundedClass="rounded-[4px]"
-              className="w-full"
-              buttonClassName="w-full h-9 px-3 text-xs font-medium"
-            />
-          </div>
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Status
+                </label>
+                <ModernDropdown<'ACTIVE' | 'INACTIVE'>
+                  value={status}
+                  onChange={(val) => setStatus(val)}
+                  options={['ACTIVE', 'INACTIVE']}
+                  placeholder="Select Status"
+                  roundedClass="rounded-[4px]"
+                  className="w-full"
+                  buttonClassName="w-full h-9 px-3 text-xs font-medium"
+                />
+              </div>
 
-          <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer"
-            >
-              Save Authority
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+              <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100 dark:border-white/10">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-3 py-1.5 rounded-[4px] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-medium shadow-2xs cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-3.5 py-1.5 rounded-[4px] bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs cursor-pointer"
+                >
+                  Save Authority
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -163,14 +171,22 @@ export function ApprovalsDesktop() {
 
   return (
     <div className="p-2 space-y-5 text-slate-800 dark:text-slate-100 text-xs no-scrollbar">
-      {savedNotification && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-4 py-2.5 rounded-[4px] shadow-lg text-xs font-semibold animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-          <span>Approvals saved successfully!</span>
-        </div>
-      )}
+      <AnimatePresence>
+        {savedNotification && (
+          <motion.div
+            initial={{ opacity: 0, y: -16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -16, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+            className="fixed top-5 right-5 z-50 flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-4 py-2.5 rounded-[4px] shadow-lg text-xs font-semibold"
+          >
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span>Approvals saved successfully!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Header Banner */}
+      
       <div className="pb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-[4px] bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white shadow-xs shadow-rose-500/20">
@@ -191,7 +207,7 @@ export function ApprovalsDesktop() {
       </div>
 
       <div className="space-y-4 pb-4">
-        {/* Section 1: Statutory Sanctions & Approval Authority */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -206,7 +222,7 @@ export function ApprovalsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* Approving Authority */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Approving Authority
@@ -232,7 +248,7 @@ export function ApprovalsDesktop() {
               </div>
             </div>
 
-            {/* Approval Copy */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Approval Copy (PDF/JPG)
@@ -280,7 +296,7 @@ export function ApprovalsDesktop() {
               )}
             </div>
 
-            {/* Completion Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Completion Date
@@ -292,7 +308,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* HandOver */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 HandOver Status
@@ -308,7 +324,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* HandOver Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 HandOver Date
@@ -320,7 +336,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* Remarks */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2 max-w-xl">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Approval Remarks
@@ -336,7 +352,7 @@ export function ApprovalsDesktop() {
           </div>
         </section>
 
-        {/* Section 2: RERA Registration & Compliance */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -351,7 +367,7 @@ export function ApprovalsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* RERA Registered */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 RERA Registered
@@ -380,7 +396,7 @@ export function ApprovalsDesktop() {
               </div>
             </div>
 
-            {/* RERA Registration Number */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 RERA Registration Number
@@ -394,7 +410,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* RERA Valid Upto */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 RERA Valid Upto
@@ -406,7 +422,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* RERA File */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 RERA Certificate (PDF)
@@ -454,7 +470,7 @@ export function ApprovalsDesktop() {
               )}
             </div>
 
-            {/* RERA Approval Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 RERA Approval Date
@@ -466,7 +482,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* Approval Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 Authority Approval Date
@@ -480,7 +496,7 @@ export function ApprovalsDesktop() {
           </div>
         </section>
 
-        {/* Section 3: Occupancy Certificate (OC) Details */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -495,7 +511,7 @@ export function ApprovalsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* OC Received */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 OC Status
@@ -511,7 +527,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* OC Approval Dates */}
+            
             <div className="flex flex-col items-start w-full sm:col-span-2">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 OC Approval Dates
@@ -555,7 +571,7 @@ export function ApprovalsDesktop() {
           </div>
         </section>
 
-        {/* Section 4: Completion Certificate (CC) Details */}
+        
         <section className="bg-white/90 dark:bg-slate-900/60 backdrop-blur-xs border border-slate-200/80 dark:border-white/10 rounded-[4px] p-4 sm:p-5 space-y-4 shadow-[0_1px_3px_rgba(15,23,42,0.03)] hover:border-slate-300 dark:hover:border-white/20 transition-all">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/10">
             <div className="flex items-center gap-2.5">
@@ -570,7 +586,7 @@ export function ApprovalsDesktop() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-start">
-            {/* CC Number */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 CC Number
@@ -584,7 +600,7 @@ export function ApprovalsDesktop() {
               />
             </div>
 
-            {/* CC Date */}
+            
             <div className="flex flex-col items-start w-full">
               <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5 h-4 flex items-center">
                 CC Date
@@ -599,7 +615,7 @@ export function ApprovalsDesktop() {
         </section>
       </div>
 
-      {/* Status Card - Placed at bottom left side */}
+      
       <div className="pt-2 pb-6 flex items-center justify-start">
         <div className="rounded-[4px] p-2.5 sm:p-3 border backdrop-blur-xl w-fit bg-white/95 dark:bg-slate-900/95 border-slate-200/90 dark:border-white/10 shadow-xs">
           <div className="flex flex-col items-start gap-1.5">
