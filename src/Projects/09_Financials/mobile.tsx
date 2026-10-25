@@ -310,9 +310,9 @@ export function FinancialsMobile() {
                               onClick={() => handleRemoveStage(plan.id, stage.id)}
                               title="Remove stage"
                               aria-label="Remove stage"
-                              className="h-8 w-8 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 hover:border-rose-200 dark:hover:border-rose-900/50 hover:bg-rose-50/70 dark:hover:bg-rose-950/30 rounded-[4px] cursor-pointer shadow-2xs transition-all shrink-0 mt-4"
+                              className="h-8 w-8 inline-flex items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 rounded-[4px] cursor-pointer shadow-2xs transition-all shrink-0 mt-4 active:scale-95"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                             </button>
                           </div>
                         </div>
@@ -395,9 +395,9 @@ export function FinancialsMobile() {
                       onClick={() => handleDeletePricingField(field.id)}
                       title="Remove pricing field"
                       aria-label="Remove pricing field"
-                      className="h-8 w-8 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 hover:border-rose-200 dark:hover:border-rose-900/50 hover:bg-rose-50/70 dark:hover:bg-rose-950/30 rounded-[4px] cursor-pointer shadow-2xs transition-all shrink-0"
+                      className="h-8 w-8 inline-flex items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 rounded-[4px] cursor-pointer shadow-2xs transition-all shrink-0 active:scale-95"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                     </button>
                   </div>
 

@@ -396,7 +396,7 @@ export function ConfigurationMobile({
                         className="w-7 h-7 rounded-[4px] flex items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 border border-rose-200/90 dark:border-rose-900/70 transition-all shadow-2xs active:scale-95"
                         title="Delete"
                       >
-                        <Trash2 className="w-3.5 h-3.5 stroke-[1.8]" />
+                        <Trash2 className="w-3.5 h-3.5 stroke-[1.8] text-rose-600 dark:text-rose-400" />
                       </button>
                     )}
                     <button
@@ -685,7 +685,7 @@ export function ConfigurationMobile({
                                 className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 border border-rose-200/90 dark:border-rose-900/70 transition-all shadow-2xs active:scale-95"
                                 title="Remove room"
                               >
-                                <Trash2 className="w-3.5 h-3.5" />
+                                <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                               </button>
                             </div>
                             <div className="grid grid-cols-3 gap-2">

@@ -430,11 +430,11 @@ export function LocationForAllMobile() {
                   <button
                     type="button"
                     onClick={handleRemoveLogo}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0 cursor-pointer"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
                     title="Remove image"
                     aria-label="Remove image"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (
@@ -764,10 +764,11 @@ export function LocationForAllMobile() {
                       <button
                         type="button"
                         onClick={() => handleRemoveOrrExit(exit.id)}
-                        className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[2px] transition-colors shrink-0 cursor-pointer"
+                        className="p-1.5 rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-all shrink-0 cursor-pointer shadow-2xs active:scale-95"
                         title="Remove exit"
+                        aria-label="Remove exit"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                       </button>
                     </div>
                     <div className="grid grid-cols-2 gap-2 pl-7">
@@ -846,10 +847,11 @@ export function LocationForAllMobile() {
                       <button
                         type="button"
                         onClick={() => handleRemoveHighway(hw.id)}
-                        className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[2px] transition-colors shrink-0 cursor-pointer"
+                        className="p-1.5 rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-all shrink-0 cursor-pointer shadow-2xs active:scale-95"
                         title="Remove highway"
+                        aria-label="Remove highway"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                       </button>
                     </div>
                     <div className="grid grid-cols-2 gap-2 pl-7">

@@ -480,7 +480,7 @@ export function ConfigurationDesktop({
                         title="Delete Variant"
                         aria-label="Delete Variant"
                       >
-                        <Trash2 className="w-3.5 h-3.5 stroke-[1.8]" />
+                        <Trash2 className="w-3.5 h-3.5 stroke-[1.8] text-rose-600 dark:text-rose-400" />
                       </button>
                     )}
 
@@ -1060,8 +1060,9 @@ export function ConfigurationDesktop({
                                       onClick={() => handleDeleteRoom(v.id, room.id)}
                                       className="p-1.5 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95"
                                       title="Remove room"
+                                      aria-label="Remove room"
                                     >
-                                      <Trash2 className="w-3.5 h-3.5" />
+                                      <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                                     </button>
                                   </td>
                                 </tr>
@@ -1183,10 +1184,11 @@ function FloorPlanUploadBox({ value, onChange, inputId, placeholder }: FloorPlan
         <button
           type="button"
           onClick={handleRemove}
-          className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0 cursor-pointer"
+          className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
           title="Remove blueprint"
+          aria-label="Remove blueprint"
         >
-          <X className="w-3.5 h-3.5" />
+          <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
         </button>
       </div>
     );

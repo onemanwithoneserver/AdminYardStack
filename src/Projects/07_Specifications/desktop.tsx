@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { SlidersHorizontal, Plus, X, CheckCircle2 } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
+import { Combobox } from '../../components/elements/Combobox';
 import {
   INITIAL_SPECIFICATIONS_DATA,
   INITIAL_CONSTRUCTION_TYPES,
@@ -118,8 +119,31 @@ export function SpecificationsDesktop() {
   const [constructionTypes, setConstructionTypes] = useState<
     ConstructionTypeOption[]
   >(INITIAL_CONSTRUCTION_TYPES);
+  const [allowedTypes, setAllowedTypes] = useState<string[]>([...ALLOWED_TYPES]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [savedNotification, setSavedNotification] = useState(false);
+
+  const handleAddAllowedType = (newType: string) => {
+    const trimmed = newType.trim();
+    if (trimmed && !allowedTypes.some((t) => t.toLowerCase() === trimmed.toLowerCase())) {
+      setAllowedTypes((prev) => [...prev, trimmed]);
+    }
+  };
+
+  const handleAddConstructionTypeFromCombobox = (newType: string) => {
+    const trimmed = newType.trim();
+    if (trimmed && !constructionTypes.some((c) => c.option.toLowerCase() === trimmed.toLowerCase())) {
+      setConstructionTypes((prev) => {
+        const newItem: ConstructionTypeOption = {
+          id: `ct-${prev.length + 1}-${trimmed.replace(/\s+/g, '-').toLowerCase()}`,
+          option: trimmed,
+          status: 'ACTIVE',
+        };
+        return [...prev, newItem];
+      });
+      handleFieldChange('selectedConstructionType', trimmed);
+    }
+  };
 
   const handleSpecItemChange = (
     group: 'structureItems' | 'flooringItems',
@@ -145,12 +169,14 @@ export function SpecificationsDesktop() {
   const handleSaveConstructionType = (
     newItem: Omit<ConstructionTypeOption, 'id'>
   ) => {
-    const item: ConstructionTypeOption = {
-      id: `${Date.now()}`,
-      ...newItem,
-    };
-    setConstructionTypes((prev) => [...prev, item]);
-    handleFieldChange('selectedConstructionType', item.option);
+    setConstructionTypes((prev) => {
+      const item: ConstructionTypeOption = {
+        id: `ct-${prev.length + 1}-${newItem.option.replace(/\s+/g, '-').toLowerCase()}`,
+        ...newItem,
+      };
+      return [...prev, item];
+    });
+    handleFieldChange('selectedConstructionType', newItem.option);
   };
 
   const handleSave = () => {
@@ -202,16 +228,18 @@ export function SpecificationsDesktop() {
               <label className="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 mb-1">
                 Allowed Type
               </label>
-              <ModernDropdown<string>
+              <Combobox
                 value={item.allowedType}
                 onChange={(val) =>
                   handleSpecItemChange(group, item.id, 'allowedType', val)
                 }
-                options={[...ALLOWED_TYPES]}
-                placeholder="Select type"
+                onAddItem={handleAddAllowedType}
+                options={allowedTypes}
+                placeholder="Select or type..."
+                size="sm"
                 roundedClass="rounded-[4px]"
                 className="w-full"
-                buttonClassName="w-full h-8 px-2.5 text-xs font-medium gap-1.5"
+                inputClassName="w-full h-8 px-2.5 text-xs font-medium"
               />
             </div>
 
@@ -417,16 +445,18 @@ export function SpecificationsDesktop() {
                 Construction Type
               </label>
               <div className="flex items-center gap-2.5 w-full">
-                <ModernDropdown<string>
+                <Combobox
                   value={formData.selectedConstructionType}
                   onChange={(val) => handleFieldChange('selectedConstructionType', val)}
+                  onAddItem={handleAddConstructionTypeFromCombobox}
                   options={constructionTypes
                     .filter((c) => c.status === 'ACTIVE')
                     .map((c) => c.option)}
-                  placeholder="Select Construction Type"
+                  placeholder="Select or type Construction Type..."
+                  size="md"
                   roundedClass="rounded-[4px]"
                   className="flex-1 min-w-[180px]"
-                  buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
+                  inputClassName="w-full h-9 px-3 text-xs font-medium"
                 />
                 <button
                   type="button"

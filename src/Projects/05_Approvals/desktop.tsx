@@ -249,9 +249,11 @@ export function ApprovalsDesktop() {
                       handleInputChange('approvalCopyFile', null);
                       if (approvalCopyInputRef.current) approvalCopyInputRef.current.value = '';
                     }}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+                    title="Remove file"
+                    aria-label="Remove file"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (
@@ -421,9 +423,11 @@ export function ApprovalsDesktop() {
                       handleInputChange('reraFile', null);
                       if (reraFileInputRef.current) reraFileInputRef.current.value = '';
                     }}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+                    title="Remove file"
+                    aria-label="Remove file"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (

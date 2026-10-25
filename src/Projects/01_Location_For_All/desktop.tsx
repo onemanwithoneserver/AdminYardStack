@@ -85,8 +85,8 @@ export function ProjectUspFields({ value, onChange, compact = false }: ProjectUs
                         </h5>
                         <button type="button" onClick={() => removePoint(key, point.id)} disabled={value[key].length === 1}
                           aria-label={`Remove ${key} point ${index + 1}`} title={value[key].length === 1 ? 'Keep at least one point' : `Remove ${key} point ${index + 1}`}
-                          className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-transparent disabled:hover:text-slate-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-400">
-                          <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
+                          className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-rose-50 disabled:hover:text-rose-600 shadow-2xs transition-all active:scale-95">
+                          <Trash2 className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400" aria-hidden="true" />
                         </button>
                       </div>
                       <div className="space-y-3">
@@ -623,7 +623,7 @@ export function LocationForAllDesktop() {
                 className="w-full max-w-xs sm:max-w-sm inline-block"
                 buttonClassName="w-full h-9 px-3 text-xs font-medium gap-1.5"
               />
-              <div className="flex items-center gap-2 mt-2 px-3 py-1.5 rounded-[4px] bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] leading-relaxed max-w-sm">
+              <div className="flex items-center gap-2 mt-2 px-3 py-1.5 rounded-[4px] bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 text-[9px] leading-relaxed ">
                 <AlertCircle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                 <span>No active Sale subscription is available for this seller.</span>
               </div>
@@ -822,11 +822,11 @@ export function LocationForAllDesktop() {
                   <button
                     type="button"
                     onClick={handleRemoveLogo}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0 cursor-pointer"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
                     title="Remove image"
                     aria-label="Remove image"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (
@@ -1186,10 +1186,11 @@ export function LocationForAllDesktop() {
                       <button
                         type="button"
                         onClick={() => handleRemoveOrrExit(exit.id)}
-                        className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[2px] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-all cursor-pointer shadow-2xs active:scale-95"
                         title="Remove exit"
+                        aria-label="Remove exit"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                       </button>
                     </div>
                   </div>
@@ -1283,10 +1284,11 @@ export function LocationForAllDesktop() {
                       <button
                         type="button"
                         onClick={() => handleRemoveHighway(hw.id)}
-                        className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[2px] transition-colors cursor-pointer"
+                        className="p-1.5 rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 hover:text-rose-700 dark:hover:text-rose-300 transition-all cursor-pointer shadow-2xs active:scale-95"
                         title="Remove highway"
+                        aria-label="Remove highway"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                       </button>
                     </div>
                   </div>

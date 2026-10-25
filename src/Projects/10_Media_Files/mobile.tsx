@@ -218,9 +218,11 @@ export function MediaFilesMobile() {
                       handleFieldChange('elevationsFiles', null);
                       if (elevationsInputRef.current) elevationsInputRef.current.value = '';
                     }}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+                    title="Remove elevations"
+                    aria-label="Remove elevations"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (
@@ -265,9 +267,11 @@ export function MediaFilesMobile() {
                       handleFieldChange('amenitiesFiles', null);
                       if (amenitiesInputRef.current) amenitiesInputRef.current.value = '';
                     }}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+                    title="Remove amenities images"
+                    aria-label="Remove amenities images"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (
@@ -312,9 +316,11 @@ export function MediaFilesMobile() {
                       handleFieldChange('workProgressFiles', null);
                       if (workProgressInputRef.current) workProgressInputRef.current.value = '';
                     }}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+                    title="Remove work progress images"
+                    aria-label="Remove work progress images"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (
@@ -359,9 +365,11 @@ export function MediaFilesMobile() {
                       handleFieldChange('brochureFile', null);
                       if (brochureInputRef.current) brochureInputRef.current.value = '';
                     }}
-                    className="p-1 rounded-[2px] text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+                    className="p-1 rounded-[3px] text-rose-600 dark:text-rose-400 bg-rose-50/80 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/50 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer shadow-2xs active:scale-95"
+                    title="Remove brochure"
+                    aria-label="Remove brochure"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                   </button>
                 </div>
               ) : (

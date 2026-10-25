@@ -59,8 +59,6 @@ export const WATER_SOURCE_OPTIONS = [
 export const GENERIC_SELECT_OPTIONS = [
   'Available',
   'Not Available',
-  'Yes',
-  'No',
   'Planned / In Process',
 ] as const;
 

@@ -809,9 +809,11 @@ export function ProjectsListDesktop({
                                 <button
                                   type="button"
                                   onClick={() => handleDeleteClick(project)}
-                                  className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[4px] transition-colors cursor-pointer"
+                                  className="w-full flex items-center gap-2 px-2 py-1.5 text-xs font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50/80 dark:hover:bg-rose-950/40 rounded-[4px] transition-colors cursor-pointer group"
                                 >
-                                  <Trash2 className="w-3.5 h-3.5" />
+                                  <div className="w-5 h-5 rounded-[3px] bg-rose-50 dark:bg-rose-950/50 border border-rose-200/80 dark:border-rose-900/60 flex items-center justify-center shrink-0">
+                                    <Trash2 className="w-3 h-3 text-rose-600 dark:text-rose-400" />
+                                  </div>
                                   <span>Delete Project</span>
                                 </button>
                               </motion.div>
