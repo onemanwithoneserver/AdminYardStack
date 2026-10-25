@@ -20,6 +20,34 @@ export interface OrrZoningOption {
   status: 'ACTIVE' | 'INACTIVE';
 }
 
+export interface ProjectUspPoint {
+  id: string;
+  heading: string;
+  paragraph: string;
+}
+
+export interface ProjectUsp {
+  seller: ProjectUspPoint[];
+  investor: ProjectUspPoint[];
+}
+
+export const PROJECT_USP_AUDIENCES = [
+  {
+    key: 'seller',
+    label: 'Seller',
+    title: 'For sellers',
+    headingPlaceholder: 'e.g. A well-connected location',
+    paragraphPlaceholder: 'Describe the location, amenities, design, or other features that make the project stand out.',
+  },
+  {
+    key: 'investor',
+    label: 'Investor',
+    title: 'For investors',
+    headingPlaceholder: 'e.g. Established rental demand',
+    paragraphPlaceholder: 'Describe relevant demand, infrastructure, or long-term value factors, with supporting details.',
+  },
+] as const;
+
 export interface LocationFormData {
   seller: string;
   activeSaleSubscription: string;
@@ -46,7 +74,7 @@ export interface LocationFormData {
   highways: HighwayItem[];
   subRegistrarOffice: string;
   projectEntranceFacing: string;
-  projectUsp: string;
+  projectUsp: ProjectUsp;
   status: 'Active' | 'Inactive';
 }
 
@@ -83,7 +111,10 @@ export const INITIAL_LOCATION_DATA: LocationFormData = {
   highways: [],
   subRegistrarOffice: '',
   projectEntranceFacing: '',
-  projectUsp: '',
+  projectUsp: {
+    seller: [{ id: 'seller-1', heading: '', paragraph: '' }],
+    investor: [{ id: 'investor-1', heading: '', paragraph: '' }],
+  },
   status: 'Active',
 };
 

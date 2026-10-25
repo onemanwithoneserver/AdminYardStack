@@ -2,7 +2,7 @@ import { useState, useRef, type ChangeEvent } from 'react';
 import { Plus, MapPin, ExternalLink, Lock, Unlock, UploadCloud, Trash2, AlertCircle, X, Image as ImageIcon } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { INITIAL_LOCATION_DATA, INITIAL_ORR_ZONING_OPTIONS, type LocationFormData, type OrrExit, type HighwayItem, type OrrZoningOption } from './data';
-import { OrrZoningDialog, AddBuilderDialog, type BuilderData } from './desktop';
+import { OrrZoningDialog, AddBuilderDialog, ProjectUspFields, type BuilderData } from './desktop';
 import { SearchProjectLocationModal, type MapPoint } from './SearchProjectLocationModal';
 
 export function LocationForAllMobile() {
@@ -930,23 +930,11 @@ export function LocationForAllMobile() {
             </div>
 
             {/* Project USP */}
-            <div className="w-full pt-1">
-              <div className="flex items-center justify-between mb-1.5 h-4">
-                <label className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
-                  Project USP (Unique Selling Proposition)
-                </label>
-                <span className="text-[10px] text-slate-400">
-                  {formData.projectUsp.length} characters
-                </span>
-              </div>
-              <textarea
-                rows={3}
-                value={formData.projectUsp}
-                onChange={(e) => handleInputChange('projectUsp', e.target.value)}
-                placeholder="Highlight key value differentiators, landmark proximity, architectural USPs..."
-                className="w-full px-3 py-2 bg-white dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-[4px] text-xs font-normal text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 shadow-2xs leading-relaxed"
-              />
-            </div>
+            <ProjectUspFields
+              value={formData.projectUsp}
+              onChange={(value) => handleInputChange('projectUsp', value)}
+              compact
+            />
           </div>
         </section>
 
