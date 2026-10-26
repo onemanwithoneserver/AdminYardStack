@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from 'react';
-import { Plus, Trash2, X, Layers, CheckCircle2, Pencil, Eye } from 'lucide-react';
+import { Plus, Trash2, X, Layers, CheckCircle2, Pencil, Eye, Building2, Copy } from 'lucide-react';
 import { ModernDropdown } from '../../components/elements/ModernDropdown';
 import { ModernCalendar } from '../../components/elements/ModernCalendar';
-import { INITIAL_LAYOUT_DATA, HANDOVER_OPTIONS, createNewTowerRow, createNewTowerTable, type LayoutFormData, type TowerRow, type TowerTable } from './data';
+import { INITIAL_LAYOUT_DATA, HANDOVER_OPTIONS, createNewTowerRow, duplicateTowerRow, createNewTowerTable, type LayoutFormData, type TowerRow, type TowerTable } from './data';
 
 interface AddTowerDialogProps {
   isOpen: boolean;
@@ -127,6 +127,13 @@ export function LayoutDesktop() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [savedNotification, setSavedNotification] = useState(false);
   const [viewMode, setViewMode] = useState<'write' | 'preview'>('write');
+  const [activeRowIdMap, setActiveRowIdMap] = useState<Record<string, string>>({});
+
+  const getActiveRow = (table: TowerTable): TowerRow => {
+    const selectedId = activeRowIdMap[table.id];
+    const found = table.rows.find((r) => r.id === selectedId);
+    return found || table.rows[0];
+  };
 
   const handleFieldChange = <K extends keyof LayoutFormData>(
     field: K,
@@ -157,21 +164,22 @@ export function LayoutDesktop() {
   };
 
   const handleAddRow = (tableId: string) => {
+    const totalRowsAcrossTables = formData.tables.reduce(
+      (acc, t) => acc + t.rows.length,
+      0
+    );
+    const newRow = createNewTowerRow(totalRowsAcrossTables + 1);
     setFormData((prev) => ({
       ...prev,
       tables: prev.tables.map((tbl) => {
         if (tbl.id !== tableId) return tbl;
-        const totalRowsAcrossTables = prev.tables.reduce(
-          (acc, t) => acc + t.rows.length,
-          0
-        );
-        const newRow = createNewTowerRow(totalRowsAcrossTables + 1);
         return {
           ...tbl,
           rows: [...tbl.rows, newRow],
         };
       }),
     }));
+    setActiveRowIdMap((prev) => ({ ...prev, [tableId]: newRow.id }));
   };
 
   const handleDeleteRow = (tableId: string, rowId: string) => {
@@ -185,6 +193,39 @@ export function LayoutDesktop() {
         };
       }),
     }));
+
+    setActiveRowIdMap((prev) => {
+      if (prev[tableId] === rowId) {
+        const table = formData.tables.find((t) => t.id === tableId);
+        const remaining = table?.rows.filter((r) => r.id !== rowId) || [];
+        return {
+          ...prev,
+          [tableId]: remaining[0]?.id || '',
+        };
+      }
+      return prev;
+    });
+  };
+
+  const handleDuplicateRow = (tableId: string, rowId: string) => {
+    const table = formData.tables.find((t) => t.id === tableId);
+    if (!table) return;
+    const target = table.rows.find((r) => r.id === rowId);
+    if (!target) return;
+
+    const duplicated = duplicateTowerRow(target);
+
+    setFormData((prev) => ({
+      ...prev,
+      tables: prev.tables.map((tbl) => {
+        if (tbl.id !== tableId) return tbl;
+        return {
+          ...tbl,
+          rows: [...tbl.rows, duplicated],
+        };
+      }),
+    }));
+    setActiveRowIdMap((prev) => ({ ...prev, [tableId]: duplicated.id }));
   };
 
   const handleCreateNewTowerTable = (towerName: string, noOfFloors?: string) => {
@@ -198,6 +239,7 @@ export function LayoutDesktop() {
       ...prev,
       tables: [...prev.tables, newTable],
     }));
+    setActiveRowIdMap((prev) => ({ ...prev, [newTable.id]: newTable.rows[0].id }));
   };
 
   const handleDeleteTable = (tableId: string) => {
@@ -208,7 +250,7 @@ export function LayoutDesktop() {
     }));
   };
 
-  const handleSave = () => {
+  const _handleSave = () => {
     setSavedNotification(true);
     setTimeout(() => setSavedNotification(false), 2500);
   };
@@ -312,7 +354,7 @@ export function LayoutDesktop() {
             </div>
 
             <div className="flex items-center gap-2.5">
-              {/* Write & Preview Mode Toggle */}
+              
               <div className="inline-flex p-0.5 rounded-[4px] bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-white/10 shadow-2xs">
                 <button
                   type="button"
@@ -357,10 +399,14 @@ export function LayoutDesktop() {
             {formData.tables.map((table, tblIndex) => (
               <div
                 key={table.id}
-                className="border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950"
+                className={
+                  viewMode === 'write'
+                    ? 'overflow-hidden'
+                    : 'border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950'
+                }
               >
-                {/* Table Header */}
-                <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-900/80 border-b border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+                
+                <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-900/80  flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-display">
@@ -373,14 +419,6 @@ export function LayoutDesktop() {
 
                   {viewMode === 'write' && (
                     <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleAddRow(table.id)}
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors cursor-pointer"
-                      >
-                        <Plus className="w-3 h-3" />
-                        <span>Add Row</span>
-                      </button>
                       {formData.tables.length > 1 && (
                         <button
                           type="button"
@@ -396,313 +434,365 @@ export function LayoutDesktop() {
                 </div>
 
                 {viewMode === 'write' ? (
-                  /* Write View: Form Cards */
-                  <div className="p-3 space-y-3">
-                    {table.rows.map((row, rIndex) => (
-                      <div
-                        key={row.id}
-                        className="border border-slate-200/80 dark:border-white/10 rounded-[4px] overflow-hidden bg-slate-50/30 dark:bg-slate-900/30"
-                      >
-                        {/* Card Header */}
-                        <div className="px-4 py-2.5 bg-slate-900 dark:bg-slate-800 flex items-center justify-between">
-                          <div className="flex items-center gap-2.5">
-                            <span className="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold font-mono rounded-[3px] bg-white/15 text-white/90 select-none">
-                              {String(rIndex + 1).padStart(2, '0')}
-                            </span>
-                            <span className="text-xs font-bold text-white font-display">
-                              {row.towerName || `Tower ${rIndex + 1}`}
-                            </span>
-                          </div>
+                  
+                  (() => {
+                    const activeRow = getActiveRow(table);
+                    const activeIndex = table.rows.findIndex((r) => r.id === activeRow?.id);
+
+                    if (!activeRow || table.rows.length === 0) {
+                      return (
+                        <div className="p-8 text-center border-2 border-dashed border-slate-200 dark:border-white/10 rounded-[6px] m-4 space-y-3">
+                          <Building2 className="w-8 h-8 text-slate-400 mx-auto" />
+                          <p className="text-xs text-slate-500">No tower variants exist in this table.</p>
                           <button
                             type="button"
-                            onClick={() => handleDeleteRow(table.id, row.id)}
-                            className="p-1 rounded-[3px] text-white/60 hover:text-rose-300 hover:bg-rose-500/20 transition-all cursor-pointer"
-                            title="Delete Row"
+                            onClick={() => handleAddRow(table.id)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-[4px] text-xs font-semibold cursor-pointer"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>Add First Tower</span>
+                          </button>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div className="pt-2">
+                        
+                        <div className="flex items-end gap-1 overflow-x-auto no-scrollbar pt-2 -mb-[1px] relative z-10">
+                          {table.rows.map((row, rIndex) => {
+                            const isActive = row.id === activeRow.id;
+                            return (
+                              <button
+                                type="button"
+                                key={row.id}
+                                onClick={() =>
+                                  setActiveRowIdMap((prev) => ({
+                                    ...prev,
+                                    [table.id]: row.id,
+                                  }))
+                                }
+                                className={`relative inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-2.5 text-center cursor-pointer transition-all select-none group font-display tracking-tight text-xs sm:text-[13px] font-bold ${
+                                  isActive
+                                    ? 'bg-white dark:bg-[#1e2738] text-blue-600 dark:text-sky-400 border-t-2 border-l border-r border-b border-t-blue-600 border-l-slate-300 border-r-slate-300 border-b-white dark:border-t-sky-400 dark:border-l-[#384863] dark:border-r-[#384863] dark:border-b-[#1e2738] rounded-t-[6px] rounded-b-none z-10 shadow-xs'
+                                    : 'bg-slate-100/90 hover:bg-slate-200/90 dark:bg-[#161e2e]/90 dark:hover:bg-[#1e2738]/80 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-300/80 dark:border-slate-700/60 rounded-[6px] mb-[2px] shadow-2xs'
+                                }`}
+                              >
+                                <span className="truncate max-w-[150px]">
+                                  {row.towerName || `Tower ${rIndex + 1}`}
+                                </span>
+                              </button>
+                            );
+                          })}
+
+                          
+                          <button
+                            type="button"
+                            onClick={() => handleAddRow(table.id)}
+                            className="inline-flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-[6px] border-2 border-dashed border-blue-400/50 hover:border-blue-600 dark:border-sky-500/40 dark:hover:border-sky-400 bg-blue-50/40 hover:bg-blue-100/60 dark:bg-sky-950/20 text-blue-600 dark:text-sky-400 transition-all cursor-pointer font-bold font-display text-xs mb-[2px] shadow-2xs active:scale-95"
+                            title="Add another tower"
+                          >
+                            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                            <span>Add Tower</span>
                           </button>
                         </div>
 
-                        {/* Card Fields */}
-                        <div className="p-4 space-y-4">
-                          {/* Section 1: Basic Details & Pricing */}
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                              <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                                Basic Details & Pricing
-                              </span>
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Tower Name
-                                </label>
-                                <input
-                                  type="text"
-                                  value={row.towerName}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'towerName', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  No. of Floors
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.noOfFloors}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'noOfFloors', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Units / Floor
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.unitsPerFloor}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'unitsPerFloor', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Base Price
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.basePrice}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'basePrice', e.target.value)
-                                  }
-                                  placeholder="Price"
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                            </div>
-                          </div>
+                        
+                        <div className="bg-white dark:bg-[#1e2738] border-t border-slate-300 dark:border-[#384863] pt-5 px-4 pb-2 space-y-5 relative z-0">
+                          
 
-                          {/* Divider */}
-                          <div className="border-t border-dashed border-slate-200/80 dark:border-white/10" />
-
-                          {/* Section 2: Parking */}
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                              <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                                Parking Specifications
-                              </span>
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Parking Levels
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.parkingLevels}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'parkingLevels', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
+                          
+                          <div className="space-y-4">
+                            
+                            <div className="space-y-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-sky-400" />
+                                <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+                                  Basic Details & Pricing
+                                </span>
                               </div>
-                              <div className="flex flex-col max-w-[200px]">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Parking Level Names
-                                </label>
-                                <input
-                                  type="text"
-                                  value={row.parkingLevelNames}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'parkingLevelNames', e.target.value)
-                                  }
-                                  placeholder="e.g. B1, B2"
-                                  className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Divider */}
-                          <div className="border-t border-dashed border-slate-200/80 dark:border-white/10" />
-
-                          {/* Section 3: Vertical Transport & Circulation */}
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                              <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                                Vertical Transport & Circulation
-                              </span>
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Passenger Lifts
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.noOfPassengerLifts}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'noOfPassengerLifts', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Service Lifts
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.noOfServiceLifts}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'noOfServiceLifts', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Avg Flats / Lift
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.avgFlatCountPerLift}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'avgFlatCountPerLift', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Staircases
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.noOfStaircase}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'noOfStaircase', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
-                              </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Corridor (Ft)
-                                </label>
-                                <input
-                                  type="number"
-                                  value={row.corridorWidth}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'corridorWidth', e.target.value)
-                                  }
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Tower Name
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={activeRow.towerName}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'towerName', e.target.value)
+                                    }
+                                    placeholder="e.g. Tower A"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs font-semibold text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    No. of Floors
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.noOfFloors}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'noOfFloors', e.target.value)
+                                    }
+                                    placeholder="Floors"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Units / Floor
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.unitsPerFloor}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'unitsPerFloor', e.target.value)
+                                    }
+                                    placeholder="Units"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Base Price (₹)
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.basePrice}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'basePrice', e.target.value)
+                                    }
+                                    placeholder="Price"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          {/* Divider */}
-                          <div className="border-t border-dashed border-slate-200/80 dark:border-white/10" />
+                            
+                            <div className="border-t border-dashed border-slate-200 dark:border-slate-700/70" />
 
-                          {/* Section 4: Status & Timeline */}
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                              <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                                Handover & Proximity
-                              </span>
+                            
+                            <div className="space-y-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400" />
+                                <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+                                  Parking Specifications
+                                </span>
+                              </div>
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Parking Levels
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.parkingLevels}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'parkingLevels', e.target.value)
+                                    }
+                                    placeholder="e.g. 2"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col col-span-1 md:col-span-2">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Parking Level Names
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={activeRow.parkingLevelNames}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'parkingLevelNames', e.target.value)
+                                    }
+                                    placeholder="e.g. B1, B2, Stilt"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                              </div>
                             </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Lobby Available
-                                </label>
-                                <ModernDropdown<'No' | 'Yes'>
-                                  value={row.lobbyAvailable}
-                                  onChange={(val) =>
-                                    handleRowChange(
-                                      table.id,
-                                      row.id,
-                                      'lobbyAvailable',
-                                      val
-                                    )
-                                  }
-                                  options={[
-                                    { value: 'No', label: 'No' },
-                                    { value: 'Yes', label: 'Yes' },
-                                  ]}
-                                  placeholder="Select"
-                                  roundedClass="rounded-[3px]"
-                                  className="w-full inline-block"
-                                  buttonClassName="w-full h-8 px-2.5 text-xs font-medium gap-1"
-                                />
+
+                            
+                            <div className="border-t border-dashed border-slate-200 dark:border-slate-700/70" />
+
+                            
+                            <div className="space-y-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                                <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+                                  Vertical Transport & Circulation
+                                </span>
                               </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Completion Date
-                                </label>
-                                <ModernCalendar
-                                  value={row.completionDate}
-                                  onChange={(val) =>
-                                    handleRowChange(table.id, row.id, 'completionDate', val)
-                                  }
-                                  buttonClassName="h-8 text-xs px-2.5"
-                                  placeholder="dd-mm-yyyy"
-                                />
+                              <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Passenger Lifts
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.noOfPassengerLifts}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'noOfPassengerLifts', e.target.value)
+                                    }
+                                    placeholder="Count"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Service Lifts
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.noOfServiceLifts}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'noOfServiceLifts', e.target.value)
+                                    }
+                                    placeholder="Count"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Avg Flats / Lift
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.avgFlatCountPerLift}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'avgFlatCountPerLift', e.target.value)
+                                    }
+                                    placeholder="Avg"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Staircases
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.noOfStaircase}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'noOfStaircase', e.target.value)
+                                    }
+                                    placeholder="Count"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Corridor (Ft)
+                                  </label>
+                                  <input
+                                    type="number"
+                                    value={activeRow.corridorWidth}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'corridorWidth', e.target.value)
+                                    }
+                                    placeholder="Width"
+                                    className="w-full max-w-[200px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
                               </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  HandOver Status
-                                </label>
-                                <ModernDropdown<string>
-                                  value={row.handOver}
-                                  onChange={(val) =>
-                                    handleRowChange(table.id, row.id, 'handOver', val)
-                                  }
-                                  options={HANDOVER_OPTIONS.map((opt) => ({ value: opt, label: opt }))}
-                                  placeholder="Select HandOver"
-                                  roundedClass="rounded-[3px]"
-                                  className="w-full inline-block"
-                                  buttonClassName="w-full h-8 px-2.5 text-xs font-medium gap-1"
-                                />
+                            </div>
+
+                            
+                            <div className="border-t border-dashed border-slate-200 dark:border-slate-700/70" />
+
+                            
+                            <div className="space-y-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400" />
+                                <span className="text-[10.5px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+                                  Handover & Proximity
+                                </span>
                               </div>
-                              <div className="flex flex-col">
-                                <label className="text-[10.5px] font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
-                                  Distance (Ft)
-                                </label>
-                                <input
-                                  type="text"
-                                  value={row.flatToFlatDistance}
-                                  onChange={(e) =>
-                                    handleRowChange(table.id, row.id, 'flatToFlatDistance', e.target.value)
-                                  }
-                                  placeholder="e.g. 15 Ft"
-                                  className="w-full h-8 px-2.5 text-xs text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-white/10 rounded-[3px] focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-500/20 bg-white dark:bg-slate-950 transition-colors"
-                                />
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
+                                <div className="flex flex-col ">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Lobby Available
+                                  </label>
+                                  <ModernDropdown<'No' | 'Yes'>
+                                    value={activeRow.lobbyAvailable}
+                                    onChange={(val) =>
+                                      handleRowChange(
+                                        table.id,
+                                        activeRow.id,
+                                        'lobbyAvailable',
+                                        val
+                                      )
+                                    }
+                                    options={[
+                                      { value: 'No', label: 'No' },
+                                      { value: 'Yes', label: 'Yes' },
+                                    ]}
+                                    placeholder="Select"
+                                    roundedClass="rounded-[3px]"
+                                    className="w-24 inline-block"
+                                    buttonClassName="w-24 h-8 px-2 text-xs font-medium gap-1 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 hover:border-slate-400 dark:hover:border-slate-600"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Completion Date
+                                  </label>
+                                  <ModernCalendar
+                                    value={activeRow.completionDate}
+                                    onChange={(val) =>
+                                      handleRowChange(table.id, activeRow.id, 'completionDate', val)
+                                    }
+                                    className="w-full max-w-[170px]"
+                                    buttonClassName="w-full h-8 text-xs px-2.5 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 hover:border-slate-400 dark:hover:border-slate-600"
+                                    placeholder="dd-mm-yyyy"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    HandOver Status
+                                  </label>
+                                  <ModernDropdown<string>
+                                    value={activeRow.handOver}
+                                    onChange={(val) =>
+                                      handleRowChange(table.id, activeRow.id, 'handOver', val)
+                                    }
+                                    options={HANDOVER_OPTIONS.map((opt) => ({ value: opt, label: opt }))}
+                                    placeholder="Select HandOver"
+                                    roundedClass="rounded-[3px]"
+                                    className="w-full max-w-[180px] inline-block"
+                                    buttonClassName="w-full h-8 px-2.5 text-xs font-medium gap-1 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 hover:border-slate-400 dark:hover:border-slate-600 truncate"
+                                  />
+                                </div>
+                                <div className="flex flex-col">
+                                  <label className="text-[10.5px] font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                                    Distance (Ft)
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={activeRow.flatToFlatDistance}
+                                    onChange={(e) =>
+                                      handleRowChange(table.id, activeRow.id, 'flatToFlatDistance', e.target.value)
+                                    }
+                                    placeholder="e.g. 15 Ft"
+                                    className="w-full max-w-[150px] h-8 px-2.5 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700/80 rounded-[3px] focus:outline-none focus:bg-white dark:focus:bg-slate-950 focus:border-blue-600 dark:focus:border-sky-400 focus:ring-1 focus:ring-blue-500/20 dark:focus:ring-sky-400/20 bg-slate-50 dark:bg-slate-950 transition-colors"
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })()
                 ) : (
-                  /* Preview View: Polished Tabular Format */
+                  
                   <div className="overflow-x-auto no-scrollbar">
                     <table className="w-full text-left border-collapse min-w-[1300px]">
                       <thead>
                         <tr className="bg-slate-900 dark:bg-slate-800 text-white text-[10.5px] font-bold uppercase tracking-wider select-none divide-x divide-slate-800 dark:divide-slate-700">
+                          <th className="py-2.5 px-2.5 w-12 text-center">#</th>
                           <th className="py-2.5 px-3 min-w-[135px]">Tower Name</th>
                           <th className="py-2.5 px-2.5 min-w-[80px] text-center">Floors</th>
                           <th className="py-2.5 px-2.5 min-w-[95px] text-center">Units / Floor</th>
@@ -730,13 +820,13 @@ export function LayoutDesktop() {
                                 : 'bg-slate-50/60 dark:bg-slate-900/40 hover:bg-blue-50/40 dark:hover:bg-blue-950/20'
                             }`}
                           >
+                            <td className="py-2.5 px-2 text-center select-none">
+                              <span className="inline-flex items-center justify-center w-6 h-5 text-[10px] font-bold font-mono rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/10">
+                                {String(rIdx + 1).padStart(2, '0')}
+                              </span>
+                            </td>
                             <td className="py-2.5 px-3 font-semibold text-slate-900 dark:text-white">
-                              <div className="flex items-center gap-2">
-                                <span className="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold font-mono rounded-[3px] bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 select-none">
-                                  {String(rIdx + 1).padStart(2, '0')}
-                                </span>
-                                <span>{row.towerName || `Tower ${rIdx + 1}`}</span>
-                              </div>
+                              {row.towerName || `Tower ${rIdx + 1}`}
                             </td>
                             <td className="py-2.5 px-2.5 text-center font-mono font-medium">{row.noOfFloors || '—'}</td>
                             <td className="py-2.5 px-2.5 text-center font-mono font-medium">{row.unitsPerFloor || '—'}</td>
@@ -786,20 +876,6 @@ export function LayoutDesktop() {
                         ))}
                       </tbody>
                     </table>
-                  </div>
-                )}
-
-                {/* Table Footer */}
-                {viewMode === 'write' && (
-                  <div className="px-3.5 py-2.5 bg-slate-50/80 dark:bg-slate-900/80 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-xs">
-                    <button
-                      type="button"
-                      onClick={() => handleAddRow(table.id)}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors cursor-pointer"
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>Add Tower Row</span>
-                    </button>
                   </div>
                 )}
               </div>

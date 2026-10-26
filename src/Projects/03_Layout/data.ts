@@ -99,6 +99,14 @@ export const createNewTowerRow = (
   };
 };
 
+export const duplicateTowerRow = (target: TowerRow): TowerRow => {
+  return {
+    ...target,
+    id: `row-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    towerName: `${target.towerName || 'Tower'} (Copy)`,
+  };
+};
+
 export const createNewTowerTable = (
   tableIndexOrName: number | string = 1,
   towerName?: string
