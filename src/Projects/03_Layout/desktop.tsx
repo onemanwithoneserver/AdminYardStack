@@ -411,7 +411,6 @@ export function LayoutDesktop() {
                       : 'border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950'
                   }
                 >
-                  {/* Table Header */}
                   <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 rounded-t-[4px] flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -480,8 +479,8 @@ export function LayoutDesktop() {
                                 }
                                 className={`relative inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-2.5 text-center cursor-pointer transition-all select-none group font-display tracking-tight text-xs sm:text-[13px] font-bold ${
                                   isActive
-                                    ? 'bg-white dark:bg-[#1e2738] text-blue-600 dark:text-sky-400 border-t-2 border-l border-r border-b border-t-blue-600 border-l-slate-300 border-r-slate-300 border-b-white dark:border-t-sky-400 dark:border-l-[#384863] dark:border-r-[#384863] dark:border-b-[#1e2738] rounded-t-[6px] rounded-b-none z-10 shadow-xs'
-                                    : 'bg-slate-100/90 hover:bg-slate-200/90 dark:bg-[#161e2e]/90 dark:hover:bg-[#1e2738]/80 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-300/80 dark:border-slate-700/60 rounded-[6px] mb-[2px] shadow-2xs'
+                                    ? 'bg-white dark:bg-[#1e2738] text-blue dark:text-sky-400 border-t-2 border-l border-r border-b border-t-blue-600 border-l-slate-300 border-r-slate-300 border-b-white dark:border-t-sky-400 dark:border-l-[#384863] dark:border-r-[#384863] dark:border-b-[#1e2738] rounded-t-[6px] rounded-b-none z-10 shadow-xs'
+                                    : 'bg-slate-900 hover:bg-slate-200/90 dark:bg-[#161e2e]/90 dark:hover:bg-[#1e2738]/80 text-white dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-300/80 dark:border-slate-700/60 rounded-[6px] mb-[2px] shadow-2xs'
                                 }`}
                               >
                                 <span className="truncate max-w-[150px]">
