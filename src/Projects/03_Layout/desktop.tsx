@@ -395,18 +395,24 @@ export function LayoutDesktop() {
             </div>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             {formData.tables.map((table, tblIndex) => (
-              <div
-                key={table.id}
-                className={
-                  viewMode === 'write'
-                    ? 'overflow-hidden'
-                    : 'border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950'
-                }
-              >
-                
-                <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-900/80  flex items-center justify-between">
+              <div key={table.id} className="space-y-6">
+                {tblIndex > 0 && (
+                  <div className="pt-[1px] pb-[2px]" aria-hidden="true">
+                    <div className="border-t border-slate-200 dark:border-slate-800" />
+                    <div className="border-t border-slate-200 dark:border-slate-800 mt-[3px]" />
+                  </div>
+                )}
+                <div
+                  className={
+                    viewMode === 'write'
+                      ? 'overflow-hidden'
+                      : 'border border-slate-200/90 dark:border-white/10 rounded-[4px] overflow-hidden shadow-2xs bg-white dark:bg-slate-950'
+                  }
+                >
+                  {/* Table Header */}
+                  <div className="px-4 py-2.5 bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-white/10 rounded-t-[4px] flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-display">
@@ -879,9 +885,10 @@ export function LayoutDesktop() {
                   </div>
                 )}
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          ))}
+        </div>
+      </section>
       </div>
 
       
