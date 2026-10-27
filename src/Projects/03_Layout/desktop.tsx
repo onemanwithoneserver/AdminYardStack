@@ -424,16 +424,14 @@ export function LayoutDesktop() {
 
                   {viewMode === 'write' && (
                     <div className="flex items-center gap-2">
-                      {formData.tables.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteTable(table.id)}
-                          className="p-1.5 rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95"
-                          title="Delete this table"
-                        >
-                          <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteTable(table.id)}
+                        className="p-1.5 rounded-[4px] text-rose-600 dark:text-rose-400 bg-rose-50/90 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/90 dark:border-rose-900/70 transition-all cursor-pointer shadow-2xs active:scale-95"
+                        title="Delete this table"
+                      >
+                        <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                      </button>
                     </div>
                   )}
                 </div>
@@ -503,7 +501,39 @@ export function LayoutDesktop() {
                         </div>
 
                         
-                        <div className="bg-white dark:bg-[#1e2738] border-t border-slate-300 dark:border-[#384863] pt-5 px-4 pb-2 space-y-5 relative z-0">
+                        <div className="bg-white dark:bg-[#1e2738] border-t border-slate-300 dark:border-[#384863] pt-4 px-4 pb-2 space-y-4 relative z-0">
+                          {/* Tower Header Controls: Tower Name, Duplicate, Delete */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 dark:border-slate-700/80">
+                            <div>
+                              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-sky-400 font-display flex items-center gap-2">
+                                <span>{activeRow.towerName || `Tower ${activeIndex + 1}`}</span>
+                              </h3>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => handleDuplicateRow(table.id, activeRow.id)}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-slate-700 dark:text-white text-xs font-semibold border border-slate-300 dark:border-slate-600 transition-colors cursor-pointer shadow-2xs active:scale-95"
+                                title="Duplicate this tower"
+                              >
+                                <Copy className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
+                                <span>Duplicate</span>
+                              </button>
+
+                              {table.rows.length > 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteRow(table.id, activeRow.id)}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 dark:hover:bg-rose-900/80 text-rose-600 dark:text-rose-400 text-xs font-semibold border border-rose-200 dark:border-rose-900/70 transition-colors cursor-pointer shadow-2xs active:scale-95"
+                                  title="Delete this tower"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                                  <span>Delete</span>
+                                </button>
+                              )}
+                            </div>
+                          </div>
                           
 
                           
